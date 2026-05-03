@@ -39,6 +39,20 @@
           "@@type": "Question",
           "name": "What age group is the Kids Zone designed for?",
           "acceptedAnswer": { "@@type": "Answer", "text": "The Kids Zone is designed for children aged 5–14. Math puzzles, spelling quizzes, and word games are levelled by age group. Science and animal quizzes are suitable for ages 8–14." }
+        },{
+          "@@type": "Question",
+          "name": "Can teachers use MindSnap in the classroom?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Yes. All Kids Zone activities work on tablets, Chromebooks, and desktop browsers with no installation. No school accounts or licences are required. Activities align with primary school curriculum topics in maths, science, spelling, and vocabulary." }
+        },
+        {
+          "@@type": "Question",
+          "name": "How many questions are in the kids quizzes?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Most kids quizzes have 15 questions with instant answer feedback. A score screen is shown at the end. Children can retake quizzes as many times as they like — great for tracking improvement over time." }
+        },
+        {
+          "@@type": "Question",
+          "name": "Is MindSnap COPPA and GDPR compliant for children?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "MindSnap Kids Zone collects zero personal data from children, requires no registration, and serves no advertisements. There are no cookies, tracking pixels, or analytics that identify individual children. This approach exceeds the requirements of COPPA (USA) and GDPR-K (UK/EU)." }
         }
       ]
     }
@@ -198,6 +212,10 @@
              'Yes — teachers are welcome to use any Kids Zone activity in the classroom. All activities work on tablets, Chromebooks, and desktop browsers with no installation required. No school accounts or licences needed.'],
             ['How many questions do the kids quizzes have?',
              'Most kids quizzes have <strong>15 questions</strong>. Answers are marked instantly after each question. A score screen is shown at the end — a great way for children to track improvement.'],
+            ['Can teachers use MindSnap in the classroom?',
+             'Yes — all Kids Zone activities work on tablets, Chromebooks, and desktop browsers with no installation required. No school accounts or licences needed. Activities cover curriculum topics including maths, science, spelling, and vocabulary for primary school children.'],
+            ['Is MindSnap compliant with child safety laws (COPPA/GDPR)?',
+             'The MindSnap Kids Zone collects <strong>zero personal data</strong> from children. No registration, no cookies, no tracking, no ads. This approach exceeds COPPA (USA) and GDPR-K (UK/EU) requirements. Parents can let their children use the site with complete confidence.'],
           ] as $i => [$q,$a])
           <div class="accordion-item" style="border:1px solid var(--border); border-radius:10px !important; margin-bottom:10px; overflow:hidden;">
             <h3 class="accordion-header">

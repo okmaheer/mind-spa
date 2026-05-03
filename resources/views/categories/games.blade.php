@@ -42,6 +42,10 @@
           "@@type": "Question",
           "name": "Do brain games actually improve cognitive function?",
           "acceptedAnswer": { "@@type": "Answer", "text": "Research shows that practicing specific cognitive tasks improves performance in those tasks (typing speed, reaction time, memory recall). Regular brain game practice can also help maintain cognitive function as we age, though effects on general intelligence are more limited." }
+        },{
+          "@@type": "Question",
+          "name": "Are brain training games scientifically proven to work?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Brain training improves performance on the specific tasks practiced — typing games improve typing speed, reaction tests improve reaction time. Research on transfer effects (whether brain games improve general intelligence) is mixed. The strongest evidence supports practice-specific gains. Regular cognitive challenge, physical exercise, and quality sleep have the most consistent evidence for maintaining long-term brain health." }
         }
       ]
     }

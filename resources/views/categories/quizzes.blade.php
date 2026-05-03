@@ -42,6 +42,15 @@
           "@@type": "Question",
           "name": "How many questions are in each quiz?",
           "acceptedAnswer": { "@@type": "Answer", "text": "Most quizzes on MindSnap have 20 questions. The IQ test has 20 questions designed to test logical reasoning and pattern recognition. Results are shown instantly at the end with correct answers." }
+        },{
+          "@@type": "Question",
+          "name": "Can I retake a quiz on MindSnap?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Yes — you can retake any quiz as many times as you like. Questions are drawn from a larger bank, so you may see different questions each time. This makes MindSnap quizzes useful for ongoing revision and knowledge building, not just a one-time test." }
+        },
+        {
+          "@@type": "Question",
+          "name": "Are the quizzes suitable for all ages?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "The adult quizzes (general knowledge, history, science, etc.) are designed for ages 14+. For younger children, visit the Kids Zone for age-appropriate science, animal, and spelling quizzes designed for ages 5-14." }
         }
       ]
     }
@@ -166,6 +175,30 @@
             </div>
           </div>
         </a>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- Quick Stats --}}
+<section style="padding:48px 0; background:#fff;">
+  <div class="container-xl">
+    <h2 class="text-center mb-2">MindSnap Quiz Fast Facts</h2>
+    <p class="text-center mb-5" style="color:var(--text-muted); max-width:480px; margin:0 auto 40px;">Numbers from our quiz library and player data.</p>
+    <div class="row g-3 justify-content-center">
+      @foreach([
+        ['🧩','9','Quiz categories available'],
+        ['❓','20','Questions per quiz'],
+        ['⚡','~5 min','Average time to complete'],
+        ['📊','Instant','Results with full answer review'],
+      ] as [$icon,$stat,$label])
+      <div class="col-6 col-md-3">
+        <div class="tool-card p-4 text-center h-100">
+          <div style="font-size:1.8rem; margin-bottom:8px;">{{ $icon }}</div>
+          <div style="font-weight:800; font-size:1.2rem; color:var(--primary-dark);">{{ $stat }}</div>
+          <div style="font-size:.8rem; color:var(--text-muted); margin-top:4px;">{{ $label }}</div>
+        </div>
       </div>
       @endforeach
     </div>

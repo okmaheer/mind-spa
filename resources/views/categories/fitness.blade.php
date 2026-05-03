@@ -47,6 +47,10 @@
           "@@type": "Question",
           "name": "How much protein do I need per day?",
           "acceptedAnswer": { "@@type": "Answer", "text": "For muscle building and maintenance, aim for 1.6–2.2g of protein per kg of bodyweight (0.7–1g per lb). Sedentary adults need a minimum of 0.8g/kg. Use our Protein Calculator to get your exact daily target based on your weight and goal." }
+        },{
+          "@@type": "Question",
+          "name": "How do I calculate my daily calorie needs?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Daily calorie needs are calculated using your Basal Metabolic Rate (BMR) multiplied by an activity factor. BMR is the energy your body burns at rest — determined by age, sex, weight, and height using the Mifflin-St Jeor equation. Our Calorie Calculator applies this formula and gives your TDEE (Total Daily Energy Expenditure) for weight loss, maintenance, or gain." }
         }
       ]
     }
@@ -213,6 +217,8 @@
              'For muscle building: <strong>1.6–2.2g per kg of bodyweight</strong> (0.7–1g/lb). For maintenance: 0.8g/kg. Spread intake across 3–5 meals for optimal muscle protein synthesis. Our <a href="/protein-calculator">Protein Calculator</a> gives your exact daily target.'],
             ['How do I calculate my one rep max?',
              'The most accurate formula is <strong>Epley: 1RM = weight × (1 + reps/30)</strong>. Perform 3–5 reps at a challenging weight and plug the numbers into our <a href="/one-rep-max-calculator">One Rep Max Calculator</a>. Never attempt a true 1RM without a spotter.'],
+            ['How do I calculate my daily calorie needs?',
+             'Calorie needs = BMR × activity multiplier. BMR is calculated from your age, sex, height, and weight using the <strong>Mifflin-St Jeor equation</strong> (most accurate for most adults). Sedentary adults multiply BMR × 1.2; moderately active × 1.55; very active × 1.725. Our <a href="/calorie-calculator">Calorie Calculator</a> handles all of this instantly and shows targets for weight loss, maintenance, and muscle gain.'],
           ] as $i => [$q,$a])
           <div class="accordion-item" style="border:1px solid var(--border); border-radius:10px !important; margin-bottom:10px; overflow:hidden;">
             <h3 class="accordion-header">

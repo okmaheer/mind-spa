@@ -42,6 +42,15 @@
           "@@type": "Question",
           "name": "What percentage of my life have I lived?",
           "acceptedAnswer": { "@@type": "Answer", "text": "Our Life Percentage Calculator divides your current age by the average life expectancy for your country and gender. It gives you a sobering (or motivating!) percentage of life lived and how many days you statistically have remaining." }
+        },{
+          "@@type": "Question",
+          "name": "How accurate are due date calculators?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Due date calculators using Naegele's rule (LMP + 280 days) are accurate to within 2 weeks for 90% of pregnancies. Only 5% of babies are born on their exact due date. Accuracy improves with early ultrasound (before 14 weeks), which is used by healthcare providers to confirm or adjust the EDD." }
+        },
+        {
+          "@@type": "Question",
+          "name": "How do I calculate how many days until a future event?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Our Days Until Calculator lets you enter any future date — a birthday, holiday, exam, or deadline — and instantly shows the exact number of days, weeks, and months remaining. It automatically accounts for leap years. Bookmark the result page to check your countdown anytime." }
         }
       ]
     }
@@ -179,6 +188,10 @@
              'Enter any two dates in our <a href="/days-between-dates">Days Between Dates</a> calculator to get the exact count of days, weeks, months, and years between them. Perfect for anniversaries, contracts, and deadlines.'],
             ['What does the Life Percentage Calculator show?',
              'It divides your current age by the statistical life expectancy for your country and gender to show what percentage of your expected lifespan you\'ve lived — and how many days remain. It\'s a powerful perspective tool. Try the <a href="/life-percentage-calculator">Life Percentage Calculator</a>.'],
+            ['How accurate are due date calculators?',
+             'Naegele\'s rule (LMP + 280 days) is accurate to within 2 weeks for 90% of pregnancies. Only 5% of babies arrive on their exact due date. Early ultrasound (before 14 weeks) is used by healthcare providers to confirm or adjust the estimated due date. Our <a href="/due-date-calculator">Due Date Calculator</a> uses the standard Naegele formula.'],
+            ['How do I calculate days until an event?',
+             'Our <a href="/days-until-calculator">Days Until Calculator</a> lets you enter any future date — a birthday, holiday, exam, or trip — and shows the exact countdown in days, weeks, and months. It accounts for leap years automatically. You can use it for any date up to 100 years in the future.'],
           ] as $i => [$q,$a])
           <div class="accordion-item" style="border:1px solid var(--border); border-radius:10px !important; margin-bottom:10px; overflow:hidden;">
             <h3 class="accordion-header">

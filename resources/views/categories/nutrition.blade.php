@@ -42,6 +42,15 @@
           "@@type": "Question",
           "name": "Is the 16:8 fasting method effective for weight loss?",
           "acceptedAnswer": { "@@type": "Answer", "text": "Yes. 16:8 intermittent fasting reduces your eating window, which naturally lowers calorie intake for most people. Research also shows benefits for insulin sensitivity, metabolic health, and cellular repair (autophagy). Combine it with a calorie deficit for best fat-loss results." }
+        },{
+          "@@type": "Question",
+          "name": "Is intermittent fasting safe for women?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Intermittent fasting is generally safe for healthy adult women. However, some research suggests that women may be more sensitive to caloric restriction, particularly during reproductive years. Pregnant or breastfeeding women should not fast. Women with a history of eating disorders should consult a doctor first. The 14:10 protocol (14-hour fast) is a gentler starting point than 16:8 for women new to IF." }
+        },
+        {
+          "@@type": "Question",
+          "name": "Can you combine intermittent fasting with calorie counting?",
+          "acceptedAnswer": { "@@type": "Answer", "text": "Yes — and the combination is often more effective than either alone. Intermittent fasting naturally reduces your eating window, which limits calorie opportunity. Adding a calorie target within that window ensures you maintain a deficit. Use our Intermittent Fasting Calculator to set your eating window, then track calories within it." }
         }
       ]
     }
@@ -194,6 +203,10 @@
              'Yes — black coffee and plain tea (no milk or sugar) have near-zero calories and do not break a fast. They may actually enhance fasting benefits by slightly raising metabolism. Avoid adding cream, milk, or sweeteners during your fasting window.'],
             ['Does drinking more water help with weight loss?',
              'Yes. Drinking 500ml of water 30 minutes before meals reduces calorie intake by 13% on average (2015 clinical trial). Water also boosts metabolism by ~30% for 30–40 minutes. Replace sugary drinks with water to cut hundreds of daily calories effortlessly.'],
+            ['Is intermittent fasting safe for women?',
+             'IF is generally safe for healthy adult women. Some women are more sensitive to caloric restriction — particularly during reproductive years. The gentler <strong>14:10 protocol</strong> is often recommended as a starting point. Pregnant or breastfeeding women should not fast. Consult a doctor if you have a history of eating disorders or hormonal conditions.'],
+            ['Can I combine water intake tracking with intermittent fasting?',
+             'Yes — staying well hydrated is particularly important during fasting windows. Water, black coffee, and plain tea do not break a fast. Use our <a href="/water-intake-calculator">Water Intake Calculator</a> to set your daily hydration target and aim to reach it primarily during your eating window, with 500ml first thing in the morning.'],
           ] as $i => [$q,$a])
           <div class="accordion-item" style="border:1px solid var(--border); border-radius:10px !important; margin-bottom:10px; overflow:hidden;">
             <h3 class="accordion-header">
