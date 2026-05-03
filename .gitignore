@@ -1,0 +1,68 @@
+# ── Laravel ───────────────────────────────────────────────────────────────────
+/vendor/
+/node_modules/
+/public/hot
+/public/build/
+/storage/*.key
+/storage/app/public/*
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*.log
+bootstrap/cache/*.php
+bootstrap/ssr/
+
+# ── Environment & secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Compiled / generated ──────────────────────────────────────────────────────
+*.compiled
+*.lock
+!composer.lock
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+Thumbs.db
+
+# ── Editor & IDE ──────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+nbproject/
+.project
+.buildpath
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+/.phpunit.result.cache
+/coverage/
+.phpunit.cache/
+
+# ── Docs & local planning files ───────────────────────────────────────────────
+mindsnap-docs/
+*.docx
+*.doc
+*.pdf
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.log
+*.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+package-lock.json
