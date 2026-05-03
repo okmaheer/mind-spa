@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DailyController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KidsController;
@@ -26,7 +25,6 @@ Route::get('/quizzes',           [CategoryController::class, 'quizzes'])->name('
 Route::get('/kids',              [CategoryController::class, 'kids'])->name('category.kids');
 Route::get('/life-tools',        [CategoryController::class, 'life'])->name('category.life');
 Route::get('/games',             [CategoryController::class, 'games'])->name('category.games');
-Route::get('/daily',             [DailyController::class, 'index'])->name('daily');
 
 // ── Sleep Tools ───────────────────────────────────────────────────────────────
 
@@ -70,7 +68,6 @@ Route::get('/life-percentage-calculator', [CalculatorController::class, 'lifePer
 
 // ── Quizzes ───────────────────────────────────────────────────────────────────
 
-Route::get('/daily-quiz',           [QuizController::class, 'daily'])->name('quiz.daily');
 Route::get('/iq-test',              [QuizController::class, 'iqTest'])->name('quiz.iq');
 Route::get('/quiz/{category}',      [QuizController::class, 'show'])->name('quiz.show');
 Route::post('/quiz/save-result',    [QuizController::class, 'saveResult'])->name('quiz.save-result');

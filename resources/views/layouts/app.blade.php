@@ -153,6 +153,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           data-ad-client="{{ config('adsense.publisher_id') }}"></script>
   @endif
+
+  {{-- External Third-Party Scripts --}}
+  @include('partials.external-scripts')
 </head>
 <body>
 

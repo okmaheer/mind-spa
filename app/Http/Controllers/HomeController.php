@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DailyQuiz;
 use App\Models\HealthTip;
 use App\Models\SearchQuery;
 use App\Models\Tool;
@@ -17,11 +16,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        $dailyQuiz   = DailyQuiz::today();
         $popularTools = Tool::getPopular(6);
         $healthTip   = HealthTip::ofDay();
 
-        return view('home', compact('dailyQuiz', 'popularTools', 'healthTip'));
+        return view('home', compact('popularTools', 'healthTip'));
     }
 
     public function search(Request $request)

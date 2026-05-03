@@ -59,14 +59,14 @@
           <a href="{{ route('category.sleep') }}" class="btn btn-cta" style="min-width:160px;font-size:1rem;">
             Explore Tools
           </a>
-          <a href="{{ route('quiz.daily') }}"
+          <a href="{{ route('quiz.iq') }}"
              class="btn"
              style="background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;
                     border-radius:8px;padding:12px 28px;font-weight:600;min-height:48px;
                     transition:border-color .2s,background .2s;"
              onmouseover="this.style.borderColor='#fff';this.style.background='rgba(255,255,255,.08)'"
              onmouseout="this.style.borderColor='rgba(255,255,255,.4)';this.style.background='transparent'">
-            Take Daily Quiz →
+            Take Free IQ Test →
           </a>
         </div>
 
@@ -140,7 +140,6 @@
       ['emoji'=>'👶','name'=>'Kids Zone',       'slug'=>'kids',           'color'=>'#17a2b8','tools'=>'5 games',  'desc'=>'Safe, ad-free learning games for ages 5–12'],
       ['emoji'=>'⏰','name'=>'Life Tools',      'slug'=>'life-tools',     'color'=>'#6f42c1','tools'=>'7 tools',  'desc'=>'Age, pregnancy, days between dates, retirement'],
       ['emoji'=>'🎮','name'=>'Games',           'slug'=>'games',          'color'=>'#e6ac00','tools'=>'5 games',  'desc'=>'Typing speed, reaction time, memory test and more'],
-      ['emoji'=>'📅','name'=>'Daily Challenge', 'slug'=>'daily',          'color'=>'#e94560','tools'=>'New daily', 'desc'=>'Fresh quiz topic every single day — come back tomorrow'],
     ];
     @endphp
 
@@ -245,10 +244,9 @@
 </section>
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
-     SECTION 4 — DAILY QUIZ BANNER
+     SECTION 4 — IQ TEST / QUIZZES BANNER
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="daily-banner"
-         style="padding:70px 0;background:linear-gradient(135deg,#e94560 0%,#c0392b 100%);position:relative;overflow:hidden;">
+<section style="padding:70px 0;background:linear-gradient(135deg,#e94560 0%,#c0392b 100%);position:relative;overflow:hidden;">
 
   <div aria-hidden="true"
        style="position:absolute;inset:0;pointer-events:none;
@@ -259,55 +257,52 @@
       <div class="col-lg-7">
         <div class="d-flex align-items-center gap-2 mb-3">
           <span style="background:rgba(255,255,255,.2);color:#fff;border-radius:50px;padding:4px 12px;font-size:.78rem;font-weight:700;letter-spacing:.5px;">
-            📅 TODAY'S CHALLENGE
+            🧠 FREE IQ TEST
+          </span>
+          <span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border-radius:50px;padding:4px 12px;font-size:.78rem;font-weight:600;">
+            1.8M searches/month
           </span>
         </div>
 
         <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:.75rem;">
-          @if($dailyQuiz)
-            Today's Topic: <em style="font-style:normal;color:rgba(255,255,255,.9);">{{ $dailyQuiz->topic }}</em>
-          @else
-            Daily Brain Quiz — A New Challenge Every Day
-          @endif
+          What's Your IQ? Find Out in 5 Minutes
         </h2>
 
         <p style="color:rgba(255,255,255,.85);font-size:1rem;max-width:480px;line-height:1.7;margin-bottom:1.5rem;">
-          10 questions, 3 difficulty levels. Fresh topic every single day — see how your score stacks up against yesterday's.
+          20 questions covering logic, pattern recognition, and spatial reasoning. Get your IQ score estimate instantly. No email, no signup, completely free.
         </p>
 
         <div class="d-flex flex-wrap align-items-center gap-3">
-          <a href="{{ route('quiz.daily') }}"
+          <a href="{{ route('quiz.iq') }}"
              class="btn"
              style="background:#fff;color:#e94560;font-weight:700;border-radius:8px;
                     padding:12px 28px;min-height:48px;border:none;font-size:1rem;
                     transition:transform .15s,box-shadow .15s;"
              onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.2)'"
              onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-            Start Today's Quiz →
+            Take Free IQ Test →
           </a>
-          <div style="color:rgba(255,255,255,.75);font-size:.88rem;">
-            Resets in <strong id="quizCountdown" style="color:#fff;">--:--:--</strong>
-          </div>
+          <a href="{{ route('category.quizzes') }}"
+             style="color:rgba(255,255,255,.8);font-size:.9rem;font-weight:600;text-decoration:none;"
+             onmouseover="this.style.color='#fff'"
+             onmouseout="this.style.color='rgba(255,255,255,.8)'">
+            See all 9 quizzes →
+          </a>
         </div>
       </div>
 
       <div class="col-lg-4 d-none d-lg-block text-center" aria-hidden="true">
         <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
                     border-radius:20px;padding:30px;display:inline-block;">
-          <div style="font-size:4rem;line-height:1;margin-bottom:12px;">🧠</div>
-          <div style="color:#fff;font-weight:700;font-size:1.1rem;">Daily Challenge</div>
-          <div style="color:rgba(255,255,255,.7);font-size:.85rem;margin-top:4px;">
-            {{ now()->format('D, M j') }}
-          </div>
-          @if($dailyQuiz)
+          <div style="font-size:4rem;line-height:1;margin-bottom:12px;">🧩</div>
+          <div style="color:#fff;font-weight:700;font-size:1.1rem;">Free IQ Test</div>
+          <div style="color:rgba(255,255,255,.7);font-size:.85rem;margin-top:4px;">20 questions · ~5 min</div>
           <div style="margin-top:16px;display:flex;gap:4px;justify-content:center;">
-            @for($i = 0; $i < 3; $i++)
-            <div style="width:10px;height:10px;border-radius:50%;
-                        background:{{ $i < 2 ? '#fff' : 'rgba(255,255,255,.3)' }};"></div>
-            @endfor
+            @foreach(['Logic','Patterns','Spatial'] as $label)
+            <span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);
+                         border-radius:50px;padding:3px 8px;font-size:.7rem;">{{ $label }}</span>
+            @endforeach
           </div>
-          <div style="color:rgba(255,255,255,.6);font-size:.75rem;margin-top:6px;">Medium difficulty</div>
-          @endif
         </div>
       </div>
     </div>
@@ -497,31 +492,4 @@
   </div>
 </section>
 
-@endsection
-
-@section('scripts')
-<script defer>
-// ── Countdown to midnight (daily quiz reset) ──────────────────────────────────
-(function () {
-  const el = document.getElementById('quizCountdown');
-  if (!el) return;
-
-  function tick() {
-    const now  = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0);
-    const diff = Math.max(0, midnight - now);
-
-    const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-    const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-    const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-
-    el.textContent = h + ':' + m + ':' + s;
-  }
-
-  tick();
-  setInterval(tick, 1000);
-})();
-
-</script>
 @endsection

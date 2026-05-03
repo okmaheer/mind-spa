@@ -16,7 +16,6 @@ class SeoHeaders
         'game'       => 86400,
         'seo'        => 86400,
         'quiz'       => 300,    // 5 min — quiz questions should feel fresh
-        'daily'      => 60,     // 1 min — shows today's quiz
         'default'    => 600,
     ];
 
@@ -40,7 +39,6 @@ class SeoHeaders
         if (str_ends_with($path, '-tools'))            return self::TTL['category'];
         if (str_contains($path, 'calculator'))         return self::TTL['calculator'];
         if (str_contains($path, 'quiz') || str_contains($path, 'iq-test')) return self::TTL['quiz'];
-        if (in_array($path, ['daily', 'daily-quiz']))  return self::TTL['daily'];
         if (str_contains($path, '-test') || $path === 'games') return self::TTL['game'];
         if (str_starts_with($path, 'what-') || str_starts_with($path, 'how-') || str_starts_with($path, 'calories-')) return self::TTL['seo'];
         return self::TTL['default'];

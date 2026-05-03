@@ -52,10 +52,10 @@
         <h6 class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Quizzes & Games</h6>
         <ul class="list-unstyled" style="font-size:.875rem;">
           @foreach([
-            ['Daily Quiz',        '/daily-quiz'],
             ['GK Quiz',           '/quiz/general-knowledge'],
             ['History Quiz',      '/quiz/history'],
             ['IQ Test',           '/iq-test'],
+            ['Biology Quiz',      '/quiz/biology'],
             ['Word Scramble',      '/word-scramble'],
             ['Typing Speed Test', '/typing-speed-test'],
             ['Reaction Time',     '/reaction-time-test'],
@@ -79,7 +79,7 @@
             ['Privacy Policy',   '/privacy'],
             ['Sitemap',          '/sitemap.xml'],
             ['Kids Zone',        '/kids'],
-            ['Daily Challenge',  '/daily'],
+            ['Life Tools',       '/life-tools'],
           ] as [$label, $href])
           <li class="mb-2">
             <a href="{{ $href }}" style="color:rgba(255,255,255,.7); transition:color .15s;"

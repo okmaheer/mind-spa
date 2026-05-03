@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DailyQuiz;
 use App\Services\QuizService;
 use Illuminate\Http\Request;
 
@@ -24,21 +23,6 @@ class QuizController extends Controller
         $questions = $this->quiz->getQuestions($category);
 
         return view('quizzes.quiz', compact('questions', 'category'));
-    }
-
-    public function daily()
-    {
-        $dailyQuiz = DailyQuiz::today();
-        if (!$dailyQuiz) {
-            return view('quizzes.no-daily-quiz');
-        }
-
-        $questions = $dailyQuiz->questions;
-        return view('quizzes.quiz', [
-            'questions' => $questions,
-            'category'  => 'daily',
-            'topic'     => $dailyQuiz->topic,
-        ]);
     }
 
     public function iqTest()
