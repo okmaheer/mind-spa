@@ -37,7 +37,7 @@ php artisan view:clear
 
 # Run database migrations
 echo -e "${GREEN}Running database migrations...${NC}"
-php artisan migrate --force
+php artisan migrate:fresh --seed
 
 # Optimize for production
 echo -e "${GREEN}Optimizing for production...${NC}"
