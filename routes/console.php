@@ -10,8 +10,5 @@ Artisan::command('inspire', function () {
 
 // ── Scheduled Tasks ───────────────────────────────────────────────────────────
 
-// Generate tomorrow's daily quiz every night at 23:00
-Schedule::command('mindsnap:daily-quiz')->dailyAt('23:00');
-
 // Regenerate sitemap weekly (Sunday 02:00)
 Schedule::command('mindsnap:sitemap')->weekly()->sundays()->at('02:00');

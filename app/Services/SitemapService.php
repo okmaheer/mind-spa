@@ -32,11 +32,14 @@ class SitemapService
         // Append tool slugs dynamically
         $tools = Tool::active()->get(['slug', 'updated_at']);
         foreach ($tools as $tool) {
+            if (!\Illuminate\Support\Facades\View::exists("calculators.{$tool->slug}")) {
+                continue;
+            }
             $items[] = [
                 'loc'        => '/' . $tool->slug,
                 'priority'   => '0.8',
                 'changefreq' => 'monthly',
-                'lastmod'    => optional($tool->updated_at)->toDateString(),
+                'lastmod'    => $tool->updated_at?->toDateString(),
             ];
         }
 
