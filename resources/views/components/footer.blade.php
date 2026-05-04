@@ -101,7 +101,7 @@
     {{-- Bottom bar --}}
     <div class="d-flex flex-wrap justify-content-between align-items-center py-4 mt-5"
          style="border-top:1px solid rgba(255,255,255,.1); gap:12px;">
-      <p style="font-size:.82rem; color:rgba(255,255,255,.4); margin:0;">
+      <p style="font-size:.82rem; color:rgba(255,255,255,.7); margin:0;">
         © {{ date('Y') }} MindSnap.co — All rights reserved.
       </p>
       <div class="d-flex flex-wrap gap-2">

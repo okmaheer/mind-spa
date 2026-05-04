@@ -39,7 +39,7 @@
 
         <div class="d-flex align-items-center gap-2 mb-4">
           <span class="badge"
-                style="background:rgba(233,69,96,.2);color:#e94560;border:1px solid rgba(233,69,96,.3);
+                style="background:rgba(233,69,96,.2);color:#c23152;border:1px solid rgba(233,69,96,.3);
                        border-radius:50px;padding:6px 14px;font-size:.8rem;font-weight:600;">
             🔥 New: Daily Brain Challenge
           </span>
@@ -317,7 +317,7 @@
 
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
-        <span style="background:#17a2b815;color:#17a2b8;border-radius:50px;padding:5px 14px;font-size:.8rem;font-weight:700;">
+        <span style="background:#17a2b815;color:#0b7285;border-radius:50px;padding:5px 14px;font-size:.8rem;font-weight:700;">
           👶 KIDS ZONE
         </span>
         <h2 style="margin-top:14px;margin-bottom:12px;color:var(--primary-dark);">
@@ -328,9 +328,9 @@
           Built to be enjoyable, not overwhelming.
         </p>
         <div class="d-flex flex-wrap gap-2 mb-4">
-          <span style="background:#fff;border:1px solid #17a2b830;color:#17a2b8;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🚫 No Ads</span>
-          <span style="background:#fff;border:1px solid #17a2b830;color:#17a2b8;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🔒 No Data Collected</span>
-          <span style="background:#fff;border:1px solid #17a2b830;color:#17a2b8;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">✓ No Account</span>
+          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🚫 No Ads</span>
+          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🔒 No Data Collected</span>
+          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">✓ No Account</span>
         </div>
         <a href="{{ route('category.kids') }}" class="btn btn-cta" style="background:#17a2b8;min-width:180px;">
           Explore Kids Zone →
@@ -386,21 +386,21 @@
           'icon'  => '🎯',
           'title' => 'Pick a Tool',
           'desc'  => 'Choose from 40+ free health calculators, quizzes and games. Search by name or browse by category.',
-          'color' => '#6c63ff',
+          'color' => '#5048d6',
         ],
         [
           'step'  => '02',
           'icon'  => '⚡',
           'title' => 'Get Instant Results',
           'desc'  => 'Fill in your details — results appear immediately, right there on the page. No page reload, no waiting.',
-          'color' => '#e94560',
+          'color' => '#c23152',
         ],
         [
           'step'  => '03',
           'icon'  => '📤',
           'title' => 'Share with Friends',
           'desc'  => 'Copy your result, share it on WhatsApp or download it as an image — challenge your friends to beat your score.',
-          'color' => '#28a745',
+          'color' => '#1a7a32',
         ],
       ] as $step)
       <div class="col-12 col-md-4">
@@ -428,11 +428,11 @@
     {{-- Trust bar --}}
     <div class="d-flex flex-wrap justify-content-center gap-3 mt-5 pt-4" style="border-top:1px solid var(--border);">
       @foreach([
-        ['✓ Free forever',          '#28a745'],
-        ['✓ No email required',     '#28a745'],
-        ['✓ No ads on Kids pages',  '#17a2b8'],
-        ['✓ Works on all devices',  '#6c63ff'],
-        ['✓ 190+ countries',        '#e94560'],
+        ['✓ Free forever',          '#1a7a32'],
+        ['✓ No email required',     '#1a7a32'],
+        ['✓ No ads on Kids pages',  '#0b7285'],
+        ['✓ Works on all devices',  '#5048d6'],
+        ['✓ 190+ countries',        '#c23152'],
       ] as [$label, $color])
       <span style="font-size:.875rem;font-weight:600;color:{{ $color }};">{{ $label }}</span>
       @endforeach

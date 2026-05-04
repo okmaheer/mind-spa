@@ -32,10 +32,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-  {{-- Preload the Inter woff2 directly — skips the 2-step font chain --}}
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-        href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2">
-
   {{-- Fonts: async load (non-render-blocking) --}}
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
@@ -48,7 +44,11 @@
     :root {
       --primary-dark: #1a1a2e;
       --primary-mid:  #0f3460;
-      --primary-cta:  #e94560;
+      --primary-cta:  #e94560;  /* decorative only — borders, icon accents, hero bg */
+      --cta-text:     #c23152;  /* accessible CTA for text/buttons on light bg — 5.1:1 contrast */
+      --teal-text:    #0b7285;  /* accessible teal for text on white — 4.6:1 contrast */
+      --green-text:   #1a7a32;  /* accessible green for text on white — 4.6:1 contrast */
+      --purple-text:  #5048d6;  /* accessible purple for text on white — 5.5:1 contrast */
       --bg:           #f8f9fa;
       --card:         #ffffff;
       --text:         #555555;
@@ -78,14 +78,14 @@
     h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--primary-dark); line-height: 1.3; }
     h2 { font-size: clamp(1.4rem, 3vw, 2rem);   font-weight: 700; color: var(--primary-mid);  line-height: 1.3; }
     h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; color: #16213e; }
-    a  { color: var(--primary-cta); text-decoration: none; }
+    a  { color: var(--cta-text); text-decoration: none; }
     a:hover { text-decoration: underline; }
     /* Underline links inside body content for accessibility (WCAG 1.4.1) */
     p a, li a, .accordion-body a { text-decoration: underline; }
 
     /* Buttons */
     .btn-cta {
-      background: var(--primary-cta);
+      background: var(--cta-text);  /* #c23152 — 5.1:1 contrast with white text */
       color: #fff;
       border-radius: 8px;
       padding: 12px 28px;
