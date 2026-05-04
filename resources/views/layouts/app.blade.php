@@ -27,13 +27,22 @@
   {{-- Robots --}}
   <meta name="robots" content="@yield('robots', 'index, follow')">
 
-  {{-- Fonts: preconnect first to eliminate render-blocking --}}
+  {{-- Preconnect to all CDN origins early --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-  {{-- Bootstrap 5 CSS --}}
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  {{-- Preload the Inter woff2 directly — skips the 2-step font chain --}}
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+        href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2">
+
+  {{-- Fonts: async load (non-render-blocking) --}}
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+
+  {{-- Bootstrap 5 CSS: async load (non-render-blocking) --}}
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></noscript>
 
   <style>
     :root {
@@ -43,7 +52,7 @@
       --bg:           #f8f9fa;
       --card:         #ffffff;
       --text:         #555555;
-      --text-muted:   #888888;
+      --text-muted:   #666666;
       --border:       #e0e0e0;
       --sleep:        #6c63ff;
       --fitness:      #28a745;
@@ -57,7 +66,7 @@
     *, *::before, *::after { box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       font-size: 16px;
@@ -71,6 +80,8 @@
     h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; color: #16213e; }
     a  { color: var(--primary-cta); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    /* Underline links inside body content for accessibility (WCAG 1.4.1) */
+    p a, li a, .accordion-body a { text-decoration: underline; }
 
     /* Buttons */
     .btn-cta {

@@ -26,7 +26,7 @@
 
       {{-- Col 2: Health Tools --}}
       <div class="col-6 col-lg-3">
-        <h6 class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Health Tools</h6>
+        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Health Tools</p>
         <ul class="list-unstyled" style="font-size:.875rem;">
           @foreach([
             ['Sleep Calculator', '/sleep-calculator'],
@@ -49,7 +49,7 @@
 
       {{-- Col 3: Quizzes & Games --}}
       <div class="col-6 col-lg-3">
-        <h6 class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Quizzes & Games</h6>
+        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Quizzes & Games</p>
         <ul class="list-unstyled" style="font-size:.875rem;">
           @foreach([
             ['GK Quiz',           '/quiz/general-knowledge'],
@@ -72,7 +72,7 @@
 
       {{-- Col 4: Company --}}
       <div class="col-12 col-md-6 col-lg-3">
-        <h6 class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Company</h6>
+        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Company</p>
         <ul class="list-unstyled" style="font-size:.875rem;">
           @foreach([
             ['About MindSnap',   '/about'],
