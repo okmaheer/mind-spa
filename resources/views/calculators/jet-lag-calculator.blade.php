@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Jet Lag Calculator — Sleep Schedule Recovery Plan for Long Flights | MindSnap')
-@section('description', 'Calculate your jet lag recovery time and get a personalised sleep schedule for adjusting to a new time zone. Covers eastward and westward travel. Free, instant.')
+@section('description', 'Free jet lag calculator: enter your home and destination time zones and get a personalised sleep recovery schedule. Covers eastward and westward travel, 28 time zones, and melatonin timing. Free, instant, no signup.')
 @section('canonical', config('app.url') . '/jet-lag-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          ✈️ Jet Lag Calculator
+          ✈️ Jet Lag Calculator — Personalised Sleep Recovery Plan
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Enter your flight details and get a personalised jet lag recovery plan with target sleep times for your destination.
@@ -298,9 +298,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j6">
+      Does melatonin help with jet lag?
+    </button>
+  </h3>
+  <div id="faq-j6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Yes — melatonin is one of the few jet lag remedies with strong scientific evidence. A Cochrane Review of 10 randomised trials found melatonin taken at the target bedtime reduced jet lag severity significantly for flights crossing 5+ time zones. The recommended dose is low: 0.5–3 mg. Higher doses (5–10 mg, common in US supplements) are no more effective and cause next-day drowsiness. Timing matters more than dose — take it at 10–11 pm destination time regardless of what your body clock says.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j7">
+      Should I sleep on the plane to avoid jet lag?
+    </button>
+  </h3>
+  <div id="faq-j7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      It depends on your destination. If you are flying eastward (e.g. London to Tokyo), try to sleep on the plane to arrive partially rested and stay awake until local bedtime. If flying westward (e.g. New York to London), sleeping less on the plane and arriving tired makes it easier to fall asleep at the earlier local bedtime. The goal is to align your first night's sleep with local time as closely as possible.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j8">
+      How do pilots and flight attendants deal with jet lag?
+    </button>
+  </h3>
+  <div id="faq-j8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Airlines use "controlled rest" protocols — short in-seat naps (20–45 minutes) for pilots during long hauls. Crew are also trained in strategic light exposure, melatonin timing, and sleep scheduling. Many experienced crew members maintain a single home time zone mentally and use strategic naps rather than trying to fully adjust to each destination. Frequent adjustment and re-adjustment itself disrupts circadian health, which is why aviation workers have elevated rates of sleep disorders and metabolic conditions.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Jet Lag Recovery — Eastward vs Westward Flights</h2>
+    <p>Eastward travel is consistently harder to recover from than westward travel. Flying east requires advancing your circadian clock (going to sleep earlier than your body wants), which conflicts with the natural human tendency toward a slightly longer-than-24-hour internal day. Flying west requires delaying your clock (staying up later), which is more natural. As a rough guide: westward recovery takes 1 day per time zone crossed; eastward recovery takes 1.5 days per time zone. A 6-hour eastward flight can take 9 days to fully recover from.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does Jet Lag Last?</h2>
+    <p>Jet lag duration depends on the number of time zones crossed and direction of travel. For short hauls (1–3 time zones), most people adjust within 1–3 days. For long hauls (6–12 time zones), full adjustment typically takes 6–12 days. Athletes and frequent travellers often adapt faster due to practiced sleep routines. Age also matters: older adults typically experience more severe jet lag and take longer to adjust than younger adults.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Jet Lag Tips for Long-Haul Flights</h2>
+    <p>Evidence-based strategies to minimise jet lag: (1) Pre-adjust — shift your sleep 1 hour per day toward your destination time zone for 3 days before departure. (2) Light exposure — get bright light in the morning at your destination for eastward travel; bright light in the evening for westward. (3) Melatonin — 0.5 mg taken at the target destination's bedtime helps re-anchor your circadian clock. (4) Hydration — cabin air is extremely dry; dehydration worsens jet lag symptoms significantly. (5) Avoid alcohol on the flight — it fragments sleep quality even when you feel like it helps you sleep.</p>
   </div>
 </section>
 

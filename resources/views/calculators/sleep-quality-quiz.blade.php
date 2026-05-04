@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Sleep Quality Quiz — Score Your Sleep in 10 Questions | MindSnap')
-@section('description', 'Take our 10-question sleep quality quiz based on the Pittsburgh Sleep Quality Index. Get your sleep score, identify what\'s hurting your sleep, and get personalised tips.')
+@section('description', 'Free sleep quality quiz: 10 questions based on the Pittsburgh Sleep Quality Index (PSQI). Find out if you have poor sleep, insomnia, or a sleep disorder. Get your score and personalised improvement tips in 2 minutes.')
 @section('canonical', config('app.url') . '/sleep-quality-quiz')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          📋 Sleep Quality Quiz
+          📋 Sleep Quality Quiz — How Good Is Your Sleep?
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           10 questions based on clinical sleep science. Get your sleep quality score and discover what's affecting your sleep the most.
@@ -225,9 +225,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq6">
+      What is a good sleep quality score?
+    </button>
+  </h3>
+  <div id="faq-sq6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      On the Pittsburgh Sleep Quality Index (PSQI), a score of 5 or below indicates good sleep quality. A score of 6–10 indicates moderate poor sleep quality. A score above 10 indicates severe poor sleep quality and warrants clinical evaluation. On this quiz, scores of 0–7 are Excellent or Good; 8–14 are Poor; 15–21 indicate Severe sleep problems. If you score 10 or above, consult a healthcare provider or sleep specialist.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq7">
+      How do I know if I have insomnia?
+    </button>
+  </h3>
+  <div id="faq-sq7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Clinical insomnia is defined as difficulty falling asleep (taking more than 30 minutes), staying asleep (waking for 30+ minutes during the night), or waking too early — occurring at least 3 nights per week for at least 3 months, with daytime impairment as a result. Occasional poor sleep is not insomnia. If your sleep problems match this pattern and are affecting your daily life, speak to a doctor. Cognitive Behavioural Therapy for Insomnia (CBT-I) is the most effective long-term treatment — more effective than sleeping medication.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq8">
+      Can anxiety cause poor sleep quality?
+    </button>
+  </h3>
+  <div id="faq-sq8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Yes — anxiety is one of the most common causes of poor sleep quality. It elevates cortisol and activates the sympathetic nervous system ("fight or flight"), which is physiologically incompatible with sleep onset. Anxiety typically causes difficulty falling asleep (racing thoughts at bedtime) and early morning waking (cortisol peaks around 4–6 am). The relationship is bidirectional: poor sleep worsens anxiety, and anxiety worsens sleep. Breaking this cycle usually requires addressing both simultaneously — sleep hygiene improvements alone are often insufficient when anxiety is the primary driver.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Quality Test vs Sleep Quantity — What Matters More?</h2>
+    <p>Both matter, but quality is often undervalued. You can sleep 9 hours and wake exhausted if your sleep architecture is disrupted — too little deep sleep (slow-wave sleep), too little REM sleep, or frequent micro-arousals caused by sleep apnoea, environmental noise, or alcohol. The Pittsburgh Sleep Quality Index (which this quiz is based on) specifically measures quality across 7 domains because researchers recognised that sleep duration alone is a poor predictor of next-day function.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Signs You Have Poor Sleep Quality</h2>
+    <p>You may have poor sleep quality even if you sleep 7–9 hours if you experience: waking unrefreshed most mornings, difficulty concentrating in the afternoon, falling asleep immediately when sedentary (under 5 minutes), needing an alarm to wake (suggests sleep is still incomplete), relying on caffeine to function before noon, and emotional volatility disproportionate to daily events. A PSQI score above 5 on this quiz suggests clinically meaningful poor sleep quality requiring attention.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Am I Getting Enough Deep Sleep?</h2>
+    <p>Deep sleep (slow-wave sleep, stages N3) should constitute roughly 20–25% of total sleep time — about 90–120 minutes for a 7.5-hour sleep. Deep sleep is when physical restoration occurs: growth hormone is released, tissue is repaired, and the immune system is strengthened. Signs of deep sleep deficiency include persistent physical fatigue, frequent illness, poor muscle recovery after exercise, and high evening cortisol. Deep sleep naturally declines with age — adults over 60 may have only 5–10% deep sleep — which is a key reason older adults feel less restored by sleep.</p>
   </div>
 </section>
 

@@ -9,6 +9,11 @@
   <meta name="description" content="@yield('description', 'MindSnap — free health tools, sleep calculators and brain quizzes for all ages. No signup. Works worldwide.')">
   <link rel="canonical" href="@yield('canonical', config('app.url'))">
 
+  {{-- Favicon --}}
+  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
+
   {{-- Open Graph --}}
   <meta property="og:title"       content="@yield('title')">
   <meta property="og:description" content="@yield('description')">

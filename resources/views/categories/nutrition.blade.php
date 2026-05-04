@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Free Nutrition Calculators — Water Intake & Intermittent Fasting | MindSnap')
-@section('description', 'Free nutrition calculators: daily water intake based on your weight and activity, plus intermittent fasting windows for 16:8, 18:6, and 5:2 protocols. Instant, no signup.')
+@section('description', 'Free nutrition calculators: daily water intake calculator based on your weight and activity level, plus intermittent fasting calculator for 16:8, 18:6, OMAD, and 5:2 protocols. Instant results, no signup.')
 @section('canonical', config('app.url') . '/nutrition-tools')
 
 @section('schema')
@@ -79,7 +79,7 @@
           <span style="font-size:2.8rem; line-height:1;">🥗</span>
           <span class="badge" style="background:rgba(253,126,20,.2); color:#ffb066; border:1px solid rgba(253,126,20,.4); border-radius:50px; font-size:.8rem; padding:5px 14px;">Nutrition Tools</span>
         </div>
-        <h1 style="color:#fff; margin-bottom:16px;">Free Nutrition Calculators</h1>
+        <h1 style="color:#fff; margin-bottom:16px;">Free Nutrition Calculators — Water Intake &amp; Fasting</h1>
         <p style="color:rgba(255,255,255,.75); font-size:1.1rem; line-height:1.7; max-width:620px; margin-bottom:24px;">
           Know exactly how much to drink and when to eat. Personalised water intake targets and intermittent fasting schedules — free, instant, no signup.
         </p>
@@ -187,6 +187,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">How Much Water Should I Drink Per Day?</h2>
+    <p>The popular "8 glasses a day" rule has no scientific basis — it originated from a 1945 US Food and Nutrition Board recommendation that was later misquoted without the crucial second sentence: "most of this quantity is contained in prepared foods." Actual water needs vary significantly by body weight, activity level, climate, and diet. A 50 kg sedentary woman in a cool climate needs far less than a 90 kg athlete training in summer heat. Our water intake calculator gives you a personalised daily target based on your individual factors rather than a blanket recommendation.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Intermittent Fasting for Women — What Is Different</h2>
+    <p>Most intermittent fasting research has been conducted on male subjects, and emerging evidence suggests women may respond differently. Some women report menstrual cycle disruption, increased cortisol, and worsening sleep when following strict 16:8 fasting, particularly those who are already lean or under stress. Modified approaches — such as a 14:10 window or 5:2 (rather than daily fasting) — appear better tolerated. Women who are pregnant, breastfeeding, or have a history of disordered eating should not fast without medical supervision.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Intermittent Fasting for Weight Loss — Does It Work?</h2>
+    <p>A major 2022 New England Journal of Medicine study found intermittent fasting (16:8) produced similar weight loss to continuous calorie restriction over 12 months — roughly 1.8 kg more than the control group. The mechanism is primarily calorie reduction (eating in a shorter window naturally reduces total intake for most people) rather than any metabolic "fasting state" magic. IF works well for people who prefer skipping breakfast over counting calories — it is a structure that makes calorie reduction easier, not a superior metabolic strategy.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -221,6 +232,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-nu6">
+                Can I drink coffee while intermittent fasting?
+              </button>
+            </h3>
+            <div id="faq-nu6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Black coffee (no milk, sugar, or cream) contains effectively zero calories and does not break a fast. It may also enhance the benefits of fasting by suppressing appetite and mildly increasing fat oxidation. However, coffee on an empty stomach increases cortisol and can cause acid reflux or anxiety in sensitive individuals. Green tea and plain water are also fast-safe. Any addition of milk, cream, butter, or sweeteners — even zero-calorie sweeteners in large amounts — can trigger an insulin response and technically break a metabolic fast.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-nu7">
+                How much water should I drink to lose weight?
+              </button>
+            </h3>
+            <div id="faq-nu7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Drinking water before meals reduces calorie intake by an average of 13% according to a study in Obesity journal. While water itself does not directly burn fat, adequate hydration supports metabolism, reduces water retention, and prevents hunger signals that are actually thirst. Drinking 500ml of water 30 minutes before each meal is the most evidence-backed hydration strategy for weight management. The water intake calculator on this page gives your baseline daily target — add 500ml on top for weight loss support.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-nu8">
+                What is the best intermittent fasting schedule for beginners?
+              </button>
+            </h3>
+            <div id="faq-nu8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The 16:8 protocol (16-hour fast, 8-hour eating window) is the most studied and widely used, but beginners often find it too restrictive initially. Starting with 12:12 (eating between 8am–8pm, for example) for 1–2 weeks allows the body to adapt before progressing to 14:10, then 16:8. The most important factor for beginners is choosing an eating window that fits your natural schedule — if you are not hungry in the morning, skip breakfast and eat noon–8pm. If you prefer eating early, try 7am–3pm. Sustainability matters more than the exact protocol.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

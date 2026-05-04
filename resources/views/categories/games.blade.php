@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Free Online Brain Games — Typing Speed, Memory & Reaction Test | MindSnap')
-@section('description', 'Free online brain games: typing speed test, reaction time test, memory test, word scramble, and colour blind test. Train your brain in minutes. No signup needed.')
+@section('description', 'Free online brain games: typing speed test, reaction time test, memory test, word scramble game, and colour blind test. Train and test your brain in minutes. No download, no signup needed.')
 @section('canonical', config('app.url') . '/games')
 
 @section('schema')
@@ -74,7 +74,7 @@
           <span style="font-size:2.8rem; line-height:1;">🎮</span>
           <span class="badge" style="background:rgba(255,193,7,.2); color:#ffd84d; border:1px solid rgba(255,193,7,.4); border-radius:50px; font-size:.8rem; padding:5px 14px;">Brain Games</span>
         </div>
-        <h1 style="color:#fff; margin-bottom:16px;">Free Online Brain Games</h1>
+        <h1 style="color:#fff; margin-bottom:16px;">Free Online Brain Games — Typing, Memory &amp; Reaction Tests</h1>
         <p style="color:rgba(255,255,255,.75); font-size:1.1rem; line-height:1.7; max-width:620px; margin-bottom:24px;">
           Test and train your typing speed, reaction time, memory, vocabulary, and colour vision.
           5 browser-based games — play instantly, no download, no signup.
@@ -186,6 +186,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free Typing Speed Test — What Is a Good WPM?</h2>
+    <p>The average typing speed for adults is 40 words per minute (WPM). Professional typists average 65–75 WPM. Competitive typists reach 100–150 WPM. For reference, the average person speaks at 125–150 WPM — most people speak faster than they type. A typing speed above 60 WPM is generally considered fast enough for professional work without typing being a bottleneck. Our typing speed test measures your WPM and accuracy across a standardised passage, giving you a comparable score you can track over time.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Reaction Time Test — What Is a Good Reaction Time?</h2>
+    <p>Average human reaction time to a visual stimulus is 200–250 milliseconds. Athletes typically average 150–200 ms. Formula 1 drivers have recorded reaction times of 150 ms at race start. Reaction time worsens measurably with sleep deprivation (each hour of missed sleep adds approximately 10 ms), alcohol (even at legal driving limits), and ageing (reaction time slows roughly 10–15% per decade from age 30). Our reaction time test measures your average across multiple attempts to reduce the effect of individual variation.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Memory Test Online — How Good Is Your Short-Term Memory?</h2>
+    <p>Short-term (working) memory capacity averages 7 items (plus or minus 2) — a finding established by psychologist George Miller in 1956 and still broadly accurate. This capacity declines with age and is impaired by sleep deprivation, stress, and distraction. Our memory test measures your digit span — the number of items you can hold and recall in sequence. It is a quick, validated measure of working memory capacity used in neuropsychological assessment.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -216,6 +227,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-gm6">
+                How can I improve my typing speed?
+              </button>
+            </h3>
+            <div id="faq-gm6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The most effective way to improve typing speed is to focus on accuracy first, speed second — typing slowly and correctly builds correct muscle memory faster than typing quickly and correcting errors. Touch typing (using all fingers without looking at the keyboard) is approximately 35% faster than hunt-and-peck typing on average. Practice in 15–20 minute focused sessions rather than long sessions, as motor skill learning is consolidated during rest. Most people can increase from 40 WPM to 70 WPM within 4–6 weeks of daily 20-minute practice.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-gm7">
+                Does reaction time slow with age?
+              </button>
+            </h3>
+            <div id="faq-gm7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Yes — reaction time slows progressively from around age 24, declining approximately 10–15% per decade. By age 70, average reaction time is roughly 50–60% slower than peak. However, experience and anticipation can partially compensate — an experienced driver reacts to road hazards faster than an inexperienced young driver despite having slower raw reaction time, because they better anticipate what is about to happen. Regular physical exercise, good sleep, and cognitive stimulation slow the age-related decline in reaction speed.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-gm8">
+                Are online brain games scientifically proven to improve memory?
+              </button>
+            </h3>
+            <div id="faq-gm8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The scientific evidence is mixed. A large 2014 Stanford study signed by 75 neuroscientists concluded that commercial brain training programs had not been shown to produce meaningful improvements in real-world cognitive ability. However, specific skills like working memory capacity and processing speed show modest improvements with targeted practice. The strongest evidence for protecting long-term brain health points to physical exercise, quality sleep, social engagement, and learning genuinely new complex skills — not repetitive digital games.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

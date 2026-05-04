@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Sleep Debt Calculator — How Much Sleep Do You Owe? | MindSnap')
-@section('description', 'Calculate your weekly sleep debt, see how it affects your health, and get a personalised recovery plan. Find out exactly how many hours of sleep you\'re missing.')
+@section('description', 'Free sleep debt calculator: enter your actual vs ideal sleep each night and see exactly how much sleep debt you\'ve built up. Get a science-based recovery plan to fix chronic sleep deprivation. No signup.')
 @section('canonical', config('app.url') . '/sleep-debt-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          📉 Sleep Debt Calculator
+          📉 Sleep Debt Calculator — How Much Sleep Are You Missing?
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Enter how much sleep you're actually getting versus what you need. See your debt in hours and get a recovery plan.
@@ -240,9 +240,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd6">
+      Does sleeping in on weekends pay off sleep debt?
+    </button>
+  </h3>
+  <div id="faq-sd6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Partially — but with a cost. Weekend lie-ins do help recover some sleep debt, but sleeping 2–3 hours later than your weekday wake time shifts your circadian rhythm, creating "social jet lag." This makes Monday mornings feel like jet lag and actually makes weekday sleep worse. A better strategy: go to bed slightly earlier on weeknights rather than sleeping dramatically later on weekends.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd7">
+      How much sleep debt is dangerous?
+    </button>
+  </h3>
+  <div id="faq-sd7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Any sleep debt impairs function, but research suggests cognitive performance begins measurably declining after a cumulative deficit of 20+ hours (roughly 3 nights of 6-hour sleep instead of 8). A deficit of 40+ hours produces impairment equivalent to being legally drunk. Chronic sleep debt of 2+ hours per night sustained over months is associated with increased risk of obesity, type 2 diabetes, cardiovascular disease, and depression.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd8">
+      Can you build a tolerance to sleep deprivation?
+    </button>
+  </h3>
+  <div id="faq-sd8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      You can build a subjective tolerance — you stop feeling as sleepy — but your objective cognitive impairment continues to worsen. This is one of the most well-documented findings in sleep research (Van Dongen et al., 2003): people chronically restricted to 6 hours per night stopped reporting feeling sleepy after a few days, yet their reaction times and cognitive tests continued declining to levels equivalent to total sleep deprivation. Feeling fine does not mean you are performing fine.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Can You Recover from Chronic Sleep Deprivation?</h2>
+    <p>Yes — but not as quickly as most people think. Research from the University of Colorado found that one or two "recovery" nights does not fully reverse the cognitive impairments from a week of sleep restriction. Full cognitive recovery typically requires 3 consecutive nights of adequate sleep after moderate sleep debt, and up to 2–3 weeks of consistent sleep after chronic deprivation. Metabolic markers (insulin sensitivity, cortisol levels) take even longer to normalise.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does It Take to Pay Back Sleep Debt?</h2>
+    <p>A commonly cited "rule of thumb" is that you need approximately 4 days of adequate sleep to recover from 1 hour of sleep debt. In practice: mild debt (1–5 hours) resolves in 1–2 weeks of consistent sleep. Moderate debt (5–20 hours, built over months) takes 2–4 weeks. Severe chronic sleep deprivation (years of insufficient sleep) may never be fully reversed, with some research suggesting permanent changes to brain structure in extreme cases. The strongest message from sleep science: prevention is far easier than recovery.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Debt Symptoms — How to Know You Are Sleep Deprived</h2>
+    <p>Common symptoms of significant sleep debt include: falling asleep within 5 minutes of lying down (healthy is 10–20 minutes), microsleeps (involuntary 1–30 second sleep episodes while awake), increased appetite particularly for high-carbohydrate foods, emotional reactivity disproportionate to the situation, impaired decision-making that you cannot perceive yourself, and a feeling of being "fine" that disappears the moment you stop being busy. The inability to accurately assess your own impairment is one of the most dangerous aspects of sleep debt.</p>
   </div>
 </section>
 

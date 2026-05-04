@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Caffeine & Sleep Calculator — Last Safe Time to Drink Coffee | MindSnap')
-@section('description', 'Find the last safe time to drink coffee or tea based on your bedtime and caffeine sensitivity. See how caffeine affects your sleep stages. Free, instant, no signup.')
+@section('description', 'Free caffeine and sleep calculator: find the last safe time to drink coffee, tea, or energy drinks before bed. Based on your bedtime, caffeine sensitivity, and metabolism speed. See exactly how caffeine disrupts deep sleep.')
 @section('canonical', config('app.url') . '/caffeine-sleep-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          ☕ Caffeine & Sleep Calculator
+          ☕ Caffeine & Sleep Calculator — Last Safe Time to Drink Coffee
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Find the last safe time to drink coffee or tea so caffeine doesn't wreck your sleep — based on your bedtime and metabolism.
@@ -255,9 +255,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c6">
+      How many hours before bed should I stop drinking coffee?
+    </button>
+  </h3>
+  <div id="faq-c6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      For the average adult, stopping caffeine 6 hours before bedtime is the minimum. For sensitive individuals or slow metabolisers, 8–10 hours is safer. If you go to bed at 11:00 pm, your latest coffee should be around 3:00–5:00 pm. The calculator on this page gives you your exact cut-off based on your metabolism type and bedtime.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c7">
+      Does green tea affect sleep less than coffee?
+    </button>
+  </h3>
+  <div id="faq-c7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Yes — green tea contains 25–50 mg of caffeine per cup (versus 80–120 mg in coffee) and also contains L-theanine, an amino acid that promotes calm alertness and partially counteracts caffeine's stimulating effects. However, green tea still contains enough caffeine to disrupt sleep for sensitive individuals. For sleep-safe evening drinks, choose chamomile, peppermint, or rooibos tea — all naturally caffeine-free.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c8">
+      Can caffeine cause insomnia?
+    </button>
+  </h3>
+  <div id="faq-c8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Yes — caffeine is one of the most common reversible causes of insomnia. It works by blocking adenosine receptors (adenosine is the chemical that makes you feel sleepy). Even when you feel tired, caffeine in your system prevents the normal sleep pressure from translating into deep sleep. People who struggle to fall asleep or wake frequently during the night should eliminate all caffeine for 2 weeks as a diagnostic test before exploring other causes.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">How Late Is Too Late to Drink Coffee?</h2>
+    <p>The general rule supported by research (including a 2013 study in the Journal of Clinical Sleep Medicine): avoid caffeine within 6 hours of your intended bedtime. However, this is an average. Fast metabolisers (CYP1A2 fast allele) may tolerate coffee up to 3–4 hours before bed. Slow metabolisers and those with caffeine sensitivity should cut off 8–10 hours before bed. The calculator uses your selected metabolism speed to give you a personalised cut-off time rather than a one-size-fits-all rule.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Caffeine Calculator for Night Shift Workers</h2>
+    <p>Night shift workers face a particular caffeine challenge: they need to stay alert during the shift but must sleep during the day. The key strategy: use caffeine strategically in the first half of the shift only. If your shift runs 10 pm–6 am, limit caffeine to before 2:00 am. A second tactic is the "caffeine nap" — drink a coffee immediately before a 20-minute nap. By the time you wake, the caffeine has been absorbed and you get the combined benefit of both. Avoid caffeine within 6 hours of your planned daytime sleep period.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Does Decaf Coffee Affect Sleep?</h2>
+    <p>Decaffeinated coffee still contains 2–25 mg of caffeine per cup (compared to 80–120 mg in regular coffee). For most people, this small amount is negligible. However, highly sensitive individuals or those with slow caffeine metabolism may notice even decaf disrupts sleep when consumed in the evening. Decaf also contains chlorogenic acids and other compounds that can slightly elevate cortisol. For the best sleep, switch to herbal tea (not green or black tea) after 6 pm.</p>
   </div>
 </section>
 

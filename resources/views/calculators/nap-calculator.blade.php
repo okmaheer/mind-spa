@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Nap Calculator — Best Nap Length to Wake Up Refreshed | MindSnap')
-@section('description', 'Find the perfect nap duration: 10-min power nap, 20-min refresher, or full 90-min sleep cycle. Avoid sleep inertia. Enter your nap time and get the ideal wake-up.')
+@section('description', 'Free nap calculator: find the perfect nap length — 10-min power nap, 20-min refresher, or full 90-min sleep cycle. Avoid sleep inertia. Works for shift workers, students, and adults. No signup.')
 @section('canonical', config('app.url') . '/nap-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          💤 Nap Calculator
+          💤 Nap Calculator — Best Nap Length & Wake-Up Time
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Find the best nap length and exact wake-up time to restore your energy without waking up groggy.
@@ -184,7 +184,7 @@
     <div class="row align-items-start g-5">
       <div class="col-lg-6">
         <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">The Science</span>
-        <h2 class="mb-4">What Research Says About Napping</h2>
+        <h2 class="mb-4">The Science of Napping: What Studies Actually Show</h2>
         <p>A landmark 1995 NASA study of long-haul military pilots found that a <strong>26-minute nap</strong> improved cognitive performance by 34% and alertness by 54% versus a no-nap control. This study directly led to NASA's formal nap policy for astronauts and long-haul flight crews.</p>
         <p>A 2008 University of California study compared a 90-minute nap to rote learning and found the nap group significantly outperformed on a memory test 6 hours later — with nap participants who achieved REM sleep performing best of all. REM sleep's role in memory consolidation and creative problem-solving is now well-established.</p>
         <p>A 2021 study in <em>General Psychiatry</em> found that regular nappers (1–2 times per week) had significantly better cognitive function, larger brain volume in multiple regions, and higher scores on processing speed and visuospatial ability than non-nappers — controlling for age, health, and sleep duration.</p>
@@ -246,9 +246,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n6">
+      Is a 2-hour nap too long?
+    </button>
+  </h3>
+  <div id="faq-n6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      A 2-hour nap (approximately 1.3 sleep cycles) lands you mid-cycle at wake time, causing significant sleep inertia and grogginess. It also substantially reduces nighttime sleep pressure, making it harder to fall asleep at bedtime. Unless you are severely sleep-deprived or ill, a 2-hour nap is too long. Stick to either 20 minutes or a full 90 minutes.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n7">
+      What is a NASA nap and does it work?
+    </button>
+  </h3>
+  <div id="faq-n7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      A NASA nap is a 26-minute nap studied by NASA researchers on sleepy military pilots. The study found a 26-minute nap improved performance by 34% and alertness by 100%. It works because 26 minutes is long enough to gain restorative light sleep but short enough to avoid slow-wave deep sleep — meaning you wake alert, not groggy. It has since become the gold standard for workplace napping.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n8">
+      Should I nap every day?
+    </button>
+  </h3>
+  <div id="faq-n8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Daily napping is healthy and normal — over a third of the world's population naps regularly. Countries with siesta cultures (Spain, Greece, Mexico) have historically lower rates of cardiovascular disease. For most adults, a daily 10–20 minute nap improves afternoon alertness, mood, and performance. The only people who should avoid daily napping are those with chronic insomnia, as napping reduces nighttime sleep pressure.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Best Nap Time for Night Shift Workers</h2>
+    <p>Night shift workers benefit most from a "split sleep" strategy: a primary sleep period of 5–6 hours after the shift ends, followed by a 20–30 minute power nap 1–2 hours before the next shift. This pre-shift nap significantly improves alertness during the first half of a night shift without interfering with the main sleep period. Avoid napping longer than 30 minutes before a shift — you risk entering deep sleep and waking groggy.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Should a Nap Be for Adults?</h2>
+    <p>For most adults, the ideal nap is either 10–20 minutes (power nap — light sleep only, no grogginess) or exactly 90 minutes (one full cycle — includes REM, restores creativity and memory). The 30–60 minute range is the worst choice: long enough to enter deep slow-wave sleep, but not long enough to complete a cycle. You wake mid-cycle feeling worse than before the nap. If you cannot spare 90 minutes, always choose under 25 minutes.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Is Napping Good or Bad for Nighttime Sleep?</h2>
+    <p>Napping is not bad for nighttime sleep when timed correctly. The critical rule: finish all naps by 3:00 pm. Napping after 3:00 pm reduces sleep pressure (adenosine build-up) enough to delay sleep onset by 1–2 hours and reduce deep sleep in the following night. Morning naps (before noon) have the least impact on nighttime sleep and highest REM content, making them ideal for creative recovery and memory consolidation.</p>
   </div>
 </section>
 

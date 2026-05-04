@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Kids Zone — Free Educational Games & Quizzes for Children | MindSnap')
-@section('description', 'Free educational activities for kids: math puzzles, word games, science quiz, animal quiz, and spelling quiz. Safe for children — no ads, no accounts, no data collection.')
+@section('description', 'Free educational activities for kids aged 5–14: math puzzles, word games, science quiz, animal quiz, and spelling quiz. Ad-free, no accounts, no data collection. Safe for classroom and home use.')
 @section('canonical', config('app.url') . '/kids')
 @section('robots', 'index, follow')
 
@@ -196,6 +196,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free Educational Games for Kids Aged 5–14</h2>
+    <p>Educational games are most effective when they balance challenge and achievement — the "flow state" described by psychologist Mihaly Csikszentmihalyi. MindSnap's kids activities are designed to sit at the edge of each age group's ability: familiar enough to engage, challenging enough to build real skills. Math puzzles build number sense and arithmetic fluency. Spelling quizzes reinforce phonics patterns. Science and animal quizzes develop factual knowledge and categorical thinking — all without screen-time pressure or in-app purchases.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Educational Quizzes for Kids — How Quizzing Helps Learning</h2>
+    <p>The testing effect is one of the most replicated findings in educational psychology: being tested on information strengthens memory for that information far more effectively than re-reading or passive review. A child who takes a quiz about animals remembers more animal facts one week later than a child who read the same facts in a book. This is why quizzing is a legitimate, research-backed learning strategy — not just assessment. Our kids quizzes are designed as learning tools as much as tests.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Safe Online Activities for Children — Our Approach</h2>
+    <p>MindSnap Kids is built with child safety as the primary design constraint. There are no user accounts, no data collection, no behavioural tracking, no social features, no in-app purchases, and no advertising. Children interact only with educational content. All activities work on any device with a browser — no app download required. The site is fully compliant with COPPA (US Children's Online Privacy Protection Act) and GDPR-K (EU children's data rules) because we collect no personal data whatsoever.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -230,6 +241,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-kd6">
+                What age are MindSnap kids activities suitable for?
+              </button>
+            </h3>
+            <div id="faq-kd6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                MindSnap's kids activities are designed for children aged 5–14. Younger children (5–7) benefit most from the spelling quiz and animal quiz, which use simple vocabulary and recognition-based questions. Children aged 8–11 are well suited to the science quiz, math puzzles, and word games. Children aged 12–14 can also explore the general knowledge quizzes in the main quizzes section, which cover history, geography, and biology at a secondary school level.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-kd7">
+                Are these activities suitable for classroom use?
+              </button>
+            </h3>
+            <div id="faq-kd7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Yes — MindSnap's kids activities are used by teachers as warm-up activities, end-of-lesson rewards, and homework supplements. They require no accounts or logins, work on school computers and tablets, and do not require any teacher setup. Because there is no tracking or data collection, they comply with typical school technology policies. Teachers can open any activity on a class display for group play or assign a URL for individual work.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-kd8">
+                Do the kids activities work on a tablet or phone?
+              </button>
+            </h3>
+            <div id="faq-kd8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Yes — all MindSnap activities are fully responsive and work on smartphones, tablets, laptops, and desktop computers. No app download is required. They are tested on iOS Safari, Android Chrome, and major desktop browsers. Touch controls work correctly for all interactive elements. For the best experience on small screens, hold a phone in portrait orientation for quizzes and landscape for word games.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

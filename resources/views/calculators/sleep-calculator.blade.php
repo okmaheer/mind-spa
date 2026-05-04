@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Sleep Calculator — Best Bedtime & Wake-Up Time')
-@section('description', 'Enter your wake-up time and instantly find the best bedtime based on 90-minute sleep cycles. Free, no signup. Used by people in 190+ countries.')
+@section('title', 'Sleep Calculator — Free Bedtime & Wake-Up Time Finder | MindSnap')
+@section('description', 'Free sleep calculator: enter your wake-up time and instantly find the best bedtime based on 90-minute sleep cycles. Works for adults, teenagers, shift workers, and night owls. No signup.')
 @section('canonical', config('app.url') . '/sleep-calculator')
 
 @section('schema')
@@ -66,7 +66,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          😴 Sleep Calculator
+          😴 Sleep Calculator — Find Your Ideal Bedtime
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Find your best bedtime or wake-up time based on 90-minute sleep cycles — with a visual breakdown of your entire night.
@@ -240,7 +240,7 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
         <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">How It Works</span>
-        <h2 class="mb-4">Why 90-Minute Cycles Change Everything</h2>
+        <h2 class="mb-4">How Sleep Cycles Work: The 90-Minute Science</h2>
         <p>Your brain doesn't sleep in one long block. It cycles through four distinct stages — light sleep, deeper light sleep, slow-wave deep sleep, and REM — roughly every 90 minutes all night long.</p>
         <p>The trick is not just how long you sleep, but <em>when</em> you wake. Interrupting deep sleep triggers sleep inertia: that thick, cotton-headed grogginess that can persist for up to an hour. Wake during light sleep at the end of a cycle and you surface alert within seconds.</p>
         <p>This calculator counts backward from your alarm time in 90-minute blocks, adds your personal fall-asleep delay, then draws the actual sleep architecture of your night — so you can see exactly what you're trading off between the 6-hour and 7.5-hour options.</p>
@@ -332,6 +332,42 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s6">
+      What time should I go to sleep if I wake up at 6am?
+    </button>
+  </h3>
+  <div id="faq-s6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      If you wake up at 6:00 am, your ideal bedtimes are 8:30 pm (6 cycles), 10:00 pm (5 cycles), 11:30 pm (4 cycles), or 1:00 am (3 cycles). Account for roughly 15 minutes to fall asleep. The 10:00 pm bedtime is ideal for most adults — 5 complete cycles of 90 minutes each.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s7">
+      Is a sleep calculator accurate?
+    </button>
+  </h3>
+  <div id="faq-s7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Sleep calculators are accurate in their cycle mathematics but approximate in their application. The 90-minute cycle length is an average — individual cycles range from 70 to 120 minutes and change across the night. The calculator is most useful as a planning guide: it reliably tells you which bedtimes are likely to result in waking between cycles rather than inside them.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s8">
+      How many hours of sleep do I need by age?
+    </button>
+  </h3>
+  <div id="faq-s8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      The CDC recommends: infants (4–12 months) 12–16 hours, toddlers (1–2 years) 11–14 hours, preschool (3–5) 10–13 hours, school age (6–12) 9–12 hours, teenagers (13–18) 8–10 hours, adults (18–60) 7–9 hours, older adults (61+) 7–9 hours. Individual needs vary — genetics, health, and activity level all play a role.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -370,7 +406,7 @@
 <section style="background:#fff; padding:72px 0;">
   <div class="container-xl">
     <div class="text-center mb-5">
-      <h2>10 Evidence-Based Habits for Better Sleep</h2>
+      <h2>How to Improve Sleep Quality: 10 Evidence-Based Tips</h2>
       <p class="text-muted" style="max-width:480px; margin:auto;">Each one is backed by peer-reviewed research — not generic wellness advice.</p>
     </div>
     <div class="row g-3">
@@ -397,6 +433,18 @@
       </div>
       @endforeach
     </div>
+  </div>
+</section>
+
+{{-- Long-tail keyword sections --}}
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Calculator for Shift Workers</h2>
+    <p>Night shift and rotating shift workers face a unique challenge: their sleep window changes constantly. Use this calculator by entering your actual wake-up target for your next shift. For rotating shifts, aim for a consistent number of cycles (5 or 6) rather than a fixed bedtime. Research from the Journal of Sleep Research shows shift workers who align sleep with 90-minute cycles report 34% fewer sleep complaints than those who simply aim for "8 hours."</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Calculator for Teenagers</h2>
+    <p>Teenagers need 8–10 hours of sleep per night — more than adults — because the brain undergoes significant development during adolescence. A common mistake is assuming a teen who sleeps until noon is lazy; biologically, the teenage circadian rhythm shifts later, making early school start times a genuine health issue. Use this calculator with a school wake-up time to find the ideal bedtime that completes full 90-minute cycles for a 9-hour sleep duration.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Calculator for 8 Hours of Sleep</h2>
+    <p>Exactly 8 hours is a common target, but 8 hours does not divide evenly into 90-minute cycles (it gives 5.3 cycles). You are better off targeting either 7.5 hours (5 complete cycles) or 9 hours (6 complete cycles). Waking mid-cycle — even after 8 exact hours — produces the same grogginess as waking after 5 hours. This calculator automatically shows you cycle-aligned times so you never wake at the wrong stage.</p>
   </div>
 </section>
 

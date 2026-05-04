@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Free Sleep Calculators & Tools — Bedtime, Cycles & Sleep Schedule | MindSnap')
-@section('description', 'Free sleep calculators for bedtime, wake-up times, nap schedules, sleep debt, jet lag, caffeine cut-off, and baby sleep. Based on 90-minute sleep cycles. No signup.')
+@section('description', 'Free sleep calculators: bedtime calculator, wake-up time, nap calculator, sleep debt tracker, jet lag recovery, caffeine cut-off time, baby sleep schedule, and sleep quality quiz. Based on 90-minute sleep cycles. No signup.')
 @section('canonical', config('app.url') . '/sleep-tools')
 
 @section('schema')
@@ -84,7 +84,7 @@
           <span style="font-size:2.8rem; line-height:1;">😴</span>
           <span class="badge" style="background:rgba(108,99,255,.2); color:#a99cff; border:1px solid rgba(108,99,255,.4); border-radius:50px; font-size:.8rem; padding:5px 14px;">Sleep Tools</span>
         </div>
-        <h1 style="color:#fff; margin-bottom:16px;">Free Sleep Calculators & Tools</h1>
+        <h1 style="color:#fff; margin-bottom:16px;">Free Sleep Calculators & Tools — Bedtime, Nap & Sleep Schedule</h1>
         <p style="color:rgba(255,255,255,.75); font-size:1.1rem; line-height:1.7; max-width:620px; margin-bottom:24px;">
           Find your ideal bedtime, wake-up time, and sleep schedule using science-backed 90-minute sleep cycle calculations.
           8 free tools — no signup, no ads, works on any device.
@@ -221,6 +221,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free Sleep Calculators for Every Sleep Problem</h2>
+    <p>Whether you struggle to fall asleep, wake up groggy, work night shifts, or are trying to fix a newborn's schedule, there is a specific calculator for your situation. Our sleep tools cover every major sleep challenge: finding the right bedtime based on sleep cycles, calculating how much sleep debt you have built up, determining when to stop drinking caffeine, recovering from jet lag, and assessing your overall sleep quality with a clinically validated quiz.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Sleep Calculators Work — The 90-Minute Cycle Science</h2>
+    <p>All sleep timing calculators on this site are based on the 90-minute sleep cycle model, supported by decades of polysomnography research. A complete sleep cycle moves through four stages: N1 (light sleep), N2 (consolidated sleep), N3 (deep slow-wave sleep), and REM (rapid eye movement sleep). Waking at the end of a complete cycle — when you are in the lightest sleep stage — results in feeling refreshed. Waking mid-cycle, particularly during N3 deep sleep, causes sleep inertia: the groggy, disoriented feeling that can last 1–2 hours.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Tools for Shift Workers, Parents, and Students</h2>
+    <p>Standard sleep advice assumes a 9-to-5 schedule — but shift workers, new parents, and students face fundamentally different sleep challenges. Night shift workers need to optimise a daytime sleep window. New parents need to understand infant sleep cycles to plan their own rest. Students pulling late nights need to know the minimum effective sleep duration before an exam. Each calculator on this page addresses these real-world scenarios with personalised outputs rather than generic advice.</p>
+  </div>
+</section>
+
 {{-- ── FAQ ─────────────────────────────────────────────────────────────────── --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -256,6 +267,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sl6">
+                What is the best free sleep calculator?
+              </button>
+            </h3>
+            <div id="faq-sl6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The best free sleep calculator is one that uses 90-minute sleep cycle mathematics rather than simply recommending "8 hours." MindSnap's sleep calculator lets you enter either your desired wake-up time or bedtime and instantly shows you all cycle-aligned sleep times. It also accounts for the average 15 minutes needed to fall asleep, giving you more accurate results than calculators that ignore sleep onset time.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sl7">
+                How do I fix my sleep schedule?
+              </button>
+            </h3>
+            <div id="faq-sl7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The most effective way to fix a disrupted sleep schedule is to anchor your wake-up time first — pick a consistent wake time and stick to it every day, including weekends, regardless of how late you slept. Your bedtime will naturally adjust within 1–2 weeks. Avoid napping after 3 pm, get bright light within 30 minutes of waking, and keep your bedroom cool and dark. Shifting your schedule forward (later) is easier than shifting it back (earlier) — move in 15-minute increments if a dramatic change is needed.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sl8">
+                Is 6 hours of sleep enough?
+              </button>
+            </h3>
+            <div id="faq-sl8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                For most adults, 6 hours is not enough on a sustained basis. Research consistently shows that adults sleeping 6 hours per night for two weeks perform equivalently to someone who has been awake for 24 hours straight — yet they report feeling "slightly tired," not severely impaired. Approximately 3% of the population carries a genetic mutation (DEC2) that allows genuine functioning on 6 hours, but the vast majority of people who believe they have adapted to 6 hours are simply unaware of their own impairment.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

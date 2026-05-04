@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Wake-Up Time Calculator — Best Times to Wake Up Based on Sleep Cycles')
-@section('description', 'Enter your bedtime and find the best wake-up times based on 90-minute sleep cycles. Wake feeling refreshed, not groggy. Free, instant, no signup.')
+@section('title', 'Wake-Up Time Calculator — Best Time to Wake Up From Your Bedtime | MindSnap')
+@section('description', 'Enter your bedtime and instantly find the best wake-up times based on 90-minute sleep cycles. Avoid morning grogginess by waking between sleep cycles. Free wake-up calculator, no signup.')
 @section('canonical', config('app.url') . '/wake-up-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          ⏰ Wake-Up Time Calculator
+          ⏰ Wake-Up Time Calculator — Wake Up Refreshed
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Enter your bedtime and find the ideal wake-up times based on complete 90-minute sleep cycles — so you never wake up groggy again.
@@ -141,7 +141,7 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">How It Works</span>
-        <h2 class="mb-4">Why Waking at the Right Moment Matters More Than Total Hours</h2>
+        <h2 class="mb-4">Why Your Wake-Up Time Affects How You Feel All Day</h2>
         <p>Your brain moves through sleep in 90-minute cycles all night. Each cycle ends with a brief transition through light sleep — the natural point to wake. At this moment, your body temperature is rising, sleep pressure is lowest, and your brain is practically ready to surface on its own.</p>
         <p>Interrupt a cycle mid-way through Stage 3 (deep sleep) and you trigger sleep inertia: elevated adenosine, low core temperature, and impaired cognitive function that can persist for 30–60 minutes despite a full night of sleep.</p>
         <p>This calculator adds your fall-asleep delay to your bedtime, then counts forward in 90-minute blocks. The result is the exact clock time each cycle ends — the windows where waking feels natural and easy.</p>
@@ -245,9 +245,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w6">
+      What is the best time to wake up for productivity?
+    </button>
+  </h3>
+  <div id="faq-w6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Research suggests waking between 6:00 am and 7:30 am correlates with higher reported productivity and wellbeing — but only when it aligns with completing full sleep cycles. Waking at 5:00 am after 6 hours of sleep is less productive than waking at 7:30 am after 7.5 hours. The key is cycle completion, not the clock time itself.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w7">
+      If I go to sleep at midnight, what time should I wake up?
+    </button>
+  </h3>
+  <div id="faq-w7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      If you fall asleep at midnight (after ~15 min to fall asleep, so sleep starts at 12:15 am), ideal wake-up times are: 1:45 am (1 cycle — emergency only), 3:15 am (2 cycles), 4:45 am (3 cycles), 6:15 am (4 cycles), 7:45 am (5 cycles — recommended), 9:15 am (6 cycles). The 7:45 am option gives you 7.5 hours of quality sleep.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w8">
+      Why do I feel worse after 8 hours than after 7.5?
+    </button>
+  </h3>
+  <div id="faq-w8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Eight hours (480 minutes) does not divide evenly into 90-minute cycles — it gives 5.33 cycles, meaning you wake 30 minutes into a cycle. That mid-cycle interruption triggers sleep inertia — the groggy, disoriented feeling that can last 1–2 hours. Seven and a half hours (5 complete cycles) or 9 hours (6 complete cycles) avoid this completely.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Best Wake-Up Time for Night Shift Workers</h2>
+    <p>For night shift workers, "wake-up time" means the time you need to be alert for work — not the morning. Enter your shift start time as your target wake-up time, subtract 15 minutes for grogginess, and use the calculator to find when to go to sleep. If your shift starts at 10:00 pm, target a wake-up of 9:30 pm and work backwards to find your ideal daytime sleep start.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Wake-Up Calculator for Early Birds vs Night Owls</h2>
+    <p>Chronotype — your genetic sleep preference — determines whether you are a natural early bird (morning type) or night owl (evening type). Early birds naturally complete their cycles earlier and wake easily at 5–6 am. Night owls have a delayed circadian phase and function best waking at 8–10 am. Neither is wrong — but forcing a night owl to wake at 5 am long-term increases cardiovascular risk. Use this calculator to find wake times that work with your chronotype, not against it.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Why 5 or 6 Sleep Cycles Is the Sweet Spot</h2>
+    <p>Most adults perform best after 5 complete sleep cycles (7.5 hours) or 6 cycles (9 hours). Four cycles (6 hours) is sufficient for a night when sleep time is limited, but chronically sleeping 4 cycles builds significant sleep debt. Three cycles or fewer (under 4.5 hours) impairs cognitive performance, reaction time, and emotional regulation — even if it does not feel that way.</p>
   </div>
 </section>
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Free Life Calculators — Age, Date, Pregnancy & Retirement | MindSnap')
-@section('description', 'Free life calculators: exact age calculator, days between dates, due date, ovulation, retirement countdown, days until any event, and life percentage lived. Instant results.')
+@section('description', 'Free online life calculators: exact age calculator, days between two dates, pregnancy due date calculator, ovulation calculator, retirement age countdown, days until any event, and life percentage lived. Instant, no signup.')
 @section('canonical', config('app.url') . '/life-tools')
 
 @section('schema')
@@ -79,7 +79,7 @@
           <span style="font-size:2.8rem; line-height:1;">⏰</span>
           <span class="badge" style="background:rgba(111,66,193,.2); color:#c9a8f5; border:1px solid rgba(111,66,193,.4); border-radius:50px; font-size:.8rem; padding:5px 14px;">Life Tools</span>
         </div>
-        <h1 style="color:#fff; margin-bottom:16px;">Free Life Calculators</h1>
+        <h1 style="color:#fff; margin-bottom:16px;">Free Life Calculators — Age, Date, Pregnancy &amp; More</h1>
         <p style="color:rgba(255,255,255,.75); font-size:1.1rem; line-height:1.7; max-width:620px; margin-bottom:24px;">
           Calculate your exact age, days between any two dates, pregnancy due date, ovulation window, retirement countdown, and more.
           7 free tools — instant results, no signup.
@@ -170,6 +170,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free Pregnancy Calculators — Due Date & Ovulation</h2>
+    <p>Pregnancy planning involves two key calculations: ovulation timing (when conception is most likely) and due date estimation (when the baby will arrive). Our ovulation calculator uses your cycle length and last period date to predict your fertile window and peak ovulation day. Our due date calculator uses Naegele's Rule — the standard obstetric method — to estimate your expected delivery date from your last menstrual period or conception date. Both tools give instant results with no registration required.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Age Calculator — How Old Am I Exactly?</h2>
+    <p>Most people know their age in years, but fewer know their exact age in years, months, and days — or in total days, hours, or minutes lived. Our age calculator gives you all of these from your date of birth. Beyond the novelty, exact age calculations matter for legal purposes (age-restricted services, pension eligibility), medical contexts (age-specific health screening guidelines), and insurance. The calculator also shows your next birthday and how many days away it is.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Retirement Calculator — When Can I Retire?</h2>
+    <p>Retirement age varies by country, employer, and personal financial situation. Our retirement calculator helps you see exactly how many years, months, and days remain until a target retirement age — whether that is your country's state pension age or your own personal FIRE (Financial Independence, Retire Early) target. Seeing retirement as a concrete number of days rather than a vague future date is a powerful motivator for long-term financial planning.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0; background:#fff;">
   <div class="container-xl">
@@ -206,6 +217,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-lf6">
+                How accurate is an online due date calculator?
+              </button>
+            </h3>
+            <div id="faq-lf6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Online due date calculators using Naegele's Rule (last menstrual period plus 280 days) are as accurate as the method allows — which is moderately accurate. Only about 4% of babies are born on their exact due date; 80% are born within 2 weeks either side. The biggest source of error is cycle irregularity — Naegele's Rule assumes a 28-day cycle with ovulation on day 14. Women with longer, shorter, or irregular cycles will have a shifted due date. A first-trimester ultrasound (dating scan) is the most accurate method.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-lf7">
+                How many days between two dates calculator — how does it work?
+              </button>
+            </h3>
+            <div id="faq-lf7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The days between dates calculator works by converting both dates to a standard Unix timestamp (milliseconds since 1 January 1970) and calculating the difference. It correctly handles leap years, month length variations, and calendar edge cases. You can use it to calculate how long ago a past event was, how many days until a future event, the length of a contract or project, the number of days between any two historical dates, or your exact age in days.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-lf8">
+                What percentage of my life have I lived?
+              </button>
+            </h3>
+            <div id="faq-lf8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Your life percentage depends on your age and the life expectancy used as the denominator. Global average life expectancy is approximately 73 years (WHO, 2024), but varies significantly by country, sex, and lifestyle. A 30-year-old has lived approximately 41% of an average life. Our life percentage calculator lets you set your own expected lifespan for a personalised result. Many people find this calculation motivating — a concrete reminder of time's value that abstract knowledge of ageing does not provide.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

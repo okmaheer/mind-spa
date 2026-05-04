@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Baby Sleep Calculator — Nap Schedule & Bedtime by Age | MindSnap')
-@section('description', 'Free baby sleep calculator. Get the ideal nap schedule, number of naps, and bedtime for your baby\'s age — from newborn to 3 years. Based on pediatric sleep guidelines.')
+@section('description', 'Free baby sleep calculator: get the ideal nap schedule, number of naps, and bedtime for your baby\'s age — newborn, 3 months, 6 months, 1 year, 2 years, and 3 years. Based on AAP pediatric sleep guidelines.')
 @section('canonical', config('app.url') . '/baby-sleep-calculator')
 
 @section('schema')
@@ -65,7 +65,7 @@
         </nav>
 
         <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
-          👶 Baby Sleep Calculator
+          👶 Baby Sleep Calculator — Nap Schedule by Age
         </h1>
         <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
           Enter your baby's age and first wake-up time to get a personalised nap schedule, bedtime, and total sleep target.
@@ -254,9 +254,56 @@
             </div>
           </div>
           @endforeach
+          <div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b6">
+      How many naps should a 6-month-old have?
+    </button>
+  </h3>
+  <div id="faq-b6" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Most 6-month-olds take 2–3 naps per day totalling 3–4 hours, with nighttime sleep of around 10–11 hours. By 6–8 months, many babies consolidate from 3 naps to 2. Signs your baby is ready to drop a nap: taking longer than 20 minutes to fall asleep at nap time, or nighttime sleep is reducing without reason.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b7">
+      At what age do babies sleep through the night?
+    </button>
+  </h3>
+  <div id="faq-b7" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      Most babies sleep a 6–8 hour stretch by 4–6 months, though "sleeping through the night" is typically defined as 5+ uninterrupted hours. By 9 months, roughly 70–80% of babies sleep 8+ hours without waking. However, there is enormous individual variation — some babies sleep through at 3 months, others not until 18 months, both within the normal range.
+    </div>
+  </div>
+</div>
+<div class="accordion-item border-0 mb-2">
+  <h3 class="accordion-header">
+    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b8">
+      Is it safe for a baby to sleep on their side?
+    </button>
+  </h3>
+  <div id="faq-b8" class="accordion-collapse collapse">
+    <div class="accordion-body pt-0" style="color:#555;">
+      No — the AAP recommends babies always be placed on their back to sleep until 12 months. Back sleeping reduces the risk of SIDS (Sudden Infant Death Syndrome) by over 50%. Once a baby can roll from back to front and front to back independently (typically 4–6 months), it is safe to leave them in whatever position they roll to during sleep. Always start them on their back.
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Newborn Sleep Schedule — 0 to 3 Months</h2>
+    <p>Newborns (0–3 months) sleep 14–17 hours per day in short bursts of 2–4 hours because their circadian rhythm has not yet developed. There is no "schedule" at this stage — newborns are driven entirely by hunger and comfort. Parents should sleep when the baby sleeps. By 6–8 weeks, most babies begin showing a slightly longer nighttime stretch of 4–5 hours, which is the first sign of circadian development.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Baby Sleep Regression — What It Is and When It Happens</h2>
+    <p>Sleep regressions are temporary periods when a previously good sleeper starts waking more frequently. The most common regressions occur at 4 months, 8–10 months, 12 months, 18 months, and 2 years — all coinciding with major developmental leaps. The 4-month regression is the most significant because it represents a permanent change in sleep architecture (babies shift to adult-like sleep cycles). Most regressions last 2–6 weeks and resolve on their own.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How to Get a Baby to Sleep Through the Night</h2>
+    <p>Most babies are developmentally capable of sleeping 6–8 hours without feeding by 4–6 months, though individual variation is wide. Key strategies supported by paediatric sleep research: establish a consistent pre-sleep routine (bath, feed, dark room), put baby down drowsy but awake to build self-soothing skills, keep night interactions brief and low-stimulation, and ensure total daytime sleep is age-appropriate (too much daytime sleep reduces nighttime sleep pressure).</p>
   </div>
 </section>
 

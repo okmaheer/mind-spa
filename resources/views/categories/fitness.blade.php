@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Free Fitness Calculators — BMI, Calories, Macros & More | MindSnap')
-@section('description', 'Free fitness calculators: BMI, TDEE, calorie deficit, macro calculator, protein intake, body fat %, one rep max, heart rate zones, running pace & ideal weight. Instant results.')
+@section('title', 'Free Fitness Calculators — BMI, Calorie, Macro & Body Fat | MindSnap')
+@section('description', 'Free fitness calculators: BMI calculator, calorie calculator, calorie deficit, macro calculator, protein intake, body fat percentage, one rep max, heart rate zones, running pace, and ideal weight. Instant results, no signup.')
 @section('canonical', config('app.url') . '/fitness-tools')
 
 @section('schema')
@@ -79,7 +79,7 @@
           <span style="font-size:2.8rem; line-height:1;">💪</span>
           <span class="badge" style="background:rgba(40,167,69,.2); color:#5cdb8d; border:1px solid rgba(40,167,69,.4); border-radius:50px; font-size:.8rem; padding:5px 14px;">Fitness Tools</span>
         </div>
-        <h1 style="color:#fff; margin-bottom:16px;">Free Fitness Calculators</h1>
+        <h1 style="color:#fff; margin-bottom:16px;">Free Fitness Calculators — BMI, Calories, Macros &amp; More</h1>
         <p style="color:rgba(255,255,255,.75); font-size:1.1rem; line-height:1.7; max-width:620px; margin-bottom:24px;">
           Calculate your BMI, daily calories, macro split, protein needs, body fat percentage, one rep max, heart rate zones, and more.
           11 science-based calculators — free, instant, no signup.
@@ -199,6 +199,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free Fitness Calculators for Weight Loss</h2>
+    <p>Losing weight requires a calorie deficit — burning more than you consume. Our fitness calculators give you every number you need: your TDEE (total daily energy expenditure) tells you how many calories you burn at your current activity level, the calorie deficit calculator tells you how large a deficit to create for your target rate of loss, and the macro calculator splits that calorie target into protein, carbohydrates, and fat based on your goals. Together, these three calculators replace a dietitian's first consultation.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Free Fitness Calculators for Building Muscle</h2>
+    <p>Building muscle requires a calorie surplus paired with adequate protein. Use the protein calculator to find your daily protein target (typically 1.6–2.2g per kg of bodyweight for muscle gain), the one rep max calculator to structure your progressive overload, and the workout volume calculator to optimise your weekly training sets per muscle group. The body fat calculator gives you a baseline so you can track body composition changes rather than relying solely on the scales.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">BMI Calculator — Is BMI Still Useful in 2025?</h2>
+    <p>BMI (Body Mass Index) is widely criticised for ignoring muscle mass, bone density, and fat distribution — a muscular athlete and an sedentary person of the same height and weight get the same BMI score. Despite its limitations, BMI remains a useful first-pass population health screening tool and is still used by most healthcare systems globally. For a more complete picture, pair your BMI with a body fat percentage measurement. Our body fat calculator uses the Navy method (neck, waist, and hip measurements) which is more accurate than BMI for assessing body composition.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -233,6 +244,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-ft6">
+                How many calories should I eat to lose weight?
+              </button>
+            </h3>
+            <div id="faq-ft6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                To lose approximately 0.5 kg (1 lb) per week, you need a daily calorie deficit of around 500 calories below your TDEE (total daily energy expenditure). For 1 kg (2 lbs) per week, a 1,000-calorie daily deficit is required — though this rate is difficult to sustain and risks muscle loss. Most professionals recommend a 500-calorie deficit for steady, sustainable fat loss. Use the calorie deficit calculator on this page to find your personal TDEE and target intake.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-ft7">
+                What is a healthy BMI for women?
+              </button>
+            </h3>
+            <div id="faq-ft7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                The standard BMI ranges (underweight: below 18.5, healthy: 18.5–24.9, overweight: 25–29.9, obese: 30+) apply to both men and women. However, women naturally carry a higher percentage of body fat than men at the same BMI, and the health risks associated with BMI differ slightly by sex. Some researchers argue the healthy BMI range for women should extend to 25–27 without increased health risk. For women over 60, a BMI of 25–27 is associated with better outcomes than the lower end of the "healthy" range.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-ft8">
+                How do I calculate my macros for weight loss?
+              </button>
+            </h3>
+            <div id="faq-ft8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                Start with your calorie target (TDEE minus your deficit). Then allocate: protein first at 1.6–2g per kg of bodyweight (critical for preserving muscle during a deficit), fat at a minimum of 0.8g per kg (for hormonal health), and fill remaining calories with carbohydrates. For a 70 kg person eating 1,800 calories: 112–140g protein (448–560 kcal), 56g fat minimum (504 kcal), and the remainder in carbs. Use the macro calculator on this page to get your personalised split instantly.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

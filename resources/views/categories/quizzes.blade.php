@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Free Online Brain Quizzes — IQ Test, General Knowledge & More | MindSnap')
-@section('description', 'Free brain quizzes: IQ test, general knowledge, history, biology, science, geography, maths, World War 2, and human body. 20 questions each. Instant results, no signup.')
+@section('description', 'Free online brain quizzes: IQ test, general knowledge quiz, history quiz, biology, science, geography, maths, World War 2, and human body quiz. 20 questions each. Instant results, no signup required.')
 @section('canonical', config('app.url') . '/quizzes')
 
 @section('schema')
@@ -230,6 +230,17 @@
   </div>
 </section>
 
+<section class="py-5" style="background:#f8f9ff;">
+  <div class="container" style="max-width:860px;">
+    <h2 class="mb-4" style="color:var(--primary-dark);">Free IQ Test Online — How Accurate Are They?</h2>
+    <p>Online IQ tests vary enormously in accuracy. Most free tests are significantly easier than clinically validated instruments (like the Wechsler or Stanford-Binet), which causes systematic score inflation — people score 15–20 points higher online than in clinical settings. MindSnap's IQ test is designed to measure relative cognitive performance across verbal reasoning, pattern recognition, and numerical reasoning without inflating scores. It is best understood as a cognitive performance benchmark, not a clinical IQ score, and scores should not be compared to clinically administered tests.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">General Knowledge Quiz — Test Yourself Across Every Subject</h2>
+    <p>General knowledge quizzes test breadth of knowledge across history, science, geography, literature, sport, and current events. Research in cognitive psychology shows that testing yourself on knowledge (rather than re-reading) is one of the most effective learning strategies — a phenomenon known as the "testing effect" or retrieval practice. Taking a quiz is not just a test of what you know; it actively strengthens memory for the information you recall correctly and highlights gaps for further study.</p>
+    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Brain Quizzes for Adults — Cognitive Fitness Benefits</h2>
+    <p>Regular cognitive challenges — quizzes, puzzles, learning new skills — are associated with a lower risk of cognitive decline in older adults. A 2014 study in PLOS ONE found that adults who regularly engaged in mentally stimulating activities had a 2.5-year delay in memory decline compared to those who did not. Brain quizzes alone will not prevent dementia, but they represent one component of a cognitively active lifestyle alongside physical exercise, social engagement, and adequate sleep.</p>
+  </div>
+</section>
+
 {{-- FAQ --}}
 <section style="padding:56px 0;">
   <div class="container-xl">
@@ -262,6 +273,43 @@
             </div>
           </div>
           @endforeach
+
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-qz6">
+                What is a good IQ score?
+              </button>
+            </h3>
+            <div id="faq-qz6" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                On a standard IQ scale with a mean of 100 and standard deviation of 15: below 70 is considered significantly below average, 85–115 is the average range (covers approximately 68% of the population), 115–130 is above average, 130–145 is gifted, and above 145 is exceptionally gifted. Roughly 95% of the population scores between 70 and 130. IQ measures specific cognitive abilities — pattern recognition, verbal reasoning, working memory — not general intelligence, creativity, or life success.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-qz7">
+                Can you improve your IQ score?
+              </button>
+            </h3>
+            <div id="faq-qz7" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                IQ scores are relatively stable in adulthood, but cognitive performance — the practical expression of intelligence — can be significantly improved. Regular aerobic exercise increases BDNF (brain-derived neurotrophic factor), improving memory and processing speed. Adequate sleep dramatically improves cognitive performance — even one night of poor sleep reduces IQ-equivalent performance by 5–10 points. Learning new complex skills (a musical instrument, a language) builds new neural connections. You may not raise your IQ ceiling, but you can operate much closer to it.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item border-0 mb-2">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-qz8">
+                How often should you take a brain quiz?
+              </button>
+            </h3>
+            <div id="faq-qz8" class="accordion-collapse collapse">
+              <div class="accordion-body pt-0" style="color:#555;">
+                For cognitive training benefits, consistency matters more than frequency. Taking a brain quiz or engaging in a cognitive challenge 3–5 times per week for 15–20 minutes produces more benefit than sporadic long sessions. Variety is also important — repeating the same quiz measures familiarity, not cognitive ability. Rotate between different quiz types (general knowledge, pattern recognition, verbal, numerical) to challenge different cognitive domains and avoid the "practice effect" inflating your results.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
