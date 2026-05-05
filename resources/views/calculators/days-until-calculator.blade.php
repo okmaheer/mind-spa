@@ -99,7 +99,7 @@ $relatedTools = [
           <div class="card-body p-4 p-md-5">
             <p class="fw-600 mb-3" style="font-size:.9rem; color:var(--primary-dark);">Quick presets:</p>
             <div class="d-flex flex-wrap gap-2 mb-4" id="presetBtns">
-              @foreach(['New Year','Christmas','Valentine\'s Day','Halloween','Easter']) as $event)
+              @foreach(['New Year','Christmas','Valentine\'s Day','Halloween','Easter'] as $event)
               <button type="button" class="btn preset-btn"
                       style="border-radius:50px; border:2px solid #e0e0e0; padding:6px 14px; font-size:.82rem; font-weight:600; color:#555; background:#fff;"
                       onclick="selectPreset('{{ $event }}')">{{ $event }}</button>
