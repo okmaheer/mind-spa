@@ -12,11 +12,13 @@ abstract class Controller
         $tool = Tool::where('slug', $slug)->first();
 
         if ($tool && ! $tool->isPublished()) {
-            return response()->view('errors.coming-soon', [], 404);
+            return response()->view('errors.coming-soon', [], 404)
+                ->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate']);
         }
 
         if (! \Illuminate\Support\Facades\View::exists($view)) {
-            return response()->view('errors.coming-soon', [], 404);
+            return response()->view('errors.coming-soon', [], 404)
+                ->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate']);
         }
 
         return view($view);
