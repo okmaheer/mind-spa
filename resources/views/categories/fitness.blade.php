@@ -115,9 +115,6 @@ $relatedTools = [
         <div class="ms-hero-stat-box ms-hero-stat-box-fitness">
           <div class="ms-hero-stat-num">11</div>
           <div class="ms-hero-stat-sub">Fitness Tools</div>
-          <div class="ms-hero-stat-div"></div>
-          <div class="ms-hero-stat-val">5M+</div>
-          <div class="ms-hero-stat-sub">Monthly searches</div>
         </div>
       </div>
     </div>
@@ -141,9 +138,6 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $tool['name'] }}</div>
               <div class="ms-tool-desc">{{ $tool['description'] }}</div>
-              @if(!empty($tool['monthly_searches']) && $tool['monthly_searches'] > 0)
-              <div class="mt-2"><span class="badge-searches">{{ number_format($tool['monthly_searches'] / 1000) }}K searches/mo</span></div>
-              @endif
             </div>
           </div>
         </a>
@@ -172,7 +166,6 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $name }}</div>
               <div class="ms-tool-desc">{{ $desc }}</div>
-              <div class="mt-2"><span class="badge-searches">{{ $searches }} searches/mo</span></div>
             </div>
           </div>
         </a>

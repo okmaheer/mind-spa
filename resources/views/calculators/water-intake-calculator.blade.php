@@ -87,13 +87,11 @@ $relatedTools = [
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
-        <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb ms-breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="/nutrition-tools">Nutrition Tools</a></li>
-            <li class="breadcrumb-item active">Water Intake Calculator</li>
-          </ol>
-        </nav>
+        <x-breadcrumb :crumbs="[
+          ['url' => route('home'), 'name' => 'Home'],
+          ['url' => route('category.nutrition'), 'name' => 'Nutrition Tools'],
+          ['url' => '', 'name' => 'Water Intake Calculator'],
+        ]"/>
 
         <h1 class="mb-2 ms-hero-title">
           💧 Water Intake Calculator — Daily Hydration Target for Your Body

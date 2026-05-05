@@ -81,13 +81,11 @@ $relatedTools = [
   <div class="container-xl">
     <div class="row align-items-start g-5">
       <div class="col-lg-7">
-        <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb ms-breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.life') }}">Life Tools</a></li>
-            <li class="breadcrumb-item active">Life Percentage Calculator</li>
-          </ol>
-        </nav>
+        <x-breadcrumb :crumbs="[
+          ['url' => route('home'), 'name' => 'Home'],
+          ['url' => route('category.life'), 'name' => 'Life Tools'],
+          ['url' => '', 'name' => 'Life Percentage Calculator'],
+        ]"/>
         <h1 class="mb-2 ms-hero-title">
           ⌛ Life Percentage Calculator — How Much of Your Life Has Passed?
         </h1>

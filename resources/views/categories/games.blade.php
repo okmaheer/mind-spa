@@ -135,9 +135,6 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $tool['name'] }}</div>
               <div class="ms-tool-desc">{{ $tool['description'] }}</div>
-              @if(!empty($tool['monthly_searches']) && $tool['monthly_searches'] > 0)
-              <div class="mt-2"><span class="badge-searches">{{ number_format($tool['monthly_searches'] / 1000) }}K searches/mo</span></div>
-              @endif
             </div>
           </div>
         </a>
@@ -160,7 +157,6 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $name }}</div>
               <div class="ms-tool-desc">{{ $desc }}</div>
-              <div class="mt-2"><span class="badge-searches">{{ $searches }} searches/mo</span></div>
             </div>
           </div>
         </a>

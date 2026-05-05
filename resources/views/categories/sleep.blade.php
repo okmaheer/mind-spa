@@ -121,9 +121,6 @@ $relatedTools = [
         <div class="ms-hero-stat-box ms-hero-stat-box-sleep">
           <div class="ms-hero-stat-num">8</div>
           <div class="ms-hero-stat-sub">Sleep Tools</div>
-          <div class="ms-hero-stat-div"></div>
-          <div class="ms-hero-stat-val">2.2M+</div>
-          <div class="ms-hero-stat-sub">Monthly searches</div>
         </div>
       </div>
     </div>
@@ -146,9 +143,6 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $tool['name'] }}</div>
               <div class="ms-tool-desc">{{ $tool['description'] }}</div>
-              @if(!empty($tool['monthly_searches']) && $tool['monthly_searches'] > 0)
-              <div class="mt-2"><span class="badge-searches">{{ number_format($tool['monthly_searches'] / 1000) }}K searches/mo</span></div>
-              @endif
             </div>
           </div>
         </a>
