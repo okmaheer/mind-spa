@@ -49,29 +49,60 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'What is the Pittsburgh Sleep Quality Index?',
+             'a' => 'The Pittsburgh Sleep Quality Index (PSQI) is a validated clinical questionnaire developed in 1989 at the University of Pittsburgh. It is one of the most widely used sleep quality assessments in both clinical practice and sleep research worldwide. It measures 7 components of sleep quality over the past month and produces a global score where higher scores indicate worse sleep.'],
+  ['q' => 'Why do I feel tired even though I sleep 8 hours?',
+             'a' => 'Several factors can cause fatigue despite adequate duration: poor sleep quality (frequent micro-arousals that don\'t fully wake you but fragment sleep architecture), undiagnosed sleep apnoea (which causes hundreds of partial wakings per night), waking mid-cycle (triggering sleep inertia), poor sleep hygiene, nutritional deficiencies (iron, B12, vitamin D), or underlying medical conditions.'],
+  ['q' => 'What is CBT-I and is it effective?',
+             'a' => 'Cognitive Behavioural Therapy for Insomnia (CBT-I) is the first-line treatment for chronic insomnia recommended by the American Academy of Sleep Medicine. It outperforms sleeping pills in long-term outcomes and produces lasting change without dependency. Core techniques: sleep restriction (building homeostatic drive), stimulus control (bed = sleep only), cognitive restructuring (addressing unhelpful sleep beliefs), and sleep hygiene.'],
+  ['q' => 'How do I know if I have sleep apnoea?',
+             'a' => 'Key indicators: loud snoring, waking gasping or choking, partner reports witnessed apneas (breathing stopping), excessive daytime sleepiness despite 7–9 hours in bed, morning headaches, and dry mouth on waking. Sleep apnoea affects approximately 4–10% of adults and is significantly underdiagnosed. Consult a GP if you have 3 or more of these symptoms.'],
+  ['q' => 'Can improving sleep quality really change your health?',
+             'a' => 'Yes — dramatically. Studies consistently show that improving sleep quality (not just duration) improves immune function, reduces inflammatory markers, improves insulin sensitivity, enhances mood and emotional regulation, sharpens cognitive performance, and reduces cardiovascular risk. Sleep is the single highest ROI health intervention for most people — and it\'s free.'],
+  ['q' => 'When should I see a doctor about my sleep?',
+             'a' => 'Seek medical advice if: you score <strong>10 or above</strong> on this quiz consistently, you snore loudly or stop breathing during sleep (possible sleep apnoea), you have uncontrollable leg urges at night (possible restless legs), you have excessive daytime sleepiness that affects driving or work safety, or CBT-I techniques haven\'t helped after 6 weeks. Sleep apnoea in particular is seriously underdiagnosed — it affects 4–10% of adults and significantly increases cardiovascular risk when untreated.'],
+  ['q' => 'What\'s the difference between insomnia and just poor sleep?',
+             'a' => 'Insomnia disorder has a clinical definition: difficulty initiating or maintaining sleep (or waking too early) on <strong>3+ nights per week for 3+ months</strong>, despite adequate sleep opportunity, causing significant daytime impairment. Poor sleep quality is broader — it includes non-restorative sleep, environmental disruption, and lifestyle factors. Both respond to CBT-I. Insomnia disorder at clinical severity benefits from a formal CBT-I programme or referral to a sleep psychologist.'],
+  ['q' => 'What is a good sleep quality score?', 'a' => 'On the Pittsburgh Sleep Quality Index (PSQI), a score of 5 or below indicates good sleep quality. A score of 6–10 indicates moderate poor sleep quality. A score above 10 indicates severe poor sleep quality and warrants clinical evaluation. On this quiz, scores of 0–7 are Excellent or Good; 8–14 are Poor; 15–21 indicate Severe sleep problems. If you score 10 or above, consult a healthcare provider or sleep specialist.'],
+  ['q' => 'How do I know if I have insomnia?', 'a' => 'Clinical insomnia is defined as difficulty falling asleep (taking more than 30 minutes), staying asleep (waking for 30+ minutes during the night), or waking too early — occurring at least 3 nights per week for at least 3 months, with daytime impairment as a result. Occasional poor sleep is not insomnia. If your sleep problems match this pattern and are affecting your daily life, speak to a doctor. Cognitive Behavioural Therapy for Insomnia (CBT-I) is the most effective long-term treatment — more effective than sleeping medication.'],
+  ['q' => 'Can anxiety cause poor sleep quality?', 'a' => 'Yes — anxiety is one of the most common causes of poor sleep quality. It elevates cortisol and activates the sympathetic nervous system ("fight or flight"), which is physiologically incompatible with sleep onset. Anxiety typically causes difficulty falling asleep (racing thoughts at bedtime) and early morning waking (cortisol peaks around 4–6 am). The relationship is bidirectional: poor sleep worsens anxiety, and anxiety worsens sleep. Breaking this cycle usually requires addressing both simultaneously — sleep hygiene improvements alone are often insufficient when anxiety is the primary driver.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Best bedtime based on your wake-up time.'],
+  ['icon' => '⏰', 'name' => 'Wake-Up Calculator', 'slug' => 'wake-up-calculator', 'desc' => 'Best wake-up times from your bedtime.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Power nap or full cycle timing.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'How much sleep are you missing?'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Last safe coffee time for your bedtime.'],
+  ['icon' => '✈️', 'name' => 'Jet Lag Calculator', 'slug' => 'jet-lag-calculator', 'desc' => 'Sleep plan for long-haul flights.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Sleep Quality Quiz</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Sleep Quality Quiz</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           📋 Sleep Quality Quiz — How Good Is Your Sleep?
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           10 questions based on clinical sleep science. Get your sleep quality score and discover what's affecting your sleep the most.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div id="quizArea">
@@ -105,8 +136,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">What We Measure</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">What We Measure</h3>
           @foreach([
             ['Sleep Latency','How long it takes you to fall asleep'],
             ['Sleep Duration','Are you getting enough total hours?'],
@@ -132,7 +163,7 @@
 </section>
 
 {{-- What the score means --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Understanding Your Sleep Score</h2>
     <p class="text-center text-muted mb-5" style="max-width:480px; margin:0 auto 40px;">Based on the Pittsburgh Sleep Quality Index (PSQI) scoring framework.</p>
@@ -156,7 +187,7 @@
 </section>
 
 {{-- When to See a Doctor --}}
-<section style="padding:48px 0; background:#fff;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -191,84 +222,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:var(--bg); padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="sqFaq">
-          @foreach([
-            ['What is the Pittsburgh Sleep Quality Index?',
-             'The Pittsburgh Sleep Quality Index (PSQI) is a validated clinical questionnaire developed in 1989 at the University of Pittsburgh. It is one of the most widely used sleep quality assessments in both clinical practice and sleep research worldwide. It measures 7 components of sleep quality over the past month and produces a global score where higher scores indicate worse sleep.'],
-            ['Why do I feel tired even though I sleep 8 hours?',
-             'Several factors can cause fatigue despite adequate duration: poor sleep quality (frequent micro-arousals that don\'t fully wake you but fragment sleep architecture), undiagnosed sleep apnoea (which causes hundreds of partial wakings per night), waking mid-cycle (triggering sleep inertia), poor sleep hygiene, nutritional deficiencies (iron, B12, vitamin D), or underlying medical conditions.'],
-            ['What is CBT-I and is it effective?',
-             'Cognitive Behavioural Therapy for Insomnia (CBT-I) is the first-line treatment for chronic insomnia recommended by the American Academy of Sleep Medicine. It outperforms sleeping pills in long-term outcomes and produces lasting change without dependency. Core techniques: sleep restriction (building homeostatic drive), stimulus control (bed = sleep only), cognitive restructuring (addressing unhelpful sleep beliefs), and sleep hygiene.'],
-            ['How do I know if I have sleep apnoea?',
-             'Key indicators: loud snoring, waking gasping or choking, partner reports witnessed apneas (breathing stopping), excessive daytime sleepiness despite 7–9 hours in bed, morning headaches, and dry mouth on waking. Sleep apnoea affects approximately 4–10% of adults and is significantly underdiagnosed. Consult a GP if you have 3 or more of these symptoms.'],
-            ['Can improving sleep quality really change your health?',
-             'Yes — dramatically. Studies consistently show that improving sleep quality (not just duration) improves immune function, reduces inflammatory markers, improves insulin sensitivity, enhances mood and emotional regulation, sharpens cognitive performance, and reduces cardiovascular risk. Sleep is the single highest ROI health intervention for most people — and it\'s free.'],
-            ['When should I see a doctor about my sleep?',
-             'Seek medical advice if: you score <strong>10 or above</strong> on this quiz consistently, you snore loudly or stop breathing during sleep (possible sleep apnoea), you have uncontrollable leg urges at night (possible restless legs), you have excessive daytime sleepiness that affects driving or work safety, or CBT-I techniques haven\'t helped after 6 weeks. Sleep apnoea in particular is seriously underdiagnosed — it affects 4–10% of adults and significantly increases cardiovascular risk when untreated.'],
-            ['What\'s the difference between insomnia and just poor sleep?',
-             'Insomnia disorder has a clinical definition: difficulty initiating or maintaining sleep (or waking too early) on <strong>3+ nights per week for 3+ months</strong>, despite adequate sleep opportunity, causing significant daytime impairment. Poor sleep quality is broader — it includes non-restorative sleep, environmental disruption, and lifestyle factors. Both respond to CBT-I. Insomnia disorder at clinical severity benefits from a formal CBT-I programme or referral to a sleep psychologist.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#sqFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="sqFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#sqFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq6">
-      What is a good sleep quality score?
-    </button>
-  </h3>
-  <div id="faq-sq6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      On the Pittsburgh Sleep Quality Index (PSQI), a score of 5 or below indicates good sleep quality. A score of 6–10 indicates moderate poor sleep quality. A score above 10 indicates severe poor sleep quality and warrants clinical evaluation. On this quiz, scores of 0–7 are Excellent or Good; 8–14 are Poor; 15–21 indicate Severe sleep problems. If you score 10 or above, consult a healthcare provider or sleep specialist.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq7">
-      How do I know if I have insomnia?
-    </button>
-  </h3>
-  <div id="faq-sq7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Clinical insomnia is defined as difficulty falling asleep (taking more than 30 minutes), staying asleep (waking for 30+ minutes during the night), or waking too early — occurring at least 3 nights per week for at least 3 months, with daytime impairment as a result. Occasional poor sleep is not insomnia. If your sleep problems match this pattern and are affecting your daily life, speak to a doctor. Cognitive Behavioural Therapy for Insomnia (CBT-I) is the most effective long-term treatment — more effective than sleeping medication.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sq8">
-      Can anxiety cause poor sleep quality?
-    </button>
-  </h3>
-  <div id="faq-sq8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Yes — anxiety is one of the most common causes of poor sleep quality. It elevates cortisol and activates the sympathetic nervous system ("fight or flight"), which is physiologically incompatible with sleep onset. Anxiety typically causes difficulty falling asleep (racing thoughts at bedtime) and early morning waking (cortisol peaks around 4–6 am). The relationship is bidirectional: poor sleep worsens anxiety, and anxiety worsens sleep. Breaking this cycle usually requires addressing both simultaneously — sleep hygiene improvements alone are often insufficient when anxiety is the primary driver.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="sqFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Quality Test vs Sleep Quantity — What Matters More?</h2>
     <p>Both matter, but quality is often undervalued. You can sleep 9 hours and wake exhausted if your sleep architecture is disrupted — too little deep sleep (slow-wave sleep), too little REM sleep, or frequent micro-arousals caused by sleep apnoea, environmental noise, or alcohol. The Pittsburgh Sleep Quality Index (which this quiz is based on) specifically measures quality across 7 domains because researchers recognised that sleep duration alone is a poor predictor of next-day function.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Signs You Have Poor Sleep Quality</h2>
@@ -278,34 +236,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:#fff; padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Best bedtime based on your wake-up time.'],
-        ['wake-up-calculator','⏰','Wake-Up Calculator','Best wake-up times from your bedtime.'],
-        ['nap-calculator','💤','Nap Calculator','Power nap or full cycle timing.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','How much sleep are you missing?'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Last safe coffee time for your bedtime.'],
-        ['jet-lag-calculator','✈️','Jet Lag Calculator','Sleep plan for long-haul flights.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 

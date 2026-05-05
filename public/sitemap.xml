@@ -1,124 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://mindspa.test/</loc>
+    <loc>https://mindsnap.co/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/sleep-tools</loc>
+    <loc>https://mindsnap.co/sleep-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/fitness-tools</loc>
+    <loc>https://mindsnap.co/fitness-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/nutrition-tools</loc>
+    <loc>https://mindsnap.co/nutrition-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/quizzes</loc>
+    <loc>https://mindsnap.co/quizzes</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/kids</loc>
+    <loc>https://mindsnap.co/kids</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/life-tools</loc>
+    <loc>https://mindsnap.co/life-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/games</loc>
+    <loc>https://mindsnap.co/games</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/iq-test</loc>
+    <loc>https://mindsnap.co/iq-test</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/what-time-should-i-sleep</loc>
+    <loc>https://mindsnap.co/what-time-should-i-sleep</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/how-much-sleep-do-i-need</loc>
+    <loc>https://mindsnap.co/how-much-sleep-do-i-need</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/what-is-a-good-bmi</loc>
+    <loc>https://mindsnap.co/what-is-a-good-bmi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/calories-to-lose-weight</loc>
+    <loc>https://mindsnap.co/calories-to-lose-weight</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/about</loc>
+    <loc>https://mindsnap.co/about</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/privacy</loc>
+    <loc>https://mindsnap.co/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>http://mindspa.test/sleep-calculator</loc>
+    <loc>https://mindsnap.co/sleep-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/wake-up-calculator</loc>
+    <loc>https://mindsnap.co/wake-up-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/nap-calculator</loc>
+    <loc>https://mindsnap.co/nap-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/baby-sleep-calculator</loc>
+    <loc>https://mindsnap.co/baby-sleep-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/sleep-debt-calculator</loc>
+    <loc>https://mindsnap.co/sleep-debt-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/caffeine-sleep-calculator</loc>
+    <loc>https://mindsnap.co/caffeine-sleep-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/jet-lag-calculator</loc>
+    <loc>https://mindsnap.co/jet-lag-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>
   </url>
   <url>
-    <loc>http://mindspa.test/sleep-quality-quiz</loc>
+    <loc>https://mindsnap.co/sleep-quality-quiz</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/bmi-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/calorie-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/calorie-deficit-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/macro-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/protein-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/one-rep-max-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/body-fat-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/heart-rate-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/running-pace-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/ideal-weight-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/workout-volume-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/water-intake-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/intermittent-fasting-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/age-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/days-between-dates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/days-until-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/due-date-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/ovulation-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/retirement-calculator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-03</lastmod>
+  </url>
+  <url>
+    <loc>https://mindsnap.co/life-percentage-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-05-03</lastmod>

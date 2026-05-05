@@ -1,0 +1,672 @@
+/*
+ * MindSnap — Design System
+ * Single source of truth for all design tokens, base styles, and utility classes.
+ * Change here → changes everywhere.
+ */
+
+/* ── Design Tokens (CSS Custom Properties) ───────────────────────────────────── */
+:root {
+  --primary-dark: #1a1a2e;
+  --primary-mid:  #0f3460;
+  --primary-cta:  #e94560;   /* decorative only — borders, icon accents, hero bg */
+  --cta-text:     #c23152;   /* accessible CTA for text/buttons on light bg — 5.1:1 */
+  --teal-text:    #0b7285;   /* accessible teal for text on white — 4.6:1 */
+  --green-text:   #1a7a32;   /* accessible green for text on white — 4.6:1 */
+  --purple-text:  #5048d6;   /* accessible purple for text on white — 5.5:1 */
+  --bg:           #f8f9fa;
+  --card:         #ffffff;
+  --text:         #555555;
+  --text-muted:   #666666;
+  --border:       #e0e0e0;
+  --sleep:        #6c63ff;
+  --fitness:      #28a745;
+  --nutrition:    #fd7e14;
+  --quiz:         #e94560;
+  --kids:         #17a2b8;
+  --life:         #6f42c1;
+  --games:        #ffc107;
+}
+
+/* ── Base Reset & Typography ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--primary-dark); line-height: 1.3; }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem);   font-weight: 700; color: var(--primary-mid);  line-height: 1.3; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; color: #16213e; }
+a  { color: var(--cta-text); text-decoration: none; }
+a:hover { text-decoration: underline; }
+p a, li a, .accordion-body a { text-decoration: underline; }
+
+/* ── Buttons ──────────────────────────────────────────────────────────────────── */
+.btn-cta {
+  background: var(--cta-text);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-weight: 600;
+  min-height: 48px;
+  border: none;
+  transition: background .2s, transform .1s;
+}
+.btn-cta:hover  { background: #c73652; color: #fff; transform: translateY(-1px); }
+.btn-cta:active { transform: translateY(0); }
+
+/* ── Cards ────────────────────────────────────────────────────────────────────── */
+.tool-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+  transition: transform .2s, box-shadow .2s;
+  background: var(--card);
+}
+.tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+
+/* ── Result box ───────────────────────────────────────────────────────────────── */
+.result-box {
+  background: #f0f2f5;
+  border-radius: 8px;
+  padding: 20px 24px;
+  animation: fadeIn .3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Badges ───────────────────────────────────────────────────────────────────── */
+.badge-searches {
+  background: rgba(233,69,96,.1);
+  color: var(--primary-cta);
+  border-radius: 50px;
+  padding: 3px 10px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+/* ── Form controls ────────────────────────────────────────────────────────────── */
+.form-control, .form-select {
+  min-height: 48px;
+  border-radius: 8px;
+  border-color: var(--border);
+  font-size: 16px;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-cta);
+  box-shadow: 0 0 0 3px rgba(233,69,96,.15);
+}
+
+/* ── Base section padding ─────────────────────────────────────────────────────── */
+section { padding: 80px 0; }
+@media (max-width: 768px) {
+  section  { padding: 40px 0; }
+  .card    { padding: 16px; }
+  .btn-cta { width: 100%; min-height: 52px; }
+}
+
+/* ── Border utilities ─────────────────────────────────────────────────────────── */
+.border-sleep     { border-color: var(--sleep)     !important; }
+.border-fitness   { border-color: var(--fitness)   !important; }
+.border-nutrition { border-color: var(--nutrition) !important; }
+.border-quiz      { border-color: var(--quiz)      !important; }
+.border-kids      { border-color: var(--kids)      !important; }
+.border-life      { border-color: var(--life)      !important; }
+.border-games     { border-color: var(--games)     !important; }
+.bg-dark-brand    { background: var(--primary-dark); }
+.bg-mid-brand     { background: var(--primary-mid); }
+
+/* ── Sections ────────────────────────────────────────────────────────────────── */
+.ms-hero {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%);
+  padding: 60px 0 0;
+}
+.ms-section-white {
+  background: #fff;
+  padding: 72px 0;
+}
+.ms-section-muted {
+  background: var(--bg);
+  padding: 72px 0;
+}
+.ms-section-accent {
+  background: #f8f9ff;
+  padding: 60px 0;
+}
+.ms-section-seo {
+  background: #fff;
+  padding: 72px 0;
+  border-top: 1px solid #f0f0f0;
+}
+@media (max-width: 768px) {
+  .ms-hero { padding: 40px 0 0; }
+  .ms-section-white,
+  .ms-section-muted,
+  .ms-section-accent,
+  .ms-section-seo { padding: 40px 0; }
+}
+
+/* ── Hero typography ─────────────────────────────────────────────────────────── */
+.ms-hero-title {
+  color: #fff;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+}
+.ms-hero-desc {
+  color: rgba(255, 255, 255, .7);
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+
+/* ── Breadcrumb (hero dark background) ──────────────────────────────────────── */
+.ms-breadcrumb {
+  font-size: .82rem;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+.ms-breadcrumb .breadcrumb-item a {
+  color: rgba(255, 255, 255, .5);
+  text-decoration: none;
+}
+.ms-breadcrumb .breadcrumb-item a:hover {
+  color: rgba(255, 255, 255, .8);
+}
+.ms-breadcrumb .breadcrumb-item.active {
+  color: rgba(255, 255, 255, .8);
+}
+.ms-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(255, 255, 255, .3);
+}
+
+/* ── Tool card (hero card that overlaps next section) ───────────────────────── */
+.ms-tool-card {
+  border-radius: 18px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .25) !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Quick facts column (hero right side) ───────────────────────────────────── */
+.ms-facts-wrap {
+  color: rgba(255, 255, 255, .85);
+}
+.ms-facts-title {
+  color: #fff;
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.ms-fact-pill {
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: .82rem;
+  min-width: 70px;
+  text-align: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+.ms-fact-pill-sleep     { background: var(--sleep); }
+.ms-fact-pill-fitness   { background: var(--fitness); }
+.ms-fact-pill-nutrition { background: var(--nutrition); }
+.ms-fact-pill-life      { background: var(--life); }
+.ms-fact-pill-quiz      { background: var(--quiz); }
+.ms-fact-pill-kids      { background: var(--kids); }
+.ms-fact-pill-dark      { background: var(--primary-mid); }
+.ms-fact-label {
+  font-size: .86rem;
+  line-height: 1.5;
+  padding-top: 4px;
+}
+.ms-fact-source {
+  font-size: .75rem;
+  color: rgba(255, 255, 255, .35);
+  margin-top: 20px;
+}
+
+/* ── Section badge ("How It Works", "Science", etc.) ────────────────────────── */
+.ms-badge {
+  display: inline-block;
+  font-size: .8rem;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 600;
+}
+.ms-badge-sleep     { background: rgba(108,99,255,.1);  color: var(--sleep); }
+.ms-badge-fitness   { background: rgba(40,167,69,.1);   color: var(--fitness); }
+.ms-badge-nutrition { background: rgba(253,126,20,.1);  color: var(--nutrition); }
+.ms-badge-life      { background: rgba(111,66,193,.1);  color: var(--life); }
+.ms-badge-quiz      { background: rgba(233,69,96,.1);   color: var(--cta-text); }
+.ms-badge-kids      { background: rgba(23,162,184,.1);  color: var(--teal-text); }
+.ms-badge-games     { background: rgba(255,193,7,.15);  color: #856404; }
+
+/* ── Data / reference box ───────────────────────────────────────────────────── */
+.ms-data-box {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+/* ── Horizontal divider ─────────────────────────────────────────────────────── */
+.ms-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin-bottom: 16px;
+}
+
+/* ── Result stat boxes ───────────────────────────────────────────────────────── */
+.ms-stat {
+  border-radius: 10px;
+  padding: 14px 8px;
+  text-align: center;
+}
+.ms-stat-green  { background: #edfff3; }
+.ms-stat-blue   { background: #e8f4ff; }
+.ms-stat-orange { background: #fff8ec; }
+.ms-stat-pink   { background: #fff0f3; }
+.ms-stat-purple { background: #f0f4ff; }
+.ms-stat-grey   { background: #eef3ff; }
+
+.ms-stat-val    { font-size: 1.4rem; font-weight: 700; }
+.ms-stat-val-lg { font-size: 1.6rem; font-weight: 700; }
+.ms-stat-val-sm { font-size: 1.1rem; font-weight: 700; }
+.ms-stat-label  { font-size: .72rem; color: #888; }
+
+/* ── FAQ accordion ───────────────────────────────────────────────────────────── */
+.ms-faq-item {
+  border: none !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+}
+.ms-faq-btn {
+  font-size: .9rem !important;
+  font-weight: 600 !important;
+  background: #fff !important;
+  color: var(--primary-dark) !important;
+}
+.ms-faq-btn:not(.collapsed) {
+  background: #fff !important;
+  color: var(--primary-dark) !important;
+  box-shadow: none !important;
+}
+.ms-faq-body {
+  color: #555;
+  font-size: .88rem;
+  line-height: 1.75;
+}
+
+/* ── Related tool link cards ─────────────────────────────────────────────────── */
+.ms-tool-link {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none !important;
+}
+.ms-tool-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .1) !important;
+}
+.ms-tool-link-icon { font-size: 1.6rem; flex-shrink: 0; }
+.ms-tool-link-name { font-size: .88rem; font-weight: 600; color: var(--primary-dark); }
+.ms-tool-link-desc { font-size: .78rem; color: #888; margin-top: 2px; }
+
+/* ── Data grid cards (age groups, BMI table, etc.) ───────────────────────────── */
+.ms-card-data {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+}
+
+/* ── Note / disclaimer boxes ─────────────────────────────────────────────────── */
+.ms-note {
+  border-radius: 8px;
+  border-left: 4px solid;
+  padding: 16px 20px;
+  font-size: .85rem;
+}
+.ms-note-blue  { background: #f0f7ff; border-color: var(--sleep);   color: #1a4a7a; }
+.ms-note-green { background: #f0fff4; border-color: var(--fitness); color: #155724; }
+.ms-note-orange { background: #fff8ec; border-color: var(--nutrition); color: #6c3a00; }
+.ms-note-purple { background: #f3f0ff; border-color: var(--life);   color: #3d2b8e; }
+
+/* ── Long-tail content container ─────────────────────────────────────────────── */
+.ms-longtail {
+  max-width: 860px;
+}
+
+/* ── SEO text block ──────────────────────────────────────────────────────────── */
+.ms-seo-body { color: #555; font-size: .92rem; line-height: 1.8; }
+.ms-seo-h2   { font-size: 1.35rem; }
+.ms-seo-h3   { font-size: 1.05rem; margin-top: 24px; margin-bottom: 10px; }
+
+/* ── Table header ────────────────────────────────────────────────────────────── */
+.ms-table-head { background: var(--primary-dark); color: #fff; }
+
+/* ── Progress bar (life-percentage) ─────────────────────────────────────────── */
+.ms-progress-track {
+  background: #f0f0f0;
+  border-radius: 50px;
+  height: 24px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .06);
+}
+.ms-progress-bar {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 1s ease;
+  background: linear-gradient(90deg, #28a745 0%, #fd7e14 60%, #e94560 100%);
+}
+
+/* ── Mode / unit toggle buttons ──────────────────────────────────────────────── */
+.ms-toggle-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .88rem;
+  background: #f8f9fa;
+  color: #555;
+  border: 1px solid #e0e0e0;
+}
+.ms-toggle-btn.active-sleep     { background: var(--sleep);     color: #fff; border-color: var(--sleep); }
+.ms-toggle-btn.active-fitness   { background: var(--fitness);   color: #fff; border-color: var(--fitness); }
+.ms-toggle-btn.active-nutrition { background: var(--nutrition); color: #fff; border-color: var(--nutrition); }
+.ms-toggle-btn.active-life      { background: var(--life);      color: #fff; border-color: var(--life); }
+.ms-toggle-btn.active-cta       { background: var(--cta-text);  color: #fff; border-color: var(--cta-text); }
+
+/* ── Stage/step pills (sleep cycle stages, etc.) ─────────────────────────────── */
+.ms-stage-pill {
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: .75rem;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #fff;
+}
+
+/* ── Inline colour utilities (text) ─────────────────────────────────────────── */
+.text-sleep     { color: var(--sleep); }
+.text-fitness   { color: var(--fitness); }
+.text-nutrition { color: var(--nutrition); }
+.text-life      { color: var(--life); }
+.text-quiz      { color: var(--quiz); }
+.text-kids      { color: var(--kids); }
+.text-brand     { color: var(--primary-dark); }
+.text-mid       { color: var(--primary-mid); }
+.text-cta       { color: var(--cta-text); }
+.text-teal      { color: var(--teal-text); }
+.text-green     { color: var(--green-text); }
+.text-purple    { color: var(--purple-text); }
+.text-muted-sm  { font-size: .82rem; color: var(--text-muted); }
+.text-xs        { font-size: .75rem; }
+.text-sm        { font-size: .88rem; }
+.text-md        { font-size: .92rem; }
+
+/* ── Background utilities ────────────────────────────────────────────────────── */
+.bg-sleep     { background: var(--sleep); }
+.bg-fitness   { background: var(--fitness); }
+.bg-nutrition { background: var(--nutrition); }
+.bg-life      { background: var(--life); }
+.bg-quiz      { background: var(--quiz); }
+.bg-kids      { background: var(--kids); }
+
+/* ── Icon emoji containers ───────────────────────────────────────────────────── */
+.ms-icon-lg  { font-size: 2rem;   margin-bottom: 8px; }
+.ms-icon-xl  { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* ── Divider lines ───────────────────────────────────────────────────────────── */
+.ms-hr { border: none; border-top: 1px solid #f0f0f0; margin: 0; }
+
+/* ── fw helpers (Bootstrap only has fw-bold, not fw-600 etc.) ─────────────────── */
+.fw-600 { font-weight: 600 !important; }
+.fw-700 { font-weight: 700 !important; }
+
+/* ── Category page — top breadcrumb (light background) ──────────────────────── */
+.ms-cat-nav {
+  background: #f0f2f5;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ms-cat-nav .breadcrumb {
+  font-size: .84rem;
+  margin: 0;
+}
+.ms-cat-nav .breadcrumb-item a {
+  color: var(--primary-cta);
+  text-decoration: none;
+}
+.ms-cat-nav .breadcrumb-item.active {
+  color: var(--text-muted);
+}
+
+/* ── Hero icon (large emoji in hero) ────────────────────────────────────────── */
+.ms-hero-icon { font-size: 2.8rem; line-height: 1; }
+
+/* ── Hero desc wide (category hero allows wider paragraph) ──────────────────── */
+.ms-hero-desc-wide {
+  color: rgba(255, 255, 255, .7);
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin-bottom: 28px;
+}
+
+/* ── Hero checklist items ────────────────────────────────────────────────────── */
+.ms-hero-feature { color: rgba(255, 255, 255, .65); font-size: .88rem; }
+
+/* ── Hero stat widget (translucent box, right column) ────────────────────────── */
+.ms-hero-stat-box {
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+}
+.ms-hero-stat-box-fitness  { background: rgba(40,167,69,.12);  border: 1px solid rgba(40,167,69,.25); }
+.ms-hero-stat-box-sleep    { background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.25); }
+.ms-hero-stat-box-nutrition{ background: rgba(253,126,20,.12); border: 1px solid rgba(253,126,20,.25); }
+.ms-hero-stat-box-life     { background: rgba(111,66,193,.12); border: 1px solid rgba(111,66,193,.25); }
+.ms-hero-stat-box-quiz     { background: rgba(233,69,96,.12);  border: 1px solid rgba(233,69,96,.25); }
+.ms-hero-stat-box-kids     { background: rgba(23,162,184,.12); border: 1px solid rgba(23,162,184,.25); }
+.ms-hero-stat-box-games    { background: rgba(255,193,7,.12);  border: 1px solid rgba(255,193,7,.25); }
+.ms-hero-stat-num  { font-size: 3rem; margin-bottom: 8px; color: #fff; }
+.ms-hero-stat-sub  { color: rgba(255,255,255,.7); font-size: .9rem; }
+.ms-hero-stat-div  { height: 1px; background: rgba(255,255,255,.1); margin: 14px 0; }
+.ms-hero-stat-val  { font-size: 1.6rem; margin-bottom: 4px; color: #fff; }
+
+/* ── Category tools grid section ────────────────────────────────────────────── */
+.ms-section-tools { padding: 56px 0; }
+.ms-section-h2    { font-size: 1.5rem; margin: 0; }
+
+/* ── Category tool card border accents ──────────────────────────────────────── */
+.ms-tool-card-fitness  { border-left: 4px solid var(--fitness) !important; }
+.ms-tool-card-sleep    { border-left: 4px solid var(--sleep) !important; }
+.ms-tool-card-nutrition{ border-left: 4px solid var(--nutrition) !important; }
+.ms-tool-card-life     { border-left: 4px solid var(--life) !important; }
+.ms-tool-card-quiz     { border-left: 4px solid var(--cta-text) !important; }
+.ms-tool-card-kids     { border-left: 4px solid var(--teal-text) !important; }
+.ms-tool-card-games    { border-left: 4px solid #856404 !important; }
+
+/* ── Tool card internals ─────────────────────────────────────────────────────── */
+.ms-tool-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+.ms-tool-name { font-weight: 700; color: var(--primary-dark); font-size: .95rem; margin-bottom: 4px; }
+.ms-tool-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── Mini stat cards (quick reference grid in section-white) ─────────────────── */
+.ms-mini-icon  { font-size: 1.5rem; margin-bottom: 6px; }
+.ms-mini-val   { font-weight: 800; font-size: 1rem; color: var(--primary-dark); }
+.ms-mini-label { font-size: .75rem; color: var(--text-muted); margin-top: 3px; }
+
+/* ── Cycle stat cards (sleep why-cycles section) ─────────────────────────────── */
+.ms-cycle-icon  { font-size: 1.8rem; margin-bottom: 8px; }
+.ms-cycle-val   { font-weight: 800; font-size: 1.3rem; color: var(--primary-dark); }
+.ms-cycle-label { font-size: .8rem; color: var(--text-muted); margin-top: 4px; }
+
+/* ── Section body text ───────────────────────────────────────────────────────── */
+.ms-body-text { color: var(--text); line-height: 1.8; margin-bottom: 16px; }
+
+/* ── Related tools section ───────────────────────────────────────────────────── */
+.ms-section-related { padding: 40px 0 64px; background: #f8f9fa; }
+.ms-related-h2      { font-size: 1.3rem; }
+.ms-related-icon    { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+.ms-related-label   { font-weight: 700; color: var(--primary-dark); font-size: .9rem; }
+.ms-related-desc    { font-size: .78rem; color: var(--text-muted); }
+
+/* ── Alternate category hero (life/nutrition/quizzes/games) ─────────────────── */
+.ms-cat-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 64px 0 48px;
+}
+.ms-cat-hero-kids {
+  background: linear-gradient(135deg, #0f4c75 0%, #1b6ca8 50%, #17a2b8 100%);
+  padding: 64px 0 48px;
+}
+.ms-cat-hero-h1 { color: #fff; margin-bottom: 16px; }
+.ms-cat-hero-p  { color: rgba(255,255,255,.75); font-size: 1.1rem; line-height: 1.7; max-width: 620px; margin-bottom: 24px; }
+.ms-cat-hero-p-bright { color: rgba(255,255,255,.85); font-size: 1.1rem; line-height: 1.7; max-width: 620px; margin-bottom: 24px; }
+
+/* ── Category hero badge variants ───────────────────────────────────────────── */
+.ms-cat-badge-life     { background:rgba(111,66,193,.2); color:#c9a8f5; border:1px solid rgba(111,66,193,.4); border-radius:50px; font-size:.8rem; padding:5px 14px; }
+.ms-cat-badge-nutrition{ background:rgba(253,126,20,.2); color:#ffb066; border:1px solid rgba(253,126,20,.4); border-radius:50px; font-size:.8rem; padding:5px 14px; }
+.ms-cat-badge-quiz     { background:rgba(233,69,96,.2);  color:#ff8fa3; border:1px solid rgba(233,69,96,.4);  border-radius:50px; font-size:.8rem; padding:5px 14px; }
+.ms-cat-badge-games    { background:rgba(255,193,7,.2);  color:#ffd84d; border:1px solid rgba(255,193,7,.4);  border-radius:50px; font-size:.8rem; padding:5px 14px; }
+
+/* ── Alternate FAQ accordion (border variant) ────────────────────────────────── */
+.ms-faq-item-border {
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.ms-faq-btn-alt {
+  font-weight: 600;
+  font-size: .95rem;
+  background: transparent;
+  color: var(--primary-dark);
+}
+.ms-faq-body-alt {
+  font-size: .92rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* ── SEO section (py-5 + accent background + longtail container) ─────────────── */
+.ms-section-seo-alt {
+  background: #f8f9ff;
+  padding: 48px 0;
+}
+
+/* ── Stats section ───────────────────────────────────────────────────────────── */
+.ms-section-stats { padding: 48px 0; background: #fff; }
+.ms-stat-val-md { font-weight: 800; font-size: 1.1rem; color: var(--primary-dark); }
+.ms-stat-val-quiz { font-weight: 800; font-size: 1.2rem; color: var(--primary-dark); }
+
+/* ── Nutrition tool card (larger icon variant) ───────────────────────────────── */
+.ms-tool-icon-lg { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
+.ms-tool-name-lg { font-weight: 700; color: var(--primary-dark); font-size: 1.05rem; margin-bottom: 6px; }
+.ms-tool-desc-lg { font-size: .88rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ── Navbar dropdown ─────────────────────────────────────────────────────────── */
+.ms-nav-item { position: relative; }
+
+.ms-nav-item > .ms-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  color: rgba(255,255,255,.82);
+  font-size: .875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: color .15s, background .15s;
+  cursor: pointer;
+}
+.ms-nav-item > .ms-nav-link:hover,
+.ms-nav-item:hover > .ms-nav-link {
+  color: #fff;
+  background: rgba(255,255,255,.08);
+}
+
+/* Chevron */
+.ms-nav-link .chevron {
+  width: 12px; height: 12px;
+  stroke: currentColor; stroke-width: 2.5;
+  fill: none; flex-shrink: 0;
+  transition: transform .2s;
+}
+.ms-nav-item:hover .chevron { transform: rotate(180deg); }
+
+/* Dropdown panel */
+.ms-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 360px;
+  max-width: 420px;
+  width: max-content;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.13);
+  padding: 14px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .18s, transform .18s;
+  transform: translateX(-50%) translateY(6px);
+  z-index: 1050;
+}
+.ms-nav-item:hover .ms-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Keep open when mouse moves into the panel */
+.ms-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: 0; right: 0;
+  height: 10px;
+}
+
+/* Tool link inside dropdown */
+.ms-tool-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background .12s;
+}
+.ms-tool-link:hover { background: #f5f6f8; }
+.ms-tool-link .t-icon { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+.ms-tool-link .t-name { font-size: .8rem; font-weight: 600; color: #1a1a2e; line-height: 1.2; }
+.ms-tool-link .t-desc { font-size: .7rem; color: #999; margin-top: 1px; }
+
+/* Category footer link */
+.ms-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--primary-cta);
+  text-decoration: none;
+  margin-top: 4px;
+}
+.ms-see-all:hover { text-decoration: underline; }

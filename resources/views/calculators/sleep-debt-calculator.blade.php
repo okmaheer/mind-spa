@@ -49,29 +49,60 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'Can you catch up on sleep debt at weekends?',
+             'a' => 'Partially. Research (Spiegel et al., 2019) shows that weekend recovery sleep can restore some cognitive functions and reduce subjective sleepiness. However, metabolic markers — including insulin sensitivity, inflammation, and appetite hormones — do not fully normalise. The best strategy is consistent sleep throughout the week, not binge-sleeping at weekends.'],
+  ['q' => 'How much sleep debt is dangerous?',
+             'a' => 'Any consistent sleep debt has measurable effects. A 2003 landmark study (Van Dongen, UPenn) found that 14 consecutive nights of 6-hour sleep produced cognitive impairment equivalent to 2 days of total sleep deprivation. Critically, subjects rated their own impairment as minimal — the brain loses the ability to gauge its own deficit.'],
+  ['q' => 'Does everyone need 8 hours of sleep?',
+             'a' => 'No. Sleep need is genetically determined and varies from 6 to 10 hours among healthy adults. A tiny minority (under 3%) carry a genetic variant (DEC2 mutation) allowing function on 6 hours. But most people who claim to "be fine" on 6 hours are in fact chronically impaired — they just can\'t tell. True low-sleep-need individuals are rare.'],
+  ['q' => 'How can I tell if I have a sleep debt?',
+             'a' => 'Key signs: you need an alarm to wake up most mornings, you\'d sleep longer on a free day, you fall asleep within 5 minutes of sitting still in a warm room, you rely on caffeine to feel functional before noon, and you sleep more than 2 hours extra on weekends. All of these indicate meaningful sleep debt.'],
+  ['q' => 'What is the fastest way to recover from sleep debt?',
+             'a' => 'Gradually extend sleep by 30–60 minutes per night rather than attempting massive catch-up sessions. Going from 6 to 9 hours suddenly disrupts your circadian rhythm. Aim for your target sleep duration consistently for 10–14 days. Avoid stimulants after 2 PM, maintain consistent wake times, and address any sleep environment issues first.'],
+  ['q' => 'How does sleep debt compound — why does it get worse each day?',
+             'a' => 'Sleep debt accumulates because each insufficient night increases adenosine (the brain\'s sleepiness chemical) without full clearance. A 2003 UPenn study showed that <strong>14 nights of 6h sleep</strong> produced cognitive impairment matching 48 hours of total sleep deprivation. The insidious part: subjects rated themselves as only "slightly impaired" — the brain loses its ability to gauge its own deficit after about day 5.'],
+  ['q' => 'Does exercise help recover sleep debt faster?',
+             'a' => 'Regular aerobic exercise increases slow-wave deep sleep — the most restorative stage — in subsequent nights, which can accelerate debt recovery. However, time it correctly: <strong>exercise before 3 PM</strong> for best effect. Late-evening vigorous exercise raises core temperature and cortisol, delaying sleep onset. Morning outdoor exercise (with sunlight exposure) is the highest-ROI combination for sleep debt recovery.'],
+  ['q' => 'Does sleeping in on weekends pay off sleep debt?', 'a' => 'Partially — but with a cost. Weekend lie-ins do help recover some sleep debt, but sleeping 2–3 hours later than your weekday wake time shifts your circadian rhythm, creating "social jet lag." This makes Monday mornings feel like jet lag and actually makes weekday sleep worse. A better strategy: go to bed slightly earlier on weeknights rather than sleeping dramatically later on weekends.'],
+  ['q' => 'How much sleep debt is dangerous?', 'a' => 'Any sleep debt impairs function, but research suggests cognitive performance begins measurably declining after a cumulative deficit of 20+ hours (roughly 3 nights of 6-hour sleep instead of 8). A deficit of 40+ hours produces impairment equivalent to being legally drunk. Chronic sleep debt of 2+ hours per night sustained over months is associated with increased risk of obesity, type 2 diabetes, cardiovascular disease, and depression.'],
+  ['q' => 'Can you build a tolerance to sleep deprivation?', 'a' => 'You can build a subjective tolerance — you stop feeling as sleepy — but your objective cognitive impairment continues to worsen. This is one of the most well-documented findings in sleep research (Van Dongen et al., 2003): people chronically restricted to 6 hours per night stopped reporting feeling sleepy after a few days, yet their reaction times and cognitive tests continued declining to levels equivalent to total sleep deprivation. Feeling fine does not mean you are performing fine.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Best bedtime based on your wake-up time.'],
+  ['icon' => '⏰', 'name' => 'Wake-Up Calculator', 'slug' => 'wake-up-calculator', 'desc' => 'Best wake-up times from your bedtime.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Recover sleep debt with a properly timed nap.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => 'Score your sleep quality in 10 questions.'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Stop caffeine at the right time.'],
+  ['icon' => '✈️', 'name' => 'Jet Lag Calculator', 'slug' => 'jet-lag-calculator', 'desc' => 'Plan sleep around long flights.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Sleep Debt Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Sleep Debt Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           📉 Sleep Debt Calculator — How Much Sleep Are You Missing?
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Enter how much sleep you're actually getting versus what you need. See your debt in hours and get a recovery plan.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div class="mb-4">
@@ -116,7 +147,7 @@
             </button>
 
             <div id="debtResult" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <div id="debtContent"></div>
             </div>
 
@@ -125,8 +156,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Sleep Debt Impact</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Sleep Debt Impact</h3>
           @foreach([
             ['3×',    'Higher cold risk after <7 hrs/night (Carnegie Mellon)'],
             ['48h',   'Equivalent impairment from 2 weeks of 6h sleep'],
@@ -135,11 +166,11 @@
             ['23%',   'Adults sleeping under 7 hours per night (CDC)'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:58px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
-          <p style="font-size:.75rem; color:rgba(255,255,255,.35); margin-top:20px;">Sources: CMU, UPenn, CDC, NIH</p>
+          <p class="ms-fact-source">Sources: CMU, UPenn, CDC, NIH</p>
         </div>
       </div>
 
@@ -148,7 +179,7 @@
 </section>
 
 {{-- Effects --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">The Real Cost of Sleep Debt</h2>
     <p class="text-center text-muted mb-5" style="max-width:540px; margin:0 auto 40px;">Research-backed effects of cumulative sleep deprivation at different debt levels.</p>
@@ -172,11 +203,11 @@
 </section>
 
 {{-- Compound Effect --}}
-<section style="padding:56px 0; background:#fff;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">The Research</span>
+        <span class="ms-badge ms-badge-sleep mb-3">The Research</span>
         <h2 class="mb-4">Why Sleep Debt Feels "Fine" Until It's Not</h2>
         <p>The most dangerous aspect of sleep debt isn't the impairment itself — it's that the brain loses its ability to accurately gauge that impairment. A landmark 2003 study by Van Dongen and colleagues at the University of Pennsylvania had participants sleep 6 or 4 hours per night for 14 consecutive nights.</p>
         <p>By day 14, the 6-hour group showed cognitive performance equivalent to someone who had been awake for <strong>48 straight hours</strong>. Yet subjective sleepiness ratings plateaued around day 5 — participants thought they had adapted. They hadn't. They had simply lost the neurological sensitivity to detect their own deficit.</p>
@@ -206,84 +237,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:var(--bg); padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="debtFaq">
-          @foreach([
-            ['Can you catch up on sleep debt at weekends?',
-             'Partially. Research (Spiegel et al., 2019) shows that weekend recovery sleep can restore some cognitive functions and reduce subjective sleepiness. However, metabolic markers — including insulin sensitivity, inflammation, and appetite hormones — do not fully normalise. The best strategy is consistent sleep throughout the week, not binge-sleeping at weekends.'],
-            ['How much sleep debt is dangerous?',
-             'Any consistent sleep debt has measurable effects. A 2003 landmark study (Van Dongen, UPenn) found that 14 consecutive nights of 6-hour sleep produced cognitive impairment equivalent to 2 days of total sleep deprivation. Critically, subjects rated their own impairment as minimal — the brain loses the ability to gauge its own deficit.'],
-            ['Does everyone need 8 hours of sleep?',
-             'No. Sleep need is genetically determined and varies from 6 to 10 hours among healthy adults. A tiny minority (under 3%) carry a genetic variant (DEC2 mutation) allowing function on 6 hours. But most people who claim to "be fine" on 6 hours are in fact chronically impaired — they just can\'t tell. True low-sleep-need individuals are rare.'],
-            ['How can I tell if I have a sleep debt?',
-             'Key signs: you need an alarm to wake up most mornings, you\'d sleep longer on a free day, you fall asleep within 5 minutes of sitting still in a warm room, you rely on caffeine to feel functional before noon, and you sleep more than 2 hours extra on weekends. All of these indicate meaningful sleep debt.'],
-            ['What is the fastest way to recover from sleep debt?',
-             'Gradually extend sleep by 30–60 minutes per night rather than attempting massive catch-up sessions. Going from 6 to 9 hours suddenly disrupts your circadian rhythm. Aim for your target sleep duration consistently for 10–14 days. Avoid stimulants after 2 PM, maintain consistent wake times, and address any sleep environment issues first.'],
-            ['How does sleep debt compound — why does it get worse each day?',
-             'Sleep debt accumulates because each insufficient night increases adenosine (the brain\'s sleepiness chemical) without full clearance. A 2003 UPenn study showed that <strong>14 nights of 6h sleep</strong> produced cognitive impairment matching 48 hours of total sleep deprivation. The insidious part: subjects rated themselves as only "slightly impaired" — the brain loses its ability to gauge its own deficit after about day 5.'],
-            ['Does exercise help recover sleep debt faster?',
-             'Regular aerobic exercise increases slow-wave deep sleep — the most restorative stage — in subsequent nights, which can accelerate debt recovery. However, time it correctly: <strong>exercise before 3 PM</strong> for best effect. Late-evening vigorous exercise raises core temperature and cortisol, delaying sleep onset. Morning outdoor exercise (with sunlight exposure) is the highest-ROI combination for sleep debt recovery.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#debtFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="debtFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#debtFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd6">
-      Does sleeping in on weekends pay off sleep debt?
-    </button>
-  </h3>
-  <div id="faq-sd6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Partially — but with a cost. Weekend lie-ins do help recover some sleep debt, but sleeping 2–3 hours later than your weekday wake time shifts your circadian rhythm, creating "social jet lag." This makes Monday mornings feel like jet lag and actually makes weekday sleep worse. A better strategy: go to bed slightly earlier on weeknights rather than sleeping dramatically later on weekends.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd7">
-      How much sleep debt is dangerous?
-    </button>
-  </h3>
-  <div id="faq-sd7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Any sleep debt impairs function, but research suggests cognitive performance begins measurably declining after a cumulative deficit of 20+ hours (roughly 3 nights of 6-hour sleep instead of 8). A deficit of 40+ hours produces impairment equivalent to being legally drunk. Chronic sleep debt of 2+ hours per night sustained over months is associated with increased risk of obesity, type 2 diabetes, cardiovascular disease, and depression.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-sd8">
-      Can you build a tolerance to sleep deprivation?
-    </button>
-  </h3>
-  <div id="faq-sd8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      You can build a subjective tolerance — you stop feeling as sleepy — but your objective cognitive impairment continues to worsen. This is one of the most well-documented findings in sleep research (Van Dongen et al., 2003): people chronically restricted to 6 hours per night stopped reporting feeling sleepy after a few days, yet their reaction times and cognitive tests continued declining to levels equivalent to total sleep deprivation. Feeling fine does not mean you are performing fine.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="debtFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Can You Recover from Chronic Sleep Deprivation?</h2>
     <p>Yes — but not as quickly as most people think. Research from the University of Colorado found that one or two "recovery" nights does not fully reverse the cognitive impairments from a week of sleep restriction. Full cognitive recovery typically requires 3 consecutive nights of adequate sleep after moderate sleep debt, and up to 2–3 weeks of consistent sleep after chronic deprivation. Metabolic markers (insulin sensitivity, cortisol levels) take even longer to normalise.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does It Take to Pay Back Sleep Debt?</h2>
@@ -293,34 +251,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:#fff; padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Best bedtime based on your wake-up time.'],
-        ['wake-up-calculator','⏰','Wake-Up Calculator','Best wake-up times from your bedtime.'],
-        ['nap-calculator','💤','Nap Calculator','Recover sleep debt with a properly timed nap.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','Score your sleep quality in 10 questions.'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Stop caffeine at the right time.'],
-        ['jet-lag-calculator','✈️','Jet Lag Calculator','Plan sleep around long flights.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 
@@ -381,14 +313,14 @@
     html += '<div class="row g-3 mb-3">'
       + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
       + '<div style="font-size:1.3rem; font-weight:800; color:var(--sleep);">' + avgActual.toFixed(1) + 'h</div>'
-      + '<div style="font-size:.72rem; color:#888;">Avg per night</div></div></div>'
+      + '<div class="ms-stat-label">Avg per night</div></div></div>'
       + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
       + '<div style="font-size:1.3rem; font-weight:800; color:var(--sleep);">' + needed + 'h</div>'
-      + '<div style="font-size:.72rem; color:#888;">You need</div></div></div>'
+      + '<div class="ms-stat-label">You need</div></div></div>'
       + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
       + '<div style="font-size:1.3rem; font-weight:800; color:' + color + ';">'
       + (debt <= 0 ? '0' : '-' + (needed - avgActual).toFixed(1)) + 'h</div>'
-      + '<div style="font-size:.72rem; color:#888;">Per night gap</div></div></div>'
+      + '<div class="ms-stat-label">Per night gap</div></div></div>'
       + '</div>';
 
     if (debt > 0) {

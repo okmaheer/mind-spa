@@ -49,29 +49,58 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'What is a wake window and why does it matter?',
+             'a' => 'A wake window is the maximum time a baby can comfortably stay awake between sleeps. Exceeding the wake window causes overtiredness — a paradoxical state where elevated cortisol makes it harder for the baby to fall asleep and stay asleep. Watching wake windows is one of the most effective tools for reducing infant sleep problems.'],
+  ['q' => 'When do babies develop a circadian rhythm?',
+             'a' => 'Babies begin developing a circadian rhythm between 3–6 months as melatonin production matures. Before this, they have no meaningful internal clock — which is why newborn sleep is distributed evenly around the clock rather than concentrated at night. Exposure to natural light during the day and darkness at night from birth helps the rhythm develop faster.'],
+  ['q' => 'Is it normal for babies to wake at night?',
+             'a' => 'Yes. Infant sleep is biologically different from adult sleep. Babies spend proportionally more time in lighter REM sleep and have shorter sleep cycles (45–50 minutes vs. 90 minutes in adults). Night waking is normal and expected through at least the first year. Frequent waking after 6 months can sometimes be addressed with sleep training approaches, but consult your paediatrician first.'],
+  ['q' => 'What is the safe sleep recommendation?',
+             'a' => 'The AAP recommends placing babies on their back on a firm, flat surface for every sleep, in the parents\' room but on a separate sleep surface for at least the first 6 months. No soft bedding, pillows, bumpers, or toys in the sleep space. Room sharing (not bed sharing) reduces SIDS risk by up to 50%.'],
+  ['q' => 'How do I know if my baby is overtired?',
+             'a' => 'Signs of overtiredness include: difficulty falling asleep despite showing sleep cues, arching back, increased fussiness after sleep cues appear, rubbing eyes vigorously, pulling ears, yawning, losing interest in activity, and sudden crying episodes. Acting on early sleep cues (yawning, eye rubbing, glazed look) before overtiredness sets in makes settling much easier.'],
+  ['q' => 'Is room-sharing or bed-sharing safer?',
+             'a' => 'The <strong>AAP recommends room-sharing</strong> (baby in their own sleep surface in your room) for at least the first 6 months — this reduces SIDS risk by up to 50%. Bed-sharing (same sleep surface) is not recommended due to suffocation and SIDS risk, especially under 4 months. If you choose to bedshare, follow safe bedsharing guidelines: firm mattress, no alcohol or sedatives, no soft bedding near the baby.'],
+  ['q' => 'When should my baby sleep through the night?',
+             'a' => 'Most babies can manage 6–8 hour stretches by <strong>4–6 months</strong> when they have sufficient weight and are feeding well. Full 8–12 hour nights are typical from 6–9 months, though every baby is different. Before 4 months, night feeds are biologically necessary — not a habit to be broken. After 6 months, if frequent waking continues, gentle sleep training approaches can be discussed with your paediatrician.'],
+  ['q' => 'How many naps should a 6-month-old have?', 'a' => 'Most 6-month-olds take 2–3 naps per day totalling 3–4 hours, with nighttime sleep of around 10–11 hours. By 6–8 months, many babies consolidate from 3 naps to 2. Signs your baby is ready to drop a nap: taking longer than 20 minutes to fall asleep at nap time, or nighttime sleep is reducing without reason.'],
+  ['q' => 'At what age do babies sleep through the night?', 'a' => 'Most babies sleep a 6–8 hour stretch by 4–6 months, though "sleeping through the night" is typically defined as 5+ uninterrupted hours. By 9 months, roughly 70–80% of babies sleep 8+ hours without waking. However, there is enormous individual variation — some babies sleep through at 3 months, others not until 18 months, both within the normal range.'],
+  ['q' => 'Is it safe for a baby to sleep on their side?', 'a' => 'No — the AAP recommends babies always be placed on their back to sleep until 12 months. Back sleeping reduces the risk of SIDS (Sudden Infant Death Syndrome) by over 50%. Once a baby can roll from back to front and front to back independently (typically 4–6 months), it is safe to leave them in whatever position they roll to during sleep. Always start them on their back.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Bedtime calculator for adults based on wake-up time.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Best nap length for adults — power nap or full cycle.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'Calculate your weekly sleep deficit.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => 'Score your sleep quality in 10 questions.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Baby Sleep Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Baby Sleep Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           👶 Baby Sleep Calculator — Nap Schedule by Age
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Enter your baby's age and first wake-up time to get a personalised nap schedule, bedtime, and total sleep target.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div class="mb-4">
@@ -110,7 +139,7 @@
             </button>
 
             <div id="babyResult" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <div id="babySchedule"></div>
             </div>
 
@@ -119,8 +148,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Baby Sleep at a Glance</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Baby Sleep at a Glance</h3>
           @foreach([
             ['14–17h', 'Total sleep needed: Newborns'],
             ['12–15h', 'Total sleep needed: 4–11 months'],
@@ -129,11 +158,11 @@
             ['3–4h',   'Max wake window: 12 months'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:64px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
-          <p style="font-size:.75rem; color:rgba(255,255,255,.35); margin-top:20px;">Sources: AASM, AAP, NHS</p>
+          <p class="ms-fact-source">Sources: AASM, AAP, NHS</p>
         </div>
       </div>
 
@@ -142,7 +171,7 @@
 </section>
 
 {{-- Age Chart --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Sleep Needs by Age</h2>
     <p class="text-center text-muted mb-5" style="max-width:520px; margin:0 auto 40px;">Recommendations from the American Academy of Sleep Medicine and AAP.</p>
@@ -184,7 +213,7 @@
 </section>
 
 {{-- Safe Sleep --}}
-<section style="padding:48px 0; background:#fff;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -220,84 +249,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:var(--bg); padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="babyFaq">
-          @foreach([
-            ['What is a wake window and why does it matter?',
-             'A wake window is the maximum time a baby can comfortably stay awake between sleeps. Exceeding the wake window causes overtiredness — a paradoxical state where elevated cortisol makes it harder for the baby to fall asleep and stay asleep. Watching wake windows is one of the most effective tools for reducing infant sleep problems.'],
-            ['When do babies develop a circadian rhythm?',
-             'Babies begin developing a circadian rhythm between 3–6 months as melatonin production matures. Before this, they have no meaningful internal clock — which is why newborn sleep is distributed evenly around the clock rather than concentrated at night. Exposure to natural light during the day and darkness at night from birth helps the rhythm develop faster.'],
-            ['Is it normal for babies to wake at night?',
-             'Yes. Infant sleep is biologically different from adult sleep. Babies spend proportionally more time in lighter REM sleep and have shorter sleep cycles (45–50 minutes vs. 90 minutes in adults). Night waking is normal and expected through at least the first year. Frequent waking after 6 months can sometimes be addressed with sleep training approaches, but consult your paediatrician first.'],
-            ['What is the safe sleep recommendation?',
-             'The AAP recommends placing babies on their back on a firm, flat surface for every sleep, in the parents\' room but on a separate sleep surface for at least the first 6 months. No soft bedding, pillows, bumpers, or toys in the sleep space. Room sharing (not bed sharing) reduces SIDS risk by up to 50%.'],
-            ['How do I know if my baby is overtired?',
-             'Signs of overtiredness include: difficulty falling asleep despite showing sleep cues, arching back, increased fussiness after sleep cues appear, rubbing eyes vigorously, pulling ears, yawning, losing interest in activity, and sudden crying episodes. Acting on early sleep cues (yawning, eye rubbing, glazed look) before overtiredness sets in makes settling much easier.'],
-            ['Is room-sharing or bed-sharing safer?',
-             'The <strong>AAP recommends room-sharing</strong> (baby in their own sleep surface in your room) for at least the first 6 months — this reduces SIDS risk by up to 50%. Bed-sharing (same sleep surface) is not recommended due to suffocation and SIDS risk, especially under 4 months. If you choose to bedshare, follow safe bedsharing guidelines: firm mattress, no alcohol or sedatives, no soft bedding near the baby.'],
-            ['When should my baby sleep through the night?',
-             'Most babies can manage 6–8 hour stretches by <strong>4–6 months</strong> when they have sufficient weight and are feeding well. Full 8–12 hour nights are typical from 6–9 months, though every baby is different. Before 4 months, night feeds are biologically necessary — not a habit to be broken. After 6 months, if frequent waking continues, gentle sleep training approaches can be discussed with your paediatrician.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#babyFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="babyFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#babyFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b6">
-      How many naps should a 6-month-old have?
-    </button>
-  </h3>
-  <div id="faq-b6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Most 6-month-olds take 2–3 naps per day totalling 3–4 hours, with nighttime sleep of around 10–11 hours. By 6–8 months, many babies consolidate from 3 naps to 2. Signs your baby is ready to drop a nap: taking longer than 20 minutes to fall asleep at nap time, or nighttime sleep is reducing without reason.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b7">
-      At what age do babies sleep through the night?
-    </button>
-  </h3>
-  <div id="faq-b7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Most babies sleep a 6–8 hour stretch by 4–6 months, though "sleeping through the night" is typically defined as 5+ uninterrupted hours. By 9 months, roughly 70–80% of babies sleep 8+ hours without waking. However, there is enormous individual variation — some babies sleep through at 3 months, others not until 18 months, both within the normal range.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-b8">
-      Is it safe for a baby to sleep on their side?
-    </button>
-  </h3>
-  <div id="faq-b8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      No — the AAP recommends babies always be placed on their back to sleep until 12 months. Back sleeping reduces the risk of SIDS (Sudden Infant Death Syndrome) by over 50%. Once a baby can roll from back to front and front to back independently (typically 4–6 months), it is safe to leave them in whatever position they roll to during sleep. Always start them on their back.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="babyFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Newborn Sleep Schedule — 0 to 3 Months</h2>
     <p>Newborns (0–3 months) sleep 14–17 hours per day in short bursts of 2–4 hours because their circadian rhythm has not yet developed. There is no "schedule" at this stage — newborns are driven entirely by hunger and comfort. Parents should sleep when the baby sleeps. By 6–8 weeks, most babies begin showing a slightly longer nighttime stretch of 4–5 hours, which is the first sign of circadian development.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Baby Sleep Regression — What It Is and When It Happens</h2>
@@ -307,32 +263,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:#fff; padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Bedtime calculator for adults based on wake-up time.'],
-        ['nap-calculator','💤','Nap Calculator','Best nap length for adults — power nap or full cycle.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','Calculate your weekly sleep deficit.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','Score your sleep quality in 10 questions.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-3">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 

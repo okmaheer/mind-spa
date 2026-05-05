@@ -49,29 +49,60 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'Why do I feel worse after 8 hours than 7.5 hours?',
+             'a' => 'If 8 hours puts your alarm mid-cycle but 7.5 hours (5 complete 90-minute cycles) ends at a natural break, you\'ll feel considerably better on 7.5 hours. Total sleep time matters less than where in a cycle your alarm falls. This calculator shows you the cycle-aligned times.'],
+  ['q' => 'What is sleep inertia and how long does it last?',
+             'a' => 'Sleep inertia is the grogginess caused by waking during deep Stage 3 sleep. Adenosine (the brain\'s sleepiness chemical) is still elevated, core temperature is low, and cognitive function — including reaction time and decision-making — is measurably impaired. It typically lasts 15–60 minutes, though full recovery can take up to 4 hours after severe interruption.'],
+  ['q' => 'Can I train myself to need less sleep?',
+             'a' => 'No. Research consistently shows that people who believe they\'ve adapted to less sleep have only adapted to feeling less sleepy — their measured cognitive performance continues to decline. There is no evidence that sleep need can be permanently reduced through training. The only sustainable strategy is getting the sleep your body requires.'],
+  ['q' => 'What if I naturally wake before my alarm?',
+             'a' => 'This is a sign your body completed its cycles and naturally surfaced. It means the calculator\'s timing is working well for your physiology. On these mornings, get up — lying in bed after a natural wake often triggers a new cycle, leaving you worse off when the alarm finally sounds.'],
+  ['q' => 'Does the 90-minute cycle length vary by person?',
+             'a' => 'Yes. The average is 90 minutes but individual cycles range from 80–110 minutes. If you consistently wake naturally 20–30 minutes before a calculated time, your cycles may run closer to 80 minutes. Adjust by using the sleep-calculator\'s bedtime mode and experimenting with 85-minute blocks.'],
+  ['q' => 'Should I keep the same wake time on weekends?',
+             'a' => 'Yes — this is the single most effective sleep hygiene habit. Sleeping in on weekends creates <strong>social jet lag</strong>: a circadian misalignment equivalent to flying 1–3 time zones every weekend. Research links it to higher BMI, worse mood, and increased cardiovascular risk. Fix your wake time first; your body will naturally shift your bedtime earlier within 2 weeks.'],
+  ['q' => 'Why do I feel worse when I sleep longer on weekends?',
+             'a' => 'Sleeping much longer than usual disrupts your circadian rhythm and often causes you to wake mid-cycle in a deep sleep stage you wouldn\'t normally be in at that hour. This produces sleep inertia — grogginess that can last 1–2 hours. The fix is consistent wake timing, not variable duration. Use the same wake time every day and let your body adjust bedtime naturally.'],
+  ['q' => 'What is the best time to wake up for productivity?', 'a' => 'Research suggests waking between 6:00 am and 7:30 am correlates with higher reported productivity and wellbeing — but only when it aligns with completing full sleep cycles. Waking at 5:00 am after 6 hours of sleep is less productive than waking at 7:30 am after 7.5 hours. The key is cycle completion, not the clock time itself.'],
+  ['q' => 'If I go to sleep at midnight, what time should I wake up?', 'a' => 'If you fall asleep at midnight (after ~15 min to fall asleep, so sleep starts at 12:15 am), ideal wake-up times are: 1:45 am (1 cycle — emergency only), 3:15 am (2 cycles), 4:45 am (3 cycles), 6:15 am (4 cycles), 7:45 am (5 cycles — recommended), 9:15 am (6 cycles). The 7:45 am option gives you 7.5 hours of quality sleep.'],
+  ['q' => 'Why do I feel worse after 8 hours than after 7.5?', 'a' => 'Eight hours (480 minutes) does not divide evenly into 90-minute cycles — it gives 5.33 cycles, meaning you wake 30 minutes into a cycle. That mid-cycle interruption triggers sleep inertia — the groggy, disoriented feeling that can last 1–2 hours. Seven and a half hours (5 complete cycles) or 9 hours (6 complete cycles) avoid this completely.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Find your ideal bedtime based on when you need to wake up.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Power nap or full cycle? Find the right nap length.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'How much sleep do you owe your body this week?'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Last safe coffee time based on your bedtime.'],
+  ['icon' => '✈️', 'name' => 'Jet Lag Calculator', 'slug' => 'jet-lag-calculator', 'desc' => 'Sleep schedule recovery after long-haul flights.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => '10-question quiz to score your sleep quality.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Wake-Up Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Wake-Up Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           ⏰ Wake-Up Time Calculator — Wake Up Refreshed
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Enter your bedtime and find the ideal wake-up times based on complete 90-minute sleep cycles — so you never wake up groggy again.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div class="mb-4">
@@ -99,7 +130,7 @@
             </button>
 
             <div id="results" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <p class="mb-3" style="color:var(--primary-dark); font-size:.9rem; font-weight:600;">
                 Best wake-up times if you're in bed at <span id="bedtimeLabel"></span>:
               </p>
@@ -114,8 +145,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Sleep Cycle Quick Facts</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Sleep Cycle Quick Facts</h3>
           @foreach([
             ['90 min',  'Length of one complete sleep cycle'],
             ['4–6',     'Cycles in a full night (6–9 hours)'],
@@ -124,8 +155,8 @@
             ['Stage 3', 'Hardest stage to wake from (deep NREM)'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:58px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
         </div>
@@ -136,18 +167,18 @@
 </section>
 
 {{-- How It Works --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">How It Works</span>
+        <span class="ms-badge ms-badge-sleep mb-3">How It Works</span>
         <h2 class="mb-4">Why Your Wake-Up Time Affects How You Feel All Day</h2>
         <p>Your brain moves through sleep in 90-minute cycles all night. Each cycle ends with a brief transition through light sleep — the natural point to wake. At this moment, your body temperature is rising, sleep pressure is lowest, and your brain is practically ready to surface on its own.</p>
         <p>Interrupt a cycle mid-way through Stage 3 (deep sleep) and you trigger sleep inertia: elevated adenosine, low core temperature, and impaired cognitive function that can persist for 30–60 minutes despite a full night of sleep.</p>
         <p>This calculator adds your fall-asleep delay to your bedtime, then counts forward in 90-minute blocks. The result is the exact clock time each cycle ends — the windows where waking feels natural and easy.</p>
       </div>
       <div class="col-lg-6">
-        <div class="p-4 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
+        <div class="p-4 rounded-3 ms-data-box">
           <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Sleep stages within each 90-min cycle</p>
           @foreach([
             ['Stage 1','~5 min','#aacde8','Light sleep. Easy to wake, muscles relax.'],
@@ -170,7 +201,7 @@
 </section>
 
 {{-- Signs Mid-Cycle --}}
-<section style="background:var(--bg); padding:56px 0;">
+<section class="ms-section-muted">
   <div class="container-xl">
     <div class="row g-5">
       <div class="col-lg-6">
@@ -211,84 +242,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:#fff; padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="wuFaq">
-          @foreach([
-            ['Why do I feel worse after 8 hours than 7.5 hours?',
-             'If 8 hours puts your alarm mid-cycle but 7.5 hours (5 complete 90-minute cycles) ends at a natural break, you\'ll feel considerably better on 7.5 hours. Total sleep time matters less than where in a cycle your alarm falls. This calculator shows you the cycle-aligned times.'],
-            ['What is sleep inertia and how long does it last?',
-             'Sleep inertia is the grogginess caused by waking during deep Stage 3 sleep. Adenosine (the brain\'s sleepiness chemical) is still elevated, core temperature is low, and cognitive function — including reaction time and decision-making — is measurably impaired. It typically lasts 15–60 minutes, though full recovery can take up to 4 hours after severe interruption.'],
-            ['Can I train myself to need less sleep?',
-             'No. Research consistently shows that people who believe they\'ve adapted to less sleep have only adapted to feeling less sleepy — their measured cognitive performance continues to decline. There is no evidence that sleep need can be permanently reduced through training. The only sustainable strategy is getting the sleep your body requires.'],
-            ['What if I naturally wake before my alarm?',
-             'This is a sign your body completed its cycles and naturally surfaced. It means the calculator\'s timing is working well for your physiology. On these mornings, get up — lying in bed after a natural wake often triggers a new cycle, leaving you worse off when the alarm finally sounds.'],
-            ['Does the 90-minute cycle length vary by person?',
-             'Yes. The average is 90 minutes but individual cycles range from 80–110 minutes. If you consistently wake naturally 20–30 minutes before a calculated time, your cycles may run closer to 80 minutes. Adjust by using the sleep-calculator\'s bedtime mode and experimenting with 85-minute blocks.'],
-            ['Should I keep the same wake time on weekends?',
-             'Yes — this is the single most effective sleep hygiene habit. Sleeping in on weekends creates <strong>social jet lag</strong>: a circadian misalignment equivalent to flying 1–3 time zones every weekend. Research links it to higher BMI, worse mood, and increased cardiovascular risk. Fix your wake time first; your body will naturally shift your bedtime earlier within 2 weeks.'],
-            ['Why do I feel worse when I sleep longer on weekends?',
-             'Sleeping much longer than usual disrupts your circadian rhythm and often causes you to wake mid-cycle in a deep sleep stage you wouldn\'t normally be in at that hour. This produces sleep inertia — grogginess that can last 1–2 hours. The fix is consistent wake timing, not variable duration. Use the same wake time every day and let your body adjust bedtime naturally.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#wuFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="wuFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#wuFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w6">
-      What is the best time to wake up for productivity?
-    </button>
-  </h3>
-  <div id="faq-w6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Research suggests waking between 6:00 am and 7:30 am correlates with higher reported productivity and wellbeing — but only when it aligns with completing full sleep cycles. Waking at 5:00 am after 6 hours of sleep is less productive than waking at 7:30 am after 7.5 hours. The key is cycle completion, not the clock time itself.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w7">
-      If I go to sleep at midnight, what time should I wake up?
-    </button>
-  </h3>
-  <div id="faq-w7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      If you fall asleep at midnight (after ~15 min to fall asleep, so sleep starts at 12:15 am), ideal wake-up times are: 1:45 am (1 cycle — emergency only), 3:15 am (2 cycles), 4:45 am (3 cycles), 6:15 am (4 cycles), 7:45 am (5 cycles — recommended), 9:15 am (6 cycles). The 7:45 am option gives you 7.5 hours of quality sleep.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-w8">
-      Why do I feel worse after 8 hours than after 7.5?
-    </button>
-  </h3>
-  <div id="faq-w8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Eight hours (480 minutes) does not divide evenly into 90-minute cycles — it gives 5.33 cycles, meaning you wake 30 minutes into a cycle. That mid-cycle interruption triggers sleep inertia — the groggy, disoriented feeling that can last 1–2 hours. Seven and a half hours (5 complete cycles) or 9 hours (6 complete cycles) avoid this completely.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="wuFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Best Wake-Up Time for Night Shift Workers</h2>
     <p>For night shift workers, "wake-up time" means the time you need to be alert for work — not the morning. Enter your shift start time as your target wake-up time, subtract 15 minutes for grogginess, and use the calculator to find when to go to sleep. If your shift starts at 10:00 pm, target a wake-up of 9:30 pm and work backwards to find your ideal daytime sleep start.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Wake-Up Calculator for Early Birds vs Night Owls</h2>
@@ -298,34 +256,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:var(--bg); padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Find your ideal bedtime based on when you need to wake up.'],
-        ['nap-calculator','💤','Nap Calculator','Power nap or full cycle? Find the right nap length.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','How much sleep do you owe your body this week?'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Last safe coffee time based on your bedtime.'],
-        ['jet-lag-calculator','✈️','Jet Lag Calculator','Sleep schedule recovery after long-haul flights.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','10-question quiz to score your sleep quality.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 

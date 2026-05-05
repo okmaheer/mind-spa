@@ -49,29 +49,60 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'How long should a nap be to avoid feeling groggy?',
+             'a' => 'Keep naps under 20 minutes (power nap) or exactly 90 minutes (full cycle). Both options end before or after deep sleep, so you wake during light sleep. The danger zone is 30–60 minutes — this typically ends mid-deep-sleep, causing sleep inertia that can last 30–90 minutes.'],
+  ['q' => 'What is the NASA nap study about?',
+             'a' => 'A 1995 NASA study of military pilots found that a 40-minute nap (with ~26 minutes of actual sleep) improved performance by 34% and alertness by 54% versus no nap. Subsequent studies at NASA and Harvard confirmed that short naps are one of the most effective alertness interventions available.'],
+  ['q' => 'Will a 90-minute nap count as part of my sleep quota?',
+             'a' => 'Partially. A 90-minute nap reduces nighttime sleep pressure by roughly 1–1.5 hours, so you may find it harder to fall asleep that night and may sleep 1 hour less. For most people with adequate nighttime sleep, occasional 90-minute naps are fine. For those with insomnia, all daytime sleep should be avoided.'],
+  ['q' => 'What is the "coffee nap" technique?',
+             'a' => 'Drink a coffee (or espresso) immediately before a 20-minute nap. Caffeine takes 20–30 minutes to cross the blood-brain barrier, so it kicks in exactly as you wake from light sleep — combining the alertness of a nap with caffeine. Research shows coffee naps produce significantly better alertness than either napping or coffee alone.'],
+  ['q' => 'When is the worst time to nap?',
+             'a' => 'Avoid napping after 3–4 PM. The circadian drive for sleep builds through the day; napping late reduces enough sleep pressure to significantly delay nighttime sleep onset. The natural nap window is 1–3 PM, which aligns with a minor circadian dip that most people experience after lunch.'],
+  ['q' => 'What is the best time of day to take a nap?',
+             'a' => 'The optimal window is <strong>1–3 PM</strong> — this aligns with the natural post-midday circadian dip that most people experience regardless of whether they ate lunch. Napping before 1 PM is less productive because sleep pressure is still building. Napping after 3 PM risks cutting into nighttime sleep pressure enough to delay your bedtime by 1–2 hours.'],
+  ['q' => 'What is a coffee nap and does it really work?',
+             'a' => 'Drink a shot of espresso or coffee immediately before a 20-minute power nap. Caffeine takes 20–30 minutes to reach peak blood concentration, so it kicks in precisely as you wake from light sleep. The combination produces significantly better alertness than either napping or caffeine alone. Research from Loughborough University found coffee naps reduced driving-related errors by 91% versus rest alone.'],
+  ['q' => 'Is a 2-hour nap too long?', 'a' => 'A 2-hour nap (approximately 1.3 sleep cycles) lands you mid-cycle at wake time, causing significant sleep inertia and grogginess. It also substantially reduces nighttime sleep pressure, making it harder to fall asleep at bedtime. Unless you are severely sleep-deprived or ill, a 2-hour nap is too long. Stick to either 20 minutes or a full 90 minutes.'],
+  ['q' => 'What is a NASA nap and does it work?', 'a' => 'A NASA nap is a 26-minute nap studied by NASA researchers on sleepy military pilots. The study found a 26-minute nap improved performance by 34% and alertness by 100%. It works because 26 minutes is long enough to gain restorative light sleep but short enough to avoid slow-wave deep sleep — meaning you wake alert, not groggy. It has since become the gold standard for workplace napping.'],
+  ['q' => 'Should I nap every day?', 'a' => 'Daily napping is healthy and normal — over a third of the world\'s population naps regularly. Countries with siesta cultures (Spain, Greece, Mexico) have historically lower rates of cardiovascular disease. For most adults, a daily 10–20 minute nap improves afternoon alertness, mood, and performance. The only people who should avoid daily napping are those with chronic insomnia, as napping reduces nighttime sleep pressure.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Best bedtime based on your wake-up time.'],
+  ['icon' => '⏰', 'name' => 'Wake-Up Calculator', 'slug' => 'wake-up-calculator', 'desc' => 'Best wake-up times from your bedtime.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'How much sleep are you missing this week?'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Last safe coffee time for your bedtime.'],
+  ['icon' => '✈️', 'name' => 'Jet Lag Calculator', 'slug' => 'jet-lag-calculator', 'desc' => 'Recovery plan for long-haul flights.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => 'Score your sleep quality in 10 questions.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Nap Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Nap Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           💤 Nap Calculator — Best Nap Length & Wake-Up Time
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Find the best nap length and exact wake-up time to restore your energy without waking up groggy.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div class="mb-4">
@@ -111,7 +142,7 @@
             </button>
 
             <div id="napResult" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <div id="napResultContent"></div>
             </div>
 
@@ -120,8 +151,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Nap Science at a Glance</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Nap Science at a Glance</h3>
           @foreach([
             ['34%',    'Performance improvement from a 26-min nap (NASA)'],
             ['20 min', 'Maximum power nap — stays in light sleep only'],
@@ -130,8 +161,8 @@
             ['1–4 PM', 'Natural circadian dip — ideal nap window for most people'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:58px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
         </div>
@@ -142,7 +173,7 @@
 </section>
 
 {{-- Nap Types Guide --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Which Nap Length Is Right for You?</h2>
@@ -179,11 +210,11 @@
 </section>
 
 {{-- Science of Napping --}}
-<section style="padding:56px 0; background:#fff;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-start g-5">
       <div class="col-lg-6">
-        <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">The Science</span>
+        <span class="ms-badge ms-badge-sleep mb-3">The Science</span>
         <h2 class="mb-4">The Science of Napping: What Studies Actually Show</h2>
         <p>A landmark 1995 NASA study of long-haul military pilots found that a <strong>26-minute nap</strong> improved cognitive performance by 34% and alertness by 54% versus a no-nap control. This study directly led to NASA's formal nap policy for astronauts and long-haul flight crews.</p>
         <p>A 2008 University of California study compared a 90-minute nap to rote learning and found the nap group significantly outperformed on a memory test 6 hours later — with nap participants who achieved REM sleep performing best of all. REM sleep's role in memory consolidation and creative problem-solving is now well-established.</p>
@@ -212,84 +243,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:var(--bg); padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="napFaq">
-          @foreach([
-            ['How long should a nap be to avoid feeling groggy?',
-             'Keep naps under 20 minutes (power nap) or exactly 90 minutes (full cycle). Both options end before or after deep sleep, so you wake during light sleep. The danger zone is 30–60 minutes — this typically ends mid-deep-sleep, causing sleep inertia that can last 30–90 minutes.'],
-            ['What is the NASA nap study about?',
-             'A 1995 NASA study of military pilots found that a 40-minute nap (with ~26 minutes of actual sleep) improved performance by 34% and alertness by 54% versus no nap. Subsequent studies at NASA and Harvard confirmed that short naps are one of the most effective alertness interventions available.'],
-            ['Will a 90-minute nap count as part of my sleep quota?',
-             'Partially. A 90-minute nap reduces nighttime sleep pressure by roughly 1–1.5 hours, so you may find it harder to fall asleep that night and may sleep 1 hour less. For most people with adequate nighttime sleep, occasional 90-minute naps are fine. For those with insomnia, all daytime sleep should be avoided.'],
-            ['What is the "coffee nap" technique?',
-             'Drink a coffee (or espresso) immediately before a 20-minute nap. Caffeine takes 20–30 minutes to cross the blood-brain barrier, so it kicks in exactly as you wake from light sleep — combining the alertness of a nap with caffeine. Research shows coffee naps produce significantly better alertness than either napping or coffee alone.'],
-            ['When is the worst time to nap?',
-             'Avoid napping after 3–4 PM. The circadian drive for sleep builds through the day; napping late reduces enough sleep pressure to significantly delay nighttime sleep onset. The natural nap window is 1–3 PM, which aligns with a minor circadian dip that most people experience after lunch.'],
-            ['What is the best time of day to take a nap?',
-             'The optimal window is <strong>1–3 PM</strong> — this aligns with the natural post-midday circadian dip that most people experience regardless of whether they ate lunch. Napping before 1 PM is less productive because sleep pressure is still building. Napping after 3 PM risks cutting into nighttime sleep pressure enough to delay your bedtime by 1–2 hours.'],
-            ['What is a coffee nap and does it really work?',
-             'Drink a shot of espresso or coffee immediately before a 20-minute power nap. Caffeine takes 20–30 minutes to reach peak blood concentration, so it kicks in precisely as you wake from light sleep. The combination produces significantly better alertness than either napping or caffeine alone. Research from Loughborough University found coffee naps reduced driving-related errors by 91% versus rest alone.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#napFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="napFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#napFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n6">
-      Is a 2-hour nap too long?
-    </button>
-  </h3>
-  <div id="faq-n6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      A 2-hour nap (approximately 1.3 sleep cycles) lands you mid-cycle at wake time, causing significant sleep inertia and grogginess. It also substantially reduces nighttime sleep pressure, making it harder to fall asleep at bedtime. Unless you are severely sleep-deprived or ill, a 2-hour nap is too long. Stick to either 20 minutes or a full 90 minutes.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n7">
-      What is a NASA nap and does it work?
-    </button>
-  </h3>
-  <div id="faq-n7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      A NASA nap is a 26-minute nap studied by NASA researchers on sleepy military pilots. The study found a 26-minute nap improved performance by 34% and alertness by 100%. It works because 26 minutes is long enough to gain restorative light sleep but short enough to avoid slow-wave deep sleep — meaning you wake alert, not groggy. It has since become the gold standard for workplace napping.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-n8">
-      Should I nap every day?
-    </button>
-  </h3>
-  <div id="faq-n8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Daily napping is healthy and normal — over a third of the world's population naps regularly. Countries with siesta cultures (Spain, Greece, Mexico) have historically lower rates of cardiovascular disease. For most adults, a daily 10–20 minute nap improves afternoon alertness, mood, and performance. The only people who should avoid daily napping are those with chronic insomnia, as napping reduces nighttime sleep pressure.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="napFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Best Nap Time for Night Shift Workers</h2>
     <p>Night shift workers benefit most from a "split sleep" strategy: a primary sleep period of 5–6 hours after the shift ends, followed by a 20–30 minute power nap 1–2 hours before the next shift. This pre-shift nap significantly improves alertness during the first half of a night shift without interfering with the main sleep period. Avoid napping longer than 30 minutes before a shift — you risk entering deep sleep and waking groggy.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Should a Nap Be for Adults?</h2>
@@ -299,34 +257,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:#fff; padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Best bedtime based on your wake-up time.'],
-        ['wake-up-calculator','⏰','Wake-Up Calculator','Best wake-up times from your bedtime.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','How much sleep are you missing this week?'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Last safe coffee time for your bedtime.'],
-        ['jet-lag-calculator','✈️','Jet Lag Calculator','Recovery plan for long-haul flights.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','Score your sleep quality in 10 questions.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 

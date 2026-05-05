@@ -49,29 +49,60 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'Why is jet lag worse going east than west?',
+             'a' => 'The human circadian clock runs slightly longer than 24 hours — about 24.2 hours on average. This means it naturally tends to drift later (westward direction). Eastward travel requires the clock to shift earlier — which fights this natural drift. Westward travel is easier because delaying the clock is its natural tendency. This is why most frequent fliers report eastward journeys as significantly more disruptive.'],
+  ['q' => 'Should I adjust my schedule before flying?',
+             'a' => 'For eastward travel of 4+ time zones: start moving your bedtime 30 minutes earlier per night for 3–5 days before departure. Get bright light exposure in the morning. For westward travel: start going to bed 30 minutes later each night. This partial pre-adaptation reduces jet lag severity on arrival.'],
+  ['q' => 'How does melatonin work for jet lag?',
+             'a' => 'Melatonin is a hormonal signal of darkness that tells the circadian system it\'s time to sleep. Taking melatonin at the destination\'s bedtime — even when it\'s daytime at home — helps re-synchronise the internal clock to local time. Research (Herxheimer, 2002) in a Cochrane review of 10 trials found melatonin was effective for jet lag, with the best results for eastward travel of 5+ time zones.'],
+  ['q' => 'What does "crossing the dateline" do to jet lag?',
+             'a' => 'Crossing the International Date Line (180° meridian) can actually reduce jet lag if you travel westward across it, because you\'re effectively gaining a day. The direction of travel matters more than the dateline crossing itself — what matters is the total time zone difference and whether you\'re going east or west to get there.'],
+  ['q' => 'Can children and elderly people recover faster from jet lag?',
+             'a' => 'Children adapt relatively quickly — their circadian clocks are more plastic. Older adults adapt more slowly because circadian amplitude (the strength of the sleep-wake signal) weakens with age. The elderly also produce less melatonin naturally, which makes night-time adaptation harder. Give extra buffer time before important commitments after flying with elderly travellers.'],
+  ['q' => 'How exactly should I take melatonin for jet lag?',
+             'a' => 'For <strong>eastward travel</strong>: 0.5–3mg at destination bedtime (9–11 PM local) for 3–4 nights. For <strong>westward travel</strong>: less critical, but 0.5mg at destination bedtime can help anchor your schedule. Key: use the <strong>lowest effective dose</strong> — 0.5mg is as effective as 5mg in most trials but produces fewer next-day side effects. Never take melatonin at the destination\'s daytime hours — it pushes your clock in the wrong direction.'],
+  ['q' => 'Does flight direction on a round trip affect recovery?',
+             'a' => 'Yes — returning east is typically harder than going west, which means for most travellers flying London → New York (westward, easier) followed by New York → London (eastward, harder), the return leg is more disruptive. Build in an extra recovery day before important commitments following an eastward return. The total adaptation time for a round trip is roughly 2–3× the one-way adaptation time.'],
+  ['q' => 'Does melatonin help with jet lag?', 'a' => 'Yes — melatonin is one of the few jet lag remedies with strong scientific evidence. A Cochrane Review of 10 randomised trials found melatonin taken at the target bedtime reduced jet lag severity significantly for flights crossing 5+ time zones. The recommended dose is low: 0.5–3 mg. Higher doses (5–10 mg, common in US supplements) are no more effective and cause next-day drowsiness. Timing matters more than dose — take it at 10–11 pm destination time regardless of what your body clock says.'],
+  ['q' => 'Should I sleep on the plane to avoid jet lag?', 'a' => 'It depends on your destination. If you are flying eastward (e.g. London to Tokyo), try to sleep on the plane to arrive partially rested and stay awake until local bedtime. If flying westward (e.g. New York to London), sleeping less on the plane and arriving tired makes it easier to fall asleep at the earlier local bedtime. The goal is to align your first night\'s sleep with local time as closely as possible.'],
+  ['q' => 'How do pilots and flight attendants deal with jet lag?', 'a' => 'Airlines use "controlled rest" protocols — short in-seat naps (20–45 minutes) for pilots during long hauls. Crew are also trained in strategic light exposure, melatonin timing, and sleep scheduling. Many experienced crew members maintain a single home time zone mentally and use strategic naps rather than trying to fully adjust to each destination. Frequent adjustment and re-adjustment itself disrupts circadian health, which is why aviation workers have elevated rates of sleep disorders and metabolic conditions.'],
+];
+
+$relatedTools = [
+  ['icon' => '😴', 'name' => 'Sleep Calculator', 'slug' => 'sleep-calculator', 'desc' => 'Best bedtime based on your wake-up time.'],
+  ['icon' => '⏰', 'name' => 'Wake-Up Calculator', 'slug' => 'wake-up-calculator', 'desc' => 'Best wake-up times from your bedtime.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Power nap length and timing calculator.'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Last safe coffee time for your bedtime.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'Calculate your weekly sleep deficit.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => 'Score your sleep quality in 10 questions.'],
+];
+@endphp
+
 @section('content')
 
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Jet Lag Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Jet Lag Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           ✈️ Jet Lag Calculator — Personalised Sleep Recovery Plan
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Enter your flight details and get a personalised jet lag recovery plan with target sleep times for your destination.
         </p>
 
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             <div class="mb-4">
@@ -158,7 +189,7 @@
             </button>
 
             <div id="jetResult" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <div id="jetContent"></div>
             </div>
 
@@ -167,8 +198,8 @@
       </div>
 
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Jet Lag Facts</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Jet Lag Facts</h3>
           @foreach([
             ['1 day/tz',  'Recovery time eastward per time zone crossed'],
             ['0.75d/tz',  'Recovery time westward per time zone crossed'],
@@ -177,8 +208,8 @@
             ['0.5–3mg',   'Effective melatonin dose for jet lag'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:64px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
         </div>
@@ -189,7 +220,7 @@
 </section>
 
 {{-- Tips --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Evidence-Based Jet Lag Recovery Tips</h2>
     <p class="text-center text-muted mb-5" style="max-width:480px; margin:0 auto 40px;">What the research says — not just general travel advice.</p>
@@ -223,11 +254,11 @@
 </section>
 
 {{-- Melatonin Guide --}}
-<section style="padding:56px 0; background:#fff;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-start g-5">
       <div class="col-lg-6">
-        <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">Melatonin Guide</span>
+        <span class="ms-badge ms-badge-sleep mb-3">Melatonin Guide</span>
         <h2 class="mb-4">How to Use Melatonin for Jet Lag</h2>
         <p>Melatonin is the most evidence-backed pharmacological intervention for jet lag. A Cochrane review of 10 randomised trials (Herxheimer & Petrie, 2002) concluded it is remarkably effective at reducing jet lag symptoms, particularly for eastward travel of 5 or more time zones.</p>
         <p>The key insight is <strong>timing over dose</strong>. Taking melatonin at the wrong time can worsen jet lag rather than help it. The circadian clock is a phase-response system — melatonin in the afternoon delays your clock; melatonin in the morning advances it. Only evening use (at destination bedtime) is appropriate for jet lag recovery.</p>
@@ -264,84 +295,11 @@
   </div>
 </section>
 
-{{-- FAQ --}}
-<section style="background:var(--bg); padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="jetFaq">
-          @foreach([
-            ['Why is jet lag worse going east than west?',
-             'The human circadian clock runs slightly longer than 24 hours — about 24.2 hours on average. This means it naturally tends to drift later (westward direction). Eastward travel requires the clock to shift earlier — which fights this natural drift. Westward travel is easier because delaying the clock is its natural tendency. This is why most frequent fliers report eastward journeys as significantly more disruptive.'],
-            ['Should I adjust my schedule before flying?',
-             'For eastward travel of 4+ time zones: start moving your bedtime 30 minutes earlier per night for 3–5 days before departure. Get bright light exposure in the morning. For westward travel: start going to bed 30 minutes later each night. This partial pre-adaptation reduces jet lag severity on arrival.'],
-            ['How does melatonin work for jet lag?',
-             'Melatonin is a hormonal signal of darkness that tells the circadian system it\'s time to sleep. Taking melatonin at the destination\'s bedtime — even when it\'s daytime at home — helps re-synchronise the internal clock to local time. Research (Herxheimer, 2002) in a Cochrane review of 10 trials found melatonin was effective for jet lag, with the best results for eastward travel of 5+ time zones.'],
-            ['What does "crossing the dateline" do to jet lag?',
-             'Crossing the International Date Line (180° meridian) can actually reduce jet lag if you travel westward across it, because you\'re effectively gaining a day. The direction of travel matters more than the dateline crossing itself — what matters is the total time zone difference and whether you\'re going east or west to get there.'],
-            ['Can children and elderly people recover faster from jet lag?',
-             'Children adapt relatively quickly — their circadian clocks are more plastic. Older adults adapt more slowly because circadian amplitude (the strength of the sleep-wake signal) weakens with age. The elderly also produce less melatonin naturally, which makes night-time adaptation harder. Give extra buffer time before important commitments after flying with elderly travellers.'],
-            ['How exactly should I take melatonin for jet lag?',
-             'For <strong>eastward travel</strong>: 0.5–3mg at destination bedtime (9–11 PM local) for 3–4 nights. For <strong>westward travel</strong>: less critical, but 0.5mg at destination bedtime can help anchor your schedule. Key: use the <strong>lowest effective dose</strong> — 0.5mg is as effective as 5mg in most trials but produces fewer next-day side effects. Never take melatonin at the destination\'s daytime hours — it pushes your clock in the wrong direction.'],
-            ['Does flight direction on a round trip affect recovery?',
-             'Yes — returning east is typically harder than going west, which means for most travellers flying London → New York (westward, easier) followed by New York → London (eastward, harder), the return leg is more disruptive. Build in an extra recovery day before important commitments following an eastward return. The total adaptation time for a round trip is roughly 2–3× the one-way adaptation time.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#jetFaq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">{{ $q }}</button>
-            </h3>
-            <div id="jetFaq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#jetFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j6">
-      Does melatonin help with jet lag?
-    </button>
-  </h3>
-  <div id="faq-j6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Yes — melatonin is one of the few jet lag remedies with strong scientific evidence. A Cochrane Review of 10 randomised trials found melatonin taken at the target bedtime reduced jet lag severity significantly for flights crossing 5+ time zones. The recommended dose is low: 0.5–3 mg. Higher doses (5–10 mg, common in US supplements) are no more effective and cause next-day drowsiness. Timing matters more than dose — take it at 10–11 pm destination time regardless of what your body clock says.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j7">
-      Should I sleep on the plane to avoid jet lag?
-    </button>
-  </h3>
-  <div id="faq-j7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      It depends on your destination. If you are flying eastward (e.g. London to Tokyo), try to sleep on the plane to arrive partially rested and stay awake until local bedtime. If flying westward (e.g. New York to London), sleeping less on the plane and arriving tired makes it easier to fall asleep at the earlier local bedtime. The goal is to align your first night's sleep with local time as closely as possible.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-j8">
-      How do pilots and flight attendants deal with jet lag?
-    </button>
-  </h3>
-  <div id="faq-j8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Airlines use "controlled rest" protocols — short in-seat naps (20–45 minutes) for pilots during long hauls. Crew are also trained in strategic light exposure, melatonin timing, and sleep scheduling. Many experienced crew members maintain a single home time zone mentally and use strategic naps rather than trying to fully adjust to each destination. Frequent adjustment and re-adjustment itself disrupts circadian health, which is why aviation workers have elevated rates of sleep disorders and metabolic conditions.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="jetFaq" />
 
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Jet Lag Recovery — Eastward vs Westward Flights</h2>
     <p>Eastward travel is consistently harder to recover from than westward travel. Flying east requires advancing your circadian clock (going to sleep earlier than your body wants), which conflicts with the natural human tendency toward a slightly longer-than-24-hour internal day. Flying west requires delaying your clock (staying up later), which is more natural. As a rough guide: westward recovery takes 1 day per time zone crossed; eastward recovery takes 1.5 days per time zone. A 6-hour eastward flight can take 9 days to fully recover from.</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does Jet Lag Last?</h2>
@@ -351,34 +309,8 @@
   </div>
 </section>
 
-{{-- Related Tools --}}
-<section style="background:#fff; padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['sleep-calculator','😴','Sleep Calculator','Best bedtime based on your wake-up time.'],
-        ['wake-up-calculator','⏰','Wake-Up Calculator','Best wake-up times from your bedtime.'],
-        ['nap-calculator','💤','Nap Calculator','Power nap length and timing calculator.'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Last safe coffee time for your bedtime.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','Calculate your weekly sleep deficit.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','Score your sleep quality in 10 questions.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 @endsection
 
@@ -431,9 +363,9 @@
 
     var html = '<div class="p-4 rounded-3 mb-3" style="background:' + diffBg + '; border:1px solid ' + diffColor + '30;">'
       + '<div class="row g-3 text-center">'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + absDiff + ' hrs</div><div style="font-size:.72rem; color:#888;">Time zone gap</div></div>'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + difficulty + '</div><div style="font-size:.72rem; color:#888;">Jet lag level</div></div>'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + recoveryDays + ' days</div><div style="font-size:.72rem; color:#888;">Recovery time</div></div>'
+      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + absDiff + ' hrs</div><div class="ms-stat-label">Time zone gap</div></div>'
+      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + difficulty + '</div><div class="ms-stat-label">Jet lag level</div></div>'
+      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + recoveryDays + ' days</div><div class="ms-stat-label">Recovery time</div></div>'
       + '</div></div>';
 
     html += '<p style="font-size:.88rem; color:#555; margin-bottom:12px;">Travelling <strong>' + direction + '</strong>. Your body clock will feel like it\'s ' + absDiff + ' hours ' + (isEast ? 'behind' : 'ahead of') + ' local time on arrival.</p>';

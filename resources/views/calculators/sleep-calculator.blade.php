@@ -49,31 +49,58 @@
 </script>
 @endsection
 
+@php
+$faqs = [
+  ['q' => 'How does the sleep calculator work?',
+             'a' => 'The calculator counts backward from your wake-up time in 90-minute blocks — the average length of one complete sleep cycle. It shows four options (3–6 cycles) so you can wake at the natural end of a cycle instead of mid-cycle, eliminating the grogginess of sleep inertia.'],
+  ['q' => 'How many hours of sleep do adults need?',
+             'a' => 'The CDC and AASM recommend 7–9 hours for adults aged 18–60. Teenagers need 8–10 hours; school-age children need 9–12. Consistently sleeping under 7 hours is linked to higher risk of obesity, diabetes, cardiovascular disease, and impaired cognitive function.'],
+  ['q' => 'What does the sleep chart on this page show?',
+             'a' => 'The hypnogram (sleep architecture chart) shows your estimated night in visual form: which stages your brain cycles through, how long you spend in deep versus REM sleep, and where your alarm falls. Deep sleep (blue) peaks in cycles 1–2; REM (purple) builds through cycles 3–6.'],
+  ['q' => 'What is a chronotype and why does it matter?',
+             'a' => 'Your chronotype is your genetically-driven sleep-wake preference. Lions (early birds) naturally wake before 6 AM; Bears (the majority) follow the solar cycle; Wolves (night owls) run 1–2 hours later. Forcing a wolf schedule onto a lion creates chronic circadian misalignment, reducing sleep quality even at identical total hours.'],
+  ['q' => 'Why does waking mid-cycle feel so much worse?',
+             'a' => 'Waking during deep Stage 3 sleep leaves adenosine — the brain\'s sleepiness chemical — still elevated. Combined with low core body temperature, this produces sleep inertia: measurably impaired reaction time, memory, and decision-making that persists 15–60 minutes. Waking at a cycle\'s end means adenosine has already cleared naturally.'],
+  ['q' => 'What time should I go to sleep if I wake up at 6am?', 'a' => 'If you wake up at 6:00 am, your ideal bedtimes are 8:30 pm (6 cycles), 10:00 pm (5 cycles), 11:30 pm (4 cycles), or 1:00 am (3 cycles). Account for roughly 15 minutes to fall asleep. The 10:00 pm bedtime is ideal for most adults — 5 complete cycles of 90 minutes each.'],
+  ['q' => 'Is a sleep calculator accurate?', 'a' => 'Sleep calculators are accurate in their cycle mathematics but approximate in their application. The 90-minute cycle length is an average — individual cycles range from 70 to 120 minutes and change across the night. The calculator is most useful as a planning guide: it reliably tells you which bedtimes are likely to result in waking between cycles rather than inside them.'],
+  ['q' => 'How many hours of sleep do I need by age?', 'a' => 'The CDC recommends: infants (4–12 months) 12–16 hours, toddlers (1–2 years) 11–14 hours, preschool (3–5) 10–13 hours, school age (6–12) 9–12 hours, teenagers (13–18) 8–10 hours, adults (18–60) 7–9 hours, older adults (61+) 7–9 hours. Individual needs vary — genetics, health, and activity level all play a role.'],
+];
+
+$relatedTools = [
+  ['icon' => '⏰', 'name' => 'Wake-Up Calculator', 'slug' => 'wake-up-calculator', 'desc' => 'Find the best times to wake up based on when you fall asleep.'],
+  ['icon' => '💤', 'name' => 'Nap Calculator', 'slug' => 'nap-calculator', 'desc' => 'Is 20 minutes enough, or do you need a full cycle? Find out.'],
+  ['icon' => '📉', 'name' => 'Sleep Debt Calculator', 'slug' => 'sleep-debt-calculator', 'desc' => 'How much sleep do you owe your body? Get a recovery plan.'],
+  ['icon' => '☕', 'name' => 'Caffeine & Sleep', 'slug' => 'caffeine-sleep-calculator', 'desc' => 'Find the last safe time to drink coffee for your bedtime.'],
+  ['icon' => '✈️', 'name' => 'Jet Lag Calculator', 'slug' => 'jet-lag-calculator', 'desc' => 'Plan your sleep schedule around a long-haul flight.'],
+  ['icon' => '📋', 'name' => 'Sleep Quality Quiz', 'slug' => 'sleep-quality-quiz', 'desc' => 'Rate your sleep with a 10-question science-backed questionnaire.'],
+];
+@endphp
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
-<section style="background:linear-gradient(135deg, var(--primary-dark) 0%, #16213e 100%); padding:60px 0 0;">
+<section class="ms-hero">
   <div class="container-xl">
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
         <nav aria-label="breadcrumb" class="mb-3">
-          <ol class="breadcrumb" style="font-size:.82rem; margin:0; padding:0; background:none;">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:rgba(255,255,255,.5);">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}" style="color:rgba(255,255,255,.5);">Sleep Tools</a></li>
-            <li class="breadcrumb-item active" style="color:rgba(255,255,255,.8);">Sleep Calculator</li>
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Sleep Calculator</li>
           </ol>
         </nav>
 
-        <h1 class="mb-2" style="color:#fff; font-size:clamp(1.9rem,4vw,2.8rem);">
+        <h1 class="mb-2 ms-hero-title">
           😴 Sleep Calculator — Find Your Ideal Bedtime
         </h1>
-        <p style="color:rgba(255,255,255,.7); font-size:1.05rem; max-width:520px; margin-bottom:28px;">
+        <p class="ms-hero-desc">
           Find your best bedtime or wake-up time based on 90-minute sleep cycles — with a visual breakdown of your entire night.
         </p>
 
         {{-- ── Tool Card ────────────────────────────────────────────────────── --}}
-        <div class="card border-0 mb-n4" style="border-radius:18px; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; z-index:2;">
+        <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
 
             {{-- Mode toggle --}}
@@ -144,7 +171,7 @@
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+              <div class="ms-divider"></div>
               <p id="resultLabel" class="mb-3" style="color:var(--primary-dark); font-size:.9rem; font-weight:600;"></p>
 
               {{-- Result cards --}}
@@ -152,7 +179,7 @@
 
               {{-- Viz section --}}
               <div id="vizSection" class="d-none mt-4">
-                <div style="height:1px; background:#f0f0f0; margin-bottom:16px;"></div>
+                <div class="ms-divider"></div>
 
                 <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
                   <p style="font-weight:700; font-size:.88rem; color:var(--primary-dark); margin:0;">Your Night Visualized</p>
@@ -212,8 +239,8 @@
 
       {{-- Right: Quick facts --}}
       <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
-        <div style="color:rgba(255,255,255,.85);">
-          <h3 style="color:#fff; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:16px;">Quick Sleep Facts</h3>
+        <div class="ms-facts-wrap">
+          <h3 class="ms-facts-title">Quick Sleep Facts</h3>
           @foreach([
             ['7–9 hrs', 'Recommended sleep for adults (CDC)'],
             ['90 min',  'Average length of one sleep cycle'],
@@ -222,11 +249,11 @@
             ['23%',     'Adults sleeping under 7 hours nightly'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--sleep); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.88rem; min-width:58px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
-            <div style="font-size:.86rem; line-height:1.5; padding-top:4px;">{{ $label }}</div>
+            <div class="ms-fact-pill ms-fact-pill-sleep">{{ $stat }}</div>
+            <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
-          <p style="font-size:.75rem; color:rgba(255,255,255,.35); margin-top:20px;">Sources: CDC, NIH, AASM</p>
+          <p class="ms-fact-source">Sources: CDC, NIH, AASM</p>
         </div>
       </div>
 
@@ -235,18 +262,18 @@
 </section>
 
 {{-- ── 2. How It Works ──────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
-        <span class="badge mb-3" style="background:rgba(108,99,255,.1); color:var(--sleep); font-size:.8rem; padding:6px 14px; border-radius:50px; font-weight:600;">How It Works</span>
+        <span class="ms-badge ms-badge-sleep mb-3">How It Works</span>
         <h2 class="mb-4">How Sleep Cycles Work: The 90-Minute Science</h2>
         <p>Your brain doesn't sleep in one long block. It cycles through four distinct stages — light sleep, deeper light sleep, slow-wave deep sleep, and REM — roughly every 90 minutes all night long.</p>
         <p>The trick is not just how long you sleep, but <em>when</em> you wake. Interrupting deep sleep triggers sleep inertia: that thick, cotton-headed grogginess that can persist for up to an hour. Wake during light sleep at the end of a cycle and you surface alert within seconds.</p>
         <p>This calculator counts backward from your alarm time in 90-minute blocks, adds your personal fall-asleep delay, then draws the actual sleep architecture of your night — so you can see exactly what you're trading off between the 6-hour and 7.5-hour options.</p>
       </div>
       <div class="col-lg-7">
-        <div class="p-4 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
+        <div class="p-4 rounded-3 ms-data-box">
           <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">A single 90-minute cycle</p>
           @foreach([
             ['Stage 1 — Light NREM', '~5 min',  '#aacde8', 'Drowsy, easy to wake. Muscles relax, heartbeat slows.'],
@@ -269,7 +296,7 @@
 </section>
 
 {{-- ── 3. Sleep by Age ───────────────────────────────────────────────────────── --}}
-<section style="background:var(--bg); padding:72px 0;">
+<section class="ms-section-muted">
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>How Much Sleep Does Your Age Group Need?</h2>
@@ -300,82 +327,11 @@
   </div>
 </section>
 
-{{-- ── 4. FAQ ───────────────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0;">
-  <div class="container-xl">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <div class="accordion" id="sleepFaq">
-          @foreach([
-            ['How does the sleep calculator work?',
-             'The calculator counts backward from your wake-up time in 90-minute blocks — the average length of one complete sleep cycle. It shows four options (3–6 cycles) so you can wake at the natural end of a cycle instead of mid-cycle, eliminating the grogginess of sleep inertia.'],
-            ['How many hours of sleep do adults need?',
-             'The CDC and AASM recommend 7–9 hours for adults aged 18–60. Teenagers need 8–10 hours; school-age children need 9–12. Consistently sleeping under 7 hours is linked to higher risk of obesity, diabetes, cardiovascular disease, and impaired cognitive function.'],
-            ['What does the sleep chart on this page show?',
-             'The hypnogram (sleep architecture chart) shows your estimated night in visual form: which stages your brain cycles through, how long you spend in deep versus REM sleep, and where your alarm falls. Deep sleep (blue) peaks in cycles 1–2; REM (purple) builds through cycles 3–6.'],
-            ['What is a chronotype and why does it matter?',
-             'Your chronotype is your genetically-driven sleep-wake preference. Lions (early birds) naturally wake before 6 AM; Bears (the majority) follow the solar cycle; Wolves (night owls) run 1–2 hours later. Forcing a wolf schedule onto a lion creates chronic circadian misalignment, reducing sleep quality even at identical total hours.'],
-            ['Why does waking mid-cycle feel so much worse?',
-             'Waking during deep Stage 3 sleep leaves adenosine — the brain\'s sleepiness chemical — still elevated. Combined with low core body temperature, this produces sleep inertia: measurably impaired reaction time, memory, and decision-making that persists 15–60 minutes. Waking at a cycle\'s end means adenosine has already cleared naturally.'],
-          ] as $i => [$q, $a])
-          <div class="accordion-item border-0 mb-2" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05);">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $i > 0 ? 'collapsed' : '' }} fw-600"
-                      type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ $i }}"
-                      style="font-size:.9rem; background:#fff; color:var(--primary-dark);">
-                {{ $q }}
-              </button>
-            </h3>
-            <div id="faq{{ $i }}" class="accordion-collapse collapse {{ $i === 0 ? 'show' : '' }}" data-bs-parent="#sleepFaq">
-              <div class="accordion-body" style="color:#555; font-size:.88rem; line-height:1.75;">{{ $a }}</div>
-            </div>
-          </div>
-          @endforeach
-          <div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s6">
-      What time should I go to sleep if I wake up at 6am?
-    </button>
-  </h3>
-  <div id="faq-s6" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      If you wake up at 6:00 am, your ideal bedtimes are 8:30 pm (6 cycles), 10:00 pm (5 cycles), 11:30 pm (4 cycles), or 1:00 am (3 cycles). Account for roughly 15 minutes to fall asleep. The 10:00 pm bedtime is ideal for most adults — 5 complete cycles of 90 minutes each.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s7">
-      Is a sleep calculator accurate?
-    </button>
-  </h3>
-  <div id="faq-s7" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      Sleep calculators are accurate in their cycle mathematics but approximate in their application. The 90-minute cycle length is an average — individual cycles range from 70 to 120 minutes and change across the night. The calculator is most useful as a planning guide: it reliably tells you which bedtimes are likely to result in waking between cycles rather than inside them.
-    </div>
-  </div>
-</div>
-<div class="accordion-item border-0 mb-2">
-  <h3 class="accordion-header">
-    <button class="accordion-button collapsed fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq-s8">
-      How many hours of sleep do I need by age?
-    </button>
-  </h3>
-  <div id="faq-s8" class="accordion-collapse collapse">
-    <div class="accordion-body pt-0" style="color:#555;">
-      The CDC recommends: infants (4–12 months) 12–16 hours, toddlers (1–2 years) 11–14 hours, preschool (3–5) 10–13 hours, school age (6–12) 9–12 hours, teenagers (13–18) 8–10 hours, adults (18–60) 7–9 hours, older adults (61+) 7–9 hours. Individual needs vary — genetics, health, and activity level all play a role.
-    </div>
-  </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<x-faq-section :faqs="$faqs" id="sleepFaq" />
+
 
 {{-- ── 5. Science ───────────────────────────────────────────────────────────── --}}
-<section style="background:var(--bg); padding:72px 0;">
+<section class="ms-section-muted">
   <div class="container-xl">
     <div class="row align-items-start g-5">
       <div class="col-lg-6">
@@ -403,7 +359,7 @@
 </section>
 
 {{-- ── 6. Sleep Tips ─────────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>How to Improve Sleep Quality: 10 Evidence-Based Tips</h2>
@@ -437,8 +393,8 @@
 </section>
 
 {{-- Long-tail keyword sections --}}
-<section class="py-5" style="background:#f8f9ff;">
-  <div class="container" style="max-width:860px;">
+<section class="ms-section-accent">
+  <div class="container ms-longtail">
     <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Calculator for Shift Workers</h2>
     <p>Night shift and rotating shift workers face a unique challenge: their sleep window changes constantly. Use this calculator by entering your actual wake-up target for your next shift. For rotating shifts, aim for a consistent number of cycles (5 or 6) rather than a fixed bedtime. Research from the Journal of Sleep Research shows shift workers who align sleep with 90-minute cycles report 34% fewer sleep complaints than those who simply aim for "8 hours."</p>
     <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Calculator for Teenagers</h2>
@@ -448,50 +404,23 @@
   </div>
 </section>
 
-{{-- ── 7. Related Tools ──────────────────────────────────────────────────────── --}}
-<section style="background:var(--bg); padding:60px 0;">
-  <div class="container-xl">
-    <h2 class="mb-4">More Sleep Tools</h2>
-    <div class="row g-3">
-      @foreach([
-        ['wake-up-calculator','⏰','Wake-Up Calculator','Find the best times to wake up based on when you fall asleep.'],
-        ['nap-calculator','💤','Nap Calculator','Is 20 minutes enough, or do you need a full cycle? Find out.'],
-        ['sleep-debt-calculator','📉','Sleep Debt Calculator','How much sleep do you owe your body? Get a recovery plan.'],
-        ['caffeine-sleep-calculator','☕','Caffeine & Sleep','Find the last safe time to drink coffee for your bedtime.'],
-        ['jet-lag-calculator','✈️','Jet Lag Calculator','Plan your sleep schedule around a long-haul flight.'],
-        ['sleep-quality-quiz','📋','Sleep Quality Quiz','Rate your sleep with a 10-question science-backed questionnaire.'],
-      ] as [$slug,$icon,$name,$desc])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ url($slug) }}" class="card border-0 text-decoration-none h-100 p-3"
-           style="border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:row; align-items:center; gap:12px; transition:transform .15s, box-shadow .15s;"
-           onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,.1)'"
-           onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 10px rgba(0,0,0,.06)'">
-          <div style="font-size:1.6rem; flex-shrink:0;">{{ $icon }}</div>
-          <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark);">{{ $name }}</div>
-            <div style="font-size:.78rem; color:#888; margin-top:2px;">{{ $desc }}</div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
+<x-related-tools :tools="$relatedTools" heading="More Sleep Tools" />
+
 
 {{-- ── 8. SEO Block ──────────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0; border-top:1px solid #f0f0f0;">
+<section class="ms-section-seo">
   <div class="container-xl">
     <div class="row justify-content-center">
-      <div class="col-lg-8" style="color:#555; font-size:.92rem; line-height:1.8;">
-        <h2 class="mb-4" style="font-size:1.35rem;">Sleep Calculator: What the Research Actually Says</h2>
+      <div class="col-lg-8 ms-seo-body">
+        <h2 class="mb-4 ms-seo-h2">Sleep Calculator: What the Research Actually Says</h2>
         <p>If you've ever woken to an alarm feeling destroyed on what should have been a full night's sleep, you've experienced the sharp difference between sleep duration and sleep timing. Total hours matter — but finishing a complete cycle matters just as much.</p>
-        <h3 style="font-size:1.05rem; margin-top:24px; margin-bottom:10px;">Why the Fall-Asleep Delay Is Often Ignored</h3>
+        <h3 class="ms-seo-h3">Why the Fall-Asleep Delay Is Often Ignored</h3>
         <p>One overlooked variable is sleep onset latency — how long it takes you to actually fall asleep after lying down. The average is 7–20 minutes for healthy adults. If you need to wake at 7:00 AM and want 7.5 hours of sleep, you might calculate an 11:30 PM bedtime. But if it takes 20 minutes to fall asleep, sleep doesn't start until 11:50 PM — short-changing you by nearly one full cycle. The calculator compensates for this directly.</p>
-        <h3 style="font-size:1.05rem; margin-top:24px; margin-bottom:10px;">The Alarm vs. No-Alarm Test</h3>
+        <h3 class="ms-seo-h3">The Alarm vs. No-Alarm Test</h3>
         <p>Try this on a weekend: go to bed at your calculated bedtime with no alarm set. Note your natural wake time. If it falls within 15–20 minutes of the cycle-aligned times the calculator suggests, the model is working for your physiology. Most people run close to 90-minute cycles, but some run 85 and some 100 minutes. If you consistently wake 30+ minutes before a calculated time, build your schedule around 85-minute blocks instead.</p>
-        <h3 style="font-size:1.05rem; margin-top:24px; margin-bottom:10px;">Snooze Buttons Make Things Worse</h3>
+        <h3 class="ms-seo-h3">Snooze Buttons Make Things Worse</h3>
         <p>Hitting snooze doesn't help. The 7–9 minutes between alarms doesn't complete a meaningful sleep stage — it just repeatedly interrupts the body's attempt to re-enter deeper sleep without delivering any restorative benefit. You'd be better off setting the alarm 9 minutes later and sleeping straight through.</p>
-        <div class="mt-4 p-4 rounded-3" style="background:#f0f7ff; border-left:4px solid var(--sleep);">
+        <div class="mt-4 p-4 rounded-3 ms-note ms-note-blue">
           <p style="margin:0; font-size:.85rem; color:#1a4a7a;"><strong>Note:</strong> This tool is for general wellness guidance. If you consistently struggle with sleep quality, experience excessive daytime sleepiness, or have symptoms like loud snoring, please consult a physician or sleep specialist. Conditions like sleep apnea and insomnia disorder require professional assessment.</p>
         </div>
       </div>

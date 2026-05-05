@@ -11,10 +11,10 @@ return [
     'categories' => [
         'sleep'     => ['label' => 'Sleep Tools',     'icon' => '😴', 'color' => '#6c63ff', 'slug' => 'sleep-tools'],
         'fitness'   => ['label' => 'Fitness Tools',   'icon' => '💪', 'color' => '#28a745', 'slug' => 'fitness-tools'],
-        'nutrition' => ['label' => 'Nutrition',        'icon' => '🥗', 'color' => '#fd7e14', 'slug' => 'nutrition-tools'],
+        'nutrition' => ['label' => 'Nutrition Tools',  'icon' => '🥗', 'color' => '#fd7e14', 'slug' => 'nutrition-tools'],
         'quiz'      => ['label' => 'Brain Quizzes',   'icon' => '🧠', 'color' => '#e94560', 'slug' => 'quizzes'],
         'kids'      => ['label' => 'Kids Zone',        'icon' => '👶', 'color' => '#17a2b8', 'slug' => 'kids'],
         'life'      => ['label' => 'Life Tools',       'icon' => '⏰', 'color' => '#6f42c1', 'slug' => 'life-tools'],
-        'games'     => ['label' => 'Games',            'icon' => '🎮', 'color' => '#ffc107', 'slug' => 'games'],
+        'games'     => ['label' => 'Brain Games',      'icon' => '🎮', 'color' => '#ffc107', 'slug' => 'games'],
     ],
 ];
