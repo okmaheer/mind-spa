@@ -6,7 +6,7 @@
 
 @section('schema')
 <script type="application/ld+json">{"@@context":"https://schema.org","@@type":"WebSite","name":"MindSnap","url":"{{ config('app.url') }}","description":"Free health calculators, sleep tools and brain quizzes for everyone.","potentialAction":{"@@type":"SearchAction","target":"{{ config('app.url') }}/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<script type="application/ld+json">{"@@context":"https://schema.org","@@type":"Organization","name":"MindSnap","url":"{{ config('app.url') }}","logo":"{{ asset('images/logo.png') }}"}</script>
+<script type="application/ld+json">{"@@context":"https://schema.org","@@type":"Organization","name":"MindSnap","url":"{{ config('app.url') }}","logo":"{{ asset('favicon.svg') }}"}</script>
 @endsection
 
 @section('content')
