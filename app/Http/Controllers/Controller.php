@@ -12,8 +12,13 @@ abstract class Controller
         $tool = Tool::where('slug', $slug)->first();
 
         if ($tool && ! $tool->isPublished()) {
-            return response()->view('errors.coming-soon', [], 404)
-                ->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate']);
+            // 503 tells Google "temporarily unavailable" — it keeps the URL in the index.
+            // 404 would cause Google to drop the page, which is bad for tools that will be published later.
+            return response()->view('errors.coming-soon', [], 503)
+                ->withHeaders([
+                    'Cache-Control' => 'no-store, no-cache, must-revalidate',
+                    'Retry-After'   => '86400',
+                ]);
         }
 
         if (! \Illuminate\Support\Facades\View::exists($view)) {
