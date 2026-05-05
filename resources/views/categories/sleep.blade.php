@@ -71,7 +71,7 @@ $faqs = [
 $relatedTools = [
   ['icon' => '💪', 'name' => 'Fitness Tools',   'slug' => '/fitness-tools',  'desc' => 'BMI, calories, macros & more'],
   ['icon' => '🥗', 'name' => 'Nutrition Tools',  'slug' => '/nutrition-tools','desc' => 'Water intake & fasting'],
-  ['icon' => '🧠', 'name' => 'Brain Quizzes',    'slug' => '/quizzes',        'desc' => 'IQ test, GK quiz & more'],
+  ['icon' => '🎮', 'name' => 'Brain Games',      'slug' => '/games',          'desc' => 'Typing speed, memory & reaction tests'],
   ['icon' => '⏰', 'name' => 'Life Tools',        'slug' => '/life-tools',     'desc' => 'Age, dates & life calculators'],
 ];
 @endphp

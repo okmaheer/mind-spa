@@ -67,7 +67,7 @@ $relatedTools = [
   ['icon' => '😴', 'name' => 'Sleep Tools',     'slug' => '/sleep-tools',     'desc' => 'Bedtime & sleep cycle calculators'],
   ['icon' => '💪', 'name' => 'Fitness Tools',   'slug' => '/fitness-tools',   'desc' => 'BMI, calories & macro calculators'],
   ['icon' => '🥗', 'name' => 'Nutrition Tools', 'slug' => '/nutrition-tools', 'desc' => 'Water intake & fasting schedule'],
-  ['icon' => '🧠', 'name' => 'Brain Quizzes',   'slug' => '/quizzes',         'desc' => 'IQ test & knowledge quizzes'],
+  ['icon' => '🎮', 'name' => 'Brain Games',     'slug' => '/games',           'desc' => 'Typing speed, memory & reaction tests'],
 ];
 @endphp
 

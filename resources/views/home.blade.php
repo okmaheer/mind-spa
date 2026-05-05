@@ -59,14 +59,14 @@
           <a href="{{ route('category.sleep') }}" class="btn btn-cta" style="min-width:160px;font-size:1rem;">
             Explore Tools
           </a>
-          <a href="{{ route('quiz.iq') }}"
+          <a href="{{ route('games') }}"
              class="btn"
              style="background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;
                     border-radius:8px;padding:12px 28px;font-weight:600;min-height:48px;
                     transition:border-color .2s,background .2s;"
              onmouseover="this.style.borderColor='#fff';this.style.background='rgba(255,255,255,.08)'"
              onmouseout="this.style.borderColor='rgba(255,255,255,.4)';this.style.background='transparent'">
-            Take Free IQ Test →
+            Play Brain Games →
           </a>
         </div>
 
@@ -75,7 +75,7 @@
           @foreach([
             ['40+',  'Free Tools',       '#6c63ff'],
             ['30+',  'Calculators',      '#28a745'],
-            ['10+',  'Brain Quizzes',    '#e94560'],
+            ['5',    'Brain Games',      '#ffc107'],
             ['0',    'Signup Needed',    '#17a2b8'],
           ] as [$num, $label, $color])
           <div class="col-6 col-sm-3">
@@ -107,9 +107,9 @@
           </div>
           <div style="position:absolute;bottom:40px;left:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
                       border-radius:14px;padding:16px 20px;backdrop-filter:blur(10px);width:200px;">
-            <div style="font-size:1.5rem;">🧠</div>
-            <div style="color:#fff;font-weight:600;font-size:.9rem;margin-top:6px;">Daily Brain Quiz</div>
-            <div style="color:#e94560;font-size:.78rem;margin-top:2px;">New challenge every day</div>
+            <div style="font-size:1.5rem;">🎮</div>
+            <div style="color:#fff;font-weight:600;font-size:.9rem;margin-top:6px;">Reaction Time Test</div>
+            <div style="color:#ffc107;font-size:.78rem;margin-top:2px;">How fast are your reflexes?</div>
           </div>
         </div>
       </div>
@@ -136,7 +136,6 @@
       ['emoji'=>'😴','name'=>'Sleep Tools',    'slug'=>'sleep-tools',    'color'=>'#6c63ff','tools'=>'7 tools',  'desc'=>'Find your perfect bedtime, fix your sleep debt, beat jet lag'],
       ['emoji'=>'💪','name'=>'Fitness',         'slug'=>'fitness-tools',  'color'=>'#28a745','tools'=>'11 tools', 'desc'=>'BMI, TDEE, body fat, heart rate zones and more'],
       ['emoji'=>'🥗','name'=>'Nutrition',       'slug'=>'nutrition-tools','color'=>'#fd7e14','tools'=>'2 tools',  'desc'=>'Water intake and intermittent fasting timer'],
-      ['emoji'=>'🧠','name'=>'Brain Quizzes',   'slug'=>'quizzes',        'color'=>'#e94560','tools'=>'10 quizzes','desc'=>'General knowledge, history, science, IQ test and more'],
       ['emoji'=>'👶','name'=>'Kids Zone',       'slug'=>'kids',           'color'=>'#17a2b8','tools'=>'5 games',  'desc'=>'Safe, ad-free learning games for ages 5–12'],
       ['emoji'=>'⏰','name'=>'Life Tools',      'slug'=>'life-tools',     'color'=>'#6f42c1','tools'=>'7 tools',  'desc'=>'Age, pregnancy, days between dates, retirement'],
       ['emoji'=>'🎮','name'=>'Games',           'slug'=>'games',          'color'=>'#e6ac00','tools'=>'5 games',  'desc'=>'Typing speed, reaction time, memory test and more'],
@@ -206,7 +205,7 @@
       ['icon'=>'😴','name'=>'Sleep Cycle Calculator','slug'=>'sleep-calculator',    'category'=>'sleep',  'desc'=>'Wake up refreshed by timing your sleep cycles right.'],
       ['icon'=>'⚖️','name'=>'BMI Calculator',         'slug'=>'bmi-calculator',      'category'=>'fitness','desc'=>'Find out where you stand and what it actually means.'],
       ['icon'=>'🔥','name'=>'Calorie Calculator',     'slug'=>'calorie-calculator',  'category'=>'fitness','desc'=>'Your TDEE — the number behind every diet plan.'],
-      ['icon'=>'🧠','name'=>'General Knowledge Quiz', 'slug'=>'quiz/general-knowledge','category'=>'quiz', 'desc'=>'10 questions. How many can you get right?'],
+      ['icon'=>'⌨️','name'=>'Typing Speed Test',     'slug'=>'typing-speed-test',   'category'=>'games',  'desc'=>'Measure your WPM and see how you rank worldwide.'],
       ['icon'=>'⌨️','name'=>'Typing Speed Test',     'slug'=>'typing-speed-test',   'category'=>'games',  'desc'=>'Find out your WPM and see how you compare.'],
       ['icon'=>'🎂','name'=>'Age Calculator',         'slug'=>'age-calculator',      'category'=>'life',   'desc'=>'Your exact age in years, months, weeks and days.'],
     ];
@@ -243,71 +242,6 @@
   </div>
 </section>
 
-{{-- ═══════════════════════════════════════════════════════════════════════════
-     SECTION 4 — IQ TEST / QUIZZES BANNER
-════════════════════════════════════════════════════════════════════════════ --}}
-<section style="padding:70px 0;background:linear-gradient(135deg,#e94560 0%,#c0392b 100%);position:relative;overflow:hidden;">
-
-  <div aria-hidden="true"
-       style="position:absolute;inset:0;pointer-events:none;
-              background:url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");"></div>
-
-  <div class="container position-relative">
-    <div class="row align-items-center justify-content-between g-4">
-      <div class="col-lg-7">
-        <div class="d-flex align-items-center gap-2 mb-3">
-          <span style="background:rgba(255,255,255,.2);color:#fff;border-radius:50px;padding:4px 12px;font-size:.78rem;font-weight:700;letter-spacing:.5px;">
-            🧠 FREE IQ TEST
-          </span>
-          <span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border-radius:50px;padding:4px 12px;font-size:.78rem;font-weight:600;">
-            1.8M searches/month
-          </span>
-        </div>
-
-        <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:.75rem;">
-          What's Your IQ? Find Out in 5 Minutes
-        </h2>
-
-        <p style="color:rgba(255,255,255,.85);font-size:1rem;max-width:480px;line-height:1.7;margin-bottom:1.5rem;">
-          20 questions covering logic, pattern recognition, and spatial reasoning. Get your IQ score estimate instantly. No email, no signup, completely free.
-        </p>
-
-        <div class="d-flex flex-wrap align-items-center gap-3">
-          <a href="{{ route('quiz.iq') }}"
-             class="btn"
-             style="background:#fff;color:#e94560;font-weight:700;border-radius:8px;
-                    padding:12px 28px;min-height:48px;border:none;font-size:1rem;
-                    transition:transform .15s,box-shadow .15s;"
-             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.2)'"
-             onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-            Take Free IQ Test →
-          </a>
-          <a href="{{ route('category.quizzes') }}"
-             style="color:rgba(255,255,255,.8);font-size:.9rem;font-weight:600;text-decoration:none;"
-             onmouseover="this.style.color='#fff'"
-             onmouseout="this.style.color='rgba(255,255,255,.8)'">
-            See all 9 quizzes →
-          </a>
-        </div>
-      </div>
-
-      <div class="col-lg-4 d-none d-lg-block text-center" aria-hidden="true">
-        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-                    border-radius:20px;padding:30px;display:inline-block;">
-          <div style="font-size:4rem;line-height:1;margin-bottom:12px;">🧩</div>
-          <div style="color:#fff;font-weight:700;font-size:1.1rem;">Free IQ Test</div>
-          <div style="color:rgba(255,255,255,.7);font-size:.85rem;margin-top:4px;">20 questions · ~5 min</div>
-          <div style="margin-top:16px;display:flex;gap:4px;justify-content:center;">
-            @foreach(['Logic','Patterns','Spatial'] as $label)
-            <span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);
-                         border-radius:50px;padding:3px 8px;font-size:.7rem;">{{ $label }}</span>
-            @endforeach
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
      SECTION 5 — KIDS ZONE HIGHLIGHT

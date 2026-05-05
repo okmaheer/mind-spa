@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KidsController;
-use App\Http\Controllers\QuizController;
+
 use Illuminate\Support\Facades\Route;
 
 // ── Core ──────────────────────────────────────────────────────────────────────
@@ -21,7 +21,7 @@ Route::get('/privacy',   [HomeController::class, 'privacy'])->name('privacy');
 Route::get('/sleep-tools',       [CategoryController::class, 'sleep'])->name('category.sleep');
 Route::get('/fitness-tools',     [CategoryController::class, 'fitness'])->name('category.fitness');
 Route::get('/nutrition-tools',   [CategoryController::class, 'nutrition'])->name('category.nutrition');
-Route::get('/quizzes',           [CategoryController::class, 'quizzes'])->name('category.quizzes');
+
 Route::get('/kids',              [CategoryController::class, 'kids'])->name('category.kids');
 Route::get('/life-tools',        [CategoryController::class, 'life'])->name('category.life');
 Route::get('/games',             [CategoryController::class, 'games'])->name('category.games');
@@ -66,11 +66,6 @@ Route::get('/ovulation-calculator',       [CalculatorController::class, 'ovulati
 Route::get('/retirement-calculator',      [CalculatorController::class, 'retirement'])->name('calc.retirement');
 Route::get('/life-percentage-calculator', [CalculatorController::class, 'lifePercentage'])->name('calc.life-percent');
 
-// ── Quizzes ───────────────────────────────────────────────────────────────────
-
-Route::get('/iq-test',              [QuizController::class, 'iqTest'])->name('quiz.iq');
-Route::get('/quiz/{category}',      [QuizController::class, 'show'])->name('quiz.show');
-Route::post('/quiz/save-result',    [QuizController::class, 'saveResult'])->name('quiz.save-result');
 
 // ── Kids Zone ─────────────────────────────────────────────────────────────────
 
@@ -88,9 +83,3 @@ Route::get('/memory-test',          [GamesController::class, 'memoryTest'])->nam
 Route::get('/word-scramble',        [GamesController::class, 'wordScramble'])->name('games.scramble');
 Route::get('/color-blind-test',     [GamesController::class, 'colorBlind'])->name('games.color-blind');
 
-// ── SEO Content Pages ─────────────────────────────────────────────────────────
-
-Route::get('/what-time-should-i-sleep', [HomeController::class, 'sleepGuide'])->name('seo.sleep-time');
-Route::get('/how-much-sleep-do-i-need', [HomeController::class, 'sleepNeedsGuide'])->name('seo.sleep-needs');
-Route::get('/what-is-a-good-bmi',       [HomeController::class, 'bmiGuide'])->name('seo.bmi-guide');
-Route::get('/calories-to-lose-weight',  [HomeController::class, 'caloriesGuide'])->name('seo.calories-guide');

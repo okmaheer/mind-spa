@@ -66,23 +66,4 @@ class HomeController extends Controller
         return view('static.privacy');
     }
 
-    public function sleepGuide()
-    {
-        return view('seo.what-time-should-i-sleep');
-    }
-
-    public function sleepNeedsGuide()
-    {
-        return view('seo.how-much-sleep-do-i-need');
-    }
-
-    public function bmiGuide()
-    {
-        return view('seo.what-is-a-good-bmi');
-    }
-
-    public function caloriesGuide()
-    {
-        return view('seo.calories-to-lose-weight');
-    }
 }

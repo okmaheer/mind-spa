@@ -17,14 +17,14 @@ class CalculatorController extends Controller
 
     // ── Sleep Tools ─────────────────────────────────────────────────────────
 
-    public function sleep()           { return view('calculators.sleep-calculator'); }
-    public function wakeUp()          { return view('calculators.wake-up-calculator'); }
-    public function nap()             { return view('calculators.nap-calculator'); }
-    public function babySleep()       { return view('calculators.baby-sleep-calculator'); }
-    public function sleepDebt()       { return view('calculators.sleep-debt-calculator'); }
-    public function caffeine()        { return view('calculators.caffeine-sleep-calculator'); }
-    public function jetLag()          { return view('calculators.jet-lag-calculator'); }
-    public function sleepQuality()    { return view('calculators.sleep-quality-quiz'); }
+    public function sleep()           { return $this->renderOrAbort('calculators.sleep-calculator'); }
+    public function wakeUp()          { return $this->renderOrAbort('calculators.wake-up-calculator'); }
+    public function nap()             { return $this->renderOrAbort('calculators.nap-calculator'); }
+    public function babySleep()       { return $this->renderOrAbort('calculators.baby-sleep-calculator'); }
+    public function sleepDebt()       { return $this->renderOrAbort('calculators.sleep-debt-calculator'); }
+    public function caffeine()        { return $this->renderOrAbort('calculators.caffeine-sleep-calculator'); }
+    public function jetLag()          { return $this->renderOrAbort('calculators.jet-lag-calculator'); }
+    public function sleepQuality()    { return $this->renderOrAbort('calculators.sleep-quality-quiz'); }
 
     // ── Fitness Tools ───────────────────────────────────────────────────────
 

@@ -14,7 +14,7 @@
           <span class="fw-700 fs-5">MindSnap</span>
         </a>
         <p style="font-size:.88rem; color:rgba(255,255,255,.6); line-height:1.7;">
-          Free health calculators, sleep tools, and brain quizzes for everyone.
+          Free health calculators, sleep tools, and brain games for everyone.
           No signup. No fees. Works worldwide.
         </p>
         <div class="d-flex gap-2 flex-wrap mt-3">
@@ -47,19 +47,17 @@
         </ul>
       </div>
 
-      {{-- Col 3: Quizzes & Games --}}
+      {{-- Col 3: Games --}}
       <div class="col-6 col-lg-3">
-        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Quizzes & Games</p>
+        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Brain Games</p>
         <ul class="list-unstyled" style="font-size:.875rem;">
           @foreach([
-            ['GK Quiz',           '/quiz/general-knowledge'],
-            ['History Quiz',      '/quiz/history'],
-            ['IQ Test',           '/iq-test'],
-            ['Biology Quiz',      '/quiz/biology'],
-            ['Word Scramble',      '/word-scramble'],
             ['Typing Speed Test', '/typing-speed-test'],
             ['Reaction Time',     '/reaction-time-test'],
             ['Memory Test',       '/memory-test'],
+            ['Word Scramble',     '/word-scramble'],
+            ['Colour Blind Test', '/color-blind-test'],
+            ['All Games',         '/games'],
           ] as [$label, $href])
           <li class="mb-2">
             <a href="{{ $href }}" style="color:rgba(255,255,255,.7); transition:color .15s;"

@@ -58,7 +58,7 @@ $faqs = [
 ];
 
 $relatedTools = [
-  ['icon' => '🧠', 'name' => 'Brain Quizzes', 'slug' => '/quizzes',       'desc' => 'IQ test & knowledge quizzes'],
+  ['icon' => '💪', 'name' => 'Fitness Tools', 'slug' => '/fitness-tools', 'desc' => 'BMI, calories & macro calculators'],
   ['icon' => '👶', 'name' => 'Kids Zone',     'slug' => '/kids',          'desc' => 'Safe games & quizzes for children'],
   ['icon' => '😴', 'name' => 'Sleep Tools',   'slug' => '/sleep-tools',   'desc' => 'Bedtime & sleep cycle calculators'],
   ['icon' => '💪', 'name' => 'Fitness Tools', 'slug' => '/fitness-tools', 'desc' => 'BMI, calories & macro calculators'],

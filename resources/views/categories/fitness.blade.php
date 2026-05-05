@@ -66,7 +66,7 @@ $faqs = [
 $relatedTools = [
   ['icon' => '😴', 'name' => 'Sleep Tools',     'slug' => '/sleep-tools',     'desc' => 'Bedtime, sleep cycles & nap calculators'],
   ['icon' => '🥗', 'name' => 'Nutrition Tools',  'slug' => '/nutrition-tools', 'desc' => 'Water intake & fasting schedule'],
-  ['icon' => '🧠', 'name' => 'Brain Quizzes',    'slug' => '/quizzes',         'desc' => 'IQ test, GK quiz & more'],
+  ['icon' => '🎮', 'name' => 'Brain Games',      'slug' => '/games',           'desc' => 'Typing speed, memory & reaction tests'],
   ['icon' => '⏰', 'name' => 'Life Tools',        'slug' => '/life-tools',      'desc' => 'Age, dates & life calculators'],
 ];
 @endphp
