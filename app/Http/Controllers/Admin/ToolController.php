@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tool;
 use App\Services\PublishableRegistry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
 class ToolController extends Controller
@@ -55,11 +56,8 @@ class ToolController extends Controller
 
     private function clearCaches(Tool $tool): void
     {
-        Cache::forget('tools:nav');
-        Cache::forget('tools:search');
-        Cache::forget('tools:popular:6');
-        Cache::forget("tools:category:{$tool->category}");
-        Cache::forget('sitemap:xml');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
         PublishableRegistry::clearCache($tool->slug);
     }
 }

@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ToolsSeeder::class);
         $this->call(AdminUserSeeder::class);
 
-        $this->command->call('mindsnap:sync-published');
+        // $this->command->call('mindsnap:sync-published');
     }
 }
