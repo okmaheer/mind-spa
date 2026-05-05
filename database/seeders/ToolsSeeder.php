@@ -480,8 +480,9 @@ class ToolsSeeder extends Seeder
         ];
 
         foreach ($tools as &$tool) {
-            $tool['created_at'] = now();
-            $tool['updated_at'] = now();
+            $tool['created_at']   = now();
+            $tool['updated_at']   = now();
+            $tool['published_at'] = now();
         }
 
         DB::table('tools')->upsert(
