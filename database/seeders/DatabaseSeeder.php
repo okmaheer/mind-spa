@@ -16,5 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(ToolsSeeder::class);
+        $this->call(AdminUserSeeder::class);
+
+        $this->command->call('mindsnap:sync-published');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\PublishableRegistry;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +25,29 @@ class SeoHeaders
         $response = $next($request);
 
         if ($request->isMethod('GET') && $response->isSuccessful()) {
-            $ttl = $this->ttlForPath($request->path());
+            $path = $request->path();
+            $ttl  = $this->ttlForPath($path);
             $response->headers->set('Cache-Control', "public, max-age={$ttl}, s-maxage={$ttl}");
-            $response->headers->set('X-Robots-Tag', 'index, follow');
+            $response->headers->set('X-Robots-Tag', $this->resolveRobotsTag($path));
             $response->headers->set('Vary', 'Accept-Encoding');
         }
 
         return $response;
+    }
+
+    private function resolveRobotsTag(string $path): string
+    {
+        // Admin area must never be indexed — HTTP header overrides any <meta robots> tag
+        if ($path === 'admin' || str_starts_with($path, 'admin/')) {
+            return 'noindex, nofollow';
+        }
+
+        // Unpublished tools/content
+        if (PublishableRegistry::isUnpublishedPath($path)) {
+            return 'noindex, nofollow';
+        }
+
+        return 'index, follow';
     }
 
     private function ttlForPath(string $path): int

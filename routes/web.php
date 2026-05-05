@@ -83,3 +83,4 @@ Route::get('/memory-test',          [GamesController::class, 'memoryTest'])->nam
 Route::get('/word-scramble',        [GamesController::class, 'wordScramble'])->name('games.scramble');
 Route::get('/color-blind-test',     [GamesController::class, 'colorBlind'])->name('games.color-blind');
 
+

@@ -30,18 +30,14 @@ class SitemapService
 
         // Append tool slugs dynamically from database
         try {
-            $tools = Tool::active()->get(['slug', 'updated_at']);
-            Log::info('[SITEMAP] Active tools query executed', ['count' => $tools->count()]);
+            $tools = Tool::active()->published()->get(['slug', 'updated_at']);
+            Log::info('[SITEMAP] Active+published tools query executed', ['count' => $tools->count()]);
 
             if ($tools->count() === 0) {
-                Log::warning('[SITEMAP] No active tools found in database');
-                // Check if there are ANY tools at all
-                $totalTools = Tool::count();
-                Log::warning('[SITEMAP] Total tools in database: ' . $totalTools);
-                
-                // Check how many are active
+                Log::warning('[SITEMAP] No active published tools found in database');
+                $totalTools  = Tool::count();
                 $activeCount = Tool::where('is_active', 1)->count();
-                Log::warning('[SITEMAP] Active tools (is_active=1): ' . $activeCount);
+                Log::warning('[SITEMAP] Total tools: ' . $totalTools . ', active: ' . $activeCount);
             }
             
             foreach ($tools as $tool) {

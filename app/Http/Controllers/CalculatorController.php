@@ -9,10 +9,9 @@ class CalculatorController extends Controller
 {
     public function __construct(private SeoService $seo) {}
 
-    private function renderOrAbort(string $view): \Illuminate\View\View
+    private function renderOrAbort(string $view): \Illuminate\Http\Response|\Illuminate\View\View
     {
-        abort_unless(View::exists($view), 404);
-        return view($view);
+        return $this->renderOrComingSoon($view);
     }
 
     // ── Sleep Tools ─────────────────────────────────────────────────────────
