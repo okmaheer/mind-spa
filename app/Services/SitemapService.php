@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tool;
+use Illuminate\Support\Facades\Log;
 
 class SitemapService
 {
@@ -29,18 +30,55 @@ class SitemapService
         $base  = rtrim(config('app.url'), '/');
         $items = $this->staticRoutes;
 
-        // Append tool slugs dynamically
-        $tools = Tool::active()->get(['slug', 'updated_at']);
-        foreach ($tools as $tool) {
-            if (!\Illuminate\Support\Facades\View::exists("calculators.{$tool->slug}")) {
-                continue;
+        Log::info('[SITEMAP] Starting sitemap generation', ['base_url' => $base]);
+        Log::info('[SITEMAP] Static routes count: ' . count($this->staticRoutes));
+
+        // Append tool slugs dynamically from database
+        try {
+            $tools = Tool::active()->get(['slug', 'updated_at']);
+            Log::info('[SITEMAP] Active tools query executed', ['count' => $tools->count()]);
+
+            if ($tools->count() === 0) {
+                Log::warning('[SITEMAP] No active tools found in database');
+                // Check if there are ANY tools at all
+                $totalTools = Tool::count();
+                Log::warning('[SITEMAP] Total tools in database: ' . $totalTools);
+                
+                // Check how many are active
+                $activeCount = Tool::where('is_active', 1)->count();
+                Log::warning('[SITEMAP] Active tools (is_active=1): ' . $activeCount);
             }
-            $items[] = [
-                'loc'        => '/' . $tool->slug,
-                'priority'   => '0.8',
-                'changefreq' => 'monthly',
-                'lastmod'    => $tool->updated_at?->toDateString(),
-            ];
+            
+            foreach ($tools as $tool) {
+                // Try to find the view file directly
+                $viewPath = resource_path("views/calculators/{$tool->slug}.blade.php");
+                
+                if (!file_exists($viewPath)) {
+                    Log::warning('[SITEMAP] View file not found for tool', ['slug' => $tool->slug, 'path' => $viewPath]);
+                    continue;
+                }
+                
+                Log::debug('[SITEMAP] Adding tool to sitemap', [
+                    'slug' => $tool->slug,
+                    'updated_at' => $tool->updated_at
+                ]);
+                
+                $items[] = [
+                    'loc'        => '/' . $tool->slug,
+                    'priority'   => '0.8',
+                    'changefreq' => 'monthly',
+                    'lastmod'    => $tool->updated_at?->toDateString(),
+                ];
+            }
+            
+            Log::info('[SITEMAP] Total items in sitemap (static + tools): ' . count($items));
+            
+        } catch (\Exception $e) {
+            Log::error('[SITEMAP] Error fetching tools', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
         }
 
         $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -58,6 +96,9 @@ class SitemapService
         }
 
         $xml .= '</urlset>';
+        
+        Log::info('[SITEMAP] Sitemap generation completed', ['xml_size' => strlen($xml), 'total_urls' => count($items)]);
+        
         return $xml;
     }
 }
