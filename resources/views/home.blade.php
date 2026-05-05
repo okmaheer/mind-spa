@@ -59,7 +59,7 @@
           <a href="{{ route('category.sleep') }}" class="btn btn-cta" style="min-width:160px;font-size:1rem;">
             Explore Tools
           </a>
-          <a href="{{ route('games') }}"
+          <a href="{{ route('category.games') }}"
              class="btn"
              style="background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;
                     border-radius:8px;padding:12px 28px;font-weight:600;min-height:48px;
