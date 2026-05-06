@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
   {{-- MindSnap design system: tokens, base styles, and utility classes --}}
-  <link rel="stylesheet" href="{{ asset('css/mindsnap.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/mindsnap.css') }}?v={{ filemtime(public_path('css/mindsnap.css')) }}">
 
   {{-- Page-level schemas (WebApplication, BreadcrumbList, FAQPage) --}}
   @yield('schema')
