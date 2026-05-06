@@ -123,9 +123,8 @@ $relatedTools = [
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="ms-section-h2">All Brain Games</h2>
-      <span class="text-muted-sm">{{ count($tools) ?: 5 }} games</span>
+      <span class="text-muted-sm">{{ count($tools) }} games</span>
     </div>
-    @if(count($tools))
     <div class="row g-4">
       @foreach($tools as $tool)
       <div class="col-sm-6 col-lg-4">
@@ -141,29 +140,6 @@ $relatedTools = [
       </div>
       @endforeach
     </div>
-    @else
-    <div class="row g-4">
-      @foreach([
-        ['⌨️','Typing Speed Test', '/typing-speed-test', 'Measure your WPM and accuracy. See how you rank against global averages.', '90K'],
-        ['⚡','Reaction Time Test', '/reaction-time-test','How fast are your reflexes? Measure reaction time in milliseconds.',       '74K'],
-        ['🃏','Memory Test',        '/memory-test',       'Test your visual memory by matching and recalling sequences of cards.',     '50K'],
-        ['🔀','Word Scramble',      '/word-scramble',     'Unscramble words against the clock. Great for vocabulary and spelling.',    '33K'],
-        ['🎨','Colour Blind Test',  '/color-blind-test',  'Check your colour vision with Ishihara-style plates.',                     '27K'],
-      ] as [$icon,$name,$slug,$desc,$searches])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ $slug }}" class="tool-card d-block p-4 h-100 text-decoration-none ms-tool-card-games">
-          <div class="d-flex align-items-start gap-3">
-            <span class="ms-tool-icon">{{ $icon }}</span>
-            <div>
-              <div class="ms-tool-name">{{ $name }}</div>
-              <div class="ms-tool-desc">{{ $desc }}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-    @endif
   </div>
 </section>
 

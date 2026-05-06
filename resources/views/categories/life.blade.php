@@ -126,9 +126,8 @@ $relatedTools = [
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="ms-section-h2">All Life Calculators</h2>
-      <span class="text-muted-sm">{{ count($tools) ?: 7 }} tools</span>
+      <span class="text-muted-sm">{{ count($tools) }} tools</span>
     </div>
-    @if(count($tools))
     <div class="row g-4">
       @foreach($tools as $tool)
       <div class="col-sm-6 col-lg-4">
@@ -144,31 +143,6 @@ $relatedTools = [
       </div>
       @endforeach
     </div>
-    @else
-    <div class="row g-4">
-      @foreach([
-        ['🎂','Age Calculator',             '/age-calculator',              'Exact age in years, months, weeks, days & hours.',                  '4,400K'],
-        ['📅','Days Between Dates',         '/days-between-dates',          'Count exact days, weeks, and months between any two dates.',        '301K'],
-        ['⏳','Days Until Calculator',      '/days-until-calculator',       'Countdown to birthdays, holidays, events, or deadlines.',           '74K'],
-        ['🤰','Due Date Calculator',        '/due-date-calculator',         'Pregnancy due date and trimester from your last period.',           '201K'],
-        ['🌸','Ovulation Calculator',       '/ovulation-calculator',        'Fertile window and ovulation day from your cycle length.',          '368K'],
-        ['🏖️','Retirement Countdown',       '/retirement-calculator',       'Days, months, and years until your retirement date.',               '40K'],
-        ['⌛','Life Percentage Calculator', '/life-percentage-calculator',  'See what % of your expected life you\'ve lived so far.',            '22K'],
-      ] as [$icon,$name,$slug,$desc,$searches])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ $slug }}" class="tool-card d-block p-4 h-100 text-decoration-none ms-tool-card-life">
-          <div class="d-flex align-items-start gap-3">
-            <span class="ms-tool-icon">{{ $icon }}</span>
-            <div>
-              <div class="ms-tool-name">{{ $name }}</div>
-              <div class="ms-tool-desc">{{ $desc }}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-    @endif
   </div>
 </section>
 

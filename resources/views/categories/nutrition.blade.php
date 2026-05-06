@@ -123,12 +123,11 @@ $relatedTools = [
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="ms-section-h2">Nutrition Calculators</h2>
-      <span class="text-muted-sm">{{ count($tools) ?: 2 }} tools</span>
+      <span class="text-muted-sm">{{ count($tools) }} tools</span>
     </div>
-    @if(count($tools))
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
       @foreach($tools as $tool)
-      <div class="col-sm-6 col-lg-5">
+      <div class="col-sm-10 col-lg-5">
         <a href="/{{ $tool['slug'] }}" class="tool-card d-block p-5 h-100 text-decoration-none ms-tool-card-nutrition">
           <div class="d-flex align-items-start gap-3">
             <span class="ms-tool-icon-lg">{{ $tool['icon'] ?? '🥗' }}</span>
@@ -141,26 +140,6 @@ $relatedTools = [
       </div>
       @endforeach
     </div>
-    @else
-    <div class="row g-4 justify-content-center">
-      @foreach([
-        ['💧','Water Intake Calculator',         '/water-intake-calculator',         'Calculate your daily hydration target based on weight, climate, and activity level. Metric and imperial.','368K'],
-        ['🕐','Intermittent Fasting Calculator', '/intermittent-fasting-calculator', 'Plan your eating and fasting windows for 16:8, 18:6, 5:2, and other IF protocols. Get your exact schedule.','201K'],
-      ] as [$icon,$name,$slug,$desc,$searches])
-      <div class="col-sm-10 col-lg-5">
-        <a href="{{ $slug }}" class="tool-card d-block p-5 h-100 text-decoration-none ms-tool-card-nutrition">
-          <div class="d-flex align-items-start gap-3">
-            <span class="ms-tool-icon-lg">{{ $icon }}</span>
-            <div>
-              <div class="ms-tool-name-lg">{{ $name }}</div>
-              <div class="ms-tool-desc-lg">{{ $desc }}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-    @endif
   </div>
 </section>
 

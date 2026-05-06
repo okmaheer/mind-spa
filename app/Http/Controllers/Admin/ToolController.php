@@ -7,18 +7,23 @@ use App\Models\Tool;
 use App\Services\PublishableRegistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 
 class ToolController extends Controller
 {
     public function index()
     {
-        $grouped = Tool::orderBy('category')
-                       ->orderBy('sort_order')
-                       ->get()
-                       ->groupBy('category');
+        $tools = Tool::orderBy('category')->orderBy('sort_order')->get();
 
-        return view('admin.tools.index', compact('grouped'));
+        $stats = [
+            'total'     => $tools->count(),
+            'published' => $tools->filter(fn($t) => $t->isPublished())->count(),
+            'draft'     => $tools->filter(fn($t) => $t->isDraft())->count(),
+            'scheduled' => $tools->filter(fn($t) => $t->isScheduled())->count(),
+        ];
+
+        $categories = $tools->pluck('category')->unique()->sort()->values();
+
+        return view('admin.tools.index', compact('tools', 'stats', 'categories'));
     }
 
     public function publish(int $id)
@@ -26,6 +31,13 @@ class ToolController extends Controller
         $tool = Tool::findOrFail($id);
         $tool->publish();
         $this->clearCaches($tool);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'status'       => $tool->publishingStatus(),
+                'published_at' => $tool->published_at->format('d M Y, H:i'),
+            ]);
+        }
 
         return back()->with('success', "\"{$tool->name}\" is now published.");
     }
@@ -35,6 +47,13 @@ class ToolController extends Controller
         $tool = Tool::findOrFail($id);
         $tool->unpublish();
         $this->clearCaches($tool);
+
+        if (request()->ajax()) {
+            return response()->json([
+                'status'       => $tool->publishingStatus(),
+                'published_at' => null,
+            ]);
+        }
 
         return back()->with('success', "\"{$tool->name}\" has been set to draft.");
     }

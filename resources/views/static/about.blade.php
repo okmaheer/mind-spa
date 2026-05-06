@@ -221,7 +221,7 @@
       <a href="{{ route('home') }}" class="btn btn-cta" style="background:#fff; color:var(--primary-dark); font-weight:700; padding:14px 32px; border-radius:8px; font-size:1rem;">
         Explore All Tools
       </a>
-      <a href="{{ route('category.quizzes') }}" class="btn" style="background:rgba(255,255,255,.15); color:#fff; border:2px solid rgba(255,255,255,.4); font-weight:600; padding:14px 28px; border-radius:8px; font-size:1rem;">
+      <a href="{{ route('category.games') }}" class="btn" style="background:rgba(255,255,255,.15); color:#fff; border:2px solid rgba(255,255,255,.4); font-weight:600; padding:14px 28px; border-radius:8px; font-size:1rem;">
         Try a Quiz →
       </a>
     </div>

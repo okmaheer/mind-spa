@@ -126,9 +126,8 @@ $relatedTools = [
   <div class="container-xl">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="ms-section-h2">All Fitness Calculators</h2>
-      <span class="text-muted text-sm">{{ count($tools) ?: 11 }} tools</span>
+      <span class="text-muted text-sm">{{ count($tools) }} tools</span>
     </div>
-    @if(count($tools))
     <div class="row g-4">
       @foreach($tools as $tool)
       <div class="col-sm-6 col-lg-4">
@@ -144,35 +143,6 @@ $relatedTools = [
       </div>
       @endforeach
     </div>
-    @else
-    <div class="row g-4">
-      @foreach([
-        ['⚖️','BMI Calculator',           '/bmi-calculator',            'Calculate your Body Mass Index and healthy weight range.',         '4,090K'],
-        ['🔥','Calorie Calculator',        '/calorie-calculator',        'Find your TDEE and daily calorie needs.',                          '1,000K'],
-        ['📉','Calorie Deficit Calculator','/calorie-deficit-calculator','Set a safe deficit to lose fat without losing muscle.',             '301K'],
-        ['🥩','Macro Calculator',          '/macro-calculator',          'Get your protein, carb, and fat split for your goal.',             '165K'],
-        ['💊','Protein Calculator',        '/protein-calculator',        'Daily protein intake for your weight and activity level.',         '135K'],
-        ['🏋️','One Rep Max Calculator',    '/one-rep-max-calculator',    'Estimate your 1RM for any lift from reps and weight.',             '90K'],
-        ['📏','Body Fat Calculator',       '/body-fat-calculator',       'Estimate body fat % using the US Navy method.',                    '550K'],
-        ['❤️','Heart Rate Calculator',     '/heart-rate-calculator',     'Find your max heart rate and 5 training zones.',                   '201K'],
-        ['🏃','Running Pace Calculator',   '/running-pace-calculator',   'Pace, speed, and finish time for any race distance.',              '135K'],
-        ['🎯','Ideal Weight Calculator',   '/ideal-weight-calculator',   'Your healthy weight range based on height.',                       '301K'],
-        ['📋','Workout Volume Calculator', '/workout-volume-calculator', 'Track sets × reps × weight for progressive overload.',             '18K'],
-      ] as [$icon,$name,$slug,$desc,$searches])
-      <div class="col-sm-6 col-lg-4">
-        <a href="{{ $slug }}" class="tool-card d-block p-4 h-100 text-decoration-none ms-tool-card-fitness">
-          <div class="d-flex align-items-start gap-3">
-            <span class="ms-tool-icon">{{ $icon }}</span>
-            <div>
-              <div class="ms-tool-name">{{ $name }}</div>
-              <div class="ms-tool-desc">{{ $desc }}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      @endforeach
-    </div>
-    @endif
   </div>
 </section>
 
