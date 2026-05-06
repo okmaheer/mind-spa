@@ -73,6 +73,29 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.hr-karvonen-note   { font-size:.78rem; color:var(--cta-text); }
+.hr-max-label       { font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px; }
+.hr-max-val         { font-size:3rem; font-weight:800; color:var(--fitness); line-height:1; }
+.hr-max-sub         { font-size:.9rem; color:#888; margin-top:4px; }
+.hr-table           { font-size:.82rem; }
+.hr-zone-badge      { color:#fff; border-radius:6px; padding:4px 8px; font-size:.72rem; font-weight:700; min-width:54px; text-align:center; flex-shrink:0; margin-top:2px; }
+.hr-zone-1          { background:#4a9fd4; }
+.hr-zone-2          { background:#28a745; }
+.hr-zone-3          { background:#ffc107; }
+.hr-zone-4          { background:#fd7e14; }
+.hr-zone-5          { background:#dc3545; }
+.hr-table-wrap      { max-width:600px; margin:auto; }
+.hr-rhr-table       { font-size:.87rem; }
+.hr-source-note     { font-size:.78rem; }
+.hr-zone-bar-row    { display:flex; border-radius:8px; overflow:hidden; height:20px; margin-bottom:6px; }
+.hr-zone-segment    { flex:1; opacity:.8; }
+.hr-zone-labels     { display:flex; font-size:.68rem; color:#888; }
+.hr-zone-label-item { flex:1; text-align:center; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -116,21 +139,21 @@ $relatedTools = [
                 <option value="tanaka">Tanaka (208 − 0.7 × age)</option>
                 <option value="karvonen">Karvonen (requires resting HR)</option>
               </select>
-              <div id="hrKarvonenNote" class="mt-1 d-none" style="font-size:.78rem; color:var(--cta-text);">Karvonen formula uses your resting HR for more personalised zone calculations.</div>
+              <div id="hrKarvonenNote" class="mt-1 d-none hr-karvonen-note">Karvonen formula uses your resting HR for more personalised zone calculations.</div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calculateHR()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calculateHR()">
               Calculate Heart Rate Zones →
             </button>
 
             {{-- Results --}}
             <div id="hrResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="text-center mb-4">
-                <div style="font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px;">Maximum Heart Rate</div>
-                <div id="hrMaxDisplay" style="font-size:3rem; font-weight:800; color:var(--fitness); line-height:1;"></div>
-                <div style="font-size:.9rem; color:#888; margin-top:4px;">beats per minute</div>
+                <div class="hr-max-label">Maximum Heart Rate</div>
+                <div id="hrMaxDisplay" class="hr-max-val"></div>
+                <div class="hr-max-sub">beats per minute</div>
               </div>
 
               {{-- Zone visual bar --}}
@@ -138,7 +161,7 @@ $relatedTools = [
 
               {{-- Zone table --}}
               <div class="table-responsive">
-                <table class="table table-sm mb-0" style="font-size:.82rem;">
+                <table class="table table-sm mb-0 hr-table">
                   <thead class="ms-table-head">
                     <tr>
                       <th>Zone</th>
@@ -160,7 +183,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Heart Rate Facts</h3>
           @foreach([
@@ -171,7 +194,7 @@ $relatedTools = [
             ['60–100 bpm', 'Normal resting heart rate (adults)'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--fitness); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.8rem; min-width:80px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
+            <div class="ms-fact-pill ms-fact-pill-fitness">{{ $stat }}</div>
             <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
@@ -196,19 +219,19 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">The 5 Heart Rate Training Zones</p>
+          <p class="fw-semibold mb-3 ms-panel-head">The 5 Heart Rate Training Zones</p>
           @foreach([
-            ['Zone 1', '50–60%', '#4a9fd4', 'Very Light', 'Recovery, warm-up, cool-down. Fat primary fuel. Easy conversation.'],
-            ['Zone 2', '60–70%', '#28a745', 'Light / Fat Burn', 'Aerobic base building. High fat utilisation. Sustainable for hours.'],
-            ['Zone 3', '70–80%', '#ffc107', 'Moderate / Cardio', 'Cardiovascular fitness. Mix of fat and carbs. Slightly harder to speak.'],
-            ['Zone 4', '80–90%', '#fd7e14', 'Hard / Threshold', 'Lactate threshold training. Primarily carbohydrates. Can speak only briefly.'],
-            ['Zone 5', '90–100%', '#dc3545', 'Maximum / VO2 Max', 'Anaerobic, HIIT. All-out effort. Cannot sustain for more than 1–2 minutes.'],
-          ] as [$zone, $pct, $color, $name, $desc])
+            ['Zone 1', '50–60%', 'hr-zone-1', 'Very Light', 'Recovery, warm-up, cool-down. Fat primary fuel. Easy conversation.'],
+            ['Zone 2', '60–70%', 'hr-zone-2', 'Light / Fat Burn', 'Aerobic base building. High fat utilisation. Sustainable for hours.'],
+            ['Zone 3', '70–80%', 'hr-zone-3', 'Moderate / Cardio', 'Cardiovascular fitness. Mix of fat and carbs. Slightly harder to speak.'],
+            ['Zone 4', '80–90%', 'hr-zone-4', 'Hard / Threshold', 'Lactate threshold training. Primarily carbohydrates. Can speak only briefly.'],
+            ['Zone 5', '90–100%', 'hr-zone-5', 'Maximum / VO2 Max', 'Anaerobic, HIIT. All-out effort. Cannot sustain for more than 1–2 minutes.'],
+          ] as [$zone, $pct, $cls, $name, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $color }}; color:#fff; border-radius:6px; padding:4px 8px; font-size:.72rem; font-weight:700; min-width:54px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $zone }}</div>
+            <div class="hr-zone-badge {{ $cls }}">{{ $zone }}</div>
             <div>
-              <div class="fw-semibold" style="font-size:.86rem; color:#1a1a2e;">{{ $name }} <span style="font-weight:400; color:#888;">({{ $pct }})</span></div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-semibold ms-ref-title">{{ $name }} <span class="fw-normal text-muted">({{ $pct }})</span></div>
+              <div class="ms-ref-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -223,10 +246,10 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Resting Heart Rate Chart by Age — What's Normal?</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Measure first thing in the morning, before getting out of bed, for the most accurate resting HR.</p>
+      <p class="text-muted ms-intro-text">Measure first thing in the morning, before getting out of bed, for the most accurate resting HR.</p>
     </div>
-    <div class="table-responsive" style="max-width:600px; margin:auto;">
-      <table class="table table-bordered text-center" style="font-size:.87rem;">
+    <div class="table-responsive hr-table-wrap">
+      <table class="table table-bordered text-center hr-rhr-table">
         <thead class="ms-table-head">
           <tr><th>Age</th><th>Athlete</th><th>Excellent</th><th>Good</th><th>Average</th><th>Poor</th></tr>
         </thead>
@@ -247,7 +270,7 @@ $relatedTools = [
           @endforeach
         </tbody>
       </table>
-      <p class="text-muted text-center" style="font-size:.78rem;">Values in bpm. Source: American Heart Association / Cooper Institute norms.</p>
+      <p class="text-muted text-center hr-source-note">Values in bpm. Source: American Heart Association / Cooper Institute norms.</p>
     </div>
   </div>
 </section>
@@ -258,15 +281,15 @@ $relatedTools = [
 {{-- ── 5. Long-tail keyword sections ─────────────────────────────────────────── --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Heart Rate Zones for Fat Burning — Is the 'Fat Burn Zone' Real?</h2>
+    <h2 class="mb-4 text-brand">Heart Rate Zones for Fat Burning — Is the 'Fat Burn Zone' Real?</h2>
     <p>The 'fat burning zone' (Zone 2, 60–70% max HR) is frequently misunderstood. At this intensity, your body does use fat as its primary fuel source — roughly 60–65% of calories burned come from fat oxidation. However, the total calorie burn per minute is much lower than at higher intensities. This creates a paradox: you burn a higher proportion of fat at low intensity, but more total fat in the same time period at moderate-to-high intensity.</p>
     <p>Where Zone 2 training truly shines is in developing your aerobic base — the underlying cardiovascular machinery that determines how efficiently you can use fat as fuel at all intensities. Elite endurance athletes spend enormous volumes of training in Zone 2 specifically to develop this metabolic foundation. For the average gym-goer with limited time, higher-intensity training and overall calorie deficit are more important for fat loss than staying in Zone 2.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">HIIT Heart Rate Calculator — How High Should Your Heart Rate Go?</h2>
+    <h2 class="mt-5 mb-4 text-brand">HIIT Heart Rate Calculator — How High Should Your Heart Rate Go?</h2>
     <p>HIIT (High-Intensity Interval Training) is most effective when work intervals push heart rate into Zone 4–5 (80–100% max HR). A common HIIT protocol is 20–40 seconds of all-out effort followed by 40–80 seconds of rest or light activity, repeated 6–10 times. During the work intervals, heart rate should climb to 85–95% of maximum. Because of the intensity, HIIT sessions are typically 20–30 minutes total.</p>
     <p>Research consistently shows that HIIT produces similar or greater cardiovascular fitness improvements as longer moderate-intensity sessions in less time. It also produces a significant EPOC (excess post-exercise oxygen consumption) effect — your metabolism stays elevated for hours after the session, contributing additional calorie burn. However, HIIT should be limited to 2–3 sessions per week due to the high recovery demand.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Resting Heart Rate Chart by Age — What's Normal?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Resting Heart Rate Chart by Age — What's Normal?</h2>
     <p>Resting heart rate naturally changes with age and fitness. In adolescence, resting HR tends to be slightly higher; it stabilises through adulthood and may rise slightly in later decades as cardiovascular efficiency declines. Regular aerobic exercise is the most powerful lifestyle intervention for lowering resting heart rate — even moderate amounts of cardio can reduce resting HR by 5–10 bpm over several months.</p>
     <p>Tracking your resting heart rate over time is a free and underutilised fitness metric. As your cardiovascular fitness improves, your resting HR should trend downward. A sudden unexplained elevation in resting HR can indicate overtraining, illness, stress, or poor sleep, making it a useful daily biometric for athletes to monitor.</p>
   </div>
@@ -287,7 +310,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Heart Rate and Medications</h3>
         <p>Beta-blockers — commonly prescribed for hypertension and heart conditions — directly lower heart rate at rest and during exercise. If you take beta-blockers, the age-based maximum heart rate formulas will significantly overestimate your actual max HR, making zone calculations unreliable. Work with your physician to establish appropriate exercise intensity targets if you are on cardiac medications.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Medical Note:</strong> Heart rate zone training is intended for healthy adults. If you have heart disease, hypertension, or known cardiac arrhythmias, consult your physician before beginning exercise at elevated heart rate zones.</p>
+          <p class="mb-0 ms-disclaimer"><strong>Medical Note:</strong> Heart rate zone training is intended for healthy adults. If you have heart disease, hypertension, or known cardiac arrhythmias, consult your physician before beginning exercise at elevated heart rate zones.</p>
         </div>
       </div>
     </div>
@@ -349,13 +372,13 @@ $relatedTools = [
     document.getElementById('hrMaxDisplay').textContent = maxHR;
 
     // Zone bar
-    var barHtml = '<div style="display:flex; border-radius:8px; overflow:hidden; height:20px; margin-bottom:6px;">';
-    ZONES.forEach(function (z) {
-      barHtml += '<div style="flex:1; background:' + z.color + '; opacity:.8;"></div>';
+    var barHtml = '<div class="hr-zone-bar-row">';
+    ZONES.forEach(function (z, i) {
+      barHtml += '<div class="hr-zone-segment hr-zone-' + (i + 1) + '"></div>';
     });
-    barHtml += '</div><div style="display:flex; font-size:.68rem; color:#888;">';
-    ZONES.forEach(function (z) {
-      barHtml += '<div style="flex:1; text-align:center;">Z' + (ZONES.indexOf(z) + 1) + '</div>';
+    barHtml += '</div><div class="hr-zone-labels">';
+    ZONES.forEach(function (z, i) {
+      barHtml += '<div class="hr-zone-label-item">Z' + (i + 1) + '</div>';
     });
     barHtml += '</div>';
     document.getElementById('hrZoneBar').innerHTML = barHtml;
@@ -367,7 +390,7 @@ $relatedTools = [
       var high = zoneMax(z.maxPct);
       var pctLabel = Math.round(z.minPct * 100) + '–' + Math.round(z.maxPct * 100) + '%';
       tableHtml += '<tr>'
-        + '<td><span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:' + z.color + '; margin-right:6px;"></span>Zone ' + (i + 1) + '</td>'
+        + '<td><span class="ms-dot me-2 hr-zone-' + (i + 1) + '"></span>Zone ' + (i + 1) + '</td>'
         + '<td>' + z.name.split('—')[1].trim() + '</td>'
         + '<td>' + pctLabel + '</td>'
         + '<td><strong>' + low + '–' + high + ' bpm</strong></td>'

@@ -80,6 +80,38 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.jet-intro-sub          { max-width:480px; margin:0 auto 40px; }
+.jet-tip-card           { background:#f8f9fa; border:1px solid #e8e8e8; }
+.jet-tip-icon           { font-size:1.6rem; flex-shrink:0; line-height:1; padding-top:2px; }
+.jet-tip-title          { font-size:.88rem; color:var(--primary-dark); margin-bottom:6px; }
+.jet-tip-desc           { font-size:.8rem; color:#666; line-height:1.6; }
+.jet-mel-h              { font-size:1rem; }
+.jet-mel-east           { background:#f0f4ff; border:1px solid rgba(108,99,255,.19); }
+.jet-mel-east-title     { font-weight:700; color:var(--sleep); margin-bottom:8px; }
+.jet-mel-list           { margin:0; padding-left:18px; font-size:.84rem; color:#555; line-height:1.8; }
+.jet-mel-west           { background:#f0fff4; border:1px solid rgba(40,167,69,.19); }
+.jet-mel-west-title     { font-weight:700; color:#155724; margin-bottom:8px; }
+.jet-mel-warn           { background:#fff8e1; border:1px solid rgba(255,193,7,.19); }
+.jet-mel-warn-title     { font-weight:700; color:#856404; margin-bottom:8px; font-size:.82rem; }
+.jet-mel-warn-desc      { font-size:.8rem; color:#555; line-height:1.6; }
+.jet-result-sub         { font-size:.88rem; color:#555; margin-bottom:12px; }
+.jet-result-infobox     { background:#f0f4ff; border:1px solid rgba(108,99,255,.19); }
+.jet-result-infobox-title { font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:10px; }
+.jet-stat-val           { font-size:1.3rem; font-weight:800; }
+.jet-sched-row          { background:rgba(255,255,255,.8); }
+.jet-sched-label        { font-size:.75rem; font-weight:700; color:var(--sleep); min-width:70px; }
+.jet-sched-time         { font-size:.85rem; color:var(--primary-dark); }
+.jet-adapted-badge      { font-size:.7rem; color:#155724; font-weight:700; margin-left:auto; }
+.jet-arrival-tips       { background:#fff8e1; border:1px solid rgba(255,193,7,.19); font-size:.82rem; color:#555; line-height:1.7; }
+.jet-no-jetlag          { background:#d1eddb; border:1px solid #c3e6cb; }
+.jet-no-jetlag-icon     { font-size:2rem; }
+.jet-no-jetlag-title    { font-size:1.2rem; font-weight:700; color:#155724; margin-top:8px; }
+.jet-no-jetlag-sub      { font-size:.88rem; color:#555; margin-top:8px; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -182,7 +214,7 @@ $relatedTools = [
               <input type="time" id="homeBedtime" class="form-control" value="23:00" aria-label="Home bedtime">
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcJetLag()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcJetLag()">
               Calculate Jet Lag Recovery →
             </button>
 
@@ -195,7 +227,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Jet Lag Facts</h3>
           @foreach([
@@ -221,7 +253,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Evidence-Based Jet Lag Recovery Tips</h2>
-    <p class="text-center text-muted mb-5" style="max-width:480px; margin:0 auto 40px;">What the research says — not just general travel advice.</p>
+    <p class="text-center text-muted jet-intro-sub">What the research says — not just general travel advice.</p>
     <div class="row g-4">
       @foreach([
         ['☀️','Get morning light at destination immediately',
@@ -238,11 +270,11 @@ $relatedTools = [
          'Physical activity — even a 20-minute walk — helps shift the circadian clock. Time exercise in the morning for eastward travel (helps advance your clock) or afternoon/evening for westward (helps delay it).'],
       ] as [$icon,$title,$desc])
       <div class="col-md-6 col-lg-4">
-        <div class="d-flex gap-3 p-3 rounded-3 h-100" style="background:#f8f9fa; border:1px solid #e8e8e8;">
-          <div style="font-size:1.6rem; flex-shrink:0; line-height:1; padding-top:2px;">{{ $icon }}</div>
+        <div class="d-flex gap-3 p-3 rounded-3 h-100 jet-tip-card">
+          <div class="jet-tip-icon">{{ $icon }}</div>
           <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark); margin-bottom:6px;">{{ $title }}</div>
-            <div style="font-size:.8rem; color:#666; line-height:1.6;">{{ $desc }}</div>
+            <div class="fw-semibold jet-tip-title">{{ $title }}</div>
+            <div class="jet-tip-desc">{{ $desc }}</div>
           </div>
         </div>
       </div>
@@ -263,29 +295,29 @@ $relatedTools = [
         <p>Use the lowest effective dose. Most commercial melatonin tablets are 5–10mg — 5 to 20 times higher than what research shows is effective (0.5mg). Higher doses increase next-day grogginess and suppress endogenous melatonin production over time.</p>
       </div>
       <div class="col-lg-6">
-        <h3 style="font-size:1rem;" class="mb-3">Melatonin Protocol by Travel Direction</h3>
+        <h3 class="jet-mel-h mb-3">Melatonin Protocol by Travel Direction</h3>
         <div class="d-flex flex-column gap-3">
-          <div class="p-3 rounded-3" style="background:#f0f4ff; border:1px solid var(--sleep)30;">
-            <div style="font-weight:700; color:var(--sleep); margin-bottom:8px;">✈️ Eastward Travel (harder)</div>
-            <ul style="margin:0; padding-left:18px; font-size:.84rem; color:#555; line-height:1.8;">
+          <div class="p-3 rounded-3 jet-mel-east">
+            <div class="jet-mel-east-title">✈️ Eastward Travel (harder)</div>
+            <ul class="jet-mel-list">
               <li>Take 0.5–3mg melatonin at destination bedtime (9–11 PM)</li>
               <li>Continue for 3–4 nights after arrival</li>
               <li>Combine with morning light exposure at destination</li>
               <li>Avoid evening bright light (especially screens) at destination</li>
             </ul>
           </div>
-          <div class="p-3 rounded-3" style="background:#f0fff4; border:1px solid #28a74530;">
-            <div style="font-weight:700; color:#155724; margin-bottom:8px;">✈️ Westward Travel (easier)</div>
-            <ul style="margin:0; padding-left:18px; font-size:.84rem; color:#555; line-height:1.8;">
+          <div class="p-3 rounded-3 jet-mel-west">
+            <div class="jet-mel-west-title">✈️ Westward Travel (easier)</div>
+            <ul class="jet-mel-list">
               <li>Melatonin less critical — natural delay is easier</li>
               <li>If using: 0.5mg at destination bedtime for 2–3 nights</li>
               <li>Get bright light in the late afternoon at destination</li>
               <li>Stay awake as long as possible on arrival day</li>
             </ul>
           </div>
-          <div class="p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffc10730;">
-            <div style="font-weight:700; color:#856404; margin-bottom:8px; font-size:.82rem;">⚠️ Do Not</div>
-            <div style="font-size:.8rem; color:#555; line-height:1.6;">Take melatonin in the morning or afternoon at your destination — this pushes your clock in the wrong direction and extends jet lag. Do not use if pregnant. Consult your doctor if taking anticoagulants or immunosuppressants.</div>
+          <div class="p-3 rounded-3 jet-mel-warn">
+            <div class="jet-mel-warn-title">⚠️ Do Not</div>
+            <div class="jet-mel-warn-desc">Take melatonin in the morning or afternoon at your destination — this pushes your clock in the wrong direction and extends jet lag. Do not use if pregnant. Consult your doctor if taking anticoagulants or immunosuppressants.</div>
           </div>
         </div>
       </div>
@@ -298,11 +330,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Jet Lag Recovery — Eastward vs Westward Flights</h2>
+    <h2 class="mb-4 text-brand">Jet Lag Recovery — Eastward vs Westward Flights</h2>
     <p>Eastward travel is consistently harder to recover from than westward travel. Flying east requires advancing your circadian clock (going to sleep earlier than your body wants), which conflicts with the natural human tendency toward a slightly longer-than-24-hour internal day. Flying west requires delaying your clock (staying up later), which is more natural. As a rough guide: westward recovery takes 1 day per time zone crossed; eastward recovery takes 1.5 days per time zone. A 6-hour eastward flight can take 9 days to fully recover from.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does Jet Lag Last?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Long Does Jet Lag Last?</h2>
     <p>Jet lag duration depends on the number of time zones crossed and direction of travel. For short hauls (1–3 time zones), most people adjust within 1–3 days. For long hauls (6–12 time zones), full adjustment typically takes 6–12 days. Athletes and frequent travellers often adapt faster due to practiced sleep routines. Age also matters: older adults typically experience more severe jet lag and take longer to adjust than younger adults.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Jet Lag Tips for Long-Haul Flights</h2>
+    <h2 class="mt-5 mb-4 text-brand">Jet Lag Tips for Long-Haul Flights</h2>
     <p>Evidence-based strategies to minimise jet lag: (1) Pre-adjust — shift your sleep 1 hour per day toward your destination time zone for 3 days before departure. (2) Light exposure — get bright light in the morning at your destination for eastward travel; bright light in the evening for westward. (3) Melatonin — 0.5 mg taken at the target destination's bedtime helps re-anchor your circadian clock. (4) Hydration — cabin air is extremely dry; dehydration worsens jet lag symptoms significantly. (5) Avoid alcohol on the flight — it fragments sleep quality even when you feel like it helps you sleep.</p>
   </div>
 </section>
@@ -352,7 +384,7 @@ $relatedTools = [
     var diffBg     = absDiff <= 2 ? '#d1eddb' : absDiff <= 5 ? '#fff3cd' : absDiff <= 8 ? '#ffe5cc' : '#ffd5d5';
 
     if (absDiff === 0) {
-      document.getElementById('jetContent').innerHTML = '<div class="p-4 rounded-3 text-center" style="background:#d1eddb; border:1px solid #c3e6cb;"><div style="font-size:2rem;">✈️</div><div style="font-size:1.2rem; font-weight:700; color:#155724; margin-top:8px;">No jet lag!</div><div style="font-size:.88rem; color:#555; margin-top:8px;">You\'re staying in the same time zone.</div></div>';
+      document.getElementById('jetContent').innerHTML = '<div class="p-4 rounded-3 text-center jet-no-jetlag"><div class="jet-no-jetlag-icon">✈️</div><div class="jet-no-jetlag-title">No jet lag!</div><div class="jet-no-jetlag-sub">You\'re staying in the same time zone.</div></div>';
       document.getElementById('jetResult').classList.remove('d-none');
       return;
     }
@@ -361,15 +393,15 @@ $relatedTools = [
 
     var html = '<div class="p-4 rounded-3 mb-3" style="background:' + diffBg + '; border:1px solid ' + diffColor + '30;">'
       + '<div class="row g-3 text-center">'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + absDiff + ' hrs</div><div class="ms-stat-label">Time zone gap</div></div>'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + difficulty + '</div><div class="ms-stat-label">Jet lag level</div></div>'
-      + '<div class="col-4"><div style="font-size:1.3rem; font-weight:800; color:' + diffColor + ';">' + recoveryDays + ' days</div><div class="ms-stat-label">Recovery time</div></div>'
+      + '<div class="col-4"><div class="jet-stat-val" style="color:' + diffColor + ';">' + absDiff + ' hrs</div><div class="ms-stat-label">Time zone gap</div></div>'
+      + '<div class="col-4"><div class="jet-stat-val" style="color:' + diffColor + ';">' + difficulty + '</div><div class="ms-stat-label">Jet lag level</div></div>'
+      + '<div class="col-4"><div class="jet-stat-val" style="color:' + diffColor + ';">' + recoveryDays + ' days</div><div class="ms-stat-label">Recovery time</div></div>'
       + '</div></div>';
 
-    html += '<p style="font-size:.88rem; color:#555; margin-bottom:12px;">Travelling <strong>' + direction + '</strong>. Your body clock will feel like it\'s ' + absDiff + ' hours ' + (isEast ? 'behind' : 'ahead of') + ' local time on arrival.</p>';
+    html += '<p class="jet-result-sub">Travelling <strong>' + direction + '</strong>. Your body clock will feel like it\'s ' + absDiff + ' hours ' + (isEast ? 'behind' : 'ahead of') + ' local time on arrival.</p>';
 
-    html += '<div class="p-3 rounded-3 mb-3" style="background:#f0f4ff; border:1px solid var(--sleep)30;">'
-      + '<p style="font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:10px;">🌙 Target sleep times at destination</p>'
+    html += '<div class="p-3 rounded-3 mb-3 jet-result-infobox">'
+      + '<p class="jet-result-infobox-title">🌙 Target sleep times at destination</p>'
       + '<div class="d-flex flex-column gap-2">';
 
     for (var day = 0; day <= Math.min(recoveryDays, 5); day++) {
@@ -381,15 +413,15 @@ $relatedTools = [
       var adjustedWakeStr = formatTime(adjustedWake);
       var label = day === 0 ? 'Arrival night' : 'Night ' + (day + 1);
       var isTarget = day === recoveryDays;
-      html += '<div class="d-flex align-items-center gap-3 p-2 rounded" style="background:rgba(255,255,255,.8);">'
-        + '<div style="font-size:.75rem; font-weight:700; color:var(--sleep); min-width:70px;">' + label + '</div>'
-        + '<div style="font-size:.85rem; color:var(--primary-dark);">Bed: <strong>' + adjustedBedStr + '</strong> · Wake: <strong>' + adjustedWakeStr + '</strong></div>'
-        + (isTarget ? '<span style="font-size:.7rem; color:#155724; font-weight:700; margin-left:auto;">✓ Adapted</span>' : '')
+      html += '<div class="d-flex align-items-center gap-3 p-2 rounded jet-sched-row">'
+        + '<div class="jet-sched-label">' + label + '</div>'
+        + '<div class="jet-sched-time">Bed: <strong>' + adjustedBedStr + '</strong> · Wake: <strong>' + adjustedWakeStr + '</strong></div>'
+        + (isTarget ? '<span class="jet-adapted-badge">✓ Adapted</span>' : '')
         + '</div>';
     }
 
     html += '</div></div>';
-    html += '<div class="p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffc10730; font-size:.82rem; color:#555; line-height:1.7;">'
+    html += '<div class="p-3 rounded-3 jet-arrival-tips">'
       + '<strong>Key actions on arrival:</strong><br>'
       + (isEast
         ? '• Get bright light exposure in the MORNING (destination time)<br>• Avoid bright light after 7 PM local time for first 2 nights<br>• Take 0.5–3mg melatonin at destination bedtime'

@@ -85,6 +85,27 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.cd-unit-btn        { border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; }
+.cd-unit-btn.active { background:var(--fitness); color:#fff; border-color:transparent; }
+.cd-warning         { background:#fff3cd; border:1px solid #ffc107; font-size:.85rem; color:#664d03; }
+.cd-formula-box     { background:#f8f9fa; border-left:4px solid var(--fitness); font-size:.83rem; color:var(--primary-dark); }
+.cd-level-pill      { border-radius:6px; padding:4px 8px; font-size:.75rem; font-weight:700; min-width:86px; text-align:center; flex-shrink:0; margin-top:2px; }
+.cd-level-low  { background:#e8f5e9; color:#2e7d32; }
+.cd-level-good { background:#e3f2fd; color:#0277bd; }
+.cd-level-mod  { background:#fff8e1; color:#e65100; }
+.cd-level-high { background:#fce4ec; color:#c62828; }
+.cd-level-warn { background:#ffebee; color:#b71c1c; }
+.cd-level-name      { font-size:.87rem; color:#1a1a2e; }
+.cd-level-desc      { font-size:.8rem; color:#666; line-height:1.5; }
+.cd-sub             { max-width:520px; margin:auto; }
+.cd-tbl             { border-radius:12px; overflow:hidden; font-size:.9rem; }
+.cd-th              { padding:12px 16px; }
+.cd-td              { padding:10px 16px; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -112,12 +133,10 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Unit system">
-              <button class="btn flex-fill cd-unit-btn active" data-unit="metric"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
+              <button class="btn flex-fill cd-unit-btn active" data-unit="metric">
                 Metric (kg / cm)
               </button>
-              <button class="btn flex-fill cd-unit-btn" data-unit="imperial"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
+              <button class="btn flex-fill cd-unit-btn" data-unit="imperial">
                 Imperial (lbs / ft)
               </button>
             </div>
@@ -196,51 +215,51 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcDeficit()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcDeficit()">
               Calculate My Deficit →
             </button>
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="row g-3 mb-4 text-center">
                 <div class="col-6">
-                  <div style="background:#f0fff4; border-radius:12px; padding:16px 10px;">
-                    <div id="cdTDEE" style="font-size:1.7rem; font-weight:700; color:var(--green-text);"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">TDEE (maintenance)</div>
+                  <div class="ms-stat-lg ms-stat-green">
+                    <div id="cdTDEE" class="ms-stat-val-xltext-green"></div>
+                    <div class="ms-stat-sub">TDEE (maintenance)</div>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div style="background:#e8f4fd; border-radius:12px; padding:16px 10px;">
-                    <div id="cdDeficitDay" style="font-size:1.7rem; font-weight:700; color:var(--teal-text);"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">Daily deficit</div>
+                  <div class="ms-stat-lg ms-stat-blue">
+                    <div id="cdDeficitDay" class="ms-stat-val-xltext-teal"></div>
+                    <div class="ms-stat-sub">Daily deficit</div>
                   </div>
                 </div>
               </div>
 
-              <div class="p-4 rounded-3 mb-4 text-center" style="background:var(--primary-dark); color:#fff;">
-                <div style="font-size:.8rem; opacity:.7; margin-bottom:6px;">Your daily calorie target</div>
-                <div id="cdTarget" style="font-size:2.4rem; font-weight:700;"></div>
-                <div style="font-size:.8rem; opacity:.7; margin-top:4px;">calories per day</div>
+              <div class="p-4 rounded-3 mb-4 text-center ms-target-box">
+                <div class="ms-target-lbl mb-2">Your daily calorie target</div>
+                <div id="cdTarget" class="ms-target-val"></div>
+                <div class="ms-target-lbl mt-1">calories per day</div>
               </div>
 
               <div class="row g-3 text-center mb-3">
                 <div class="col-6">
-                  <div style="background:#fff8e1; border-radius:10px; padding:14px 8px;">
-                    <div id="cdWeeks" style="font-size:1.4rem; font-weight:700; color:#e65100;"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">Weeks to goal</div>
+                  <div class="ms-stat ms-stat-orange">
+                    <div id="cdWeeks" class="ms-stat-val text-orange-brand"></div>
+                    <div class="ms-stat-sub">Weeks to goal</div>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div style="background:#f3e5f5; border-radius:10px; padding:14px 8px;">
-                    <div id="cdWeeklyLoss" style="font-size:1.4rem; font-weight:700; color:var(--purple-text);"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">Weekly loss target</div>
+                  <div class="ms-stat ms-stat-purple">
+                    <div id="cdWeeklyLoss" class="ms-stat-val text-purple"></div>
+                    <div class="ms-stat-sub">Weekly loss target</div>
                   </div>
                 </div>
               </div>
 
-              <div id="cdWarning" class="d-none p-3 rounded-3" style="background:#fff3cd; border:1px solid #ffc107; font-size:.85rem; color:#664d03;"></div>
+              <div id="cdWarning" class="d-none p-3 rounded-3 cd-warning"></div>
             </div>
 
           </div>
@@ -248,7 +267,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Deficit Facts</h3>
           @foreach([
@@ -280,7 +299,7 @@ $relatedTools = [
         <h2 class="mb-4">How a Calorie Deficit Creates Fat Loss: The Science Explained</h2>
         <p>Fat cells store energy in the form of triglycerides. When your calorie intake is lower than your total daily expenditure, your body draws on these stores to fuel its functions. One kilogram of body fat contains approximately 7,700 calories of stored energy.</p>
         <p>This calculator uses the <strong>Mifflin-St Jeor equation</strong> — considered more accurate than the original Harris-Benedict formula — to estimate your TDEE:</p>
-        <div class="p-3 rounded-3 mb-3" style="background:#f8f9fa; border-left:4px solid var(--fitness); font-size:.83rem; color:var(--primary-dark);">
+        <div class="p-3 rounded-3 mb-3 cd-formula-box">
           <strong>Male:</strong> (10 × kg) + (6.25 × cm) − (5 × age) + 5<br>
           <strong>Female:</strong> (10 × kg) + (6.25 × cm) − (5 × age) − 161
         </div>
@@ -288,7 +307,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Safe deficit ranges</p>
+          <p class="ms-data-label fw-600 mb-3">Safe deficit ranges</p>
           @foreach([
             ['250 cal/day',  '0.25 kg/week', 'low',  'Best for those close to goal or preserving athletic performance'],
             ['500 cal/day',  '0.5 kg/week',  'good', 'Sweet spot for most people — sustainable with minimal muscle loss'],
@@ -296,15 +315,11 @@ $relatedTools = [
             ['1,000 cal/day','1 kg/week',    'high', 'Near upper limit — significant risk of muscle loss without high protein'],
             ['>1,000 cal/day','> 1 kg/week', 'warn', 'Not recommended — medical supervision required above this threshold'],
           ] as [$def, $loss, $level, $desc])
-          @php
-            $colors = ['low' => ['#e8f5e9','#2e7d32'], 'good' => ['#e3f2fd','#0277bd'], 'mod' => ['#fff8e1','#e65100'], 'high' => ['#fce4ec','#c62828'], 'warn' => ['#ffebee','#b71c1c']];
-            $c = $colors[$level];
-          @endphp
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $c[0] }}; color:{{ $c[1] }}; border-radius:6px; padding:4px 8px; font-size:.75rem; font-weight:700; min-width:86px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $def }}</div>
+            <div class="cd-level-pill cd-level-{{ $level }}">{{ $def }}</div>
             <div>
-              <div class="fw-600" style="font-size:.87rem; color:#1a1a2e;">{{ $loss }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-600 cd-level-name">{{ $loss }}</div>
+              <div class="cd-level-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -319,19 +334,19 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Calorie Deficit: Weekly Loss Rate Reference</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">How calorie deficits translate to fat loss over time. Based on 7,700 cal per kg of fat.</p>
+      <p class="text-muted cd-sub">How calorie deficits translate to fat loss over time. Based on 7,700 cal per kg of fat.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.9rem;">
+          <table class="table table-bordered cd-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:12px 16px;">Daily Deficit</th>
-                <th style="padding:12px 16px;">Weekly Loss</th>
-                <th style="padding:12px 16px;">Monthly Loss</th>
-                <th style="padding:12px 16px;">10 kg in…</th>
-                <th style="padding:12px 16px;">Safety Rating</th>
+                <th class="cd-th">Daily Deficit</th>
+                <th class="cd-th">Weekly Loss</th>
+                <th class="cd-th">Monthly Loss</th>
+                <th class="cd-th">10 kg in…</th>
+                <th class="cd-th">Safety Rating</th>
               </tr>
             </thead>
             <tbody>
@@ -343,11 +358,11 @@ $relatedTools = [
                 ['1,500 cal', '1.36 kg', '~6 kg',  '~7 wks',  '❌ Not Advised'],
               ] as [$def, $wk, $mo, $ten, $safety])
               <tr>
-                <td style="padding:10px 16px; font-weight:600;">{{ $def }}</td>
-                <td style="padding:10px 16px;">{{ $wk }}</td>
-                <td style="padding:10px 16px;">{{ $mo }}</td>
-                <td style="padding:10px 16px;">{{ $ten }}</td>
-                <td style="padding:10px 16px;">{{ $safety }}</td>
+                <td class="cd-td fw-semibold">{{ $def }}</td>
+                <td class="cd-td">{{ $wk }}</td>
+                <td class="cd-td">{{ $mo }}</td>
+                <td class="cd-td">{{ $ten }}</td>
+                <td class="cd-td">{{ $safety }}</td>
               </tr>
               @endforeach
             </tbody>
@@ -365,15 +380,15 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">Calorie Deficit Calculator for Women — Safe Minimums and Muscle Preservation</h2>
+    <h2 class="mb-4 text-brand">Calorie Deficit Calculator for Women — Safe Minimums and Muscle Preservation</h2>
     <p>Women face a specific challenge when creating a calorie deficit: the 1,200-calorie minimum is low enough that many women in a deficit are eating within 200–300 calories of it, leaving almost no margin for adjustments when progress stalls. This is why many nutrition researchers argue that women are better served by increasing activity to create part of their deficit rather than restricting food intake to the minimum.</p>
     <p>Women also experience calorie need fluctuations across the menstrual cycle of approximately 100–300 calories, peaking in the luteal phase (days 15–28). Rigidly maintaining the same daily target throughout the month can feel significantly harder in the second half of the cycle — and this is physiological, not a willpower failure. Some practitioners recommend slightly relaxing the deficit in the luteal phase and compensating in the follicular phase, which tends to have lower hunger and higher energy for exercise.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long to Lose 10kg in a Calorie Deficit?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Long to Lose 10kg in a Calorie Deficit?</h2>
     <p>At the recommended 0.5 kg per week loss rate, losing 10 kg takes approximately 20 weeks (5 months). This assumes the deficit is maintained consistently, which research shows is the primary variable — not the size of the deficit. A person maintaining a 400-calorie deficit for 20 weeks will achieve better results than someone who maintains a 700-calorie deficit for 8 weeks before giving up.</p>
     <p>It is also worth noting that scale weight rarely drops linearly. Water retention from increased exercise, hormonal fluctuations, dietary sodium, and muscle glycogen storage can mask fat loss for 1–3 weeks at a time. Tracking a 4-week rolling average of body weight, alongside progress photos and measurements, gives a more accurate picture of genuine fat loss progress than daily weigh-ins.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Calorie Deficit vs. Exercise: Which Burns More Fat?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Calorie Deficit vs. Exercise: Which Burns More Fat?</h2>
     <p>Diet creates a far larger calorie deficit than exercise for most people. A 60-minute moderate jog burns approximately 400–600 calories — roughly equivalent to a single missed snack. Exercise is excellent for health, cardiovascular fitness, muscle preservation during a cut, and metabolic health, but it is a poor primary tool for creating a calorie deficit because it also increases appetite proportionally.</p>
     <p>The most effective approach combines a dietary deficit of 300–500 calories with 3–5 hours per week of exercise (2–3 resistance training sessions and 2–3 cardio sessions). This approach creates the deficit primarily through food, while exercise preserves or builds muscle, improves insulin sensitivity, and provides health benefits that dietary restriction alone cannot deliver.</p>
 
@@ -395,7 +410,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Body Recomposition: Losing Fat While Building Muscle</h3>
         <p>True body recomposition — simultaneously losing fat and gaining muscle — is possible but mainly occurs in specific circumstances: beginners who have never trained, people returning after a long break, individuals with significant excess body fat, and those using certain performance-enhancing substances. For most trained individuals, dedicated cut and bulk phases produce better body composition outcomes than trying to achieve both simultaneously.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Disclaimer:</strong> This calculator provides estimates for informational purposes only and does not constitute medical or nutritional advice. Calorie needs vary significantly between individuals. Consult a registered dietitian or physician before undertaking a significant calorie deficit, especially if you have any medical conditions or a history of disordered eating.</p>
+          <p class="mb-0 text-sm"><strong>Disclaimer:</strong> This calculator provides estimates for informational purposes only and does not constitute medical or nutritional advice. Calorie needs vary significantly between individuals. Consult a registered dietitian or physician before undertaking a significant calorie deficit, especially if you have any medical conditions or a history of disordered eating.</p>
         </div>
       </div>
     </div>
@@ -414,14 +429,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.cd-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       document.getElementById('cdMetric').classList.toggle('d-none', currentUnit !== 'metric');
       document.getElementById('cdImperial').classList.toggle('d-none', currentUnit !== 'imperial');

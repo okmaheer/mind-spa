@@ -166,7 +166,7 @@ $relatedTools = [
           Our sleep calculators align your schedule to natural cycle boundaries so you wake at the lightest sleep stage,
           feeling alert and refreshed — even if you slept fewer total hours.
         </p>
-        <a href="/sleep-calculator" class="btn btn-cta" style="font-size:.95rem;">
+        <a href="/sleep-calculator" class="btn btn-cta">
           Try the Sleep Calculator →
         </a>
       </div>

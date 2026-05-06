@@ -29,6 +29,28 @@
 </script>
 @endsection
 
+@section('styles')
+<style>
+.about-cat-sleep     { border-top: 3px solid var(--sleep); }
+.about-cat-fitness   { border-top: 3px solid var(--fitness); }
+.about-cat-nutrition { border-top: 3px solid var(--nutrition); }
+.about-cat-life      { border-top: 3px solid var(--life); }
+.about-cat-games     { border-top: 3px solid var(--games); }
+.about-cat-kids      { border-top: 3px solid var(--kids); }
+.about-principle-icon { font-size: 2rem; margin-bottom: 12px; line-height: 1; }
+.about-cta-title     { color: #fff; font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+.about-cta-sub       { color: rgba(255,255,255,.8); font-size: 1rem; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.about-btn-white     { background: #fff; color: var(--primary-dark); font-weight: 700; padding: 14px 32px; border-radius: 8px; font-size: 1rem; }
+.about-btn-white:hover { background: #f0f0f0; color: var(--primary-dark); }
+.about-btn-ghost     { background: rgba(255,255,255,.15); color: #fff; border: 2px solid rgba(255,255,255,.4); font-weight: 600; padding: 14px 28px; border-radius: 8px; font-size: 1rem; }
+.about-btn-ghost:hover { background: rgba(255,255,255,.25); color: #fff; }
+.about-contact-wrap  { max-width: 640px; text-align: center; }
+.about-contact-text  { color: #555; line-height: 1.8; }
+.about-contact-link  { font-size: 1.1rem; font-weight: 700; color: var(--primary-cta); text-decoration: none; }
+.about-contact-link:hover { text-decoration: underline; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Breadcrumb --}}
@@ -114,7 +136,7 @@
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <h2 class="ms-section-h2" style="text-align:left;">What is MindSnap?</h2>
+        <h2 class="ms-section-h2 text-start">What is MindSnap?</h2>
         <p class="ms-body-text">
           MindSnap started with a simple idea: give everyone access to the health and brain tools that used to be locked behind
           expensive apps, gym memberships, or cluttered ad-ridden websites.
@@ -154,20 +176,20 @@
 <section class="ms-section-tools">
   <div class="container-xl">
     <h2 class="ms-section-h2 text-center mb-2">Everything We Offer</h2>
-    <p class="text-center mb-5 text-muted-sm" style="max-width:480px; margin-left:auto; margin-right:auto;">
+    <p class="text-center mb-5 text-muted-sm ms-intro-text">
       Seven categories, one goal — give you the right number instantly.
     </p>
     <div class="row g-4">
       @foreach([
-        ['😴', 'Sleep Tools',       '/sleep-tools',     '#6c63ff', 'Sleep calculator, bedtime planner, sleep debt tracker, jet lag guide, and more.'],
-        ['💪', 'Fitness Tools',     '/fitness-tools',   '#28a745', 'BMI, calories, body fat, one-rep max, running pace, ideal weight, and more.'],
-        ['🥗', 'Nutrition Tools',   '/nutrition-tools', '#fd7e14', 'Water intake calculator and intermittent fasting planner.'],
-        ['⏰', 'Life Tools',        '/life-tools',      '#6f42c1', 'Age calculator, due date, days between dates, ovulation, retirement planner.'],
-        ['🎮', 'Brain Games',       '/games',           '#ffc107', 'Typing speed, reaction time, memory test, word scramble, colour blind test.'],
-        ['👶', 'Kids Zone',         '/kids',            '#17a2b8', 'Ad-free educational quizzes and games for children aged 5–14.'],
-      ] as [$icon, $name, $slug, $color, $desc])
+        ['😴', 'Sleep Tools',       '/sleep-tools',     'sleep',     'Sleep calculator, bedtime planner, sleep debt tracker, jet lag guide, and more.'],
+        ['💪', 'Fitness Tools',     '/fitness-tools',   'fitness',   'BMI, calories, body fat, one-rep max, running pace, ideal weight, and more.'],
+        ['🥗', 'Nutrition Tools',   '/nutrition-tools', 'nutrition', 'Water intake calculator and intermittent fasting planner.'],
+        ['⏰', 'Life Tools',        '/life-tools',      'life',      'Age calculator, due date, days between dates, ovulation, retirement planner.'],
+        ['🎮', 'Brain Games',       '/games',           'games',     'Typing speed, reaction time, memory test, word scramble, colour blind test.'],
+        ['👶', 'Kids Zone',         '/kids',            'kids',      'Ad-free educational quizzes and games for children aged 5–14.'],
+      ] as [$icon, $name, $slug, $key, $desc])
       <div class="col-sm-6 col-lg-4">
-        <a href="{{ $slug }}" class="tool-card d-block p-4 h-100 text-decoration-none" style="border-top:3px solid {{ $color }};">
+        <a href="{{ $slug }}" class="tool-card d-block p-4 h-100 text-decoration-none about-cat-{{ $key }}">
           <div class="d-flex align-items-start gap-3">
             <span class="ms-tool-icon">{{ $icon }}</span>
             <div>
@@ -186,7 +208,7 @@
 <section class="ms-section-stats">
   <div class="container-xl">
     <h2 class="text-center mb-2">Our Principles</h2>
-    <p class="text-center mb-5 text-muted-sm" style="max-width:480px; margin:0 auto 40px;">
+    <p class="text-center mb-5 text-muted-sm ms-intro-text">
       The decisions we make every day as we build MindSnap.
     </p>
     <div class="row g-4 justify-content-center">
@@ -200,7 +222,7 @@
       ] as [$icon, $title, $desc])
       <div class="col-md-6 col-lg-4">
         <div class="tool-card p-4 h-100">
-          <div style="font-size:2rem; margin-bottom:12px; line-height:1;">{{ $icon }}</div>
+          <div class="about-principle-icon">{{ $icon }}</div>
           <div class="ms-tool-name mb-2">{{ $title }}</div>
           <div class="ms-tool-desc-lg">{{ $desc }}</div>
         </div>
@@ -213,33 +235,25 @@
 {{-- CTA --}}
 <section class="ms-section-accent">
   <div class="container-xl text-center">
-    <h2 style="color:#fff; font-size:1.8rem; font-weight:800; margin-bottom:12px;">Ready to get started?</h2>
-    <p style="color:rgba(255,255,255,.8); font-size:1rem; margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto;">
-      Browse every tool and quiz — no signup, no ads, no wait.
-    </p>
+    <h2 class="about-cta-title">Ready to get started?</h2>
+    <p class="about-cta-sub">Browse every tool and quiz — no signup, no ads, no wait.</p>
     <div class="d-flex justify-content-center flex-wrap gap-3">
-      <a href="{{ route('home') }}" class="btn btn-cta" style="background:#fff; color:var(--primary-dark); font-weight:700; padding:14px 32px; border-radius:8px; font-size:1rem;">
-        Explore All Tools
-      </a>
-      <a href="{{ route('category.games') }}" class="btn" style="background:rgba(255,255,255,.15); color:#fff; border:2px solid rgba(255,255,255,.4); font-weight:600; padding:14px 28px; border-radius:8px; font-size:1rem;">
-        Try a Quiz →
-      </a>
+      <a href="{{ route('home') }}" class="btn about-btn-white">Explore All Tools</a>
+      <a href="{{ route('category.games') }}" class="btn about-btn-ghost">Try a Quiz →</a>
     </div>
   </div>
 </section>
 
 {{-- Contact --}}
 <section class="ms-section-seo-alt">
-  <div class="container" style="max-width:640px; text-align:center;">
+  <div class="container about-contact-wrap">
     <h2 class="mb-3 text-brand">Get in Touch</h2>
-    <p style="color:#555; line-height:1.8;">
+    <p class="about-contact-text">
       Found a bug? Have a suggestion for a new tool? Want to report an inaccurate formula?
       We read every message.
     </p>
-    <p style="margin-top:16px;">
-      <a href="mailto:hello@mindsnap.co" style="font-size:1.1rem; font-weight:700; color:var(--primary-cta); text-decoration:none;">
-        hello@mindsnap.co
-      </a>
+    <p class="mt-3">
+      <a href="mailto:hello@mindsnap.co" class="about-contact-link">hello@mindsnap.co</a>
     </p>
   </div>
 </section>

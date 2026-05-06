@@ -79,6 +79,29 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.dd-due-label   { font-size:.85rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+.dd-due-date    { font-size:2.2rem; font-weight:700; color:var(--life); }
+.dd-due-day     { font-size:1rem; color:#666; }
+.dd-gest-box    { background:#f8f4ff; border:1px solid #d4c5f9; font-size:.92rem; color:#4a1a8c; }
+.dd-fact-pill   { background:var(--life); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.85rem; min-width:90px; text-align:center; flex-shrink:0; }
+.dd-formula-box { background:#f8f9fa; border-left:4px solid var(--life); font-family:monospace; font-size:.95rem; color:var(--primary-dark); }
+.dd-method-icon { font-size:1.4rem; min-width:36px; text-align:center; }
+.dd-method-desc { font-size:.87rem; color:#555; line-height:1.5; }
+.dd-table-sub   { max-width:560px; margin:auto; }
+.dd-milestone-tbl { font-size:.92rem; border-radius:12px; overflow:hidden; }
+.dd-th          { padding:14px 18px; }
+.dd-td          { padding:12px 18px; }
+.dd-source      { font-size:.8rem; color:#888; margin-top:12px; }
+.dd-t1          { background:#d4edda; color:#155724; }
+.dd-t2          { background:#d1ecf1; color:#0c5460; }
+.dd-t3          { background:#f8d7da; color:#721c24; }
+.dd-ms-row      { background:#f8f4ff; border:1px solid #e8dff8; }
+.dd-ms-label    { color:#444; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -121,7 +144,7 @@ $relatedTools = [
                 <input type="date" id="ddLmpDate" class="form-control" aria-label="Last menstrual period date">
               </div>
               <div class="mb-4">
-                <label for="ddCycleLen" class="form-label fw-semibold">Average Cycle Length <span class="text-muted fw-normal" style="font-size:.82rem;">(days)</span></label>
+                <label for="ddCycleLen" class="form-label fw-semibold">Average Cycle Length <span class="text-muted-sm fw-normal">(days)</span></label>
                 <input type="number" id="ddCycleLen" class="form-control" value="28" min="21" max="35" aria-label="Average cycle length in days">
                 <div class="form-text">Default is 28. Adjust for more accurate results.</div>
               </div>
@@ -156,26 +179,26 @@ $relatedTools = [
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcDueDate()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcDueDate()">
               Calculate Due Date →
             </button>
 
             {{-- Results --}}
             <div id="ddResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="text-center mb-4">
-                <div style="font-size:.85rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Estimated Due Date</div>
-                <div id="ddDueDate" style="font-size:2.2rem; font-weight:700; color:var(--life);"></div>
-                <div id="ddDayOfWeek" style="font-size:1rem; color:#666;"></div>
+                <div class="dd-due-label">Estimated Due Date</div>
+                <div id="ddDueDate" class="dd-due-date"></div>
+                <div id="ddDayOfWeek" class="dd-due-day"></div>
               </div>
 
-              <div id="ddGestAge" class="p-3 rounded-3 mb-3" style="background:#f8f4ff; border:1px solid #d4c5f9; font-size:.92rem; color:#4a1a8c;"></div>
+              <div id="ddGestAge" class="p-3 rounded-3 mb-3 dd-gest-box"></div>
 
-              <p class="fw-semibold mb-2" style="font-size:.88rem; color:var(--primary-dark);">TRIMESTER TIMELINE</p>
+              <p class="fw-semibold mb-2 text-sm text-brand">TRIMESTER TIMELINE</p>
               <div id="ddTrimesters" class="mb-3"></div>
 
-              <p class="fw-semibold mb-2" style="font-size:.88rem; color:var(--primary-dark);">KEY MILESTONE WEEKS</p>
+              <p class="fw-semibold mb-2 text-sm text-brand">KEY MILESTONE WEEKS</p>
               <div id="ddMilestones"></div>
             </div>
 
@@ -184,7 +207,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Pregnancy Quick Facts</h3>
           @foreach([
@@ -195,7 +218,7 @@ $relatedTools = [
             ['3 trimesters', 'Each approximately 13 weeks long'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--life); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.85rem; min-width:90px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
+            <div class="dd-fact-pill">{{ $stat }}</div>
             <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
@@ -208,14 +231,14 @@ $relatedTools = [
 </section>
 
 {{-- ── 2. How It Works ──────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0; padding-top:80px;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Your Due Date Is Calculated: Naegele's Rule Explained</h2>
         <p>The most widely used method for calculating a due date is <strong>Naegele's rule</strong>, developed by German obstetrician Franz Karl Naegele in 1812. The formula adds <strong>280 days (40 weeks)</strong> to the first day of your last menstrual period.</p>
-        <div class="p-3 mb-3 rounded-3" style="background:#f8f9fa; border-left:4px solid var(--life); font-family:monospace; font-size:.95rem; color:var(--primary-dark);">
+        <div class="p-3 mb-3 rounded-3 dd-formula-box">
           Due Date = LMP + 280 days + (cycle − 28) days
         </div>
         <p>If your cycle is longer than 28 days, ovulation happens later, so the due date shifts forward. A 35-day cycle adds 7 days; a 21-day cycle subtracts 7 days.</p>
@@ -223,17 +246,17 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Three ways to calculate your due date</p>
+          <p class="fw-semibold mb-3 ms-data-label">Three ways to calculate your due date</p>
           @foreach([
             ['LMP Method', 'Add 280 days to your last period. Adjust for cycle length (±1 day per day difference from 28).', '📅'],
             ['Conception Method', 'Add 266 days (38 weeks) to your known conception or ovulation date.', '🥚'],
             ['IVF Transfer', 'Day 5 transfer: add 261 days. Day 3 transfer: add 263 days to transfer date.', '🔬'],
           ] as [$title, $desc, $icon])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="font-size:1.4rem; min-width:36px; text-align:center;">{{ $icon }}</div>
+            <div class="dd-method-icon">{{ $icon }}</div>
             <div>
-              <div style="font-weight:600; color:var(--primary-dark); margin-bottom:4px;">{{ $title }}</div>
-              <div style="font-size:.87rem; color:#555; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-semibold text-brand mb-1">{{ $title }}</div>
+              <div class="dd-method-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -248,18 +271,18 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Trimester Timeline &amp; Key Development Milestones</h2>
-      <p class="text-muted" style="max-width:560px; margin:auto;">A week-by-week guide to the major stages of pregnancy and what to expect at each.</p>
+      <p class="text-muted dd-table-sub">A week-by-week guide to the major stages of pregnancy and what to expect at each.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.92rem;">
+          <table class="table table-bordered dd-milestone-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:14px 18px;">Trimester</th>
-                <th style="padding:14px 18px;">Weeks</th>
-                <th style="padding:14px 18px;">Key Events &amp; Milestones</th>
-                <th style="padding:14px 18px;">What to Expect</th>
+                <th class="dd-th">Trimester</th>
+                <th class="dd-th">Weeks</th>
+                <th class="dd-th">Key Events &amp; Milestones</th>
+                <th class="dd-th">What to Expect</th>
               </tr>
             </thead>
             <tbody>
@@ -274,16 +297,16 @@ $relatedTools = [
                 ['Week 40',          'Due Date',    'Estimated due date based on Naegele\'s rule', 'Only 5% of babies arrive on this exact day. Labour signs: contractions, water breaking.'],
               ] as [$trimester, $weeks, $events, $expect])
               <tr>
-                <td style="padding:12px 18px; font-weight:600; color:var(--life);">{{ $trimester }}</td>
-                <td style="padding:12px 18px; white-space:nowrap;">{{ $weeks }}</td>
-                <td style="padding:12px 18px; font-size:.85rem;">{{ $events }}</td>
-                <td style="padding:12px 18px; color:#666; font-size:.85rem;">{{ $expect }}</td>
+                <td class="dd-td fw-semibold text-life">{{ $trimester }}</td>
+                <td class="dd-td text-nowrap">{{ $weeks }}</td>
+                <td class="dd-td text-sm">{{ $events }}</td>
+                <td class="dd-td text-sm text-muted">{{ $expect }}</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <p style="font-size:.8rem; color:#888; margin-top:12px;">Source: ACOG, NHS, American Pregnancy Association.</p>
+        <p class="dd-source">Source: ACOG, NHS, American Pregnancy Association.</p>
       </div>
     </div>
   </div>
@@ -293,7 +316,7 @@ $relatedTools = [
 
 
 {{-- ── 5. Long-tail SEO Sections ────────────────────────────────────────────── --}}
-<section style="background:#f8f9ff; padding:72px 0;">
+<section class="ms-section-accent">
   <div class="container-xl">
 
     <div class="row justify-content-center mb-5">
@@ -450,12 +473,13 @@ $relatedTools = [
 
     // Trimesters
     const triEl = document.getElementById('ddTrimesters');
+    const triClasses = ['dd-t1', 'dd-t2', 'dd-t3'];
     triEl.innerHTML = [
-      ['1st Trimester', fmtShort(lmpDate), fmtShort(t1End), '#d4edda', '#155724'],
-      ['2nd Trimester', fmtShort(addDays(t1End,1)), fmtShort(t2End), '#d1ecf1', '#0c5460'],
-      ['3rd Trimester', fmtShort(addDays(t2End,1)), fmtShort(dueDate), '#f8d7da', '#721c24'],
-    ].map(([label, start, end, bg, fg]) =>
-      `<div class="d-flex justify-content-between align-items-center p-2 rounded-3 mb-2" style="background:${bg}; color:${fg}; font-size:.88rem;">
+      ['1st Trimester', fmtShort(lmpDate), fmtShort(t1End)],
+      ['2nd Trimester', fmtShort(addDays(t1End,1)), fmtShort(t2End)],
+      ['3rd Trimester', fmtShort(addDays(t2End,1)), fmtShort(dueDate)],
+    ].map(([label, start, end], i) =>
+      `<div class="d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 text-sm ${triClasses[i]}">
         <span class="fw-semibold">${label}</span>
         <span>${start} – ${end}</span>
       </div>`
@@ -464,10 +488,10 @@ $relatedTools = [
     // Milestones
     const msEl = document.getElementById('ddMilestones');
     msEl.innerHTML = milestones.map(m =>
-      `<div class="d-flex justify-content-between align-items-center p-2 rounded-3 mb-2" style="background:#f8f4ff; border:1px solid #e8dff8; font-size:.88rem;">
-        <span style="color:var(--life); font-weight:600;">Week ${m.week}</span>
-        <span style="color:#444;">${m.label}</span>
-        <span style="color:#888;">${fmtShort(m.date)}</span>
+      `<div class="d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 text-sm dd-ms-row">
+        <span class="text-life fw-semibold">Week ${m.week}</span>
+        <span class="dd-ms-label">${m.label}</span>
+        <span class="text-muted">${fmtShort(m.date)}</span>
       </div>`
     ).join('');
 

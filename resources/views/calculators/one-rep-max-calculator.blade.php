@@ -73,6 +73,25 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.orm-unit-btn           { border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; }
+.orm-unit-btn.active    { background:var(--fitness); color:#fff; border-color:transparent; }
+.orm-reps-warning       { font-size:.83rem; }
+.orm-result-label       { font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px; }
+.orm-primary-val        { font-size:2.8rem; font-weight:800; color:var(--fitness); line-height:1; }
+.orm-unit-display       { font-size:.9rem; color:#888; margin-top:4px; }
+.orm-sub-label          { font-size:.85rem; color:var(--primary-dark); }
+.orm-pct-table          { font-size:.82rem; }
+.orm-formula-badge      { background:var(--fitness); color:#fff; border-radius:6px; padding:4px 10px; font-size:.75rem; font-weight:700; min-width:90px; text-align:center; flex-shrink:0; margin-top:2px; }
+.orm-formula-name       { font-size:.87rem; color:#1a1a2e; font-family:monospace; }
+.orm-std-table          { font-size:.87rem; max-width:700px; margin:auto; }
+.orm-table-note         { font-size:.8rem; }
+.orm-formula-card       { background:#f8f9fa; border:1px solid #e0e0e0; }
+.orm-formula-val        { font-size:1.1rem; font-weight:700; color:var(--fitness); }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -100,14 +119,8 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Weight unit">
-              <button class="btn flex-fill orm-unit-btn active" data-unit="kg"
-                style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
-                kg
-              </button>
-              <button class="btn flex-fill orm-unit-btn" data-unit="lbs"
-                style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
-                lbs
-              </button>
+              <button class="btn flex-fill orm-unit-btn active" data-unit="kg">kg</button>
+              <button class="btn flex-fill orm-unit-btn" data-unit="lbs">lbs</button>
             </div>
 
             <div class="row g-3 mb-3">
@@ -121,7 +134,7 @@ $relatedTools = [
               </div>
             </div>
 
-            <div id="ormRepsWarning" class="alert alert-warning py-2 px-3 mb-3 d-none" style="font-size:.83rem;">
+            <div id="ormRepsWarning" class="alert alert-warning py-2 px-3 mb-3 d-none orm-reps-warning">
               ⚠️ Accuracy decreases above 10 reps. For best results, use a set of 3–5 reps.
             </div>
 
@@ -135,31 +148,31 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calculateORM()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calculateORM()">
               Calculate 1RM →
             </button>
 
             {{-- Results --}}
             <div id="ormResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="text-center mb-4">
-                <div style="font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px;">Estimated 1RM</div>
-                <div id="ormPrimary" style="font-size:2.8rem; font-weight:800; color:var(--fitness); line-height:1;"></div>
-                <div id="ormUnitDisplay" style="font-size:.9rem; color:#888; margin-top:4px;"></div>
+                <div class="orm-result-label">Estimated 1RM</div>
+                <div id="ormPrimary" class="orm-primary-val"></div>
+                <div id="ormUnitDisplay" class="orm-unit-display"></div>
               </div>
 
               {{-- Formula comparison --}}
               <div class="mb-4">
-                <p class="fw-semibold mb-2" style="font-size:.85rem; color:var(--primary-dark);">Formula Comparison</p>
+                <p class="fw-semibold mb-2 orm-sub-label">Formula Comparison</p>
                 <div class="row g-2" id="ormFormulaBreakdown"></div>
               </div>
 
               {{-- Training percentages table --}}
               <div>
-                <p class="fw-semibold mb-2" style="font-size:.85rem; color:var(--primary-dark);">Training Percentage Table</p>
+                <p class="fw-semibold mb-2 orm-sub-label">Training Percentage Table</p>
                 <div class="table-responsive">
-                  <table class="table table-sm table-bordered mb-0" style="font-size:.82rem;">
+                  <table class="table table-sm table-bordered mb-0 orm-pct-table">
                     <thead class="ms-table-head">
                       <tr>
                         <th>% of 1RM</th>
@@ -181,7 +194,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Strength Facts</h3>
           @foreach([
@@ -217,17 +230,17 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">The Three Formulas</p>
+          <p class="fw-semibold mb-3 ms-panel-head">The Three Formulas</p>
           @foreach([
             ['Epley (1985)', 'weight × (1 + reps ÷ 30)', 'Most widely cited. Slightly overestimates at high reps. Best for sets of 1–10 reps.'],
             ['Brzycki (1993)', 'weight × 36 ÷ (37 − reps)', 'Very close to Epley at low reps. Diverges at 10+ reps. Popular in strength coaching.'],
             ['Lander (1985)', '(100 × weight) ÷ (101.3 − 2.67 × reps)', 'Lab-validated formula. Performs well across a wide rep range including higher reps.'],
           ] as [$name, $formula, $note])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--fitness); color:#fff; border-radius:6px; padding:4px 10px; font-size:.75rem; font-weight:700; min-width:90px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $name }}</div>
+            <div class="orm-formula-badge">{{ $name }}</div>
             <div>
-              <div class="fw-semibold" style="font-size:.87rem; color:#1a1a2e; font-family:monospace;">{{ $formula }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $note }}</div>
+              <div class="fw-semibold orm-formula-name">{{ $formula }}</div>
+              <div class="ms-ref-desc">{{ $note }}</div>
             </div>
           </div>
           @endforeach
@@ -242,10 +255,10 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>1RM Strength Standards by Experience Level</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">1RM as a multiple of bodyweight. Based on aggregated data from competitive powerlifting and sports science research.</p>
+      <p class="text-muted ms-intro-text">1RM as a multiple of bodyweight. Based on aggregated data from competitive powerlifting and sports science research.</p>
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered text-center" style="font-size:.87rem; max-width:700px; margin:auto;">
+      <table class="table table-bordered text-center orm-std-table">
         <thead class="ms-table-head">
           <tr>
             <th>Level</th>
@@ -265,14 +278,14 @@ $relatedTools = [
           ] as $row)
           <tr>
             @foreach($row as $i => $cell)
-            <td style="{{ $i === 0 ? 'font-weight:600; color:var(--primary-dark);' : '' }}">{{ $cell }}</td>
+            <td class="{{ $i === 0 ? 'fw-semibold text-brand' : '' }}">{{ $cell }}</td>
             @endforeach
           </tr>
           @endforeach
         </tbody>
       </table>
     </div>
-    <p class="text-center text-muted mt-3" style="font-size:.8rem;">Values are approximate bodyweight multiples. Individual variation is significant.</p>
+    <p class="text-center text-muted mt-3 orm-table-note">Values are approximate bodyweight multiples. Individual variation is significant.</p>
   </div>
 </section>
 
@@ -282,15 +295,15 @@ $relatedTools = [
 {{-- ── 5. Long-tail keyword sections ─────────────────────────────────────────── --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">One Rep Max Calculator for Bench Press — How to Test Safely</h2>
+    <h2 class="mb-4 text-brand">One Rep Max Calculator for Bench Press — How to Test Safely</h2>
     <p>The bench press is the most commonly tested 1RM lift. Before attempting a bench press max, ensure you have a qualified spotter or use a power rack with properly set safety pins. Warm up with at least 3 progressive sets before your working attempt. A good warm-up protocol: 50% × 10, 70% × 5, 85% × 2, 95% × 1, then your max attempt. For estimated 1RM, use a weight where you reach failure between rep 3 and rep 6. This calculator's Epley and Brzycki results will be within 3–5% of your true max at that rep range.</p>
     <p>Grip width affects your bench press 1RM. A wider grip reduces range of motion and typically allows heavier weights but increases shoulder stress. Most strength standards are based on a grip approximately 1.5× shoulder width. Arch and leg drive are legal and widely used in powerlifting but reduce the effective range of motion — if you use them, your gym max may not translate directly to competition-style norms.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Squat and Deadlift 1RM Calculator — Powerlifting Standards</h2>
+    <h2 class="mt-5 mb-4 text-brand">Squat and Deadlift 1RM Calculator — Powerlifting Standards</h2>
     <p>The squat and deadlift are the two highest-load lifts in most programs, meaning a true 1RM test carries more systemic fatigue and injury risk than the bench press. Estimated 1RM from a 3–5 rep set is especially valuable here. For the squat, depth matters — a 1RM achieved above parallel should not be compared to parallel or below-parallel standards. For the deadlift, conventional and sumo stances are biomechanically different enough that lifters often have significantly different 1RMs across the two variations.</p>
     <p>Elite powerlifting totals (squat + bench + deadlift combined) typically exceed 6–8× bodyweight for men and 4–5× bodyweight for women. Using this calculator for all three lifts gives you a combined total you can track as your overall strength progresses.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How to Use 1RM Percentages for Programming Your Training</h2>
+    <h2 class="mt-5 mb-4 text-brand">How to Use 1RM Percentages for Programming Your Training</h2>
     <p>Once you have your 1RM estimate, the training percentage table this calculator generates tells you exactly what weight to load for every rep target. If your bench press 1RM is 100 kg, training at 75% means 75 kg — typically allowing about 10 clean reps. At 85%, you're at 85 kg for 5–6 reps. This predictable relationship lets you auto-regulate training load as your max strength improves.</p>
     <p>Programs like 5/3/1 (Jim Wendler) use 90% of your true 1RM as a "training max" to build in buffer and reduce fatigue accumulation. If using such a program, enter 90% of your calculator result as your programming 1RM, not the full estimate. This approach produces consistent long-term progress without grinding close to failure every session.</p>
   </div>
@@ -311,7 +324,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">The Role of Fiber Type in 1RM Estimation</h3>
         <p>Lifters with a higher proportion of fast-twitch (Type II) muscle fibers tend to have higher true 1RMs relative to their rep performance at moderate loads. Conversely, lifters with more slow-twitch (Type I) fibers can sustain more reps at a given percentage of 1RM — meaning the formulas may slightly underestimate their true max. This individual variation is one reason no formula is universally accurate, and why using the average across multiple formulas reduces this error.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Note:</strong> This calculator provides estimates for training guidance purposes. True 1RM testing carries injury risk. Always prioritise form over weight, use appropriate safety equipment, and consult a certified strength coach if you are new to maximal effort lifting.</p>
+          <p class="mb-0 ms-disclaimer"><strong>Note:</strong> This calculator provides estimates for training guidance purposes. True 1RM testing carries injury risk. Always prioritise form over weight, use appropriate safety equipment, and consult a certified strength coach if you are new to maximal effort lifting.</p>
         </div>
       </div>
     </div>
@@ -330,14 +343,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.orm-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       document.getElementById('ormUnitLabel').textContent = '(' + currentUnit + ')';
       document.getElementById('ormResults').classList.add('d-none');
@@ -392,8 +399,8 @@ $relatedTools = [
     ];
     formulas.forEach(function (f) {
       breakdownHtml += '<div class="col-6 col-md-3">'
-        + '<div class="text-center p-2 rounded-2" style="background:#f8f9fa; border:1px solid #e0e0e0;">'
-        + '<div style="font-size:1.1rem; font-weight:700; color:var(--fitness);">' + f.val.toFixed(1) + '</div>'
+        + '<div class="text-center p-2 rounded-2 orm-formula-card">'
+        + '<div class="orm-formula-val">' + f.val.toFixed(1) + '</div>'
         + '<div class="ms-stat-label">' + f.name + '</div>'
         + '</div></div>';
     });

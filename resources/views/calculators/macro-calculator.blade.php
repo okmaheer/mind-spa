@@ -4,6 +4,43 @@
 @section('description', 'Free macro calculator: get personalized protein, carbohydrate, and fat targets based on your weight, goal, and activity level. Instant macro split. No signup.')
 @section('canonical', config('app.url') . '/macro-calculator')
 
+@section('styles')
+<style>
+.mac-unit-btn.active { background: var(--fitness); color: #fff; border: none; }
+.mac-custom-box     { background: #f8f9fa; border: 1px solid #e0e0e0; }
+.mac-total-cal      { font-size: 2.2rem; font-weight: 700; color: var(--primary-dark); }
+.mac-total-label    { font-size: .8rem; color: #888; margin-bottom: 4px; }
+.mac-macro-prot     { background: #e8f5e9; border-radius: 12px; padding: 16px 8px; }
+.mac-macro-carb     { background: #fff8e1; border-radius: 12px; padding: 16px 8px; }
+.mac-macro-fat      { background: #e3f2fd; border-radius: 12px; padding: 16px 8px; }
+.mac-macro-val      { font-size: 1.6rem; font-weight: 700; }
+.mac-macro-sub      { font-size: .7rem; color: #555; margin-top: 2px; }
+.mac-macro-cal      { font-size: .75rem; color: #888; margin-top: 2px; }
+.mac-macro-pct      { font-size: .72rem; font-weight: 600; }
+.mac-bar-lbl        { font-size: .8rem; color: #888; font-weight: 600; margin-bottom: 8px; }
+.mac-bar            { display: flex; border-radius: 8px; overflow: hidden; height: 20px; width: 100%; }
+.mac-bar-prot       { background: #4caf50; transition: width .4s; }
+.mac-bar-carb       { background: #ff9800; transition: width .4s; }
+.mac-bar-fat        { background: #2196f3; transition: width .4s; }
+.mac-legend         { font-size: .75rem; color: #666; }
+.mac-legend-item    { display: flex; align-items: center; gap: 4px; }
+.mac-legend-dot     { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.mac-legend-dot-prot{ background: #4caf50; }
+.mac-legend-dot-carb{ background: #ff9800; }
+.mac-legend-dot-fat { background: #2196f3; }
+.mac-split-label    { font-size: .88rem; color: var(--primary-dark); }
+.mac-split-note     { font-size: .78rem; color: #888; line-height: 1.5; }
+.mac-goal-tag-prot  { background: #e8f5e9; color: var(--green-text); border-radius: 4px; padding: 2px 10px; font-size: .78rem; font-weight: 600; }
+.mac-goal-tag-carb  { background: #fff8e1; color: #e65100; border-radius: 4px; padding: 2px 10px; font-size: .78rem; font-weight: 600; }
+.mac-goal-tag-fat   { background: #e3f2fd; color: var(--teal-text); border-radius: 4px; padding: 2px 10px; font-size: .78rem; font-weight: 600; }
+.mac-tbl            { border-radius: 12px; overflow: hidden; font-size: .9rem; }
+.mac-th             { padding: 12px 18px; }
+.mac-td             { padding: 10px 18px; }
+.mac-td-name        { padding: 10px 18px; font-weight: 600; }
+.mac-td-role        { padding: 10px 18px; font-size: .85rem; color: #666; }
+</style>
+@endsection
+
 @section('schema')
 <script type="application/ld+json">
 {
@@ -112,12 +149,10 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Unit system">
-              <button class="btn flex-fill mac-unit-btn active" data-unit="metric"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
+              <button class="btn flex-fill mode-btn mac-unit-btn active mode-btn-fitness" data-unit="metric">
                 Metric (kg / cm)
               </button>
-              <button class="btn flex-fill mac-unit-btn" data-unit="imperial"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
+              <button class="btn flex-fill mode-btn mac-unit-btn" data-unit="imperial">
                 Imperial (lbs / ft)
               </button>
             </div>
@@ -188,71 +223,71 @@ $relatedTools = [
             </div>
 
             {{-- Custom split --}}
-            <div id="macCustom" class="d-none mb-4 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
-              <p class="fw-600 mb-2" style="font-size:.85rem; color:var(--primary-dark);">Custom macro split (must total 100%)</p>
+            <div id="macCustom" class="d-none mb-4 p-3 rounded-3 mac-custom-box">
+              <p class="fw-600 mb-2 ms-panel-head">Custom macro split (must total 100%)</p>
               <div class="row g-2">
                 <div class="col-4">
-                  <label for="macProtPct" class="form-label" style="font-size:.82rem;">Protein %</label>
+                  <label for="macProtPct" class="form-label ms-ref-desc">Protein %</label>
                   <input type="number" id="macProtPct" class="form-control" value="30" min="10" max="60">
                 </div>
                 <div class="col-4">
-                  <label for="macCarbPct" class="form-label" style="font-size:.82rem;">Carbs %</label>
+                  <label for="macCarbPct" class="form-label ms-ref-desc">Carbs %</label>
                   <input type="number" id="macCarbPct" class="form-control" value="40" min="5" max="70">
                 </div>
                 <div class="col-4">
-                  <label for="macFatPct" class="form-label" style="font-size:.82rem;">Fat %</label>
+                  <label for="macFatPct" class="form-label ms-ref-desc">Fat %</label>
                   <input type="number" id="macFatPct" class="form-control" value="30" min="10" max="75">
                 </div>
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcMacros()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcMacros()">
               Calculate Macros →
             </button>
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider mb-4"></div>
 
               <div class="text-center mb-3">
-                <div style="font-size:.8rem; color:#888; margin-bottom:4px;">Total daily calories</div>
-                <div id="macTotalCal" style="font-size:2.2rem; font-weight:700; color:var(--primary-dark);"></div>
+                <div class="mac-total-label">Total daily calories</div>
+                <div id="macTotalCal" class="mac-total-cal"></div>
               </div>
 
               <div class="row g-3 mb-4 text-center">
                 <div class="col-4">
-                  <div style="background:#e8f5e9; border-radius:12px; padding:16px 8px;">
-                    <div id="macProtG" style="font-size:1.6rem; font-weight:700; color:var(--green-text);"></div>
-                    <div style="font-size:.7rem; color:#555; margin-top:2px;">Protein (g)</div>
-                    <div id="macProtCal" style="font-size:.75rem; color:#888; margin-top:2px;"></div>
-                    <div id="macProtPctDisp" style="font-size:.72rem; color:var(--green-text); font-weight:600;"></div>
+                  <div class="mac-macro-prot">
+                    <div id="macProtG" class="mac-macro-val text-green"></div>
+                    <div class="mac-macro-sub">Protein (g)</div>
+                    <div id="macProtCal" class="mac-macro-cal"></div>
+                    <div id="macProtPctDisp" class="mac-macro-pct text-green"></div>
                   </div>
                 </div>
                 <div class="col-4">
-                  <div style="background:#fff8e1; border-radius:12px; padding:16px 8px;">
-                    <div id="macCarbG" style="font-size:1.6rem; font-weight:700; color:#e65100;"></div>
-                    <div style="font-size:.7rem; color:#555; margin-top:2px;">Carbs (g)</div>
-                    <div id="macCarbCal" style="font-size:.75rem; color:#888; margin-top:2px;"></div>
-                    <div id="macCarbPctDisp" style="font-size:.72rem; color:#e65100; font-weight:600;"></div>
+                  <div class="mac-macro-carb">
+                    <div id="macCarbG" class="mac-macro-val text-orange-brand"></div>
+                    <div class="mac-macro-sub">Carbs (g)</div>
+                    <div id="macCarbCal" class="mac-macro-cal"></div>
+                    <div id="macCarbPctDisp" class="mac-macro-pct text-orange-brand"></div>
                   </div>
                 </div>
                 <div class="col-4">
-                  <div style="background:#e3f2fd; border-radius:12px; padding:16px 8px;">
-                    <div id="macFatG" style="font-size:1.6rem; font-weight:700; color:var(--teal-text);"></div>
-                    <div style="font-size:.7rem; color:#555; margin-top:2px;">Fat (g)</div>
-                    <div id="macFatCal" style="font-size:.75rem; color:#888; margin-top:2px;"></div>
-                    <div id="macFatPctDisp" style="font-size:.72rem; color:var(--teal-text); font-weight:600;"></div>
+                  <div class="mac-macro-fat">
+                    <div id="macFatG" class="mac-macro-val text-teal"></div>
+                    <div class="mac-macro-sub">Fat (g)</div>
+                    <div id="macFatCal" class="mac-macro-cal"></div>
+                    <div id="macFatPctDisp" class="mac-macro-pct text-teal"></div>
                   </div>
                 </div>
               </div>
 
               {{-- Visual macro bar --}}
-              <div style="margin-bottom:8px; font-size:.8rem; color:#888; font-weight:600;">Macro split</div>
-              <div id="macBar" style="display:flex; border-radius:8px; overflow:hidden; height:20px; width:100%;"></div>
-              <div class="d-flex gap-3 mt-2" style="font-size:.75rem; color:#666;">
-                <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#4caf50; display:inline-block;"></span> Protein</span>
-                <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#ff9800; display:inline-block;"></span> Carbs</span>
-                <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; border-radius:2px; background:#2196f3; display:inline-block;"></span> Fat</span>
+              <div class="mac-bar-lbl">Macro split</div>
+              <div id="macBar" class="mac-bar"></div>
+              <div class="d-flex gap-3 mt-2 mac-legend">
+                <span class="mac-legend-item"><span class="mac-legend-dot mac-legend-dot-prot"></span> Protein</span>
+                <span class="mac-legend-item"><span class="mac-legend-dot mac-legend-dot-carb"></span> Carbs</span>
+                <span class="mac-legend-item"><span class="mac-legend-dot mac-legend-dot-fat"></span> Fat</span>
               </div>
             </div>
 
@@ -261,7 +296,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Macro Facts</h3>
           @foreach([
@@ -292,13 +327,13 @@ $relatedTools = [
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How Macros Work: Protein, Carbs, and Fat Explained</h2>
         <p>The three macronutrients provide all of your dietary calories. Each plays distinct and irreplaceable roles:</p>
-        <p><strong style="color:var(--green-text);">Protein</strong> builds and repairs muscle tissue, produces enzymes and hormones, and is the most satiating macronutrient. At 4 cal/g, it is equally calorie-dense to carbohydrates, but its thermic effect (25–30% of its calories are burned in digestion) makes it the most metabolically "expensive" food.</p>
-        <p><strong style="color:#e65100;">Carbohydrates</strong> are the body's preferred fuel, especially for high-intensity exercise. They are stored as glycogen in muscles and the liver. At 4 cal/g, they are calorie-efficient and essential for performance.</p>
-        <p><strong style="color:var(--teal-text);">Fat</strong> is calorie-dense at 9 cal/g and is essential for hormone production, fat-soluble vitamin absorption, and brain function. Dietary fat does not directly cause body fat gain — excess calories from any source do.</p>
+        <p><strong class="text-green">Protein</strong> builds and repairs muscle tissue, produces enzymes and hormones, and is the most satiating macronutrient. At 4 cal/g, it is equally calorie-dense to carbohydrates, but its thermic effect (25–30% of its calories are burned in digestion) makes it the most metabolically "expensive" food.</p>
+        <p><strong class="text-orange-brand">Carbohydrates</strong> are the body's preferred fuel, especially for high-intensity exercise. They are stored as glycogen in muscles and the liver. At 4 cal/g, they are calorie-efficient and essential for performance.</p>
+        <p><strong class="text-teal">Fat</strong> is calorie-dense at 9 cal/g and is essential for hormone production, fat-soluble vitamin absorption, and brain function. Dietary fat does not directly cause body fat gain — excess calories from any source do.</p>
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Macro splits by goal</p>
+          <p class="fw-600 mb-3 ms-panel-head">Macro splits by goal</p>
           @foreach([
             ['Fat Loss',      '40% protein', '30% carbs', '30% fat', 'High protein preserves muscle; moderate carbs fuel training'],
             ['Maintenance',   '30% protein', '40% carbs', '30% fat', 'Balanced split for general health and weight maintenance'],
@@ -306,13 +341,13 @@ $relatedTools = [
             ['Ketogenic',     '25% protein', '5% carbs',  '70% fat', 'Very low carb; forces ketosis as primary energy state'],
           ] as [$goal, $prot, $carb, $fat, $note])
           <div class="mb-4">
-            <div class="fw-600 mb-2" style="font-size:.88rem; color:var(--primary-dark);">{{ $goal }}</div>
+            <div class="fw-600 mb-2 mac-split-label">{{ $goal }}</div>
             <div class="d-flex gap-2 mb-1">
-              <span style="background:#e8f5e9; color:var(--green-text); border-radius:4px; padding:2px 10px; font-size:.78rem; font-weight:600;">{{ $prot }}</span>
-              <span style="background:#fff8e1; color:#e65100; border-radius:4px; padding:2px 10px; font-size:.78rem; font-weight:600;">{{ $carb }}</span>
-              <span style="background:#e3f2fd; color:var(--teal-text); border-radius:4px; padding:2px 10px; font-size:.78rem; font-weight:600;">{{ $fat }}</span>
+              <span class="mac-goal-tag-prot">{{ $prot }}</span>
+              <span class="mac-goal-tag-carb">{{ $carb }}</span>
+              <span class="mac-goal-tag-fat">{{ $fat }}</span>
             </div>
-            <div style="font-size:.78rem; color:#888; line-height:1.5;">{{ $note }}</div>
+            <div class="mac-split-note">{{ $note }}</div>
           </div>
           @endforeach
         </div>
@@ -326,19 +361,19 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Macronutrient Calorie Conversions Reference</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Use this table to convert between grams and calories for each macronutrient.</p>
+      <p class="text-muted ms-intro-text">Use this table to convert between grams and calories for each macronutrient.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-9">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.9rem;">
+          <table class="table table-bordered mac-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:12px 18px;">Macronutrient</th>
-                <th style="padding:12px 18px;">Calories per gram</th>
-                <th style="padding:12px 18px;">50g =</th>
-                <th style="padding:12px 18px;">100g =</th>
-                <th style="padding:12px 18px;">Primary role</th>
+                <th class="mac-th">Macronutrient</th>
+                <th class="mac-th">Calories per gram</th>
+                <th class="mac-th">50g =</th>
+                <th class="mac-th">100g =</th>
+                <th class="mac-th">Primary role</th>
               </tr>
             </thead>
             <tbody>
@@ -349,11 +384,11 @@ $relatedTools = [
                 ['Alcohol',       '7 cal/g', '350 cal', '700 cal', 'No nutritional role; metabolised as priority fuel'],
               ] as [$mac, $cpg, $f50, $f100, $role])
               <tr>
-                <td style="padding:10px 18px; font-weight:600;">{{ $mac }}</td>
-                <td style="padding:10px 18px;">{{ $cpg }}</td>
-                <td style="padding:10px 18px;">{{ $f50 }}</td>
-                <td style="padding:10px 18px;">{{ $f100 }}</td>
-                <td style="padding:10px 18px; color:#666; font-size:.85rem;">{{ $role }}</td>
+                <td class="mac-td-name">{{ $mac }}</td>
+                <td class="mac-td">{{ $cpg }}</td>
+                <td class="mac-td">{{ $f50 }}</td>
+                <td class="mac-td">{{ $f100 }}</td>
+                <td class="mac-td-role">{{ $role }}</td>
               </tr>
               @endforeach
             </tbody>
@@ -371,15 +406,15 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">Macro Calculator for Weight Loss — High Protein vs Low Carb</h2>
+    <h2 class="mb-4 text-brand">Macro Calculator for Weight Loss — High Protein vs Low Carb</h2>
     <p>The great macronutrient debate for weight loss — high protein vs. low carb vs. low fat — has been studied extensively. A landmark 2020 DIETFITS trial compared low-fat and low-carb diets in 609 adults over 12 months and found no significant difference in weight loss between the groups. The consistent finding across the literature is that protein intake is the macro that most reliably improves body composition outcomes. Diets higher in protein produce greater fat loss and better muscle retention at equivalent calorie deficits, regardless of carbohydrate or fat content.</p>
     <p>For practical weight loss, aim for at least 30–35% of calories from protein (or 1.6 g per kg bodyweight), and then distribute carbohydrates and fat based on personal preference and dietary tolerability. The macro split you can stick to consistently produces better results than the theoretically optimal split you abandon after two weeks.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Macro Calculator for Muscle Gain — Bulking Macros Explained</h2>
+    <h2 class="mt-5 mb-4 text-brand">Macro Calculator for Muscle Gain — Bulking Macros Explained</h2>
     <p>Building muscle requires both an adequate calorie surplus and sufficient macronutrient distribution. A "dirty bulk" — eating in a large surplus of 500–1,000+ calories per day — is a common approach that produces rapid scale weight gain, but research shows the majority of that gain is fat, not muscle. A lean bulk of 200–400 calories above TDEE, with 30–35% protein, 45–50% carbohydrates, and 20–25% fat, maximises the ratio of muscle to fat gained.</p>
     <p>Carbohydrates deserve particular attention during a muscle-building phase. Glycogen-loaded muscles perform better in resistance training, and the post-workout insulin spike from carbohydrate intake enhances amino acid uptake into muscle cells. Protein timing also matters more when bulking: distributing protein intake across 4–5 meals of 30–40 g each (rather than 2 large meals) optimises muscle protein synthesis over the day.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Keto Macros Calculator — 70/25/5 Split Explained</h2>
+    <h2 class="mt-5 mb-4 text-brand">Keto Macros Calculator — 70/25/5 Split Explained</h2>
     <p>A ketogenic diet maintains carbohydrates below 20–50 g per day — typically 5% of total calories — while providing 70–75% of calories from fat and 20–25% from protein. At this carbohydrate intake, liver glycogen depletes within 2–4 days, and the liver begins converting fatty acids to ketone bodies (beta-hydroxybutyrate, acetoacetate, and acetone) as an alternative fuel. This state is called nutritional ketosis.</p>
     <p>Protein is deliberately kept moderate on keto because excess amino acids can be converted to glucose via gluconeogenesis, potentially disrupting ketosis. This distinguishes keto from high-protein diets, where protein intake of 2+ g per kg is common. For athletes on keto, performance in high-intensity activities typically suffers due to the lack of readily available glycogen — keto tends to suit lower-intensity activities like steady-state cardio and endurance events better than explosive or strength sports.</p>
 
@@ -401,7 +436,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Reassess Every 4–6 Weeks</h3>
         <p>As your body weight changes, your TDEE and macro targets should be recalculated. A 5 kg reduction in body weight reduces maintenance calories by approximately 100–150 per day — meaning the same deficit that produced results at the start will produce less over time. Recalculate every 4–6 weeks, or whenever weight loss has stalled for more than three weeks despite consistent tracking.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Disclaimer:</strong> This macro calculator is for general informational purposes only. Nutritional needs vary by individual, medical history, and specific goals. Consult a registered dietitian or sports nutritionist for personalised advice, particularly if you have metabolic conditions, kidney disease, or a history of disordered eating.</p>
+          <p class="mb-0 text-sm"><strong>Disclaimer:</strong> This macro calculator is for general informational purposes only. Nutritional needs vary by individual, medical history, and specific goals. Consult a registered dietitian or sports nutritionist for personalised advice, particularly if you have metabolic conditions, kidney disease, or a history of disordered eating.</p>
         </div>
       </div>
     </div>
@@ -424,14 +459,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.mac-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       document.getElementById('macMetric').classList.toggle('d-none', currentUnit !== 'metric');
       document.getElementById('macImperial').classList.toggle('d-none', currentUnit !== 'imperial');
@@ -514,9 +543,9 @@ $relatedTools = [
 
     // Visual bar
     document.getElementById('macBar').innerHTML =
-      '<div style="width:' + Math.round(protPct * 100) + '%; background:#4caf50; transition:width .4s;"></div>' +
-      '<div style="width:' + Math.round(carbPct * 100) + '%; background:#ff9800; transition:width .4s;"></div>' +
-      '<div style="width:' + Math.round(fatPct  * 100) + '%; background:#2196f3; transition:width .4s;"></div>';
+      '<div class="mac-bar-prot" style="width:' + Math.round(protPct * 100) + '%;"></div>' +
+      '<div class="mac-bar-carb" style="width:' + Math.round(carbPct * 100) + '%;"></div>' +
+      '<div class="mac-bar-fat"  style="width:' + Math.round(fatPct  * 100) + '%;"></div>';
 
     var resultsEl = document.getElementById('results');
     resultsEl.classList.remove('d-none');

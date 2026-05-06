@@ -80,6 +80,51 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.sq-prog-wrap     { flex:1; background:#f0f0f0; border-radius:4px; height:6px; }
+.sq-prog-bar      { height:100%; background:var(--sleep); border-radius:4px; transition:width .3s; width:0%; }
+.sq-prog-text     { font-size:.78rem; color:#888; min-width:50px; text-align:right; }
+.sq-retake-btn    { border:2px solid var(--sleep); color:var(--sleep); border-radius:8px; font-weight:600; padding:12px; }
+.sq-bullet        { width:8px; height:8px; border-radius:50%; background:var(--sleep); flex-shrink:0; margin-top:5px; }
+.sq-measure-title { font-weight:600; font-size:.88rem; color:#fff; }
+.sq-measure-desc  { font-size:.8rem; color:rgba(255,255,255,.55); line-height:1.4; margin-top:1px; }
+.sq-intro         { max-width:480px; margin:0 auto 40px; }
+.sq-score-range   { font-size:1.3rem; font-weight:800; font-variant-numeric:tabular-nums; }
+.sq-score-label   { font-weight:700; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.4px; }
+.sq-score-desc    { font-size:.82rem; color:#555; line-height:1.7; margin:0; }
+.sq-card-excellent { background:#d1eddb; border:1px solid rgba(21,87,36,.19); }
+.sq-card-excellent .sq-score-range,.sq-card-excellent .sq-score-label { color:#155724; }
+.sq-card-good      { background:#cce5ff; border:1px solid rgba(0,64,133,.19); }
+.sq-card-good .sq-score-range,.sq-card-good .sq-score-label { color:#004085; }
+.sq-card-poor      { background:#fff3cd; border:1px solid rgba(102,77,3,.19); }
+.sq-card-poor .sq-score-range,.sq-card-poor .sq-score-label { color:#664d03; }
+.sq-card-severe    { background:#ffd5d5; border:1px solid rgba(114,28,36,.19); }
+.sq-card-severe .sq-score-range,.sq-card-severe .sq-score-label { color:#721c24; }
+.sq-warning-box   { background:#fff5f5; border:2px solid rgba(233,69,96,.25); }
+.sq-warning-icon  { font-size:2rem; flex-shrink:0; line-height:1; }
+.sq-warning-title { font-size:1.1rem; margin-bottom:12px; color:#721c24; }
+.sq-warning-desc  { font-size:.88rem; color:#555; margin-bottom:16px; line-height:1.7; }
+.sq-flag-card     { border-left:3px solid #e94560; background:rgba(233,69,96,.04); }
+.sq-flag-title    { font-weight:700; font-size:.83rem; color:#721c24; margin-bottom:3px; }
+.sq-flag-desc     { font-size:.78rem; color:#666; line-height:1.5; }
+.sq-q-text        { font-weight:700; color:var(--primary-dark); font-size:.95rem; margin-bottom:16px; line-height:1.5; }
+.sq-option        { border:2px solid #e0e0e0; background:#fff; cursor:pointer; transition:all .1s; }
+.sq-option-sel    { border-color:var(--sleep); background:rgba(108,99,255,.06); }
+.sq-radio         { accent-color:var(--sleep); }
+.sq-option-text   { font-size:.9rem; color:#333; }
+.sq-error-msg     { color:#e94560; font-size:.8rem; margin-top:8px; }
+.sq-res-icon      { font-size:2.5rem; }
+.sq-res-score     { font-size:2.5rem; font-weight:800; line-height:1.2; }
+.sq-res-label     { font-weight:700; font-size:.9rem; margin:4px 0 8px; text-transform:uppercase; letter-spacing:.5px; }
+.sq-res-advice    { font-size:.88rem; color:#555; margin:0; }
+.sq-focus-box     { background:#f0f4ff; }
+.sq-focus-title   { font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:12px; }
+.sq-focus-domain  { font-weight:700; font-size:.85rem; color:var(--sleep); margin-bottom:3px; }
+.sq-focus-tip     { font-size:.82rem; color:#555; line-height:1.6; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -106,25 +151,24 @@ $relatedTools = [
             <div id="quizArea">
               {{-- Progress bar --}}
               <div class="d-flex align-items-center gap-2 mb-4">
-                <div style="flex:1; background:#f0f0f0; border-radius:4px; height:6px;">
-                  <div id="progressBar" style="width:0%; height:100%; background:var(--sleep); border-radius:4px; transition:width .3s;"></div>
+                <div class="sq-prog-wrap">
+                  <div id="progressBar" class="sq-prog-bar"></div>
                 </div>
-                <span id="progressText" style="font-size:.78rem; color:#888; min-width:50px; text-align:right;">0 / 10</span>
+                <span id="progressText" class="sq-prog-text">0 / 10</span>
               </div>
 
               <div id="questionBlock"></div>
 
               <div class="d-flex gap-2 mt-4">
-                <button id="prevBtn" class="btn btn-outline-secondary flex-fill" onclick="navigate(-1)" style="display:none;">← Back</button>
-                <button id="nextBtn" class="btn btn-cta flex-fill" onclick="navigate(1)" style="display:none;">Next →</button>
-                <button id="submitBtn" class="btn btn-cta flex-fill" onclick="submitQuiz()" style="display:none;">See My Score →</button>
+                <button id="prevBtn" class="btn btn-outline-secondary flex-fill d-none" onclick="navigate(-1)">← Back</button>
+                <button id="nextBtn" class="btn btn-cta flex-fill d-none" onclick="navigate(1)">Next →</button>
+                <button id="submitBtn" class="btn btn-cta flex-fill d-none" onclick="submitQuiz()">See My Score →</button>
               </div>
             </div>
 
             <div id="quizResult" class="d-none">
               <div id="resultContent"></div>
-              <button class="btn w-100 mt-3" onclick="resetQuiz()"
-                      style="border:2px solid var(--sleep); color:var(--sleep); border-radius:8px; font-weight:600; padding:12px;">
+              <button class="btn w-100 mt-3 sq-retake-btn" onclick="resetQuiz()">
                 Retake Quiz
               </button>
             </div>
@@ -133,7 +177,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">What We Measure</h3>
           @foreach([
@@ -146,10 +190,10 @@ $relatedTools = [
             ['Overall Quality','Your own assessment of sleep'],
           ] as [$label, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="width:8px; height:8px; border-radius:50%; background:var(--sleep); flex-shrink:0; margin-top:5px;"></div>
+            <div class="sq-bullet"></div>
             <div>
-              <div style="font-weight:600; font-size:.88rem; color:#fff;">{{ $label }}</div>
-              <div style="font-size:.8rem; color:rgba(255,255,255,.55); line-height:1.4; margin-top:1px;">{{ $desc }}</div>
+              <div class="sq-measure-title">{{ $label }}</div>
+              <div class="sq-measure-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -164,19 +208,19 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Understanding Your Sleep Score</h2>
-    <p class="text-center text-muted mb-5" style="max-width:480px; margin:0 auto 40px;">Based on the Pittsburgh Sleep Quality Index (PSQI) scoring framework.</p>
+    <p class="text-center text-muted mb-5 sq-intro">Based on the Pittsburgh Sleep Quality Index (PSQI) scoring framework.</p>
     <div class="row g-4 justify-content-center">
       @foreach([
-        ['0–4','Excellent','#d1eddb','#155724','Very good sleeper. Your sleep habits are solid. Minor tweaks may provide small gains but nothing is fundamentally broken.'],
-        ['5–7','Good','#cce5ff','#004085','Mostly good sleep with occasional issues. Focus on consistency — wake time and sleep schedule regularity will sharpen your quality.'],
-        ['8–14','Poor','#fff3cd','#664d03','Significant sleep disruption. Multiple factors are affecting your sleep. CBT-I techniques will make a measurable difference. Consider a sleep diary.'],
-        ['15–21','Severe','#ffd5d5','#721c24','Severely disrupted sleep affecting daily life. Consult a GP or sleep specialist. Conditions like insomnia disorder or sleep apnoea should be ruled out.'],
-      ] as [$range,$label,$bg,$color,$desc])
+        ['0–4','Excellent','sq-card-excellent','Very good sleeper. Your sleep habits are solid. Minor tweaks may provide small gains but nothing is fundamentally broken.'],
+        ['5–7','Good','sq-card-good','Mostly good sleep with occasional issues. Focus on consistency — wake time and sleep schedule regularity will sharpen your quality.'],
+        ['8–14','Poor','sq-card-poor','Significant sleep disruption. Multiple factors are affecting your sleep. CBT-I techniques will make a measurable difference. Consider a sleep diary.'],
+        ['15–21','Severe','sq-card-severe','Severely disrupted sleep affecting daily life. Consult a GP or sleep specialist. Conditions like insomnia disorder or sleep apnoea should be ruled out.'],
+      ] as [$range,$label,$cls,$desc])
       <div class="col-sm-6 col-lg-3">
-        <div class="p-4 rounded-3 h-100" style="background:{{ $bg }}; border:1px solid {{ $color }}30;">
-          <div style="font-size:1.3rem; font-weight:800; color:{{ $color }}; font-variant-numeric:tabular-nums;">{{ $range }}</div>
-          <div style="font-weight:700; color:{{ $color }}; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.4px;">{{ $label }}</div>
-          <p style="font-size:.82rem; color:#555; line-height:1.7; margin:0;">{{ $desc }}</p>
+        <div class="{{ $cls }} p-4 rounded-3 h-100">
+          <div class="sq-score-range">{{ $range }}</div>
+          <div class="sq-score-label">{{ $label }}</div>
+          <p class="sq-score-desc">{{ $desc }}</p>
         </div>
       </div>
       @endforeach
@@ -189,12 +233,12 @@ $relatedTools = [
   <div class="container-xl">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="p-4 rounded-3" style="background:#fff5f5; border:2px solid #e9456040;">
+        <div class="p-4 rounded-3 sq-warning-box">
           <div class="d-flex align-items-start gap-3">
-            <div style="font-size:2rem; flex-shrink:0; line-height:1;">🚨</div>
+            <div class="sq-warning-icon">🚨</div>
             <div>
-              <h2 style="font-size:1.1rem; margin-bottom:12px; color:#721c24;">When to See a Doctor — Red Flags</h2>
-              <p style="font-size:.88rem; color:#555; margin-bottom:16px; line-height:1.7;">Self-help and CBT-I techniques address most sleep problems. But some sleep issues require medical assessment. See a GP or sleep specialist if any of the following apply:</p>
+              <h2 class="sq-warning-title">When to See a Doctor — Red Flags</h2>
+              <p class="sq-warning-desc">Self-help and CBT-I techniques address most sleep problems. But some sleep issues require medical assessment. See a GP or sleep specialist if any of the following apply:</p>
               <div class="row g-2">
                 @foreach([
                   ['Loud snoring + daytime sleepiness','Possible obstructive sleep apnoea — pauses in breathing cause micro-arousals hundreds of times per night. Significantly increases cardiovascular risk when untreated.'],
@@ -205,9 +249,9 @@ $relatedTools = [
                   ['Sleep problems persist 6+ weeks despite changes','Chronic insomnia disorder. A formal CBT-I programme or referral to a sleep psychologist is the recommended first-line treatment.'],
                 ] as [$flag,$detail])
                 <div class="col-md-6">
-                  <div class="p-2 rounded" style="border-left:3px solid #e94560; background:rgba(233,69,96,.04);">
-                    <div style="font-weight:700; font-size:.83rem; color:#721c24; margin-bottom:3px;">{{ $flag }}</div>
-                    <div style="font-size:.78rem; color:#666; line-height:1.5;">{{ $detail }}</div>
+                  <div class="p-2 rounded sq-flag-card">
+                    <div class="sq-flag-title">{{ $flag }}</div>
+                    <div class="sq-flag-desc">{{ $detail }}</div>
                   </div>
                 </div>
                 @endforeach
@@ -225,11 +269,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Quality Test vs Sleep Quantity — What Matters More?</h2>
+    <h2 class="mb-4 text-brand">Sleep Quality Test vs Sleep Quantity — What Matters More?</h2>
     <p>Both matter, but quality is often undervalued. You can sleep 9 hours and wake exhausted if your sleep architecture is disrupted — too little deep sleep (slow-wave sleep), too little REM sleep, or frequent micro-arousals caused by sleep apnoea, environmental noise, or alcohol. The Pittsburgh Sleep Quality Index (which this quiz is based on) specifically measures quality across 7 domains because researchers recognised that sleep duration alone is a poor predictor of next-day function.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Signs You Have Poor Sleep Quality</h2>
+    <h2 class="mt-5 mb-4 text-brand">Signs You Have Poor Sleep Quality</h2>
     <p>You may have poor sleep quality even if you sleep 7–9 hours if you experience: waking unrefreshed most mornings, difficulty concentrating in the afternoon, falling asleep immediately when sedentary (under 5 minutes), needing an alarm to wake (suggests sleep is still incomplete), relying on caffeine to function before noon, and emotional volatility disproportionate to daily events. A PSQI score above 5 on this quiz suggests clinically meaningful poor sleep quality requiring attention.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Am I Getting Enough Deep Sleep?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Am I Getting Enough Deep Sleep?</h2>
     <p>Deep sleep (slow-wave sleep, stages N3) should constitute roughly 20–25% of total sleep time — about 90–120 minutes for a 7.5-hour sleep. Deep sleep is when physical restoration occurs: growth hormone is released, tissue is repaired, and the immune system is strengthened. Signs of deep sleep deficiency include persistent physical fatigue, frequent illness, poor muscle recovery after exercise, and high evening cortisol. Deep sleep naturally declines with age — adults over 60 may have only 5–10% deep sleep — which is a key reason older adults feel less restored by sleep.</p>
   </div>
 </section>
@@ -373,20 +417,17 @@ $relatedTools = [
 
   function renderQuestion(idx) {
     var q = QUESTIONS[idx];
-    var html = '<p style="font-weight:700; color:var(--primary-dark); font-size:.95rem; margin-bottom:16px; line-height:1.5;">'
+    var html = '<p class="sq-q-text">'
       + (idx + 1) + '. ' + q.text + '</p>'
       + '<div class="d-flex flex-column gap-2">';
 
     q.options.forEach(function (opt, oi) {
       var isSelected = answers[q.id] === oi;
-      html += '<label class="d-flex align-items-center gap-3 p-3 rounded-3" '
-        + 'style="border:2px solid ' + (isSelected ? 'var(--sleep)' : '#e0e0e0') + '; '
-        + 'background:' + (isSelected ? 'rgba(108,99,255,.06)' : '#fff') + '; '
-        + 'cursor:pointer; transition:all .1s;" '
+      html += '<label class="d-flex align-items-center gap-3 p-3 rounded-3 sq-option' + (isSelected ? ' sq-option-sel' : '') + '" '
         + 'onclick="selectAnswer(\'' + q.id + '\',' + oi + ',' + opt.score + ')">'
         + '<input type="radio" name="q' + idx + '" value="' + oi + '" '
-        + (isSelected ? 'checked' : '') + ' style="accent-color:var(--sleep);">'
-        + '<span style="font-size:.9rem; color:#333;">' + opt.label + '</span>'
+        + (isSelected ? 'checked' : '') + ' class="sq-radio">'
+        + '<span class="sq-option-text">' + opt.label + '</span>'
         + '</label>';
     });
 
@@ -397,9 +438,9 @@ $relatedTools = [
     document.getElementById('progressBar').style.width = pct + '%';
     document.getElementById('progressText').textContent = (idx + 1) + ' / ' + QUESTIONS.length;
 
-    document.getElementById('prevBtn').style.display = idx > 0 ? 'block' : 'none';
-    document.getElementById('nextBtn').style.display = idx < QUESTIONS.length - 1 ? 'block' : 'none';
-    document.getElementById('submitBtn').style.display = idx === QUESTIONS.length - 1 ? 'block' : 'none';
+    document.getElementById('prevBtn').classList.toggle('d-none', idx === 0);
+    document.getElementById('nextBtn').classList.toggle('d-none', idx >= QUESTIONS.length - 1);
+    document.getElementById('submitBtn').classList.toggle('d-none', idx < QUESTIONS.length - 1);
   }
 
   window.selectAnswer = function (id, optIdx, score) {
@@ -412,7 +453,7 @@ $relatedTools = [
     var q = QUESTIONS[current];
     if (dir > 0 && answers[q.id] === undefined) {
       document.getElementById('questionBlock').insertAdjacentHTML('beforeend',
-        '<p style="color:#e94560; font-size:.8rem; margin-top:8px;">Please select an answer to continue.</p>');
+        '<p class="sq-error-msg">Please select an answer to continue.</p>');
       return;
     }
     current = Math.max(0, Math.min(QUESTIONS.length - 1, current + dir));
@@ -423,7 +464,7 @@ $relatedTools = [
     var q = QUESTIONS[current];
     if (answers[q.id] === undefined) {
       document.getElementById('questionBlock').insertAdjacentHTML('beforeend',
-        '<p style="color:#e94560; font-size:.8rem; margin-top:8px;">Please select an answer to see your score.</p>');
+        '<p class="sq-error-msg">Please select an answer to see your score.</p>');
       return;
     }
 
@@ -451,20 +492,20 @@ $relatedTools = [
     }
 
     var html = '<div class="p-4 rounded-3 text-center mb-4" style="background:' + bg + '; border:1px solid ' + color + '30;">'
-      + '<div style="font-size:2.5rem;">' + icon + '</div>'
-      + '<div style="font-size:2.5rem; font-weight:800; color:' + color + '; line-height:1.2;">' + total + '/30</div>'
-      + '<div style="font-weight:700; color:' + color + '; font-size:.9rem; margin:4px 0 8px; text-transform:uppercase; letter-spacing:.5px;">' + label + '</div>'
-      + '<p style="font-size:.88rem; color:#555; margin:0;">' + advice + '</p>'
+      + '<div class="sq-res-icon">' + icon + '</div>'
+      + '<div class="sq-res-score" style="color:' + color + ';">' + total + '/30</div>'
+      + '<div class="sq-res-label" style="color:' + color + ';">' + label + '</div>'
+      + '<p class="sq-res-advice">' + advice + '</p>'
       + '</div>';
 
     if (poorDomains.length > 0) {
-      html += '<div class="p-3 rounded-3" style="background:#f0f4ff; border:1px solid var(--sleep)30;">'
-        + '<p style="font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:12px;">📋 Your Focus Areas</p>'
+      html += '<div class="p-3 rounded-3 sq-focus-box">'
+        + '<p class="sq-focus-title">📋 Your Focus Areas</p>'
         + '<div class="d-flex flex-column gap-3">';
       poorDomains.forEach(function (id) {
         var tip = TIPS[id];
-        html += '<div><div style="font-weight:700; font-size:.85rem; color:var(--sleep); margin-bottom:3px;">→ ' + tip.label + '</div>'
-          + '<div style="font-size:.82rem; color:#555; line-height:1.6;">' + tip.tip + '</div></div>';
+        html += '<div><div class="sq-focus-domain">→ ' + tip.label + '</div>'
+          + '<div class="sq-focus-tip">' + tip.tip + '</div></div>';
       });
       html += '</div></div>';
     }
@@ -485,9 +526,6 @@ $relatedTools = [
 
   // Init
   renderQuestion(0);
-  document.getElementById('prevBtn').style.display = 'none';
-  document.getElementById('nextBtn').style.display = 'block';
-  document.getElementById('submitBtn').style.display = 'none';
 })();
 </script>
 @endsection

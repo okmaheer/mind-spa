@@ -3,13 +3,12 @@
   $categories = config('mindsnap.categories');
 @endphp
 
-<nav class="sticky-top" style="background:var(--primary-dark); z-index:1040;" aria-label="Main navigation">
-  <div class="container-xl d-flex align-items-center justify-content-between" style="height:60px;">
+<nav class="sticky-top ms-navbar" aria-label="Main navigation">
+  <div class="container-xl d-flex align-items-center justify-content-between ms-navbar-inner">
 
     {{-- Logo --}}
     <a href="{{ route('home') }}"
-       class="d-flex align-items-center gap-2 text-decoration-none flex-shrink-0"
-       style="color:#fff; font-weight:700; font-size:1.1rem;">
+       class="ms-navbar-logo d-flex align-items-center gap-2 text-decoration-none flex-shrink-0">
       <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="14" r="13" stroke="#e94560" stroke-width="2"/>
         <path d="M9 14c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -21,7 +20,7 @@
     </a>
 
     {{-- Desktop nav — categories with hover dropdowns --}}
-    <ul class="d-none d-xl-flex align-items-center m-0 p-0" style="list-style:none; gap:2px;">
+    <ul class="d-none d-xl-flex align-items-center m-0 p-0 ms-nav-ul">
       @foreach($categories as $key => $cat)
       <li class="ms-nav-item">
         <a href="{{ url($cat['slug']) }}" class="ms-nav-link">
@@ -34,9 +33,9 @@
         {{-- Mega dropdown --}}
         <div class="ms-dropdown">
           {{-- Category header --}}
-          <div class="d-flex align-items-center gap-2 mb-2 pb-2" style="border-bottom:1px solid #f0f0f0;">
-            <span style="font-size:1.1rem;">{{ $cat['icon'] }}</span>
-            <div style="font-weight:700; font-size:.85rem; color:#1a1a2e;">{{ $cat['label'] }}</div>
+          <div class="ms-dropdown-header d-flex align-items-center gap-2 mb-2 pb-2">
+            <span class="ms-dropdown-header-icon">{{ $cat['icon'] }}</span>
+            <div class="ms-dropdown-header-label">{{ $cat['label'] }}</div>
             <a href="{{ url($cat['slug']) }}" class="ms-see-all ms-auto">
               See all <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </a>
@@ -44,7 +43,7 @@
 
           {{-- Tools grid --}}
           @if(!empty($navTools[$key]))
-          <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:2px;">
+          <div class="ms-dropdown-tools-grid">
             @foreach($navTools[$key] as $tool)
             <a href="{{ url($tool['slug']) }}" class="ms-tool-link">
               <span class="t-icon">{{ $tool['icon'] ?? '🔧' }}</span>
@@ -58,7 +57,7 @@
             @endforeach
           </div>
           @else
-          <p style="color:#888; font-size:.85rem; margin:0;">Coming soon.</p>
+          <p class="ms-dropdown-empty">Coming soon.</p>
           @endif
         </div>
       </li>
@@ -68,8 +67,7 @@
     {{-- Right: Search + hamburger --}}
     <div class="d-flex align-items-center gap-1 flex-shrink-0">
       <button type="button"
-              class="btn btn-link p-2"
-              style="color:rgba(255,255,255,.8);"
+              class="btn btn-link p-2 ms-nav-icon-btn"
               data-bs-toggle="modal"
               data-bs-target="#searchModal"
               aria-label="Search tools">
@@ -79,8 +77,7 @@
       </button>
 
       {{-- Hamburger — visible below xl --}}
-      <button class="btn btn-link p-2 d-xl-none"
-              style="color:rgba(255,255,255,.8);"
+      <button class="btn btn-link p-2 d-xl-none ms-nav-icon-btn"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#mobileMenu"
@@ -97,10 +94,9 @@
 </nav>
 
 {{-- ── Mobile Offcanvas ──────────────────────────────────────────────────────── --}}
-<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu"
-     style="background:var(--primary-dark); max-width:300px; border-right:1px solid rgba(255,255,255,.08);">
-  <div class="offcanvas-header" style="border-bottom:1px solid rgba(255,255,255,.1); padding:16px 20px;">
-    <div class="d-flex align-items-center gap-2" style="color:#fff; font-weight:700; font-size:1rem;">
+<div class="offcanvas offcanvas-start ms-offcanvas" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header ms-offcanvas-header">
+    <div class="d-flex align-items-center gap-2 ms-offcanvas-logo">
       <svg width="22" height="22" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <circle cx="14" cy="14" r="13" stroke="#e94560" stroke-width="2"/>
         <path d="M9 14c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -112,35 +108,31 @@
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
-  <div class="offcanvas-body p-0" style="overflow-y:auto;">
+  <div class="offcanvas-body p-0 overflow-auto">
     {{-- Accordion per category --}}
     <div class="accordion accordion-flush" id="mobileNav">
       @foreach($categories as $key => $cat)
-      <div class="accordion-item" style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.07);">
+      <div class="accordion-item ms-mobile-nav-item">
         <div class="accordion-header d-flex align-items-center">
-          <button class="accordion-button collapsed flex-grow-1"
+          <button class="accordion-button collapsed flex-grow-1 ms-mobile-nav-btn"
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target="#mob-{{ $key }}"
-                  style="background:transparent; color:rgba(255,255,255,.85); font-weight:600;
-                         font-size:.88rem; box-shadow:none; padding:13px 20px; gap:8px;">
+                  data-bs-target="#mob-{{ $key }}">
             {{ $cat['icon'] }} {{ $cat['label'] }}
           </button>
           <a href="{{ url($cat['slug']) }}"
-             class="px-3 py-3 text-decoration-none"
-             style="color:rgba(255,255,255,.4); font-size:.7rem; white-space:nowrap;"
+             class="px-3 py-3 text-decoration-none ms-mobile-see-all"
              data-bs-dismiss="offcanvas">
             All →
           </a>
         </div>
         <div id="mob-{{ $key }}" class="accordion-collapse collapse">
-          <div class="pb-2" style="padding-left:20px; padding-right:20px;">
+          <div class="px-3 pb-2">
             @foreach($navTools[$key] ?? [] as $tool)
             <a href="{{ url($tool['slug']) }}"
-               class="d-flex align-items-center gap-2 py-2 text-decoration-none"
-               style="color:rgba(255,255,255,.7); font-size:.84rem; border-bottom:1px solid rgba(255,255,255,.04);"
+               class="d-flex align-items-center gap-2 py-2 text-decoration-none ms-mobile-tool-link"
                data-bs-dismiss="offcanvas">
-              <span style="font-size:1rem;">{{ $tool['icon'] ?? '' }}</span>
+              <span class="ms-mobile-tool-icon">{{ $tool['icon'] ?? '' }}</span>
               {{ $tool['name'] }}
             </a>
             @endforeach
@@ -155,7 +147,7 @@
 {{-- ── Search Modal ─────────────────────────────────────────────────────────── --}}
 <div class="modal fade" id="searchModal" tabindex="-1" aria-label="Search" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0" style="border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.18);">
+    <div class="modal-content border-0 ms-search-modal">
       <div class="modal-body p-4">
         <div class="d-flex align-items-center gap-3 mb-3">
           <svg width="20" height="20" fill="none" stroke="#aaa" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -163,15 +155,14 @@
           </svg>
           <input type="text"
                  id="searchInput"
-                 class="form-control border-0 shadow-none"
+                 class="form-control border-0 shadow-none ms-search-input"
                  placeholder="Search tools, quizzes, games…"
                  autocomplete="off"
-                 aria-label="Search"
-                 style="font-size:1.05rem; padding:0;">
+                 aria-label="Search">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div style="height:1px; background:#f0f0f0; margin-bottom:12px;"></div>
-        <div id="searchResults" style="max-height:380px; overflow-y:auto;" aria-live="polite"></div>
+        <div class="ms-divider mb-3"></div>
+        <div id="searchResults" class="ms-search-results" aria-live="polite"></div>
         <p id="searchEmpty" class="text-center text-muted small mt-3 d-none">Nothing found. Try a different word.</p>
       </div>
     </div>
@@ -187,7 +178,6 @@
 
   if (!input) return;
 
-  // Re-focus when modal opens
   document.getElementById('searchModal')?.addEventListener('shown.bs.modal', function () {
     input.value = '';
     box.innerHTML = '';
@@ -210,13 +200,13 @@
     if (!matches.length) { empty.classList.remove('d-none'); return; }
 
     box.innerHTML = matches.map(function (t) {
-      return '<a href="/' + t.slug + '" class="d-flex align-items-center gap-3 p-3 rounded text-decoration-none mb-1" style="color:var(--text); background:#f8f9fa; border-radius:8px !important;">' +
-        '<span style="font-size:1.4rem; line-height:1;">' + (t.icon || '🔧') + '</span>' +
-        '<div style="min-width:0;">' +
-          '<div style="font-weight:600; color:#1a1a2e; font-size:.9rem;">' + t.name + '</div>' +
-          '<div style="font-size:.78rem; color:#888; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + (t.description || '') + '</div>' +
+      return '<a href="/' + t.slug + '" class="ms-search-result">' +
+        '<span class="ms-search-result-icon">' + (t.icon || '🔧') + '</span>' +
+        '<div class="ms-search-result-info">' +
+          '<div class="ms-search-result-name">' + t.name + '</div>' +
+          '<div class="ms-search-result-desc">' + (t.description || '') + '</div>' +
         '</div>' +
-        '<span style="margin-left:auto; font-size:.72rem; color:var(--primary-cta); text-transform:capitalize; flex-shrink:0;">' + t.category + '</span>' +
+        '<span class="ms-search-result-cat">' + t.category + '</span>' +
       '</a>';
     }).join('');
   });

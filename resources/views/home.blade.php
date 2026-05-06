@@ -9,28 +9,26 @@
 <script type="application/ld+json">{"@@context":"https://schema.org","@@type":"Organization","name":"MindSnap","url":"{{ config('app.url') }}","logo":"{{ asset('favicon.svg') }}"}</script>
 @endsection
 
+@section('styles')
+<style>
+.hero-cta        { min-width: 160px; font-size: 1rem; }
+.home-intro-text { max-width: 480px; margin: .75rem auto 0; }
+.hiw-intro-text  { max-width: 440px; margin: .75rem auto 0; }
+.pop-tool-icon   { font-size: 2rem; line-height: 1; }
+.pop-tool-btn    { min-height: 44px; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
      SECTION 1 — HERO
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="hero"
-         style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 60%, #16213e 100%);
-                min-height: 85vh;
-                display: flex;
-                align-items: center;
-                padding: 80px 0;
-                position: relative;
-                overflow: hidden;">
+<section id="hero" class="home-hero">
 
-  {{-- Subtle background decoration --}}
-  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;">
-    <div style="position:absolute;top:-80px;right:-80px;width:400px;height:400px;
-                background:radial-gradient(circle,rgba(233,69,96,.12) 0%,transparent 70%);
-                border-radius:50%;"></div>
-    <div style="position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;
-                background:radial-gradient(circle,rgba(108,99,255,.1) 0%,transparent 70%);
-                border-radius:50%;"></div>
+  <div class="home-hero-deco" aria-hidden="true">
+    <div class="home-hero-blob-1"></div>
+    <div class="home-hero-blob-2"></div>
   </div>
 
   <div class="container position-relative">
@@ -38,50 +36,39 @@
       <div class="col-lg-7">
 
         <div class="d-flex align-items-center gap-2 mb-4">
-          <span class="badge"
-                style="background:rgba(233,69,96,.2);color:#c23152;border:1px solid rgba(233,69,96,.3);
-                       border-radius:50px;padding:6px 14px;font-size:.8rem;font-weight:600;">
-            🔥 New: Daily Brain Challenge
-          </span>
+          <span class="badge home-hero-badge">🔥 New: Daily Brain Challenge</span>
         </div>
 
-        <h1 style="color:#ffffff;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.2;margin-bottom:1.25rem;">
+        <h1 class="home-hero-h1">
           Free Tools for a<br>
-          <span style="color:#e94560;">Sharper Mind</span> &amp; Healthier Life
+          <span class="home-hero-accent">Sharper Mind</span> &amp; Healthier Life
         </h1>
 
-        <p style="color:rgba(255,255,255,.75);font-size:1.15rem;max-width:520px;line-height:1.75;margin-bottom:2rem;">
+        <p class="home-hero-sub">
           Sleep calculators, fitness tools, brain quizzes — all completely free,
           no signup needed, and built to actually work on your phone.
         </p>
 
         <div class="d-flex flex-wrap gap-3 mb-5">
-          <a href="{{ route('category.sleep') }}" class="btn btn-cta" style="min-width:160px;font-size:1rem;">
+          <a href="{{ route('category.sleep') }}" class="btn btn-cta hero-cta">
             Explore Tools
           </a>
-          <a href="{{ route('category.games') }}"
-             class="btn"
-             style="background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;
-                    border-radius:8px;padding:12px 28px;font-weight:600;min-height:48px;
-                    transition:border-color .2s,background .2s;"
-             onmouseover="this.style.borderColor='#fff';this.style.background='rgba(255,255,255,.08)'"
-             onmouseout="this.style.borderColor='rgba(255,255,255,.4)';this.style.background='transparent'">
+          <a href="{{ route('category.games') }}" class="btn btn-ghost-white">
             Play Brain Games →
           </a>
         </div>
 
-        {{-- Tool highlights --}}
         <div class="row g-3">
           @foreach([
-            ['40+',  'Free Tools',       '#6c63ff'],
-            ['30+',  'Calculators',      '#28a745'],
-            ['5',    'Brain Games',      '#ffc107'],
-            ['0',    'Signup Needed',    '#17a2b8'],
-          ] as [$num, $label, $color])
+            ['40+', 'Free Tools',    'text-sleep'],
+            ['30+', 'Calculators',   'text-fitness'],
+            ['5',   'Brain Games',   'text-games'],
+            ['0',   'Signup Needed', 'text-kids'],
+          ] as [$num, $label, $cls])
           <div class="col-6 col-sm-3">
-            <div style="padding:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;text-align:center;">
-              <div style="color:{{ $color }};font-size:1.6rem;font-weight:800;line-height:1;">{{ $num }}</div>
-              <div style="color:rgba(255,255,255,.55);font-size:.78rem;margin-top:4px;">{{ $label }}</div>
+            <div class="home-stat-card">
+              <div class="home-stat-num {{ $cls }}">{{ $num }}</div>
+              <div class="home-stat-label">{{ $label }}</div>
             </div>
           </div>
           @endforeach
@@ -91,25 +78,21 @@
 
       {{-- Right side decoration (desktop only) --}}
       <div class="col-lg-5 d-none d-lg-flex justify-content-end" aria-hidden="true">
-        <div style="position:relative;width:340px;height:340px;">
-          {{-- Floating tool cards decoration --}}
-          <div style="position:absolute;top:0;left:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                      border-radius:14px;padding:16px 20px;backdrop-filter:blur(10px);width:200px;">
-            <div style="font-size:1.5rem;">😴</div>
-            <div style="color:#fff;font-weight:600;font-size:.9rem;margin-top:6px;">Sleep Calculator</div>
-            <div style="color:#6c63ff;font-size:.78rem;margin-top:2px;">Find your perfect bedtime</div>
+        <div class="home-deco-wrap">
+          <div class="home-deco-card home-deco-card-1">
+            <div class="home-deco-icon">😴</div>
+            <div class="home-deco-title">Sleep Calculator</div>
+            <div class="home-deco-sub home-deco-sub-sleep">Find your perfect bedtime</div>
           </div>
-          <div style="position:absolute;top:90px;right:0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                      border-radius:14px;padding:16px 20px;backdrop-filter:blur(10px);width:200px;">
-            <div style="font-size:1.5rem;">💪</div>
-            <div style="color:#fff;font-weight:600;font-size:.9rem;margin-top:6px;">BMI Calculator</div>
-            <div style="color:#28a745;font-size:.78rem;margin-top:2px;">Free, instant, no signup</div>
+          <div class="home-deco-card home-deco-card-2">
+            <div class="home-deco-icon">💪</div>
+            <div class="home-deco-title">BMI Calculator</div>
+            <div class="home-deco-sub home-deco-sub-fitness">Free, instant, no signup</div>
           </div>
-          <div style="position:absolute;bottom:40px;left:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-                      border-radius:14px;padding:16px 20px;backdrop-filter:blur(10px);width:200px;">
-            <div style="font-size:1.5rem;">🎮</div>
-            <div style="color:#fff;font-weight:600;font-size:.9rem;margin-top:6px;">Reaction Time Test</div>
-            <div style="color:#ffc107;font-size:.78rem;margin-top:2px;">How fast are your reflexes?</div>
+          <div class="home-deco-card home-deco-card-3">
+            <div class="home-deco-icon">🎮</div>
+            <div class="home-deco-title">Reaction Time Test</div>
+            <div class="home-deco-sub home-deco-sub-games">How fast are your reflexes?</div>
           </div>
         </div>
       </div>
@@ -121,24 +104,24 @@
 {{-- ═══════════════════════════════════════════════════════════════════════════
      SECTION 2 — CATEGORY GRID
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="categories" style="padding:80px 0;background:#fff;">
+<section id="categories" class="section-lg bg-white">
   <div class="container">
 
     <div class="text-center mb-5">
-      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);">What Would You Like to Do Today?</h2>
-      <p style="color:var(--text-muted);max-width:480px;margin:0.75rem auto 0;">
+      <h2>What Would You Like to Do Today?</h2>
+      <p class="text-muted home-intro-text">
         Pick a category and get instant results — no account, no waiting, no cost.
       </p>
     </div>
 
     @php
     $categories = [
-      ['emoji'=>'😴','name'=>'Sleep Tools',    'slug'=>'sleep-tools',    'color'=>'#6c63ff','tools'=>'7 tools',  'desc'=>'Find your perfect bedtime, fix your sleep debt, beat jet lag'],
-      ['emoji'=>'💪','name'=>'Fitness',         'slug'=>'fitness-tools',  'color'=>'#28a745','tools'=>'11 tools', 'desc'=>'BMI, TDEE, body fat, heart rate zones and more'],
-      ['emoji'=>'🥗','name'=>'Nutrition',       'slug'=>'nutrition-tools','color'=>'#fd7e14','tools'=>'2 tools',  'desc'=>'Water intake and intermittent fasting timer'],
-      ['emoji'=>'👶','name'=>'Kids Zone',       'slug'=>'kids',           'color'=>'#17a2b8','tools'=>'5 games',  'desc'=>'Safe, ad-free learning games for ages 5–12'],
-      ['emoji'=>'⏰','name'=>'Life Tools',      'slug'=>'life-tools',     'color'=>'#6f42c1','tools'=>'7 tools',  'desc'=>'Age, pregnancy, days between dates, retirement'],
-      ['emoji'=>'🎮','name'=>'Games',           'slug'=>'games',          'color'=>'#e6ac00','tools'=>'5 games',  'desc'=>'Typing speed, reaction time, memory test and more'],
+      ['emoji'=>'😴','name'=>'Sleep Tools',    'slug'=>'sleep-tools',    'key'=>'sleep',     'tools'=>'7 tools',  'desc'=>'Find your perfect bedtime, fix your sleep debt, beat jet lag'],
+      ['emoji'=>'💪','name'=>'Fitness',         'slug'=>'fitness-tools',  'key'=>'fitness',   'tools'=>'11 tools', 'desc'=>'BMI, TDEE, body fat, heart rate zones and more'],
+      ['emoji'=>'🥗','name'=>'Nutrition',       'slug'=>'nutrition-tools','key'=>'nutrition', 'tools'=>'2 tools',  'desc'=>'Water intake and intermittent fasting timer'],
+      ['emoji'=>'👶','name'=>'Kids Zone',       'slug'=>'kids',           'key'=>'kids',      'tools'=>'5 games',  'desc'=>'Safe, ad-free learning games for ages 5–12'],
+      ['emoji'=>'⏰','name'=>'Life Tools',      'slug'=>'life-tools',     'key'=>'life',      'tools'=>'7 tools',  'desc'=>'Age, pregnancy, days between dates, retirement'],
+      ['emoji'=>'🎮','name'=>'Games',           'slug'=>'games',          'key'=>'games',     'tools'=>'5 games',  'desc'=>'Typing speed, reaction time, memory test and more'],
     ];
     @endphp
 
@@ -146,36 +129,12 @@
       @foreach($categories as $cat)
       <div class="col-6 col-md-4 col-lg-3">
         <a href="{{ url($cat['slug']) }}"
-           class="d-flex flex-column align-items-center text-center p-4 rounded-3 text-decoration-none h-100"
-           style="background: linear-gradient(145deg, {{ $cat['color'] }}18 0%, {{ $cat['color'] }}08 100%);
-                  border: 1.5px solid {{ $cat['color'] }}30;
-                  transition: transform .2s, box-shadow .2s, border-color .2s;"
-           onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 12px 35px {{ $cat['color'] }}25';this.style.borderColor='{{ $cat['color'] }}60';"
-           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='{{ $cat['color'] }}30';">
-
-          <div style="width:64px;height:64px;border-radius:16px;
-                      background:{{ $cat['color'] }}20;
-                      display:flex;align-items:center;justify-content:center;
-                      font-size:1.8rem;margin-bottom:12px;border:1px solid {{ $cat['color'] }}30;">
-            {{ $cat['emoji'] }}
-          </div>
-
-          <h3 style="font-size:1rem;font-weight:700;color:var(--primary-dark);margin:0 0 4px;">{{ $cat['name'] }}</h3>
-
-          <span style="font-size:.75rem;font-weight:600;color:{{ $cat['color'] }};
-                       background:{{ $cat['color'] }}15;border-radius:50px;
-                       padding:2px 10px;margin-bottom:8px;">
-            {{ $cat['tools'] }}
-          </span>
-
-          <p style="font-size:.8rem;color:var(--text-muted);margin:0;line-height:1.5;">
-            {{ $cat['desc'] }}
-          </p>
-
-          <span style="margin-top:12px;font-size:.82rem;font-weight:600;color:{{ $cat['color'] }};">
-            Explore →
-          </span>
-
+           class="home-cat-card home-cat-card-{{ $cat['key'] }}">
+          <div class="home-cat-icon home-cat-icon-{{ $cat['key'] }}">{{ $cat['emoji'] }}</div>
+          <h3 class="home-cat-name">{{ $cat['name'] }}</h3>
+          <span class="home-cat-badge home-cat-badge-{{ $cat['key'] }}">{{ $cat['tools'] }}</span>
+          <p class="home-cat-desc">{{ $cat['desc'] }}</p>
+          <span class="home-cat-arrow home-cat-arrow-{{ $cat['key'] }}">Explore →</span>
         </a>
       </div>
       @endforeach
@@ -187,50 +146,41 @@
 {{-- ═══════════════════════════════════════════════════════════════════════════
      SECTION 3 — POPULAR TOOLS
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="popular" style="padding:80px 0;background:var(--bg);">
+<section id="popular" class="section-lg bg-site">
   <div class="container">
 
     <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-5">
       <div>
-        <h2 style="margin-bottom:6px;">Most Popular Tools</h2>
-        <p style="color:var(--text-muted);margin:0;">Our most-used tools, covering sleep, fitness, life and brain training.</p>
+        <h2 class="mb-1">Most Popular Tools</h2>
+        <p class="text-muted mb-0">Our most-used tools, covering sleep, fitness, life and brain training.</p>
       </div>
-      <a href="{{ route('category.sleep') }}" style="color:var(--primary-cta);font-weight:600;font-size:.9rem;white-space:nowrap;">
-        View all tools →
-      </a>
+      <a href="{{ route('category.sleep') }}" class="home-view-all">View all tools →</a>
     </div>
 
     @php
     $popularTools = [
-      ['icon'=>'😴','name'=>'Sleep Cycle Calculator','slug'=>'sleep-calculator',    'category'=>'sleep',  'desc'=>'Wake up refreshed by timing your sleep cycles right.'],
-      ['icon'=>'⚖️','name'=>'BMI Calculator',         'slug'=>'bmi-calculator',      'category'=>'fitness','desc'=>'Find out where you stand and what it actually means.'],
-      ['icon'=>'🔥','name'=>'Calorie Calculator',     'slug'=>'calorie-calculator',  'category'=>'fitness','desc'=>'Your TDEE — the number behind every diet plan.'],
-      ['icon'=>'⌨️','name'=>'Typing Speed Test',     'slug'=>'typing-speed-test',   'category'=>'games',  'desc'=>'Measure your WPM and see how you rank worldwide.'],
-      ['icon'=>'⌨️','name'=>'Typing Speed Test',     'slug'=>'typing-speed-test',   'category'=>'games',  'desc'=>'Find out your WPM and see how you compare.'],
-      ['icon'=>'🎂','name'=>'Age Calculator',         'slug'=>'age-calculator',      'category'=>'life',   'desc'=>'Your exact age in years, months, weeks and days.'],
+      ['icon'=>'😴','name'=>'Sleep Cycle Calculator','slug'=>'sleep-calculator',   'category'=>'sleep',  'desc'=>'Wake up refreshed by timing your sleep cycles right.'],
+      ['icon'=>'⚖️','name'=>'BMI Calculator',         'slug'=>'bmi-calculator',     'category'=>'fitness','desc'=>'Find out where you stand and what it actually means.'],
+      ['icon'=>'🔥','name'=>'Calorie Calculator',     'slug'=>'calorie-calculator', 'category'=>'fitness','desc'=>'Your TDEE — the number behind every diet plan.'],
+      ['icon'=>'⌨️','name'=>'Typing Speed Test',     'slug'=>'typing-speed-test',  'category'=>'games',  'desc'=>'Measure your WPM and see how you rank worldwide.'],
+      ['icon'=>'⏱️','name'=>'Reaction Time Test',    'slug'=>'reaction-time-test', 'category'=>'games',  'desc'=>'How fast are your reflexes? Test your response speed.'],
+      ['icon'=>'🎂','name'=>'Age Calculator',         'slug'=>'age-calculator',     'category'=>'life',   'desc'=>'Your exact age in years, months, weeks and days.'],
     ];
     @endphp
 
     <div class="row g-4">
       @foreach($popularTools as $tool)
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card tool-card h-100"
-             style="border:1px solid var(--border);border-top:4px solid var(--{{ $tool['category'] }});">
+        <div class="card tool-card h-100 home-top-border-{{ $tool['category'] }}">
           <div class="card-body p-4 d-flex flex-column">
             <div class="mb-2">
-              <span style="font-size:2rem;line-height:1;">{{ $tool['icon'] }}</span>
+              <span class="pop-tool-icon">{{ $tool['icon'] }}</span>
             </div>
-            <h3 class="h6 fw-700 mt-2 mb-1" style="color:var(--primary-dark);">
-              <a href="{{ url($tool['slug']) }}" style="color:inherit;text-decoration:none;"
-                 onmouseover="this.style.color='var(--primary-cta)'"
-                 onmouseout="this.style.color='inherit'">
-                {{ $tool['name'] }}
-              </a>
+            <h3 class="h6 fw-700 mt-2 mb-1">
+              <a href="{{ url($tool['slug']) }}" class="home-tool-name">{{ $tool['name'] }}</a>
             </h3>
-            <p style="font-size:.875rem;color:var(--text-muted);flex-grow:1;margin-bottom:1rem;">
-              {{ $tool['desc'] }}
-            </p>
-            <a href="{{ url($tool['slug']) }}" class="btn btn-cta btn-sm w-100" style="min-height:44px;">
+            <p class="home-tool-desc">{{ $tool['desc'] }}</p>
+            <a href="{{ url($tool['slug']) }}" class="btn btn-cta btn-sm w-100 pop-tool-btn mt-auto">
               Use Free Tool →
             </a>
           </div>
@@ -242,31 +192,26 @@
   </div>
 </section>
 
-
 {{-- ═══════════════════════════════════════════════════════════════════════════
-     SECTION 5 — KIDS ZONE HIGHLIGHT
+     SECTION 4 — KIDS ZONE HIGHLIGHT
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="kids" style="padding:80px 0;background:#e8f7f7;">
+<section id="kids" class="home-kids-section">
   <div class="container">
 
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
-        <span style="background:#17a2b815;color:#0b7285;border-radius:50px;padding:5px 14px;font-size:.8rem;font-weight:700;">
-          👶 KIDS ZONE
-        </span>
-        <h2 style="margin-top:14px;margin-bottom:12px;color:var(--primary-dark);">
-          Fun Learning for Kids
-        </h2>
-        <p style="color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem;">
+        <span class="home-kids-badge">👶 KIDS ZONE</span>
+        <h2 class="mt-3 mb-2">Fun Learning for Kids</h2>
+        <p class="text-muted lh-lg mb-3">
           Math puzzles, word games, science quizzes and animal challenges — all designed for ages 5 to 12.
           Built to be enjoyable, not overwhelming.
         </p>
         <div class="d-flex flex-wrap gap-2 mb-4">
-          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🚫 No Ads</span>
-          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">🔒 No Data Collected</span>
-          <span style="background:#fff;border:1px solid #17a2b830;color:#0b7285;border-radius:50px;padding:5px 12px;font-size:.8rem;font-weight:600;">✓ No Account</span>
+          <span class="home-kids-pill">🚫 No Ads</span>
+          <span class="home-kids-pill">🔒 No Data Collected</span>
+          <span class="home-kids-pill">✓ No Account</span>
         </div>
-        <a href="{{ route('category.kids') }}" class="btn btn-cta" style="background:#17a2b8;min-width:180px;">
+        <a href="{{ route('category.kids') }}" class="btn btn-cta home-kids-btn">
           Explore Kids Zone →
         </a>
       </div>
@@ -274,22 +219,16 @@
       <div class="col-lg-7">
         <div class="row g-3">
           @foreach([
-            ['emoji'=>'🔢','name'=>'Math Puzzles',   'slug'=>'kids/math-puzzles', 'desc'=>'Addition, subtraction, times tables and more'],
-            ['emoji'=>'📝','name'=>'Word Games',      'slug'=>'kids/word-games',   'desc'=>'Spelling, vocabulary and word scrambles'],
-            ['emoji'=>'🔬','name'=>'Science Quiz',    'slug'=>'kids/science-quiz', 'desc'=>'Planets, animals, the human body and nature'],
-            ['emoji'=>'🦁','name'=>'Animal Quiz',     'slug'=>'kids/animal-quiz',  'desc'=>'Which animal is fastest? Where do they live?'],
+            ['emoji'=>'🔢','name'=>'Math Puzzles', 'slug'=>'kids/math-puzzles','desc'=>'Addition, subtraction, times tables and more'],
+            ['emoji'=>'📝','name'=>'Word Games',    'slug'=>'kids/word-games',  'desc'=>'Spelling, vocabulary and word scrambles'],
+            ['emoji'=>'🔬','name'=>'Science Quiz',  'slug'=>'kids/science-quiz','desc'=>'Planets, animals, the human body and nature'],
+            ['emoji'=>'🦁','name'=>'Animal Quiz',   'slug'=>'kids/animal-quiz', 'desc'=>'Which animal is fastest? Where do they live?'],
           ] as $activity)
           <div class="col-6">
-            <a href="{{ url($activity['slug']) }}"
-               class="d-block p-3 rounded-3 text-decoration-none h-100"
-               style="background:#fff;border:1.5px solid #17a2b825;transition:transform .2s,box-shadow .2s;"
-               onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(23,162,184,.15)'"
-               onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
-              <div style="font-size:2rem;margin-bottom:8px;">{{ $activity['emoji'] }}</div>
-              <div style="font-weight:700;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px;">
-                {{ $activity['name'] }}
-              </div>
-              <div style="font-size:.8rem;color:var(--text-muted);">{{ $activity['desc'] }}</div>
+            <a href="{{ url($activity['slug']) }}" class="home-kids-card">
+              <div class="home-kids-card-icon">{{ $activity['emoji'] }}</div>
+              <div class="home-kids-card-name">{{ $activity['name'] }}</div>
+              <div class="home-kids-card-desc">{{ $activity['desc'] }}</div>
             </a>
           </div>
           @endforeach
@@ -301,111 +240,73 @@
 </section>
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
-     SECTION 6 — HOW IT WORKS
+     SECTION 5 — HOW IT WORKS
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="how-it-works" style="padding:80px 0;background:#fff;">
+<section id="how-it-works" class="section-lg bg-white">
   <div class="container">
 
     <div class="text-center mb-5">
       <h2>Simple. Fast. Actually Free.</h2>
-      <p style="color:var(--text-muted);max-width:440px;margin:.75rem auto 0;">
+      <p class="text-muted hiw-intro-text">
         No hidden steps, no email wall, no "free trial" that expires.
       </p>
     </div>
 
     <div class="row g-4 justify-content-center">
       @foreach([
-        [
-          'step'  => '01',
-          'icon'  => '🎯',
-          'title' => 'Pick a Tool',
-          'desc'  => 'Choose from 40+ free health calculators, quizzes and games. Search by name or browse by category.',
-          'color' => '#5048d6',
-        ],
-        [
-          'step'  => '02',
-          'icon'  => '⚡',
-          'title' => 'Get Instant Results',
-          'desc'  => 'Fill in your details — results appear immediately, right there on the page. No page reload, no waiting.',
-          'color' => '#c23152',
-        ],
-        [
-          'step'  => '03',
-          'icon'  => '📤',
-          'title' => 'Share with Friends',
-          'desc'  => 'Copy your result, share it on WhatsApp or download it as an image — challenge your friends to beat your score.',
-          'color' => '#1a7a32',
-        ],
+        ['num'=>1,'icon'=>'🎯','title'=>'Pick a Tool',        'desc'=>'Choose from 40+ free health calculators, quizzes and games. Search by name or browse by category.'],
+        ['num'=>2,'icon'=>'⚡','title'=>'Get Instant Results', 'desc'=>'Fill in your details — results appear immediately, right there on the page. No page reload, no waiting.'],
+        ['num'=>3,'icon'=>'📤','title'=>'Share with Friends',  'desc'=>'Copy your result, share it on WhatsApp or download it as an image — challenge your friends to beat your score.'],
       ] as $step)
       <div class="col-12 col-md-4">
         <div class="text-center p-4">
-          <div style="width:72px;height:72px;border-radius:20px;
-                      background:{{ $step['color'] }}15;border:2px solid {{ $step['color'] }}25;
-                      display:flex;align-items:center;justify-content:center;
-                      font-size:1.8rem;margin:0 auto 16px;">
-            {{ $step['icon'] }}
-          </div>
-          <div style="color:{{ $step['color'] }};font-weight:800;font-size:.75rem;letter-spacing:1.5px;margin-bottom:8px;">
-            STEP {{ $step['step'] }}
-          </div>
-          <h3 style="font-size:1.15rem;font-weight:700;color:var(--primary-dark);margin-bottom:10px;">
-            {{ $step['title'] }}
-          </h3>
-          <p style="color:var(--text-muted);font-size:.9rem;line-height:1.7;max-width:260px;margin:0 auto;">
-            {{ $step['desc'] }}
-          </p>
+          <div class="home-step-icon home-step-icon-{{ $step['num'] }}">{{ $step['icon'] }}</div>
+          <div class="home-step-num home-step-num-{{ $step['num'] }}">STEP 0{{ $step['num'] }}</div>
+          <h3 class="home-step-title">{{ $step['title'] }}</h3>
+          <p class="home-step-desc">{{ $step['desc'] }}</p>
         </div>
       </div>
       @endforeach
     </div>
 
-    {{-- Trust bar --}}
-    <div class="d-flex flex-wrap justify-content-center gap-3 mt-5 pt-4" style="border-top:1px solid var(--border);">
-      @foreach([
-        ['✓ Free forever',          '#1a7a32'],
-        ['✓ No email required',     '#1a7a32'],
-        ['✓ No ads on Kids pages',  '#0b7285'],
-        ['✓ Works on all devices',  '#5048d6'],
-        ['✓ 190+ countries',        '#c23152'],
-      ] as [$label, $color])
-      <span style="font-size:.875rem;font-weight:600;color:{{ $color }};">{{ $label }}</span>
-      @endforeach
+    <div class="d-flex flex-wrap justify-content-center gap-3 mt-5 pt-4 home-trust-bar">
+      <span class="home-trust-green">✓ Free forever</span>
+      <span class="home-trust-green">✓ No email required</span>
+      <span class="home-trust-teal">✓ No ads on Kids pages</span>
+      <span class="home-trust-purple">✓ Works on all devices</span>
+      <span class="home-trust-red">✓ 190+ countries</span>
     </div>
 
   </div>
 </section>
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
-     SECTION 7 — SEO CONTENT BLOCK
+     SECTION 6 — SEO CONTENT BLOCK
 ════════════════════════════════════════════════════════════════════════════ --}}
-<section id="about-mindsnap" style="padding:80px 0;background:var(--bg);">
+<section id="about-mindsnap" class="section-lg bg-site">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
 
         <h2 class="text-center mb-4">Free Health Tools That Actually Work</h2>
 
-        <p style="font-size:1rem;line-height:1.85;color:var(--text);margin-bottom:1.25rem;">
+        <p class="home-seo-body">
           Most health tools online make you sign up, show you ads every three seconds, or give you results that feel
           copied from a textbook. MindSnap does none of that. We built a set of free health tools for everyday people —
           whether you're trying to figure out the right bedtime, cut calories without losing your mind, or just want to
           know how good your general knowledge really is.
         </p>
 
-        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary-dark);margin:1.75rem 0 .75rem;">
-          Why we keep it free
-        </h3>
-        <p style="font-size:1rem;line-height:1.85;color:var(--text);margin-bottom:1.25rem;">
+        <h3 class="home-seo-h3">Why we keep it free</h3>
+        <p class="home-seo-body">
           Health information shouldn't sit behind a paywall. A sleep calculator doesn't need your credit card.
           A BMI tool doesn't need your email address. We keep MindSnap free because the tools are straightforward,
           the formulas are public, and the only thing stopping most people from using them was a bad interface.
           We fixed that.
         </p>
 
-        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary-dark);margin:1.75rem 0 .75rem;">
-          Built for real use, on real phones
-        </h3>
-        <p style="font-size:1rem;line-height:1.85;color:var(--text);">
+        <h3 class="home-seo-h3">Built for real use, on real phones</h3>
+        <p class="home-seo-body mb-0">
           Every calculator is tested at 375px wide — the smallest common phone screen — before it goes live.
           All inputs are large enough to tap without squinting. Results appear instantly without any page reload.
           The kids zone has zero ads and collects no data, ever. That's not a policy update, that's how it's built.
@@ -413,12 +314,7 @@
 
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a href="{{ route('category.sleep') }}" class="btn btn-cta">Explore Sleep Tools</a>
-          <a href="{{ route('category.fitness') }}"
-             class="btn"
-             style="background:transparent;border:2px solid var(--primary-cta);color:var(--primary-cta);
-                    border-radius:8px;padding:12px 28px;font-weight:600;min-height:48px;">
-            Fitness Calculators
-          </a>
+          <a href="{{ route('category.fitness') }}" class="btn btn-outline-cta">Fitness Calculators</a>
         </div>
 
       </div>

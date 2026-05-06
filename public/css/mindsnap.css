@@ -254,6 +254,19 @@ section { padding: 80px 0; }
   background: #f8f9fa;
   border: 1px solid #e0e0e0;
 }
+.ms-data-label {
+  font-size: .88rem;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ── Reusable info boxes (green / yellow) ───────────────────────────────────── */
+.ms-box-green       { background:#f0fff4; border:1px solid #b3f0c8; }
+.ms-box-green-title { font-size:.8rem; font-weight:600; color:#1a6e3a; margin-bottom:8px; }
+.ms-box-yellow      { background:#fff8e1; border:1px solid #ffe082; }
+.ms-box-yellow-title { font-size:.8rem; font-weight:600; color:#e65100; margin-bottom:6px; }
+.ms-box-tips-txt    { font-size:.78rem; color:#555; line-height:1.8; }
 
 /* ── Horizontal divider ─────────────────────────────────────────────────────── */
 .ms-divider {
@@ -670,3 +683,371 @@ section { padding: 80px 0; }
   margin-top: 4px;
 }
 .ms-see-all:hover { text-decoration: underline; }
+
+/* ── Text utilities (additions) ──────────────────────────────────────────────── */
+.text-games { color: var(--games); }
+
+/* ── Ghost button (white border, dark hero backgrounds) ──────────────────────── */
+.btn-ghost-white {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,.4);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-weight: 600;
+  min-height: 48px;
+  transition: border-color .2s, background .2s;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.08); color: #fff; }
+
+/* ── Outline CTA button ──────────────────────────────────────────────────────── */
+.btn-outline-cta {
+  background: transparent;
+  border: 2px solid var(--primary-cta);
+  color: var(--primary-cta);
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-weight: 600;
+  min-height: 48px;
+  transition: background .2s, color .2s;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-outline-cta:hover { background: var(--primary-cta); color: #fff; }
+
+/* ── Home page — Hero ────────────────────────────────────────────────────────── */
+.home-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 60%, #16213e 100%);
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width: 768px) { .home-hero { padding: 60px 0; min-height: auto; } }
+.home-hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.home-hero-blob-1 {
+  position: absolute; top: -80px; right: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(233,69,96,.12) 0%, transparent 70%);
+}
+.home-hero-blob-2 {
+  position: absolute; bottom: -60px; left: -60px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,99,255,.1) 0%, transparent 70%);
+}
+.home-hero-badge {
+  background: rgba(233,69,96,.2);
+  color: #c23152;
+  border: 1px solid rgba(233,69,96,.3);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: .8rem;
+  font-weight: 600;
+}
+.home-hero-h1 {
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+.home-hero-accent { color: #e94560; }
+.home-hero-sub {
+  color: rgba(255,255,255,.75);
+  font-size: 1.15rem;
+  max-width: 520px;
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+.home-stat-card {
+  padding: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  text-align: center;
+}
+.home-stat-num   { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+.home-stat-label { color: rgba(255,255,255,.55); font-size: .78rem; margin-top: 4px; }
+
+/* Floating deco cards (desktop hero) */
+.home-deco-wrap { position: relative; width: 340px; height: 340px; }
+.home-deco-card {
+  position: absolute;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 16px 20px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  width: 200px;
+}
+.home-deco-card-1 { top: 0; left: 20px; }
+.home-deco-card-2 { top: 90px; right: 0; }
+.home-deco-card-3 { bottom: 40px; left: 10px; }
+.home-deco-icon  { font-size: 1.5rem; }
+.home-deco-title { color: #fff; font-weight: 600; font-size: .9rem; margin-top: 6px; }
+.home-deco-sub   { font-size: .78rem; margin-top: 2px; }
+.home-deco-sub-sleep   { color: var(--sleep); }
+.home-deco-sub-fitness { color: var(--fitness); }
+.home-deco-sub-games   { color: var(--games); }
+
+/* ── Home page — Category grid ───────────────────────────────────────────────── */
+.home-cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: .75rem;
+  text-decoration: none;
+  height: 100%;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.home-cat-card:hover { transform: translateY(-5px); text-decoration: none; }
+.home-cat-card-sleep     { background: linear-gradient(145deg, rgba(108,99,255,.09) 0%, rgba(108,99,255,.03) 100%); border: 1.5px solid rgba(108,99,255,.19); }
+.home-cat-card-fitness   { background: linear-gradient(145deg, rgba(40,167,69,.09) 0%, rgba(40,167,69,.03) 100%);   border: 1.5px solid rgba(40,167,69,.19); }
+.home-cat-card-nutrition { background: linear-gradient(145deg, rgba(253,126,20,.09) 0%, rgba(253,126,20,.03) 100%); border: 1.5px solid rgba(253,126,20,.19); }
+.home-cat-card-kids      { background: linear-gradient(145deg, rgba(23,162,184,.09) 0%, rgba(23,162,184,.03) 100%); border: 1.5px solid rgba(23,162,184,.19); }
+.home-cat-card-life      { background: linear-gradient(145deg, rgba(111,66,193,.09) 0%, rgba(111,66,193,.03) 100%); border: 1.5px solid rgba(111,66,193,.19); }
+.home-cat-card-games     { background: linear-gradient(145deg, rgba(230,172,0,.09) 0%, rgba(230,172,0,.03) 100%);   border: 1.5px solid rgba(230,172,0,.19); }
+.home-cat-card-sleep:hover     { box-shadow: 0 12px 35px rgba(108,99,255,.15); border-color: rgba(108,99,255,.4); }
+.home-cat-card-fitness:hover   { box-shadow: 0 12px 35px rgba(40,167,69,.15);  border-color: rgba(40,167,69,.4); }
+.home-cat-card-nutrition:hover { box-shadow: 0 12px 35px rgba(253,126,20,.15); border-color: rgba(253,126,20,.4); }
+.home-cat-card-kids:hover      { box-shadow: 0 12px 35px rgba(23,162,184,.15); border-color: rgba(23,162,184,.4); }
+.home-cat-card-life:hover      { box-shadow: 0 12px 35px rgba(111,66,193,.15); border-color: rgba(111,66,193,.4); }
+.home-cat-card-games:hover     { box-shadow: 0 12px 35px rgba(230,172,0,.15);  border-color: rgba(230,172,0,.4); }
+
+.home-cat-icon {
+  width: 64px; height: 64px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; margin-bottom: 12px;
+}
+.home-cat-icon-sleep     { background: rgba(108,99,255,.13); border: 1px solid rgba(108,99,255,.19); }
+.home-cat-icon-fitness   { background: rgba(40,167,69,.13);  border: 1px solid rgba(40,167,69,.19); }
+.home-cat-icon-nutrition { background: rgba(253,126,20,.13); border: 1px solid rgba(253,126,20,.19); }
+.home-cat-icon-kids      { background: rgba(23,162,184,.13); border: 1px solid rgba(23,162,184,.19); }
+.home-cat-icon-life      { background: rgba(111,66,193,.13); border: 1px solid rgba(111,66,193,.19); }
+.home-cat-icon-games     { background: rgba(230,172,0,.13);  border: 1px solid rgba(230,172,0,.19); }
+
+.home-cat-name  { font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin: 0 0 4px; }
+.home-cat-desc  { font-size: .8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.home-cat-arrow { margin-top: 12px; font-size: .82rem; font-weight: 600; }
+.home-cat-badge { font-size: .75rem; font-weight: 600; border-radius: 50px; padding: 2px 10px; margin-bottom: 8px; }
+.home-cat-badge-sleep     { color: var(--sleep);     background: rgba(108,99,255,.09); }
+.home-cat-badge-fitness   { color: var(--fitness);   background: rgba(40,167,69,.09); }
+.home-cat-badge-nutrition { color: var(--nutrition); background: rgba(253,126,20,.09); }
+.home-cat-badge-kids      { color: var(--kids);      background: rgba(23,162,184,.09); }
+.home-cat-badge-life      { color: var(--life);      background: rgba(111,66,193,.09); }
+.home-cat-badge-games     { color: #856404;           background: rgba(230,172,0,.09); }
+.home-cat-arrow-sleep     { color: var(--sleep); }
+.home-cat-arrow-fitness   { color: var(--fitness); }
+.home-cat-arrow-nutrition { color: var(--nutrition); }
+.home-cat-arrow-kids      { color: var(--kids); }
+.home-cat-arrow-life      { color: var(--life); }
+.home-cat-arrow-games     { color: #856404; }
+
+/* ── Home page — Popular tools ───────────────────────────────────────────────── */
+.home-view-all       { color: var(--primary-cta); font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.home-view-all:hover { color: var(--cta-text); text-decoration: none; }
+.home-tool-name       { color: var(--primary-dark); text-decoration: none; }
+.home-tool-name:hover { color: var(--primary-cta); text-decoration: none; }
+.home-tool-desc  { font-size: .875rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 1rem; }
+.home-top-border-sleep     { border: 1px solid var(--border); border-top: 4px solid var(--sleep) !important; }
+.home-top-border-fitness   { border: 1px solid var(--border); border-top: 4px solid var(--fitness) !important; }
+.home-top-border-nutrition { border: 1px solid var(--border); border-top: 4px solid var(--nutrition) !important; }
+.home-top-border-life      { border: 1px solid var(--border); border-top: 4px solid var(--life) !important; }
+.home-top-border-games     { border: 1px solid var(--border); border-top: 4px solid var(--games) !important; }
+.home-top-border-quiz      { border: 1px solid var(--border); border-top: 4px solid var(--quiz) !important; }
+.home-top-border-kids      { border: 1px solid var(--border); border-top: 4px solid var(--kids) !important; }
+
+/* ── Home page — Kids section ────────────────────────────────────────────────── */
+.home-kids-section { padding: 80px 0; background: #e8f7f7; }
+@media (max-width: 768px) { .home-kids-section { padding: 40px 0; } }
+.home-kids-badge { background: rgba(23,162,184,.08); color: #0b7285; border-radius: 50px; padding: 5px 14px; font-size: .8rem; font-weight: 700; }
+.home-kids-pill  { background: #fff; border: 1px solid rgba(23,162,184,.19); color: #0b7285; border-radius: 50px; padding: 5px 12px; font-size: .8rem; font-weight: 600; }
+.home-kids-btn   { background: var(--kids) !important; min-width: 180px; }
+.home-kids-btn:hover { background: #138a9a !important; color: #fff; }
+.home-kids-card  { display: block; padding: .75rem; border-radius: .75rem; text-decoration: none; height: 100%; background: #fff; border: 1.5px solid rgba(23,162,184,.15); transition: transform .2s, box-shadow .2s; }
+.home-kids-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(23,162,184,.15); text-decoration: none; }
+.home-kids-card-icon { font-size: 2rem; margin-bottom: 8px; }
+.home-kids-card-name { font-weight: 700; color: var(--primary-dark); font-size: .95rem; margin-bottom: 4px; }
+.home-kids-card-desc { font-size: .8rem; color: var(--text-muted); }
+
+/* ── Home page — How it works ────────────────────────────────────────────────── */
+.home-step-icon   { width: 72px; height: 72px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 16px; }
+.home-step-icon-1 { background: rgba(80,72,214,.08);  border: 2px solid rgba(80,72,214,.15); }
+.home-step-icon-2 { background: rgba(194,49,82,.08);  border: 2px solid rgba(194,49,82,.15); }
+.home-step-icon-3 { background: rgba(26,122,50,.08);  border: 2px solid rgba(26,122,50,.15); }
+.home-step-num    { font-weight: 800; font-size: .75rem; letter-spacing: 1.5px; margin-bottom: 8px; }
+.home-step-num-1  { color: #5048d6; }
+.home-step-num-2  { color: #c23152; }
+.home-step-num-3  { color: #1a7a32; }
+.home-step-title  { font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; }
+.home-step-desc   { color: var(--text-muted); font-size: .9rem; line-height: 1.7; max-width: 260px; margin: 0 auto; }
+.home-trust-bar    { border-top: 1px solid var(--border); }
+.home-trust-green  { color: #1a7a32; font-size: .875rem; font-weight: 600; }
+.home-trust-teal   { color: #0b7285; font-size: .875rem; font-weight: 600; }
+.home-trust-purple { color: #5048d6; font-size: .875rem; font-weight: 600; }
+.home-trust-red    { color: #c23152; font-size: .875rem; font-weight: 600; }
+
+/* ── Home page — SEO section ─────────────────────────────────────────────────── */
+.home-seo-body { font-size: 1rem; line-height: 1.85; color: var(--text); margin-bottom: 1.25rem; }
+.home-seo-h3   { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin: 1.75rem 0 .75rem; }
+
+/* ── Navbar additions ────────────────────────────────────────────────────────── */
+.ms-navbar             { background: var(--primary-dark); z-index: 1040; }
+.ms-navbar-inner       { height: 60px; }
+.ms-navbar-logo        { color: #fff; font-weight: 700; font-size: 1.1rem; }
+.ms-navbar-logo:hover  { color: rgba(255,255,255,.85); text-decoration: none; }
+.ms-nav-ul             { list-style: none; gap: 2px; }
+.ms-nav-icon-btn       { color: rgba(255,255,255,.8); }
+.ms-nav-icon-btn:hover { color: #fff; }
+.ms-dropdown-header       { border-bottom: 1px solid #f0f0f0; }
+.ms-dropdown-header-icon  { font-size: 1.1rem; }
+.ms-dropdown-header-label { font-weight: 700; font-size: .85rem; color: #1a1a2e; }
+.ms-dropdown-tools-grid   { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+.ms-dropdown-empty        { color: #888; font-size: .85rem; margin: 0; }
+.ms-offcanvas             { background: var(--primary-dark); max-width: 300px; border-right: 1px solid rgba(255,255,255,.08); }
+.ms-offcanvas-header      { border-bottom: 1px solid rgba(255,255,255,.1); padding: 16px 20px; }
+.ms-offcanvas-logo        { color: #fff; font-weight: 700; font-size: 1rem; }
+.ms-mobile-nav-item       { background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+.ms-mobile-nav-btn        { background: transparent !important; color: rgba(255,255,255,.85) !important; font-weight: 600; font-size: .88rem; box-shadow: none !important; padding: 13px 20px; gap: 8px; }
+.ms-mobile-see-all        { color: rgba(255,255,255,.4); font-size: .7rem; white-space: nowrap; }
+.ms-mobile-see-all:hover  { color: rgba(255,255,255,.7); text-decoration: none; }
+.ms-mobile-tool-link      { color: rgba(255,255,255,.7); font-size: .84rem; border-bottom: 1px solid rgba(255,255,255,.04); }
+.ms-mobile-tool-link:hover { color: #fff; text-decoration: none; }
+.ms-mobile-tool-icon      { font-size: 1rem; }
+.ms-search-modal          { border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.18); }
+.ms-search-input          { font-size: 1.05rem; padding: 0; }
+.ms-search-results        { max-height: 380px; overflow-y: auto; }
+.ms-search-result         { display: flex; align-items: center; gap: .75rem; padding: .75rem; border-radius: 8px; color: var(--text); background: #f8f9fa; margin-bottom: .25rem; text-decoration: none; }
+.ms-search-result:hover   { background: #f0f1f3; color: var(--text); text-decoration: none; }
+.ms-search-result-icon    { font-size: 1.4rem; line-height: 1; flex-shrink: 0; }
+.ms-search-result-info    { min-width: 0; flex: 1; }
+.ms-search-result-name    { font-weight: 600; color: #1a1a2e; font-size: .9rem; }
+.ms-search-result-desc    { font-size: .78rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ms-search-result-cat     { margin-left: auto; font-size: .72rem; color: var(--primary-cta); text-transform: capitalize; flex-shrink: 0; }
+
+/* ── Footer additions ────────────────────────────────────────────────────────── */
+.ms-footer              { background: var(--primary-dark); color: rgba(255,255,255,.8); padding: 60px 0 0; border-top: 3px solid var(--primary-cta); }
+.ms-footer-brand        { color: #fff; }
+.ms-footer-brand:hover  { color: rgba(255,255,255,.85); text-decoration: none; }
+.ms-footer-desc         { font-size: .88rem; color: rgba(255,255,255,.6); line-height: 1.7; }
+.ms-footer-badge        { background: rgba(255,255,255,.1) !important; color: rgba(255,255,255,.8) !important; border-radius: 50px; font-size: .75rem; }
+.ms-footer-col-heading  { font-size: .9rem; letter-spacing: .5px; text-transform: uppercase; }
+.ms-footer-list         { font-size: .875rem; }
+.ms-footer-link         { color: rgba(255,255,255,.7); transition: color .15s; }
+.ms-footer-link:hover   { color: #e94560 !important; text-decoration: none; }
+.ms-footer-kids-box     { background: rgba(23,162,184,.15); border: 1px solid rgba(23,162,184,.3); }
+.ms-footer-kids-label   { font-size: .82rem; color: #17a2b8; font-weight: 600; }
+.ms-footer-kids-text    { font-size: .78rem; color: rgba(255,255,255,.6); margin: 4px 0 0; }
+.ms-footer-bottom       { border-top: 1px solid rgba(255,255,255,.1); gap: 12px; }
+.ms-footer-copy         { font-size: .82rem; color: rgba(255,255,255,.7); margin: 0; }
+.ms-footer-cat-badge    { background: rgba(255,255,255,.08) !important; color: rgba(255,255,255,.6) !important; border-radius: 50px; font-size: .72rem; padding: 4px 10px; }
+.ms-footer-cat-badge:hover { background: rgba(233,69,96,.2) !important; color: #e94560 !important; text-decoration: none; }
+
+/* ── Section spacing & background utilities ──────────────────────────────────── */
+.section-lg { padding: 80px 0; }
+@media (max-width: 768px) { .section-lg { padding: 48px 0; } }
+.bg-site { background: var(--bg); }
+
+/* ── Category text colour utilities ─────────────────────────────────────────── */
+.text-sleep     { color: var(--sleep); }
+.text-fitness   { color: var(--fitness); }
+.text-nutrition { color: var(--nutrition); }
+.text-kids      { color: var(--kids); }
+.text-life      { color: var(--life); }
+
+/* ── Brand colour text ───────────────────────────────────────────────────────── */
+.text-brand        { color: var(--primary-dark) !important; }
+.text-green-brand  { color: var(--green-text); }
+.text-teal-brand   { color: var(--teal-text); }
+.text-purple-brand { color: var(--purple-text); }
+.text-orange-brand { color: #e65100; }
+
+/* ── Mode toggle buttons (used across all calculators) ───────────────────────── */
+.mode-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .88rem;
+  background: #f8f9fa;
+  color: #555;
+  border: 1px solid #e0e0e0;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.mode-btn-sleep.active     { background: var(--sleep);     color: #fff !important; border-color: transparent; }
+.mode-btn-fitness.active   { background: var(--fitness);   color: #fff !important; border-color: transparent; }
+.mode-btn-nutrition.active { background: var(--nutrition); color: #fff !important; border-color: transparent; }
+.mode-btn-kids.active      { background: var(--kids);      color: #fff !important; border-color: transparent; }
+.mode-btn-life.active      { background: var(--life);      color: #fff !important; border-color: transparent; }
+.mode-btn-games.active     { background: var(--games);     color: var(--primary-dark) !important; border-color: transparent; }
+
+/* ── Intro paragraph (centered, capped width) ────────────────────────────────── */
+.ms-intro-text { max-width: 520px; margin-left: auto; margin-right: auto; }
+
+/* ── Side panel sub-heading (uppercase label above info lists) ───────────────── */
+.ms-panel-head { font-size: .88rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--primary-dark); }
+
+/* ── Source / attribution line under tables ──────────────────────────────────── */
+.ms-source { font-size: .8rem; color: #888; margin-top: 12px; }
+
+/* ── Disclaimer / note box (green-tinted, used in calculator footers) ────────── */
+.ms-disclaimer { font-size: .85rem; color: #155724; }
+
+/* ── Trust badge (green outlined — trust-badges component) ──────────────────── */
+.ms-trust-badge {
+  background: rgba(40,167,69,.08) !important;
+  color: #28a745 !important;
+  border-color: #28a745 !important;
+  border-radius: 50px;
+  padding: 5px 12px;
+}
+
+/* ── Bordered table (rounded corners) ───────────────────────────────────────── */
+.ms-table-rounded { border-radius: 12px; overflow: hidden; }
+
+/* ── Side reference card row: coloured tag + text ────────────────────────────── */
+.ms-ref-tag {
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: .82rem;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ms-ref-title { font-size: .87rem; color: #1a1a2e; }
+.ms-ref-desc  { font-size: .8rem;  color: #666; line-height: 1.5; }
+
+/* ── Inline colour dot (legend / BMI gauge / charts) ────────────────────────── */
+.ms-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ms-swatch {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+}
+
+/* ── Result stat box — large padding variant (16px 10px) ────────────────────── */
+.ms-stat-lg { border-radius: 12px; padding: 16px 10px; text-align: center; }
+
+/* ── Extra-large stat value (TDEE / BMR displays) ────────────────────────────── */
+.ms-stat-val-xl { font-size: 1.7rem; font-weight: 700; }
+
+/* ── Stat sub-label ──────────────────────────────────────────────────────────── */
+.ms-stat-sub { font-size: .75rem; color: #555; margin-top: 4px; }
+
+/* ── Dark target box (calorie/goal target) ──────────────────────────────────── */
+.ms-target-box { background: var(--primary-dark); color: #fff; }
+.ms-target-lbl { font-size: .8rem; opacity: .7; }
+.ms-target-val { font-size: 2.4rem; font-weight: 700; }

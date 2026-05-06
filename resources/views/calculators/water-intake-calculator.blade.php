@@ -79,6 +79,33 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.wi-unit-select  { max-width:90px; }
+.wi-water-card   { background:#e8f7ff; border:1px solid #b8e3ff; }
+.wi-glass-card   { background:#fff8f0; border:1px solid #ffd9b3; }
+.wi-total-val    { font-size:2rem; font-weight:700; color:var(--nutrition); }
+.wi-total-label  { font-size:.78rem; color:#555; margin-top:2px; }
+.wi-bev-card     { background:#f8f9fa; border:1px solid #e0e0e0; }
+.wi-bev-label    { font-size:.75rem; color:#888; margin-bottom:4px; }
+.wi-sched-txt    { font-size:.8rem; color:#444; line-height:1.8; }
+.wi-slot         { display:inline-block; margin-right:16px; }
+.wi-slot-hint    { color:#888; }
+.wi-feat-icon    { font-size:1.3rem; flex-shrink:0; padding-top:2px; }
+.wi-feat-title   { font-size:.87rem; color:#1a1a2e; }
+.wi-feat-desc    { font-size:.8rem; color:#666; line-height:1.5; }
+.wi-table-sub    { max-width:520px; margin:auto; }
+.wi-dehy-title   { font-size:.95rem; font-weight:700; margin-bottom:14px; }
+.wi-dehy-mild     { background:#fff8e1; border:1px solid #ffe082; }
+.wi-dehy-moderate { background:#fff3e0; border:1px solid #ffcc80; }
+.wi-dehy-severe   { background:#fce4ec; border:1px solid #f48fb1; }
+.wi-dehy-mild     .wi-dehy-title { color:#e65100; }
+.wi-dehy-moderate .wi-dehy-title { color:#bf360c; }
+.wi-dehy-severe   .wi-dehy-title { color:#880e4f; }
+.wi-dehy-list    { font-size:.84rem; color:#444; line-height:2; padding-left:18px; margin:0; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -109,7 +136,7 @@ $relatedTools = [
               <label class="form-label fw-semibold">Body Weight</label>
               <div class="input-group">
                 <input type="number" id="wiWeight" class="form-control" value="70" min="20" max="300" aria-label="Weight">
-                <select id="wiWeightUnit" class="form-select" style="max-width:90px;">
+                <select id="wiWeightUnit" class="form-select wi-unit-select">
                   <option value="kg">kg</option>
                   <option value="lbs">lbs</option>
                 </select>
@@ -140,7 +167,7 @@ $relatedTools = [
 
             {{-- Special conditions --}}
             <div class="mb-4">
-              <label class="form-label fw-semibold">Special Conditions <span class="text-muted fw-normal" style="font-size:.82rem;">(optional)</span></label>
+              <label class="form-label fw-semibold">Special Conditions <span class="text-muted-sm fw-normal">(optional)</span></label>
               <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="wiPregnant">
@@ -153,52 +180,52 @@ $relatedTools = [
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="wiCalculate()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="wiCalculate()">
               Calculate My Water Intake →
             </button>
 
             {{-- Results --}}
             <div id="wiResults" class="mt-4 d-none">
-              <div class="ms-divider" style="margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="row g-3 mb-3">
                 <div class="col-6">
-                  <div class="text-center p-3 rounded-3" style="background:#e8f7ff; border:1px solid #b8e3ff;">
-                    <div id="wiTotalL" style="font-size:2rem; font-weight:700; color:var(--nutrition);"></div>
-                    <div style="font-size:.78rem; color:#555; margin-top:2px;">Total daily water</div>
+                  <div class="text-center p-3 rounded-3 wi-water-card">
+                    <div id="wiTotalL" class="wi-total-val"></div>
+                    <div class="wi-total-label">Total daily water</div>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="text-center p-3 rounded-3" style="background:#fff8f0; border:1px solid #ffd9b3;">
-                    <div id="wiGlasses" style="font-size:2rem; font-weight:700; color:var(--nutrition);"></div>
-                    <div style="font-size:.78rem; color:#555; margin-top:2px;">Glasses (250 ml each)</div>
+                  <div class="text-center p-3 rounded-3 wi-glass-card">
+                    <div id="wiGlasses" class="wi-total-val"></div>
+                    <div class="wi-total-label">Glasses (250 ml each)</div>
                   </div>
                 </div>
               </div>
 
               <div class="row g-3 mb-3">
                 <div class="col-6">
-                  <div class="p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">💧 From beverages</div>
-                    <div id="wiBeverages" style="font-weight:700; color:var(--primary-dark);"></div>
+                  <div class="p-3 rounded-3 wi-bev-card">
+                    <div class="wi-bev-label">💧 From beverages</div>
+                    <div id="wiBeverages" class="fw-bold text-brand"></div>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">🥗 From food</div>
-                    <div id="wiFood" style="font-weight:700; color:var(--primary-dark);"></div>
+                  <div class="p-3 rounded-3 wi-bev-card">
+                    <div class="wi-bev-label">🥗 From food</div>
+                    <div id="wiFood" class="fw-bold text-brand"></div>
                   </div>
                 </div>
               </div>
 
-              <div class="p-3 rounded-3 mb-3" style="background:#f0fff4; border:1px solid #b3f0c8;">
-                <div style="font-size:.8rem; font-weight:600; color:#1a6e3a; margin-bottom:8px;">⏰ Hourly drinking schedule (beverages only)</div>
-                <div id="wiSchedule" style="font-size:.8rem; color:#444; line-height:1.8;"></div>
+              <div class="p-3 rounded-3 mb-3 ms-box-green">
+                <div class="ms-box-green-title">⏰ Hourly drinking schedule (beverages only)</div>
+                <div id="wiSchedule" class="wi-sched-txt"></div>
               </div>
 
-              <div class="p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffe082;">
-                <div style="font-size:.8rem; font-weight:600; color:#e65100; margin-bottom:6px;">💡 Hydration Tips</div>
-                <div id="wiTips" style="font-size:.78rem; color:#555; line-height:1.8;"></div>
+              <div class="p-3 rounded-3 ms-box-yellow">
+                <div class="ms-box-yellow-title">💡 Hydration Tips</div>
+                <div id="wiTips" class="ms-box-tips-txt"></div>
               </div>
             </div>
             {{-- /Results --}}
@@ -209,7 +236,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Hydration Facts</h3>
           @foreach([
@@ -245,7 +272,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">What water does in your body</p>
+          <p class="fw-semibold mb-3 ms-data-label">What water does in your body</p>
           @foreach([
             ['🧠','Brain & cognition','Even 1% dehydration reduces concentration, short-term memory, and reaction time.'],
             ['❤️','Blood volume','Blood is ~90% water. Dehydration thickens blood, raising heart rate and blood pressure.'],
@@ -254,10 +281,10 @@ $relatedTools = [
             ['🫁','Kidney function','Kidneys filter ~180 litres of blood daily. Adequate water prevents kidney stones and UTIs.'],
           ] as [$icon,$title,$desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="font-size:1.3rem; flex-shrink:0; padding-top:2px;">{{ $icon }}</div>
+            <div class="wi-feat-icon">{{ $icon }}</div>
             <div>
-              <div class="fw-semibold" style="font-size:.87rem; color:#1a1a2e;">{{ $title }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-semibold wi-feat-title">{{ $title }}</div>
+              <div class="wi-feat-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -272,36 +299,36 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Signs of Dehydration by Severity</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Recognise the warning signs before performance and health are affected.</p>
+      <p class="text-muted wi-table-sub">Recognise the warning signs before performance and health are affected.</p>
     </div>
     <div class="row g-4">
       @foreach([
-        ['Mild (1–2% body weight)', '#fff8e1', '#e65100', '#ffe082', [
+        ['Mild (1–2% body weight)', 'wi-dehy-mild', [
           'Thirst',
           'Slightly darker urine (yellow)',
           'Dry mouth',
           'Mild fatigue',
           '↓ 5–10% cognitive performance',
         ]],
-        ['Moderate (3–5% body weight)', '#fff3e0', '#bf360c', '#ffcc80', [
+        ['Moderate (3–5% body weight)', 'wi-dehy-moderate', [
           'Headache',
           'Reduced urine output',
           'Muscle cramps',
           'Irritability and poor concentration',
           '↓ 10–20% athletic performance',
         ]],
-        ['Severe (>6% body weight)', '#fce4ec', '#880e4f', '#f48fb1', [
+        ['Severe (>6% body weight)', 'wi-dehy-severe', [
           'Rapid heartbeat',
           'Sunken eyes',
           'Very dark or no urine',
           'Confusion or dizziness',
           'Medical emergency — seek help',
         ]],
-      ] as [$level, $bg, $text, $border, $signs])
+      ] as [$level, $cls, $signs])
       <div class="col-md-4">
-        <div class="p-4 rounded-3 h-100" style="background:{{ $bg }}; border:1px solid {{ $border }};">
-          <h3 style="font-size:.95rem; font-weight:700; color:{{ $text }}; margin-bottom:14px;">{{ $level }}</h3>
-          <ul style="font-size:.84rem; color:#444; line-height:2; padding-left:18px; margin:0;">
+        <div class="{{ $cls }} p-4 rounded-3 h-100">
+          <h3 class="wi-dehy-title">{{ $level }}</h3>
+          <ul class="wi-dehy-list">
             @foreach($signs as $sign)
             <li>{{ $sign }}</li>
             @endforeach
@@ -320,13 +347,13 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">Water Intake Calculator for Weight Loss — Does Drinking Water Help?</h2>
+    <h2 class="mb-4 text-brand">Water Intake Calculator for Weight Loss — Does Drinking Water Help?</h2>
     <p>Water and weight loss are genuinely connected, though not in the way most headlines imply. Drinking 500ml of cold water increases metabolic rate by 24–30% for about 60 minutes, a small but real thermogenic effect. More practically, water has zero calories and creates gastric distension — the physical sensation of fullness — before meals. A 2010 randomised controlled trial published in <em>Obesity</em> found that adults who drank 500ml of water 30 minutes before each meal lost 44% more weight over 12 weeks than those who did not. Replacing caloric beverages (juice, soda, energy drinks) with water is often the single highest-impact dietary change for weight management. This calculator helps you find the right target so you're never drinking too little — or so much that it becomes counterproductive.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Much Water Should I Drink While Exercising? Per Hour?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Much Water Should I Drink While Exercising? Per Hour?</h2>
     <p>Exercise dramatically increases water needs. Your body loses water primarily through sweat (to cool the body) and respiration (faster breathing expels water vapour). At moderate intensity (jogging, cycling), sweat losses range from 0.5 to 1 litre per hour. At high intensity in hot conditions, losses can exceed 2 litres per hour. The American College of Sports Medicine (ACSM) recommends: drink 5–7ml per kilogram of body weight in the 4 hours before exercise, 150–250ml every 15–20 minutes during exercise, and 1.5 times the weight lost after exercise. For a 70kg person, this means roughly 350–490ml pre-exercise, about 200ml every 15–20 minutes during, and careful rehydration post-exercise. For sessions over 90 minutes, replace electrolytes (sodium, potassium) alongside fluids to prevent hyponatraemia.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Water Intake During Pregnancy and Breastfeeding</h2>
+    <h2 class="mt-5 mb-4 text-brand">Water Intake During Pregnancy and Breastfeeding</h2>
     <p>Hydration needs increase meaningfully during pregnancy and breastfeeding. During pregnancy, blood volume expands by up to 50%, amniotic fluid must be maintained, and the developing foetus needs water for every metabolic process. The US NAS recommends pregnant women increase total water intake by approximately 300ml per day above their baseline. Morning sickness, common in the first trimester, can cause dehydration that requires active compensation. During breastfeeding, breast milk is roughly 88% water. The body needs approximately 700–900ml of extra water daily to produce an adequate milk supply — inadequate hydration is a leading cause of reduced milk production. This calculator adds 300ml for pregnancy and 700ml for breastfeeding when selected. Signs that a breastfeeding parent needs more water include dark urine, reduced milk output, and persistent thirst.</p>
 
   </div>
@@ -347,7 +374,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Hydration Is Individual</h3>
         <p>Kidney function, medications (diuretics, lithium), gastrointestinal conditions, and individual metabolic rate all affect fluid needs beyond what any formula can capture. Athletes who sweat heavily may require significantly more than the calculator suggests, while people with kidney disease or heart failure may need to restrict fluids. Always consult a healthcare provider if you have specific medical conditions.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-orange">
-          <p style="margin:0; font-size:.85rem; color:#6d4c00;"><strong>Note:</strong> This calculator provides general wellness guidance. It is not medical advice. If you have kidney disease, heart failure, or take medications that affect fluid balance, consult your doctor before changing your water intake significantly.</p>
+          <p class="mb-0 text-sm"><strong>Note:</strong> This calculator provides general wellness guidance. It is not medical advice. If you have kidney disease, heart failure, or take medications that affect fluid balance, consult your doctor before changing your water intake significantly.</p>
         </div>
       </div>
     </div>
@@ -415,7 +442,7 @@ $relatedTools = [
       ['9:00 PM',  'Evening'],
     ];
     slots.forEach(function (s) {
-      scheduleHTML += '<span style="display:inline-block; margin-right:16px;">⏰ ' + s[0] + ' — ' + mlPerHour + ' ml <span style="color:#888;">(' + s[1] + ')</span></span>';
+      scheduleHTML += '<span class="wi-slot">⏰ ' + s[0] + ' — ' + mlPerHour + ' ml <span class="wi-slot-hint">(' + s[1] + ')</span></span>';
     });
     document.getElementById('wiSchedule').innerHTML = scheduleHTML;
 

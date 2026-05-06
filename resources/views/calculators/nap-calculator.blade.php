@@ -80,6 +80,43 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.nap-type-btn           { border:2px solid #e0e0e0; cursor:pointer; background:#fff; transition:all .15s; }
+.nap-type-btn.nap-active{ border-color:var(--sleep); background:rgba(108,99,255,.06); }
+.nap-type-radio         { margin-top:3px; accent-color:var(--sleep); }
+.nap-type-name          { font-weight:700; font-size:.9rem; color:var(--primary-dark); }
+.nap-type-sub           { font-size:.8rem; color:#888; margin-top:2px; }
+.nap-custom-warn        { background:#fff8e1; border:1px solid #ffc107; font-size:.8rem; color:#856404; }
+.nap-card-green         { background:#d1eddb; border:1px solid rgba(21,87,36,.19); }
+.nap-card-yellow        { background:#fff3cd; border:1px solid rgba(102,77,3,.19); }
+.nap-card-blue          { background:#cce5ff; border:1px solid rgba(0,64,133,.19); }
+.nap-card-icon          { font-size:2rem; margin-bottom:12px; }
+.nap-card-dur           { font-size:1.3rem; font-weight:800; }
+.nap-card-label         { font-weight:700; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.5px; }
+.nap-card-desc          { font-size:.85rem; color:#555; line-height:1.7; margin-bottom:16px; }
+.nap-card-li            { font-size:.8rem; font-weight:600; padding:3px 0; }
+.nap-card-green .nap-card-dur,.nap-card-green .nap-card-label,.nap-card-green .nap-card-li { color:#155724; }
+.nap-card-yellow .nap-card-dur,.nap-card-yellow .nap-card-label,.nap-card-yellow .nap-card-li { color:#664d03; }
+.nap-card-blue .nap-card-dur,.nap-card-blue .nap-card-label,.nap-card-blue .nap-card-li { color:#004085; }
+.nap-culture-h          { font-size:1rem; }
+.nap-culture-flag       { font-size:1.5rem; flex-shrink:0; line-height:1; padding-top:2px; }
+.nap-result-power       { background:#d1eddb; border:1px solid rgba(21,87,36,.19); }
+.nap-result-full        { background:#cce5ff; border:1px solid rgba(0,64,133,.19); }
+.nap-result-warn        { background:#fff3cd; border:1px solid rgba(102,77,3,.19); }
+.nap-result-power .nap-result-label,.nap-result-power .nap-result-time,.nap-result-power .nap-result-note { color:#155724; }
+.nap-result-full .nap-result-label,.nap-result-full .nap-result-time,.nap-result-full .nap-result-note { color:#004085; }
+.nap-result-warn .nap-result-label,.nap-result-warn .nap-result-time,.nap-result-warn .nap-result-note { color:#664d03; }
+.nap-result-icon        { font-size:2rem; margin-bottom:8px; }
+.nap-result-label       { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.nap-result-start       { font-size:1rem; color:#555; margin-bottom:4px; }
+.nap-result-time        { font-size:2rem; font-weight:800; }
+.nap-result-cta         { font-size:.85rem; color:#555; margin-bottom:4px; }
+.nap-result-dur         { font-size:.8rem; color:#888; }
+.nap-result-note        { background:rgba(255,255,255,.7); font-size:.8rem; text-align:left; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -116,13 +153,12 @@ $relatedTools = [
                   ['full','🔄 Full Cycle (90 min)','Deep + REM sleep. Ideal for recovery, creativity, shift workers.','90'],
                   ['custom','⏱ Custom duration','I know exactly how long I want to nap.',''],
                 ] as [$val,$label,$desc,$mins])
-                <label class="nap-type-btn d-flex align-items-start gap-3 p-3 rounded-3" data-val="{{ $val }}"
-                       style="border:2px solid #e0e0e0; cursor:pointer; background:#fff; transition:all .15s;">
+                <label class="nap-type-btn d-flex align-items-start gap-3 p-3 rounded-3" data-val="{{ $val }}">
                   <input type="radio" name="napType" value="{{ $val }}" {{ $val === 'power' ? 'checked' : '' }}
-                         style="margin-top:3px; accent-color:var(--sleep);" onchange="toggleNapType()">
+                         class="nap-type-radio" onchange="toggleNapType()">
                   <div>
-                    <div style="font-weight:700; font-size:.9rem; color:var(--primary-dark);">{{ $label }}</div>
-                    <div style="font-size:.8rem; color:#888; margin-top:2px;">{{ $desc }}</div>
+                    <div class="nap-type-name">{{ $label }}</div>
+                    <div class="nap-type-sub">{{ $desc }}</div>
                   </div>
                 </label>
                 @endforeach
@@ -132,10 +168,10 @@ $relatedTools = [
             <div id="customDur" class="mb-4 d-none">
               <label for="customMin" class="form-label fw-600">Custom nap duration (minutes)</label>
               <input type="number" id="customMin" class="form-control" value="30" min="5" max="180" aria-label="Custom nap duration">
-              <div class="mt-2 p-2 rounded" style="background:#fff8e1; border:1px solid #ffc107; font-size:.8rem; color:#856404;" id="customWarning"></div>
+              <div class="mt-2 p-2 rounded nap-custom-warn d-none" id="customWarning"></div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcNap()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcNap()">
               Calculate Nap →
             </button>
 
@@ -148,7 +184,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Nap Science at a Glance</h3>
           @foreach([
@@ -175,29 +211,29 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Which Nap Length Is Right for You?</h2>
-      <p class="text-muted" style="max-width:520px; margin:0 auto;">Not all naps are equal. The wrong duration leaves you feeling worse than no nap at all.</p>
+      <p class="text-muted ms-intro-text">Not all naps are equal. The wrong duration leaves you feeling worse than no nap at all.</p>
     </div>
     <div class="row g-4">
       @foreach([
-        ['⚡','10–20 Minutes','Power Nap','#d1eddb','#155724',
+        ['⚡','10–20 Minutes','Power Nap','nap-card-green','#155724',
          'Stays in Stage 1 and early Stage 2 light sleep. No grogginess on waking — alertness and concentration restored within minutes. Ideal for office workers, students, drivers on long journeys.',
          ['Lunch break boost','Pre-exam focus','Long drive recovery','Post-workout refresh']],
-        ['⚠️','30–60 Minutes','Avoid This Zone','#fff3cd','#664d03',
+        ['⚠️','30–60 Minutes','Avoid This Zone','nap-card-yellow','#664d03',
          'You will likely enter Stage 3 deep sleep but not complete a full cycle. Waking mid-deep-sleep causes significant sleep inertia — worse grogginess than no nap at all. This is the dead zone.',
          ['Causes grogginess','Disrupts night sleep','Reduces motivation','Performance drops']],
-        ['🔄','90 Minutes','Full Cycle Nap','#cce5ff','#004085',
+        ['🔄','90 Minutes','Full Cycle Nap','nap-card-blue','#004085',
          'Completes one full sleep cycle including deep NREM and REM sleep. You wake at the natural end of the cycle — alert and refreshed. Includes creative REM sleep that boosts problem-solving and memory.',
          ['Shift workers','Heavy physical training','Sleep debt recovery','Creative work boost']],
-      ] as [$icon,$dur,$label,$bg,$color,$desc,$uses])
+      ] as [$icon,$dur,$label,$cardCls,$color,$desc,$uses])
       <div class="col-md-4">
-        <div class="h-100 p-4 rounded-3" style="background:{{ $bg }}; border:1px solid {{ $color }}30;">
-          <div style="font-size:2rem; margin-bottom:12px;">{{ $icon }}</div>
-          <div style="font-size:1.3rem; font-weight:800; color:{{ $color }};">{{ $dur }}</div>
-          <div style="font-weight:700; color:{{ $color }}; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.5px;">{{ $label }}</div>
-          <p style="font-size:.85rem; color:#555; line-height:1.7; margin-bottom:16px;">{{ $desc }}</p>
-          <ul style="list-style:none; padding:0; margin:0;">
+        <div class="h-100 p-4 rounded-3 {{ $cardCls }}">
+          <div class="nap-card-icon">{{ $icon }}</div>
+          <div class="nap-card-dur">{{ $dur }}</div>
+          <div class="nap-card-label">{{ $label }}</div>
+          <p class="nap-card-desc">{{ $desc }}</p>
+          <ul class="list-unstyled mb-0">
             @foreach($uses as $u)
-            <li style="font-size:.8rem; color:{{ $color }}; font-weight:600; padding:3px 0;">→ {{ $u }}</li>
+            <li class="nap-card-li">→ {{ $u }}</li>
             @endforeach
           </ul>
         </div>
@@ -219,7 +255,7 @@ $relatedTools = [
         <p>A 2021 study in <em>General Psychiatry</em> found that regular nappers (1–2 times per week) had significantly better cognitive function, larger brain volume in multiple regions, and higher scores on processing speed and visuospatial ability than non-nappers — controlling for age, health, and sleep duration.</p>
       </div>
       <div class="col-lg-6">
-        <h3 style="font-size:1rem;" class="mb-3">Napping Across Cultures</h3>
+        <h3 class="nap-culture-h mb-3">Napping Across Cultures</h3>
         <div class="d-flex flex-column gap-3">
           @foreach([
             ['🇪🇸','Spain — Siesta','The traditional Spanish siesta of 20–30 minutes has physiological backing. Spain has historically lower afternoon cardiovascular event rates during siesta hours — though modernisation has largely ended the practice.'],
@@ -228,10 +264,10 @@ $relatedTools = [
             ['🌍','Universal biology','The 1–3 PM circadian dip is not cultural — it occurs in populations without access to heavy meals and in people who haven\'t eaten. It is a hardwired biological rhythm.'],
           ] as [$flag,$title,$desc])
           <div class="d-flex gap-3">
-            <div style="font-size:1.5rem; flex-shrink:0; line-height:1; padding-top:2px;">{{ $flag }}</div>
+            <div class="nap-culture-flag">{{ $flag }}</div>
             <div>
-              <div style="font-weight:700; font-size:.88rem; color:var(--primary-dark); margin-bottom:4px;">{{ $title }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.6;">{!! $desc !!}</div>
+              <div class="fw-bold ms-ref-title mb-1">{{ $title }}</div>
+              <div class="ms-ref-desc">{!! $desc !!}</div>
             </div>
           </div>
           @endforeach
@@ -246,11 +282,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Best Nap Time for Night Shift Workers</h2>
+    <h2 class="mb-4 text-brand">Best Nap Time for Night Shift Workers</h2>
     <p>Night shift workers benefit most from a "split sleep" strategy: a primary sleep period of 5–6 hours after the shift ends, followed by a 20–30 minute power nap 1–2 hours before the next shift. This pre-shift nap significantly improves alertness during the first half of a night shift without interfering with the main sleep period. Avoid napping longer than 30 minutes before a shift — you risk entering deep sleep and waking groggy.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Should a Nap Be for Adults?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Long Should a Nap Be for Adults?</h2>
     <p>For most adults, the ideal nap is either 10–20 minutes (power nap — light sleep only, no grogginess) or exactly 90 minutes (one full cycle — includes REM, restores creativity and memory). The 30–60 minute range is the worst choice: long enough to enter deep slow-wave sleep, but not long enough to complete a cycle. You wake mid-cycle feeling worse than before the nap. If you cannot spare 90 minutes, always choose under 25 minutes.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Is Napping Good or Bad for Nighttime Sleep?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Is Napping Good or Bad for Nighttime Sleep?</h2>
     <p>Napping is not bad for nighttime sleep when timed correctly. The critical rule: finish all naps by 3:00 pm. Napping after 3:00 pm reduces sleep pressure (adenosine build-up) enough to delay sleep onset by 1–2 hours and reduce deep sleep in the following night. Morning naps (before noon) have the least impact on nighttime sleep and highest REM content, making them ideal for creative recovery and memory consolidation.</p>
   </div>
 </section>
@@ -282,9 +318,7 @@ $relatedTools = [
     updateCustomWarning();
     // highlight selected
     document.querySelectorAll('.nap-type-btn').forEach(function (b) {
-      var isActive = b.dataset.val === val;
-      b.style.borderColor = isActive ? 'var(--sleep)' : '#e0e0e0';
-      b.style.background = isActive ? 'rgba(108,99,255,.06)' : '#fff';
+      b.classList.toggle('nap-active', b.dataset.val === val);
     });
   };
 
@@ -293,9 +327,9 @@ $relatedTools = [
     var w = document.getElementById('customWarning');
     if (min > 20 && min < 90) {
       w.textContent = '⚠️ ' + min + ' minutes may end mid-deep-sleep, causing grogginess. Consider 20 min (power nap) or 90 min (full cycle) instead.';
-      w.style.display = 'block';
+      w.classList.remove('d-none');
     } else {
-      w.style.display = 'none';
+      w.classList.add('d-none');
     }
   };
 
@@ -328,14 +362,15 @@ $relatedTools = [
     }
 
     var wakeMin = startMin + dur;
-    var html = '<div class="p-4 rounded-3 text-center" style="background:' + bg + '; border:1px solid ' + color + '30;">'
-      + '<div style="font-size:2rem; margin-bottom:8px;">' + icon + '</div>'
-      + '<div style="font-size:.8rem; font-weight:700; color:' + color + '; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">' + label + '</div>'
-      + '<div style="font-size:1rem; color:#555; margin-bottom:4px;">Nap starts: <strong>' + formatTime(startMin) + '</strong></div>'
-      + '<div style="font-size:2rem; font-weight:800; color:' + color + ';">' + formatTime(wakeMin) + '</div>'
-      + '<div style="font-size:.85rem; color:#555; margin-bottom:4px;">← Set your alarm for this time</div>'
-      + '<div style="font-size:.8rem; color:#888;">' + dur + ' minutes</div>'
-      + (note ? '<div class="mt-3 p-2 rounded" style="background:rgba(255,255,255,.7); font-size:.8rem; color:' + color + '; text-align:left;">' + note + '</div>' : '')
+    var theme = type === 'power' ? 'nap-result-power' : (type === 'full' ? 'nap-result-full' : 'nap-result-warn');
+    var html = '<div class="p-4 rounded-3 text-center ' + theme + '">'
+      + '<div class="nap-result-icon">' + icon + '</div>'
+      + '<div class="nap-result-label">' + label + '</div>'
+      + '<div class="nap-result-start">Nap starts: <strong>' + formatTime(startMin) + '</strong></div>'
+      + '<div class="nap-result-time">' + formatTime(wakeMin) + '</div>'
+      + '<div class="nap-result-cta">← Set your alarm for this time</div>'
+      + '<div class="nap-result-dur">' + dur + ' minutes</div>'
+      + (note ? '<div class="mt-3 p-2 rounded nap-result-note">' + note + '</div>' : '')
       + '</div>';
 
     document.getElementById('napResultContent').innerHTML = html;

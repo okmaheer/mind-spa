@@ -78,6 +78,27 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.bsc-age-info        { background:#f0f4ff; border:1px solid rgba(108,99,255,.2); font-size:.85rem; color:#444; line-height:1.6; }
+.bsc-age-table       { font-size:.88rem; }
+.bsc-safe-sleep-box  { background:#f0f7ff; border:2px solid rgba(108,99,255,.25); }
+.bsc-safe-icon       { font-size:2rem; flex-shrink:0; line-height:1; }
+.bsc-safe-title      { font-size:1.1rem; margin-bottom:12px; color:var(--primary-dark); }
+.bsc-safe-desc       { font-size:.88rem; color:#555; margin-bottom:16px; line-height:1.7; }
+.bsc-safe-item       { border-left:3px solid var(--sleep); background:rgba(108,99,255,.04); }
+.bsc-safe-item-title { font-weight:700; font-size:.83rem; color:var(--primary-dark); margin-bottom:3px; }
+.bsc-safe-item-desc  { font-size:.78rem; color:#666; line-height:1.5; }
+.bsc-safe-source     { font-size:.78rem; color:#888; margin-top:16px; margin-bottom:0; }
+.bsc-schedule-title  { font-weight:700; color:var(--primary-dark); margin-bottom:12px; font-size:.92rem; }
+.bsc-sched-icon      { font-size:1.2rem; }
+.bsc-sched-time      { font-weight:700; font-size:.9rem; }
+.bsc-sched-label     { font-size:.78rem; color:#666; }
+.bsc-bedtime-row     { background:#f3f0ff; border:1px solid rgba(108,99,255,.19); }
+.bsc-reminder-note   { font-size:.8rem; color:#555; background:#f8f9fa; border:1px solid #e8e8e8; line-height:1.7; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -125,14 +146,14 @@ $relatedTools = [
               </select>
             </div>
 
-            <div id="ageInfo" class="mb-4 p-3 rounded-3" style="background:#f0f4ff; border:1px solid var(--sleep)30; font-size:.85rem; color:#444; line-height:1.6;"></div>
+            <div id="ageInfo" class="mb-4 p-3 rounded-3 bsc-age-info"></div>
 
             <div class="mb-4">
               <label for="morningWake" class="form-label fw-600">Typical morning wake-up time</label>
               <input type="time" id="morningWake" class="form-control" value="07:00" aria-label="Morning wake time">
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcBabySleep()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcBabySleep()">
               Generate Sleep Schedule →
             </button>
 
@@ -145,7 +166,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Baby Sleep at a Glance</h3>
           @foreach([
@@ -172,12 +193,12 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Sleep Needs by Age</h2>
-    <p class="text-center text-muted mb-5" style="max-width:520px; margin:0 auto 40px;">Recommendations from the American Academy of Sleep Medicine and AAP.</p>
+    <p class="text-center text-muted mb-5 ms-intro-text">Recommendations from the American Academy of Sleep Medicine and AAP.</p>
     <div class="table-responsive">
-      <table class="table" style="font-size:.88rem;">
-        <thead style="background:#f8f9fa;">
+      <table class="table bsc-age-table">
+        <thead class="table-light">
           <tr>
-            <th style="font-weight:700; color:var(--primary-dark);">Age</th>
+            <th class="fw-bold text-brand">Age</th>
             <th>Total Sleep</th>
             <th>Night Sleep</th>
             <th>Naps</th>
@@ -197,8 +218,8 @@ $relatedTools = [
             ['2–3 years','11–14h','10–11h','1 nap (optional)','5–6h'],
           ] as [$age,$total,$night,$naps,$window])
           <tr>
-            <td style="font-weight:600; color:var(--primary-dark);">{{ $age }}</td>
-            <td><span style="color:var(--sleep); font-weight:700;">{{ $total }}</span></td>
+            <td class="fw-semibold text-brand">{{ $age }}</td>
+            <td><span class="fw-bold text-sleep">{{ $total }}</span></td>
             <td>{{ $night }}</td>
             <td>{{ $naps }}</td>
             <td>{{ $window }}</td>
@@ -215,12 +236,12 @@ $relatedTools = [
   <div class="container-xl">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="p-4 rounded-3" style="background:#f0f7ff; border:2px solid var(--sleep)40;">
+        <div class="p-4 rounded-3 bsc-safe-sleep-box">
           <div class="d-flex align-items-start gap-3">
-            <div style="font-size:2rem; flex-shrink:0; line-height:1;">🛡️</div>
+            <div class="bsc-safe-icon">🛡️</div>
             <div>
-              <h2 style="font-size:1.1rem; margin-bottom:12px; color:var(--primary-dark);">Safe Sleep Checklist (AAP Guidelines)</h2>
-              <p style="font-size:.88rem; color:#555; margin-bottom:16px; line-height:1.7;">Following safe sleep practices significantly reduces the risk of SIDS (Sudden Infant Death Syndrome) and sleep-related infant deaths. The AAP recommends:</p>
+              <h2 class="bsc-safe-title">Safe Sleep Checklist (AAP Guidelines)</h2>
+              <p class="bsc-safe-desc">Following safe sleep practices significantly reduces the risk of SIDS (Sudden Infant Death Syndrome) and sleep-related infant deaths. The AAP recommends:</p>
               <div class="row g-2">
                 @foreach([
                   ['Always place baby on their BACK','For every sleep — naps and nighttime. The back sleep position is the safest until the baby can roll both ways independently.'],
@@ -231,14 +252,14 @@ $relatedTools = [
                   ['Offer a dummy/pacifier at sleep time','After breastfeeding is established (3–4 weeks). Pacifier use at sleep onset is associated with reduced SIDS risk.'],
                 ] as [$title,$desc])
                 <div class="col-md-6">
-                  <div class="p-2 rounded" style="border-left:3px solid var(--sleep); background:rgba(108,99,255,.04);">
-                    <div style="font-weight:700; font-size:.83rem; color:var(--primary-dark); margin-bottom:3px;">✓ {{ $title }}</div>
-                    <div style="font-size:.78rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+                  <div class="p-2 rounded bsc-safe-item">
+                    <div class="bsc-safe-item-title">✓ {{ $title }}</div>
+                    <div class="bsc-safe-item-desc">{{ $desc }}</div>
                   </div>
                 </div>
                 @endforeach
               </div>
-              <p style="font-size:.78rem; color:#888; margin-top:16px; margin-bottom:0;">Source: American Academy of Pediatrics Safe Sleep Guidelines (2022). Always consult your paediatrician for personalised advice.</p>
+              <p class="bsc-safe-source">Source: American Academy of Pediatrics Safe Sleep Guidelines (2022). Always consult your paediatrician for personalised advice.</p>
             </div>
           </div>
         </div>
@@ -252,11 +273,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Newborn Sleep Schedule — 0 to 3 Months</h2>
+    <h2 class="mb-4 text-brand">Newborn Sleep Schedule — 0 to 3 Months</h2>
     <p>Newborns (0–3 months) sleep 14–17 hours per day in short bursts of 2–4 hours because their circadian rhythm has not yet developed. There is no "schedule" at this stage — newborns are driven entirely by hunger and comfort. Parents should sleep when the baby sleeps. By 6–8 weeks, most babies begin showing a slightly longer nighttime stretch of 4–5 hours, which is the first sign of circadian development.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Baby Sleep Regression — What It Is and When It Happens</h2>
+    <h2 class="mt-5 mb-4 text-brand">Baby Sleep Regression — What It Is and When It Happens</h2>
     <p>Sleep regressions are temporary periods when a previously good sleeper starts waking more frequently. The most common regressions occur at 4 months, 8–10 months, 12 months, 18 months, and 2 years — all coinciding with major developmental leaps. The 4-month regression is the most significant because it represents a permanent change in sleep architecture (babies shift to adult-like sleep cycles). Most regressions last 2–6 weeks and resolve on their own.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How to Get a Baby to Sleep Through the Night</h2>
+    <h2 class="mt-5 mb-4 text-brand">How to Get a Baby to Sleep Through the Night</h2>
     <p>Most babies are developmentally capable of sleeping 6–8 hours without feeding by 4–6 months, though individual variation is wide. Key strategies supported by paediatric sleep research: establish a consistent pre-sleep routine (bath, feed, dark room), put baby down drowsy but awake to build self-soothing skills, keep night interactions brief and low-stimulation, and ensure total daytime sleep is age-appropriate (too much daytime sleep reduces nighttime sleep pressure).</p>
   </div>
 </section>
@@ -351,7 +372,7 @@ $relatedTools = [
     var totalAwakeMin = Math.round((24 - d.totalH) * 60);
     var bedtime = wakeMin + totalAwakeMin;
 
-    var html = '<p style="font-weight:700; color:var(--primary-dark); margin-bottom:12px; font-size:.92rem;">Suggested schedule for a ' + AGE_DATA[age].label + ':</p>';
+    var html = '<p class="bsc-schedule-title">Suggested schedule for a ' + AGE_DATA[age].label + ':</p>';
     html += '<div class="d-flex flex-column gap-2">';
     schedule.forEach(function (s) {
       var isNapStart = s.type === 'nap';
@@ -360,18 +381,18 @@ $relatedTools = [
       var bg = s.type === 'wake' ? '#fff8e1' : isNapStart ? '#f0f4ff' : '#f0fff4';
       var col = s.type === 'wake' ? '#856404' : isNapStart ? 'var(--sleep)' : '#155724';
       html += '<div class="d-flex align-items-center gap-3 p-2 rounded-3" style="background:' + bg + '; border:1px solid ' + col + '20;">'
-        + '<span style="font-size:1.2rem;">' + icon + '</span>'
-        + '<div><div style="font-weight:700; color:' + col + '; font-size:.9rem;">' + formatTime(s.time) + '</div>'
-        + '<div style="font-size:.78rem; color:#666;">' + s.label + '</div></div></div>';
+        + '<span class="bsc-sched-icon">' + icon + '</span>'
+        + '<div><div class="bsc-sched-time" style="color:' + col + ';">' + formatTime(s.time) + '</div>'
+        + '<div class="bsc-sched-label">' + s.label + '</div></div></div>';
     });
 
-    html += '<div class="d-flex align-items-center gap-3 p-2 rounded-3" style="background:#f3f0ff; border:1px solid var(--sleep)30;">'
-      + '<span style="font-size:1.2rem;">🌙</span>'
-      + '<div><div style="font-weight:700; color:var(--sleep); font-size:.9rem;">' + formatTime(bedtime) + '</div>'
-      + '<div style="font-size:.78rem; color:#666;">Bedtime (target ' + d.nightH + 'h night sleep)</div></div></div>';
+    html += '<div class="d-flex align-items-center gap-3 p-2 rounded-3 bsc-bedtime-row">'
+      + '<span class="bsc-sched-icon">🌙</span>'
+      + '<div><div class="bsc-sched-time text-sleep">' + formatTime(bedtime) + '</div>'
+      + '<div class="bsc-sched-label">Bedtime (target ' + d.nightH + 'h night sleep)</div></div></div>';
     html += '</div>';
 
-    html += '<p class="mt-3 mb-0 p-3 rounded-3" style="font-size:.8rem; color:#555; background:#f8f9fa; border:1px solid #e8e8e8; line-height:1.7;">'
+    html += '<p class="mt-3 mb-0 p-3 rounded-3 bsc-reminder-note">'
       + '⏰ <strong>Wake window reminder:</strong> Watch for sleep cues after ' + hm(wakeWMin) + ' of awake time — '
       + 'drowsy eyes, yawning, decreased activity. Putting baby down before overtiredness sets in makes settling easier.'
       + '</p>';

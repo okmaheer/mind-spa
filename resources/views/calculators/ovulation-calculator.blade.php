@@ -79,6 +79,59 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.ov-unit-hint      { font-size: .82rem; }
+.ov-stat-pill      { background: var(--life); color: #fff; border-radius: 8px; padding: 6px 10px; font-weight: 700; font-size: .85rem; min-width: 80px; text-align: center; flex-shrink: 0; }
+.ov-phase-pill     { background: var(--life); color: #fff; border-radius: 8px; padding: 5px 8px; font-weight: 700; font-size: .75rem; min-width: 90px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+.ov-phase-name     { font-weight: 600; color: var(--primary-dark); font-size: .9rem; margin-bottom: 2px; }
+.ov-phase-desc     { font-size: .85rem; color: #555; line-height: 1.5; }
+.ov-how-section    { background: #fff; padding: 80px 0 72px; }
+.ov-data-heading   { font-size: .88rem; color: var(--primary-dark); text-transform: uppercase; letter-spacing: .5px; }
+.ov-formula-box    { background: #f8f9fa; border-left: 4px solid var(--life); font-family: monospace; font-size: .95rem; color: var(--primary-dark); }
+.ov-sub            { max-width: 580px; margin: auto; }
+.ov-tbl            { border-radius: 12px; overflow: hidden; font-size: .92rem; }
+.ov-th             { padding: 14px 18px; }
+.ov-td             { padding: 12px 18px; font-size: .85rem; }
+.ov-td-phase       { padding: 12px 18px; font-weight: 600; font-size: .88rem; }
+.ov-td-status-peak  { padding: 12px 18px; font-size: .85rem; font-weight: 600; color: var(--life); }
+.ov-td-status-max   { padding: 12px 18px; font-size: .85rem; font-weight: 600; color: #155724; }
+.ov-td-status-low   { padding: 12px 18px; font-size: .85rem; font-weight: 600; color: #666; }
+.ov-td-status-other { padding: 12px 18px; font-size: .85rem; font-weight: 600; color: #856404; }
+.ov-tbl-note       { font-size: .8rem; color: #888; margin-top: 12px; }
+.ov-section-longtail { background: #f8f9ff; padding: 72px 0; }
+/* JS-generated calendar classes */
+.ov-cal-wrap       { display: flex; flex-wrap: wrap; }
+.ov-cycle-box      { background: #f8f4ff; border: 1px solid #d4c5f9; }
+.ov-cycle-title    { font-weight: 700; color: var(--life); font-size: 1rem; }
+.ov-cycle-period   { font-size: .85rem; color: #666; }
+.ov-mini-stat      { border: 1px solid #d4c5f9; background: #ede7ff; }
+.ov-mini-stat-best { border: 1px solid #b9a0f0; background: #d4c5f9; }
+.ov-mini-stat-next { border: 1px solid #fca5a5; background: #fee2e2; }
+.ov-mini-val       { font-size: .9rem; font-weight: 700; color: var(--life); }
+.ov-mini-val-best  { font-size: .9rem; font-weight: 700; color: #4a1a8c; }
+.ov-mini-val-next  { font-size: .9rem; font-weight: 700; color: #991b1b; }
+.ov-mini-lbl       { font-size: .7rem; font-weight: 600; text-transform: uppercase; color: #6f42c1; }
+.ov-mini-lbl-best  { font-size: .7rem; font-weight: 600; text-transform: uppercase; color: #4a1a8c; }
+.ov-mini-lbl-next  { font-size: .7rem; font-weight: 600; text-transform: uppercase; color: #991b1b; }
+.ov-legend         { font-size: .75rem; }
+.ov-legend-dot     { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
+.ov-legend-dot-period { background: #fee2e2; border: 1px solid #fca5a5; }
+.ov-legend-dot-fert   { background: #ede7ff; border: 1px solid #d4c5f9; }
+.ov-legend-dot-best   { background: #d4c5f9; border: 1px solid #b9a0f0; }
+.ov-legend-dot-ov     { background: var(--life); }
+.ov-day-lbl        { width: calc(100%/7); text-align: center; font-size: .7rem; color: #888; font-weight: 600; padding: 4px 0; }
+.ov-cell           { width: calc(100%/7); aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 6px; font-size: .8rem; margin: 1px; }
+.ov-cell-ov        { background: var(--life); color: #fff; border: none; font-weight: 700; }
+.ov-cell-best      { background: #d4c5f9; color: #4a1a8c; border: 1px solid #b9a0f0; font-weight: 700; }
+.ov-cell-fert      { background: #ede7ff; color: #6f42c1; border: 1px solid #d4c5f9; font-weight: 400; }
+.ov-cell-period    { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; font-weight: 400; }
+.ov-cell-incycle   { background: #fff; color: #333; border: 1px solid #e8e8e8; font-weight: 400; }
+.ov-cell-out       { background: #f8f9fa; color: #ccc; border: 1px solid #e8e8e8; font-weight: 400; }
+.ov-cell-sublabel  { font-size: .55rem; line-height: 1; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -111,7 +164,7 @@ $relatedTools = [
 
             <div class="row g-3 mb-4">
               <div class="col-sm-6">
-                <label for="ovCycleLen" class="form-label fw-semibold">Average Cycle Length <span class="text-muted fw-normal" style="font-size:.82rem;">(days)</span></label>
+                <label for="ovCycleLen" class="form-label fw-semibold">Average Cycle Length <span class="text-muted fw-normal ov-unit-hint">(days)</span></label>
                 <input type="number" id="ovCycleLen" class="form-control" value="28" min="21" max="35" aria-label="Average cycle length">
               </div>
               <div class="col-sm-6">
@@ -124,13 +177,13 @@ $relatedTools = [
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcOvulation()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcOvulation()">
               Find My Fertile Window →
             </button>
 
             {{-- Results --}}
             <div id="ovResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider mb-4"></div>
               <div id="ovCycleResults"></div>
             </div>
 
@@ -139,7 +192,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Fertility Quick Facts</h3>
           @foreach([
@@ -150,7 +203,7 @@ $relatedTools = [
             ['±2 days',   'Variation in ovulation day even with regular cycles'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--life); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.85rem; min-width:80px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
+            <div class="ov-stat-pill">{{ $stat }}</div>
             <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
@@ -163,21 +216,21 @@ $relatedTools = [
 </section>
 
 {{-- ── 2. How It Works ──────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0; padding-top:80px;">
+<section class="ov-how-section">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Ovulation Works: The Menstrual Cycle Explained</h2>
         <p>The menstrual cycle has two main phases separated by ovulation. During the <strong>follicular phase</strong>, rising oestrogen causes one dominant follicle to mature in the ovary. A surge in luteinising hormone (LH) triggers the release of the egg — ovulation — typically around day 14 of a 28-day cycle.</p>
-        <div class="p-3 mb-3 rounded-3" style="background:#f8f9fa; border-left:4px solid var(--life); font-family:monospace; font-size:.95rem; color:var(--primary-dark);">
+        <div class="p-3 mb-3 rounded-3 ov-formula-box">
           Ovulation Day = Cycle Length − 14
         </div>
         <p>After ovulation, the <strong>luteal phase</strong> lasts approximately 14 days. If the egg is not fertilised, progesterone drops and menstruation begins. The luteal phase is quite consistent at 12–16 days; the follicular phase varies most between women.</p>
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">The four phases of the menstrual cycle</p>
+          <p class="fw-semibold mb-3 ov-data-heading">The four phases of the menstrual cycle</p>
           @foreach([
             ['Menstruation',     'Days 1–5',    'Uterine lining sheds. Oestrogen and progesterone are at lowest levels.'],
             ['Follicular Phase', 'Days 1–13',   'Oestrogen rises. Follicles develop. Cervical mucus increases.'],
@@ -185,10 +238,10 @@ $relatedTools = [
             ['Luteal Phase',     'Days 15–28',  'Progesterone dominates. Cervical mucus thickens. Period begins if no conception.'],
           ] as [$phase, $days, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--life); color:#fff; border-radius:8px; padding:5px 8px; font-weight:700; font-size:.75rem; min-width:90px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $days }}</div>
+            <div class="ov-phase-pill">{{ $days }}</div>
             <div>
-              <div style="font-weight:600; color:var(--primary-dark); font-size:.9rem; margin-bottom:2px;">{{ $phase }}</div>
-              <div style="font-size:.85rem; color:#555; line-height:1.5;">{{ $desc }}</div>
+              <div class="ov-phase-name">{{ $phase }}</div>
+              <div class="ov-phase-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -203,18 +256,18 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Cervical Mucus &amp; BBT Changes Through Your Cycle</h2>
-      <p class="text-muted" style="max-width:580px; margin:auto;">Tracking these two signs alongside a calculator gives you the most accurate picture of your fertile window.</p>
+      <p class="text-muted ov-sub">Tracking these two signs alongside a calculator gives you the most accurate picture of your fertile window.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.92rem;">
+          <table class="table table-bordered ov-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:14px 18px;">Cycle Phase</th>
-                <th style="padding:14px 18px;">Cervical Mucus</th>
-                <th style="padding:14px 18px;">Basal Body Temp (BBT)</th>
-                <th style="padding:14px 18px;">Fertility Status</th>
+                <th class="ov-th">Cycle Phase</th>
+                <th class="ov-th">Cervical Mucus</th>
+                <th class="ov-th">Basal Body Temp (BBT)</th>
+                <th class="ov-th">Fertility Status</th>
               </tr>
             </thead>
             <tbody>
@@ -227,16 +280,16 @@ $relatedTools = [
                 ['Luteal phase (Days 15–28)',        'Thick, tacky, opaque — becomes dry near period',      'Elevated (36.6–37.0°C / 97.9–98.6°F)',         'Non-fertile'],
               ] as [$phase, $mucus, $bbt, $status])
               <tr>
-                <td style="padding:12px 18px; font-weight:600; font-size:.88rem;">{{ $phase }}</td>
-                <td style="padding:12px 18px; font-size:.85rem;">{{ $mucus }}</td>
-                <td style="padding:12px 18px; font-size:.85rem;">{{ $bbt }}</td>
-                <td style="padding:12px 18px; font-size:.85rem; font-weight:600; color:{{ str_contains($status,'Peak') ? 'var(--life)' : (str_contains($status,'Maximum') ? '#155724' : (str_contains($status,'Low') || str_contains($status,'Non') ? '#666' : '#856404')) }};">{{ $status }}</td>
+                <td class="ov-td-phase">{{ $phase }}</td>
+                <td class="ov-td">{{ $mucus }}</td>
+                <td class="ov-td">{{ $bbt }}</td>
+                <td class="{{ str_contains($status,'Peak') ? 'ov-td-status-peak' : (str_contains($status,'Maximum') ? 'ov-td-status-max' : (str_contains($status,'Low') || str_contains($status,'Non') ? 'ov-td-status-low' : 'ov-td-status-other')) }}">{{ $status }}</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <p style="font-size:.8rem; color:#888; margin-top:12px;">Based on the Billings Ovulation Method and standard BBT charting guidelines. Individual variation applies.</p>
+        <p class="ov-tbl-note">Based on the Billings Ovulation Method and standard BBT charting guidelines. Individual variation applies.</p>
       </div>
     </div>
   </div>
@@ -246,7 +299,7 @@ $relatedTools = [
 
 
 {{-- ── 5. Long-tail SEO Sections ────────────────────────────────────────────── --}}
-<section style="background:#f8f9ff; padding:72px 0;">
+<section class="ov-section-longtail">
   <div class="container-xl">
 
     <div class="row justify-content-center mb-5">
@@ -339,74 +392,71 @@ $relatedTools = [
     for (let i = 0; i < 35; i++) {
       const d = addDays(gridStart, i);
       const t = d.getTime();
-      const inCycle   = t >= lmpDate.getTime() && t < nextPeriod.getTime();
-      const isOv      = t === ovDate.getTime();
-      const isFert    = t >= fertStart.getTime() && t <= fertEnd.getTime();
-      const isBest    = t >= bestStart.getTime() && t <= fertEnd.getTime();
-      const isPeriod  = t >= lmpDate.getTime() && t < addDays(lmpDate, 5).getTime();
+      const inCycle  = t >= lmpDate.getTime() && t < nextPeriod.getTime();
+      const isOv     = t === ovDate.getTime();
+      const isFert   = t >= fertStart.getTime() && t <= fertEnd.getTime();
+      const isBest   = t >= bestStart.getTime() && t <= fertEnd.getTime();
+      const isPeriod = t >= lmpDate.getTime() && t < addDays(lmpDate, 5).getTime();
 
-      let bg = '#f8f9fa'; let color = '#aaa'; let border = '1px solid #e8e8e8'; let label = '';
-      if (!inCycle) { bg = '#f8f9fa'; color = '#ccc'; }
-      else if (isOv) { bg = 'var(--life)'; color = '#fff'; border = 'none'; label = '◉'; }
-      else if (isBest) { bg = '#d4c5f9'; color = '#4a1a8c'; border = '1px solid #b9a0f0'; label = '★'; }
-      else if (isFert) { bg = '#ede7ff'; color = '#6f42c1'; border = '1px solid #d4c5f9'; }
-      else if (isPeriod) { bg = '#fee2e2'; color = '#991b1b'; border = '1px solid #fca5a5'; }
-      else { bg = '#fff'; color = '#333'; }
+      let cellClass = 'ov-cell '; let label = '';
+      if (!inCycle)      { cellClass += 'ov-cell-out'; }
+      else if (isOv)     { cellClass += 'ov-cell-ov';     label = '◉'; }
+      else if (isBest)   { cellClass += 'ov-cell-best';   label = '★'; }
+      else if (isFert)   { cellClass += 'ov-cell-fert'; }
+      else if (isPeriod) { cellClass += 'ov-cell-period'; }
+      else               { cellClass += 'ov-cell-incycle'; }
 
-      cells.push(`<div style="width:calc(100%/7); aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:6px; background:${bg}; color:${color}; border:${border}; font-size:.8rem; font-weight:${isOv || isBest ? '700' : '400'}; margin:1px;">
-        ${d.getDate()}${label ? `<span style="font-size:.55rem; line-height:1;">${label}</span>` : ''}
-      </div>`);
+      cells.push(`<div class="${cellClass}">${d.getDate()}${label ? `<span class="ov-cell-sublabel">${label}</span>` : ''}</div>`);
     }
 
     const dayLabels = ['Mo','Tu','We','Th','Fr','Sa','Su'].map(d =>
-      `<div style="width:calc(100%/7); text-align:center; font-size:.7rem; color:#888; font-weight:600; padding:4px 0;">${d}</div>`
+      `<div class="ov-day-lbl">${d}</div>`
     ).join('');
 
     return `
-      <div class="mb-4 p-4 rounded-3" style="background:#f8f4ff; border:1px solid #d4c5f9;">
+      <div class="mb-4 p-4 rounded-3 ov-cycle-box">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <span style="font-weight:700; color:var(--life); font-size:1rem;">Cycle ${cycleNum}</span>
-          <span style="font-size:.85rem; color:#666;">Period starts ${fmtShort(lmpDate)}</span>
+          <span class="ov-cycle-title">Cycle ${cycleNum}</span>
+          <span class="ov-cycle-period">Period starts ${fmtShort(lmpDate)}</span>
         </div>
 
         <div class="row g-2 mb-3">
           <div class="col-6 col-sm-3">
-            <div class="p-2 rounded-3 text-center" style="background:#ede7ff; border:1px solid #d4c5f9;">
-              <div style="font-size:.7rem; color:#6f42c1; font-weight:600; text-transform:uppercase;">Ovulation</div>
-              <div style="font-size:.9rem; font-weight:700; color:var(--life);">${fmtShort(ovDate)}</div>
+            <div class="p-2 rounded-3 text-center ov-mini-stat">
+              <div class="ov-mini-lbl">Ovulation</div>
+              <div class="ov-mini-val">${fmtShort(ovDate)}</div>
             </div>
           </div>
           <div class="col-6 col-sm-3">
-            <div class="p-2 rounded-3 text-center" style="background:#d4c5f9; border:1px solid #b9a0f0;">
-              <div style="font-size:.7rem; color:#4a1a8c; font-weight:600; text-transform:uppercase;">Best Days</div>
-              <div style="font-size:.9rem; font-weight:700; color:#4a1a8c;">${fmtShort(bestStart)} – ${fmtShort(fertEnd)}</div>
+            <div class="p-2 rounded-3 text-center ov-mini-stat-best">
+              <div class="ov-mini-lbl-best">Best Days</div>
+              <div class="ov-mini-val-best">${fmtShort(bestStart)} – ${fmtShort(fertEnd)}</div>
             </div>
           </div>
           <div class="col-6 col-sm-3">
-            <div class="p-2 rounded-3 text-center" style="background:#ede7ff; border:1px solid #d4c5f9;">
-              <div style="font-size:.7rem; color:#6f42c1; font-weight:600; text-transform:uppercase;">Fertile Window</div>
-              <div style="font-size:.9rem; font-weight:700; color:var(--life);">${fmtShort(fertStart)} – ${fmtShort(fertEnd)}</div>
+            <div class="p-2 rounded-3 text-center ov-mini-stat">
+              <div class="ov-mini-lbl">Fertile Window</div>
+              <div class="ov-mini-val">${fmtShort(fertStart)} – ${fmtShort(fertEnd)}</div>
             </div>
           </div>
           <div class="col-6 col-sm-3">
-            <div class="p-2 rounded-3 text-center" style="background:#fee2e2; border:1px solid #fca5a5;">
-              <div style="font-size:.7rem; color:#991b1b; font-weight:600; text-transform:uppercase;">Next Period</div>
-              <div style="font-size:.9rem; font-weight:700; color:#991b1b;">${fmtShort(nextPeriod)}</div>
+            <div class="p-2 rounded-3 text-center ov-mini-stat-next">
+              <div class="ov-mini-lbl-next">Next Period</div>
+              <div class="ov-mini-val-next">${fmtShort(nextPeriod)}</div>
             </div>
           </div>
         </div>
 
-        {{-- Mini calendar --}}
-        <div style="display:flex; flex-wrap:wrap;">
+        <div class="ov-cal-wrap">
           ${dayLabels}
           ${cells.join('')}
         </div>
 
-        <div class="d-flex flex-wrap gap-3 mt-3" style="font-size:.75rem;">
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#fee2e2;border:1px solid #fca5a5;margin-right:4px;"></span>Period</span>
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ede7ff;border:1px solid #d4c5f9;margin-right:4px;"></span>Fertile</span>
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#d4c5f9;border:1px solid #b9a0f0;margin-right:4px;"></span>★ Best days</span>
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--life);margin-right:4px;"></span>◉ Ovulation</span>
+        <div class="d-flex flex-wrap gap-3 mt-3 ov-legend">
+          <span><span class="ov-legend-dot ov-legend-dot-period"></span>Period</span>
+          <span><span class="ov-legend-dot ov-legend-dot-fert"></span>Fertile</span>
+          <span><span class="ov-legend-dot ov-legend-dot-best"></span>★ Best days</span>
+          <span><span class="ov-legend-dot ov-legend-dot-ov"></span>◉ Ovulation</span>
         </div>
       </div>`;
   }

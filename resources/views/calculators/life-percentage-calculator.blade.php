@@ -74,6 +74,24 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.lp-bar-legend  { font-size:.82rem; color:#888; }
+.lp-pct-label   { font-weight:700; color:var(--primary-dark); font-size:.95rem; }
+.lp-bar-track   { background:#f0f0f0; border-radius:50px; height:24px; overflow:hidden; box-shadow:inset 0 2px 6px rgba(0,0,0,.06); }
+.lp-bar-fill    { height:100%; border-radius:50px; transition:width 1s ease; background:linear-gradient(90deg,#28a745 0%,#fd7e14 60%,#e94560 100%); width:0%; }
+.lp-bar-markers { font-size:.72rem; color:#ccc; }
+.lp-stat-val    { font-size:1.2rem; font-weight:700; }
+.lp-detail-box  { background:#f8f9fa; font-size:.88rem; color:#555; }
+.lp-data-num    { font-weight:700; min-width:120px; font-size:.9rem; }
+.lp-data-desc   { font-size:.83rem; color:#666; }
+.lp-table-sub   { max-width:480px; margin:auto; }
+.lp-country-tbl { font-size:.88rem; }
+.lp-milestone   { font-size:.82rem; }
+.lp-orange      { color:#e97b1e; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Hero --}}
@@ -134,22 +152,22 @@ $relatedTools = [
                 <input type="number" id="lpCustomLE" class="form-control" value="80" min="40" max="120">
               </div>
             </div>
-            <button class="btn btn-cta w-100 mt-4" onclick="calcLifePercent()" style="font-size:1rem;">Calculate →</button>
+            <button class="btn btn-cta w-100 mt-4" onclick="calcLifePercent()">Calculate →</button>
 
             <div id="lpResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               {{-- The progress bar — centrepiece --}}
               <div class="mb-4">
-                <div class="d-flex justify-content-between mb-2" style="font-size:.82rem; color:#888;">
+                <div class="d-flex justify-content-between mb-2 lp-bar-legend">
                   <span>Birth</span>
-                  <span id="lpPctLabel" style="font-weight:700; color:var(--primary-dark); font-size:.95rem;"></span>
+                  <span id="lpPctLabel" class="lp-pct-label"></span>
                   <span id="lpLeLabel"></span>
                 </div>
-                <div style="background:#f0f0f0; border-radius:50px; height:24px; overflow:hidden; box-shadow:inset 0 2px 6px rgba(0,0,0,.06);">
-                  <div id="lpBar" style="height:100%; border-radius:50px; transition:width 1s ease; background:linear-gradient(90deg, #28a745 0%, #fd7e14 60%, #e94560 100%); width:0%;"></div>
+                <div class="lp-bar-track">
+                  <div id="lpBar" class="lp-bar-fill"></div>
                 </div>
-                <div class="d-flex justify-content-between mt-1" style="font-size:.72rem; color:#ccc;">
+                <div class="d-flex justify-content-between mt-1 lp-bar-markers">
                   <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
                 </div>
               </div>
@@ -157,36 +175,36 @@ $relatedTools = [
               <div class="row g-3 text-center">
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-green">
-                    <div id="lpDaysLived" style="font-size:1.2rem; font-weight:700; color:var(--green-text);">—</div>
+                    <div id="lpDaysLived" class="lp-stat-val text-green">—</div>
                     <div class="ms-stat-label">Days Lived</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-orange">
-                    <div id="lpDaysLeft" style="font-size:1.2rem; font-weight:700; color:#e97b1e;">—</div>
+                    <div id="lpDaysLeft" class="lp-stat-val lp-orange">—</div>
                     <div class="ms-stat-label">Days Remaining</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-purple">
-                    <div id="lpYearsLeft" style="font-size:1.2rem; font-weight:700; color:var(--life);">—</div>
+                    <div id="lpYearsLeft" class="lp-stat-val text-life">—</div>
                     <div class="ms-stat-label">Years Remaining</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-pink">
-                    <div id="lpWeeksLeft" style="font-size:1.2rem; font-weight:700; color:var(--cta-text);">—</div>
+                    <div id="lpWeeksLeft" class="lp-stat-val text-cta">—</div>
                     <div class="ms-stat-label">Weeks Remaining</div>
                   </div>
                 </div>
               </div>
-              <div id="lpDetail" class="mt-3 p-3 rounded" style="background:#f8f9fa; font-size:.88rem; color:#555;"></div>
+              <div id="lpDetail" class="mt-3 p-3 rounded lp-detail-box"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Life Expectancy Facts</h3>
           @foreach([
@@ -221,7 +239,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="font-size:.88rem; color:var(--primary-dark); text-transform:uppercase; letter-spacing:.5px;">Life in numbers — an average 79-year life</p>
+          <p class="fw-600 mb-3 ms-data-label">Life in numbers — an average 79-year life</p>
           @foreach([
             ['28,835 days','Total days in a 79-year life'],
             ['4,119 weeks','Weeks — a humbling number to see'],
@@ -232,8 +250,8 @@ $relatedTools = [
             ['31.7 years','Age when you hit 1 billion seconds lived'],
           ] as [$n,$l])
           <div class="d-flex align-items-center gap-3 mb-2">
-            <div style="font-weight:700; color:var(--life); min-width:120px; font-size:.9rem;">{{ $n }}</div>
-            <div style="font-size:.83rem; color:#666;">{{ $l }}</div>
+            <div class="lp-data-num text-life">{{ $n }}</div>
+            <div class="lp-data-desc">{{ $l }}</div>
           </div>
           @endforeach
         </div>
@@ -247,12 +265,12 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Life Expectancy by Country</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">Top countries and global average — WHO 2024 estimates.</p>
+      <p class="text-muted lp-table-sub">Top countries and global average — WHO 2024 estimates.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="table-responsive">
-          <table class="table table-bordered" style="font-size:.88rem;">
+          <table class="table table-bordered lp-country-tbl">
             <thead class="ms-table-head">
               <tr><th>#</th><th>Country</th><th>Overall</th><th>Male</th><th>Female</th></tr>
             </thead>
@@ -275,9 +293,9 @@ $relatedTools = [
                 ['—','🌍 Global Average','72.8','70.4','75.2'],
               ] as [$rank,$country,$overall,$male,$female])
               <tr>
-                <td style="color:#888;">{{ $rank }}</td>
+                <td class="text-muted">{{ $rank }}</td>
                 <td>{{ $country }}</td>
-                <td style="font-weight:600; color:var(--life);">{{ $overall }}</td>
+                <td class="fw-600 text-life">{{ $overall }}</td>
                 <td>{{ $male }}</td>
                 <td>{{ $female }}</td>
               </tr>
@@ -296,14 +314,14 @@ $relatedTools = [
 {{-- Long-tail --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Life Expectancy by Country — Which Nations Live the Longest?</h2>
+    <h2 class="mb-4 text-brand">Life Expectancy by Country — Which Nations Live the Longest?</h2>
     <p>Japan leads global life expectancy rankings largely due to a combination of diet (fish, vegetables, minimal processed food), social cohesion (strong community bonds reduce chronic stress), universal healthcare with high utilisation rates, and the cultural concept of ikigai — a sense of purpose and reason to get up in the morning. The island of Okinawa is particularly studied as a "Blue Zone" where an unusually high proportion of people live past 100.</p>
     <p>The gap between the longest and shortest-lived nations exceeds 25 years — a difference entirely attributable to socioeconomic factors, healthcare access, diet, and environment, not genetics.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Many Days Have I Been Alive? — The Perspective Behind the Number</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Many Days Have I Been Alive? — The Perspective Behind the Number</h2>
     <p>At 30 years old, you've been alive for approximately 10,957 days. At 40, approximately 14,610. These numbers sound large until you consider the total: an 80-year life is only 29,200 days. Seeing your life in days rather than years gives a different kind of clarity — the average human year contains 365 days, most of which are fairly ordinary. The proportion of truly memorable days is much smaller. This perspective is what tools like this calculator (and the concept of memento mori in Stoic philosophy) aim to make viscerally real.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Lifestyle Choices Affect Life Expectancy — What the Research Says</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Lifestyle Choices Affect Life Expectancy — What the Research Says</h2>
     <p>A landmark 2018 study published in Circulation (Harvard School of Public Health) found that five lifestyle factors add an average of 14 years to a woman's life and 12 years to a man's life: never smoking, maintaining a healthy BMI (18.5–24.9), at least 30 minutes of moderate activity per day, moderate alcohol consumption (if any), and a high-quality diet. The combined effect of all five factors was dramatically larger than any single factor alone — suggesting that lifestyle changes compound over time rather than simply adding years linearly.</p>
   </div>
 </section>
@@ -383,7 +401,7 @@ $relatedTools = [
       + 'Life expectancy used: ' + le + ' years (' + (sex === 'female' ? 'female +4yr' : 'male base') + ')<br>'
       + daysLived.toLocaleString() + ' days lived · ' + daysLeft.toLocaleString() + ' days remaining<br>';
     if (milestones.length > 0) {
-      detailHtml += '<span style="color:var(--life); font-size:.82rem;">Upcoming: ' + milestones.join(' | ') + '</span>';
+      detailHtml += '<span class="text-life lp-milestone">Upcoming: ' + milestones.join(' | ') + '</span>';
     }
 
     document.getElementById('lpDetail').innerHTML = detailHtml;

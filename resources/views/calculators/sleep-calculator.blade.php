@@ -84,11 +84,13 @@ $relatedTools = [
     <div class="row align-items-start g-5">
 
       <div class="col-lg-7">
-        <x-breadcrumb :crumbs="[
-          ['url' => route('home'), 'name' => 'Home'],
-          ['url' => route('category.sleep'), 'name' => 'Sleep Tools'],
-          ['url' => '', 'name' => 'Sleep Calculator'],
-        ]"/>
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb ms-breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.sleep') }}">Sleep Tools</a></li>
+            <li class="breadcrumb-item active">Sleep Calculator</li>
+          </ol>
+        </nav>
 
         <h1 class="mb-2 ms-hero-title">
           😴 Sleep Calculator — Find Your Ideal Bedtime
@@ -103,10 +105,10 @@ $relatedTools = [
 
             {{-- Mode toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Calculator mode">
-              <button class="btn flex-fill mode-btn active" data-mode="bedtime" style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--sleep); color:#fff; border:none;">
+              <button class="btn flex-fill mode-btn active ms-toggle-btn active-sleep" data-mode="bedtime">
                 🌙 I need to wake up at…
               </button>
-              <button class="btn flex-fill mode-btn" data-mode="wakeup" style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
+              <button class="btn flex-fill mode-btn ms-toggle-btn" data-mode="wakeup">
                 ☀️ I'm going to bed at…
               </button>
             </div>
@@ -117,7 +119,7 @@ $relatedTools = [
               <input type="time" id="wakeTime" class="form-control mb-3" value="07:00" aria-label="Wake-up time">
               <label for="fallAsleepBedtime" class="form-label fw-600">
                 Time to fall asleep?
-                <span class="text-muted fw-400" style="font-size:.83rem;">most people: 10–20 min</span>
+                <span class="text-muted fw-400 sc-hint">most people: 10–20 min</span>
               </label>
               <select id="fallAsleepBedtime" class="form-select mb-3">
                 <option value="5">5 minutes</option>
@@ -146,31 +148,31 @@ $relatedTools = [
             <div class="mb-4">
               <button type="button" id="chronoToggleBtn"
                       onclick="document.getElementById('chronoPanel').classList.toggle('d-none')"
-                      style="background:none; border:none; color:var(--sleep); font-size:.82rem; font-weight:600; cursor:pointer; padding:0; display:flex; align-items:center; gap:5px;">
+                      class="sc-chrono-toggle">
                 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                 Personalise for your chronotype
               </button>
-              <div id="chronoPanel" class="d-none mt-2 p-3 rounded-3" style="background:#f0f2ff; border:1px solid #dde0ff;">
-                <p style="font-size:.82rem; color:#444; font-weight:600; margin-bottom:10px;">When do you naturally wake up on free days?</p>
+              <div id="chronoPanel" class="d-none mt-2 p-3 rounded-3 sc-chrono-panel">
+                <p class="sc-chrono-label">When do you naturally wake up on free days?</p>
                 <div class="d-flex gap-2 flex-wrap">
-                  <button class="chrono-btn" data-chrono="lion"    onclick="setChronotype('lion', this)"  style="border-radius:8px; padding:7px 14px; font-size:.8rem; font-weight:600; background:#fff; border:2px solid #e0e0e0; cursor:pointer;">🦁 Before 6am</button>
-                  <button class="chrono-btn active" data-chrono="bear" onclick="setChronotype('bear', this)" style="border-radius:8px; padding:7px 14px; font-size:.8rem; font-weight:600; background:var(--sleep); color:#fff; border:2px solid var(--sleep); cursor:pointer;">🐻 6–8am</button>
-                  <button class="chrono-btn" data-chrono="wolf"    onclick="setChronotype('wolf', this)"  style="border-radius:8px; padding:7px 14px; font-size:.8rem; font-weight:600; background:#fff; border:2px solid #e0e0e0; cursor:pointer;">🐺 After 8am</button>
+                  <button class="chrono-btn" data-chrono="lion"    onclick="setChronotype('lion', this)">🦁 Before 6am</button>
+                  <button class="chrono-btn active" data-chrono="bear" onclick="setChronotype('bear', this)">🐻 6–8am</button>
+                  <button class="chrono-btn" data-chrono="wolf"    onclick="setChronotype('wolf', this)">🐺 After 8am</button>
                 </div>
-                <p id="chronoDesc" style="font-size:.78rem; color:#666; margin:8px 0 0; line-height:1.5;">
+                <p id="chronoDesc" class="sc-chrono-desc">
                   <strong>Bear (most common):</strong> Your sleep follows the solar cycle. 7–8 hours with a 7–8 AM wake-up is your sweet spot.
                 </p>
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="runCalc()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="runCalc()">
               Calculate →
             </button>
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
               <div class="ms-divider"></div>
-              <p id="resultLabel" class="mb-3" style="color:var(--primary-dark); font-size:.9rem; font-weight:600;"></p>
+              <p id="resultLabel" class="mb-3 sc-result-label"></p>
 
               {{-- Result cards --}}
               <div id="resultCards" class="d-flex gap-2 flex-wrap"></div>
@@ -180,50 +182,50 @@ $relatedTools = [
                 <div class="ms-divider"></div>
 
                 <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
-                  <p style="font-weight:700; font-size:.88rem; color:var(--primary-dark); margin:0;">Your Night Visualized</p>
+                  <p class="sc-viz-title">Your Night Visualized</p>
                   <div class="d-flex flex-wrap gap-3">
                     @foreach([['#d0d0d0','Awake'],['#4a9fd4','Light'],['#1a5fa8','Deep'],['#7c6ff7','REM']] as [$col,$lbl])
-                    <div class="d-flex align-items-center gap-1" style="font-size:.72rem; color:#777;">
-                      <div style="width:10px; height:10px; border-radius:2px; background:{{ $col }};"></div> {{ $lbl }}
+                    <div class="d-flex align-items-center gap-1 sc-legend-item">
+                      <div class="sc-legend-swatch" style="background:{{ $col }};"></div> {{ $lbl }}
                     </div>
                     @endforeach
-                    <div class="d-flex align-items-center gap-1" style="font-size:.72rem; color:#e94560;">
-                      <div style="width:2px; height:10px; background:#e94560; border-radius:1px;"></div> Alarm
+                    <div class="d-flex align-items-center gap-1 sc-legend-alarm">
+                      <div class="sc-legend-alarm-line"></div> Alarm
                     </div>
                   </div>
                 </div>
 
-                <div id="sleepViz" style="border-radius:10px; overflow:hidden; border:1px solid #e8eaed;"></div>
+                <div id="sleepViz" class="sc-viz-wrap"></div>
 
                 {{-- Night stats --}}
                 <div class="row g-2 mt-2 text-center">
                   <div class="col-3">
-                    <div style="background:#eef3ff; border-radius:8px; padding:10px 4px;">
-                      <div style="font-size:.95rem; font-weight:700; color:#1a5fa8;" id="statDeep">—</div>
-                      <div style="font-size:.68rem; color:#888;">Deep sleep</div>
+                    <div class="sc-stat-deep">
+                      <div id="statDeep" class="sc-stat-deep-val">—</div>
+                      <div class="text-xs text-muted">Deep sleep</div>
                     </div>
                   </div>
                   <div class="col-3">
-                    <div style="background:#f3f0ff; border-radius:8px; padding:10px 4px;">
-                      <div style="font-size:.95rem; font-weight:700; color:#7c6ff7;" id="statREM">—</div>
-                      <div style="font-size:.68rem; color:#888;">REM sleep</div>
+                    <div class="sc-stat-rem">
+                      <div id="statREM" class="sc-stat-rem-val">—</div>
+                      <div class="text-xs text-muted">REM sleep</div>
                     </div>
                   </div>
                   <div class="col-3">
-                    <div style="background:#fff8ec; border-radius:8px; padding:10px 4px;">
-                      <div style="font-size:.95rem; font-weight:700; color:#e97b1e;" id="statCycles">—</div>
-                      <div style="font-size:.68rem; color:#888;">Cycles</div>
+                    <div class="sc-stat-cycles">
+                      <div id="statCycles" class="sc-stat-cycles-val">—</div>
+                      <div class="text-xs text-muted">Cycles</div>
                     </div>
                   </div>
                   <div class="col-3">
-                    <div style="background:#edfff3; border-radius:8px; padding:10px 4px;">
-                      <div style="font-size:.88rem; font-weight:700; color:#28a745; letter-spacing:1px;" id="statScore">—</div>
-                      <div style="font-size:.68rem; color:#888;">Rating</div>
+                    <div class="sc-stat-score">
+                      <div id="statScore" class="sc-stat-score-val">—</div>
+                      <div class="text-xs text-muted">Rating</div>
                     </div>
                   </div>
                 </div>
 
-                <p id="chronoNote" class="mt-3 mb-0 p-2 rounded" style="font-size:.78rem; color:#555; background:#f8f8f8; display:none;"></p>
+                <p id="chronoNote" class="mt-3 mb-0 p-2 rounded sc-chrono-note d-none"></p>
               </div>
               {{-- /viz --}}
 
@@ -236,7 +238,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Sleep Facts</h3>
           @foreach([
@@ -272,7 +274,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">A single 90-minute cycle</p>
+          <p class="fw-600 mb-3 ms-panel-head">A single 90-minute cycle</p>
           @foreach([
             ['Stage 1 — Light NREM', '~5 min',  '#aacde8', 'Drowsy, easy to wake. Muscles relax, heartbeat slows.'],
             ['Stage 2 — Light NREM', '~20 min', '#4a9fd4', 'Body temperature drops, sleep spindles appear. Memory consolidation begins.'],
@@ -280,10 +282,10 @@ $relatedTools = [
             ['REM',                  '~25 min', '#7c6ff7', 'Dreaming. Emotional memory processing. Gets longer in later cycles.'],
           ] as [$stage, $duration, $color, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $color }}; color:#fff; border-radius:6px; padding:4px 8px; font-size:.75rem; font-weight:700; min-width:50px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $duration }}</div>
+            <div class="sc-cycle-duration" style="background:{{ $color }};">{{ $duration }}</div>
             <div>
-              <div class="fw-600" style="font-size:.87rem; color:#1a1a2e;">{{ $stage }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-600 sc-stage-name">{{ $stage }}</div>
+              <div class="sc-stage-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -298,7 +300,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>How Much Sleep Does Your Age Group Need?</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Recommendations from the AASM and CDC, based on population research.</p>
+      <p class="text-muted ms-intro-text">Recommendations from the AASM and CDC, based on population research.</p>
     </div>
     <div class="row g-3 justify-content-center">
       @foreach([
@@ -312,12 +314,12 @@ $relatedTools = [
         ['🧓','Seniors','65+ yrs','7–8 hrs','More wake-ups are normal; total need stays high.'],
       ] as [$icon,$group,$age,$hours,$note])
       <div class="col-6 col-md-3">
-        <div class="card border-0 h-100 text-center p-3" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06);">
-          <div style="font-size:2rem; margin-bottom:8px;">{{ $icon }}</div>
-          <div class="fw-700" style="font-size:.88rem; color:var(--primary-dark);">{{ $group }}</div>
-          <div style="font-size:.78rem; color:#888; margin-bottom:8px;">{{ $age }}</div>
-          <div class="fw-700" style="font-size:1.05rem; color:var(--sleep);">{{ $hours }}</div>
-          <div style="font-size:.74rem; color:#999; margin-top:8px; line-height:1.5;">{{ $note }}</div>
+        <div class="card border-0 h-100 text-center p-3 sc-age-card">
+          <div class="sc-age-icon">{{ $icon }}</div>
+          <div class="fw-700 sc-age-group">{{ $group }}</div>
+          <div class="sc-age-range">{{ $age }}</div>
+          <div class="fw-700 sc-age-hours">{{ $hours }}</div>
+          <div class="sc-age-note">{{ $note }}</div>
         </div>
       </div>
       @endforeach
@@ -339,16 +341,16 @@ $relatedTools = [
         <p>The 90-minute framework comes from Nathaniel Kleitman, who co-discovered REM sleep in 1953 and described the Basic Rest-Activity Cycle. Subsequent polysomnography research confirmed that waking at a cycle's natural end — rather than mid-cycle — dramatically reduces sleep inertia and produces better subjective sleep quality ratings.</p>
       </div>
       <div class="col-lg-6">
-        <h3 class="mb-3" style="font-size:1.1rem;">Signs You're Waking Mid-Cycle</h3>
+        <h3 class="mb-3 sc-section-h3">Signs You're Waking Mid-Cycle</h3>
         <div class="d-flex flex-column gap-2 mb-4">
           @foreach(['You feel groggy 20–30 minutes after waking even on a "full" night','You need multiple snooze alarms before feeling alert','You perform significantly better on days you wake without an alarm','Weekday vs weekend energy is dramatically different at the same total hours'] as $s)
-          <div class="d-flex gap-2"><div style="color:var(--primary-cta); flex-shrink:0;">✗</div><div style="font-size:.88rem; color:#555;">{{ $s }}</div></div>
+          <div class="d-flex gap-2"><div class="text-cta shrink-0">✗</div><div class="sc-check-item">{{ $s }}</div></div>
           @endforeach
         </div>
-        <h3 class="mb-3" style="font-size:1.1rem;">Signs You're Waking at the Right Time</h3>
+        <h3 class="mb-3 sc-section-h3">Signs You're Waking at the Right Time</h3>
         <div class="d-flex flex-column gap-2">
           @foreach(['Alert and oriented within 2–3 minutes of waking','No urge to lie back down after turning the alarm off','Consistent energy through the morning without caffeine','You remember the content of your last dream (indicates light-sleep wake)'] as $s)
-          <div class="d-flex gap-2"><div style="color:#28a745; flex-shrink:0;">✓</div><div style="font-size:.88rem; color:#555;">{{ $s }}</div></div>
+          <div class="d-flex gap-2"><div class="text-success shrink-0">✓</div><div class="sc-check-item">{{ $s }}</div></div>
           @endforeach
         </div>
       </div>
@@ -361,7 +363,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>How to Improve Sleep Quality: 10 Evidence-Based Tips</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">Each one is backed by peer-reviewed research — not generic wellness advice.</p>
+      <p class="text-muted sc-subtitle">Each one is backed by peer-reviewed research — not generic wellness advice.</p>
     </div>
     <div class="row g-3">
       @foreach([
@@ -377,11 +379,11 @@ $relatedTools = [
         ['⏰','If you can\'t sleep in 20 min, get up','Lying awake trains the brain that bed equals wakefulness. Get up, do something quiet in low light, return only when genuinely sleepy. This is the core of CBT-I — the gold standard insomnia treatment.'],
       ] as $i => [$icon,$title,$desc])
       <div class="col-md-6">
-        <div class="d-flex gap-3 p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e8e8e8;">
-          <div style="font-size:1.4rem; flex-shrink:0; line-height:1; padding-top:2px;">{{ $icon }}</div>
+        <div class="d-flex gap-3 p-3 rounded-3 sc-sleep-tips">
+          <div class="sc-tip-icon">{{ $icon }}</div>
           <div>
-            <div class="fw-600" style="font-size:.88rem; color:var(--primary-dark); margin-bottom:4px;">{{ ($i+1) }}. {{ $title }}</div>
-            <div style="font-size:.8rem; color:#666; line-height:1.6;">{{ $desc }}</div>
+            <div class="fw-600 sc-tip-title">{{ ($i+1) }}. {{ $title }}</div>
+            <div class="sc-tip-desc">{{ $desc }}</div>
           </div>
         </div>
       </div>
@@ -393,11 +395,11 @@ $relatedTools = [
 {{-- Long-tail keyword sections --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Sleep Calculator for Shift Workers</h2>
+    <h2 class="mb-4 text-brand">Sleep Calculator for Shift Workers</h2>
     <p>Night shift and rotating shift workers face a unique challenge: their sleep window changes constantly. Use this calculator by entering your actual wake-up target for your next shift. For rotating shifts, aim for a consistent number of cycles (5 or 6) rather than a fixed bedtime. Research from the Journal of Sleep Research shows shift workers who align sleep with 90-minute cycles report 34% fewer sleep complaints than those who simply aim for "8 hours."</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Calculator for Teenagers</h2>
+    <h2 class="mt-5 mb-4 text-brand">Sleep Calculator for Teenagers</h2>
     <p>Teenagers need 8–10 hours of sleep per night — more than adults — because the brain undergoes significant development during adolescence. A common mistake is assuming a teen who sleeps until noon is lazy; biologically, the teenage circadian rhythm shifts later, making early school start times a genuine health issue. Use this calculator with a school wake-up time to find the ideal bedtime that completes full 90-minute cycles for a 9-hour sleep duration.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Calculator for 8 Hours of Sleep</h2>
+    <h2 class="mt-5 mb-4 text-brand">Sleep Calculator for 8 Hours of Sleep</h2>
     <p>Exactly 8 hours is a common target, but 8 hours does not divide evenly into 90-minute cycles (it gives 5.3 cycles). You are better off targeting either 7.5 hours (5 complete cycles) or 9 hours (6 complete cycles). Waking mid-cycle — even after 8 exact hours — produces the same grogginess as waking after 5 hours. This calculator automatically shows you cycle-aligned times so you never wake at the wrong stage.</p>
   </div>
 </section>
@@ -419,13 +421,71 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Snooze Buttons Make Things Worse</h3>
         <p>Hitting snooze doesn't help. The 7–9 minutes between alarms doesn't complete a meaningful sleep stage — it just repeatedly interrupts the body's attempt to re-enter deeper sleep without delivering any restorative benefit. You'd be better off setting the alarm 9 minutes later and sleeping straight through.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-blue">
-          <p style="margin:0; font-size:.85rem; color:#1a4a7a;"><strong>Note:</strong> This tool is for general wellness guidance. If you consistently struggle with sleep quality, experience excessive daytime sleepiness, or have symptoms like loud snoring, please consult a physician or sleep specialist. Conditions like sleep apnea and insomnia disorder require professional assessment.</p>
+          <p class="mb-0 text-sm"><strong>Note:</strong> This tool is for general wellness guidance. If you consistently struggle with sleep quality, experience excessive daytime sleepiness, or have symptoms like loud snoring, please consult a physician or sleep specialist. Conditions like sleep apnea and insomnia disorder require professional assessment.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+@endsection
+
+@section('styles')
+<style>
+.sc-chrono-toggle { background: none; border: none; color: var(--sleep); font-size: .82rem; font-weight: 600; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 5px; }
+.sc-chrono-panel { background: #f0f2ff; border: 1px solid #dde0ff; }
+.sc-chrono-label { font-size: .82rem; color: #444; font-weight: 600; margin-bottom: 10px; }
+.sc-chrono-desc { font-size: .78rem; color: #666; margin: 8px 0 0; line-height: 1.5; }
+.chrono-btn { border-radius: 8px; padding: 7px 14px; font-size: .8rem; font-weight: 600; background: #fff; border: 2px solid #e0e0e0; cursor: pointer; }
+.chrono-btn.active { background: var(--sleep); color: #fff; border-color: var(--sleep); }
+.sc-result-label { color: var(--primary-dark); font-size: .9rem; font-weight: 600; }
+.sc-viz-title { font-weight: 700; font-size: .88rem; color: var(--primary-dark); margin: 0; }
+.sc-legend-item { font-size: .72rem; color: #777; }
+.sc-legend-alarm { font-size: .72rem; color: #e94560; }
+.sc-viz-wrap { border-radius: 10px; overflow: hidden; border: 1px solid #e8eaed; }
+.sc-stat-deep { background: #eef3ff; border-radius: 8px; padding: 10px 4px; }
+.sc-stat-deep-val { font-size: .95rem; font-weight: 700; color: #1a5fa8; }
+.sc-stat-rem { background: #f3f0ff; border-radius: 8px; padding: 10px 4px; }
+.sc-stat-rem-val { font-size: .95rem; font-weight: 700; color: #7c6ff7; }
+.sc-stat-cycles { background: #fff8ec; border-radius: 8px; padding: 10px 4px; }
+.sc-stat-cycles-val { font-size: .95rem; font-weight: 700; color: #e97b1e; }
+.sc-stat-score { background: #edfff3; border-radius: 8px; padding: 10px 4px; }
+.sc-stat-score-val { font-size: .88rem; font-weight: 700; color: #28a745; letter-spacing: 1px; }
+.sc-chrono-note { font-size: .78rem; color: #555; background: #f8f8f8; }
+.sc-legend-swatch { width: 10px; height: 10px; border-radius: 2px; }
+.sc-legend-alarm-line { width: 2px; height: 10px; background: #e94560; border-radius: 1px; }
+.sc-sleep-tips { background: #f8f9fa; border: 1px solid #e8e8e8; }
+.sc-tip-icon { font-size: 1.4rem; flex-shrink: 0; line-height: 1; padding-top: 2px; }
+.sc-tip-title { font-size: .88rem; color: var(--primary-dark); margin-bottom: 4px; }
+.sc-tip-desc { font-size: .8rem; color: #666; line-height: 1.6; }
+.sc-age-card { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.sc-age-icon { font-size: 2rem; margin-bottom: 8px; }
+.sc-age-group { font-size: .88rem; color: var(--primary-dark); }
+.sc-age-range { font-size: .78rem; color: #888; margin-bottom: 8px; }
+.sc-age-hours { font-size: 1.05rem; color: var(--sleep); }
+.sc-age-note { font-size: .74rem; color: #999; margin-top: 8px; line-height: 1.5; }
+.sc-cycle-duration { color: #fff; border-radius: 6px; padding: 4px 8px; font-size: .75rem; font-weight: 700; min-width: 50px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+.sc-stage-name { font-size: .87rem; color: #1a1a2e; }
+.sc-stage-desc { font-size: .8rem; color: #666; line-height: 1.5; }
+.sc-check-item { font-size: .88rem; color: #555; }
+.sc-hint { font-size: .83rem; }
+.sc-panel-head { font-size: .88rem; color: var(--primary-dark); }
+.sc-section-h3 { font-size: 1.1rem; }
+.sc-subtitle    { max-width: 480px; margin: auto; }
+.result-card    { border-radius: 12px; padding: 12px 14px; text-align: center; cursor: pointer; transition: all .15s; flex: 1; min-width: 80px; }
+.sc-card-opt     { background: var(--sleep); color: #fff; }
+.sc-card-default { background: #f8f9fa; color: var(--primary-dark); border: 1px solid #e8e8e8; }
+.sc-opt-badge   { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; opacity: .9; margin-bottom: 2px; }
+.sc-card-time   { font-size: 1.1rem; font-weight: 700; line-height: 1.1; }
+.sc-card-sub    { font-size: .7rem; margin-top: 3px; }
+.sc-card-stars  { font-size: .85rem; margin-top: 4px; letter-spacing: 1px; }
+.sc-card-lbl    { font-size: .62rem; }
+.sc-card-opt .sc-card-sub, .sc-card-opt .sc-card-lbl { color: rgba(255,255,255,.7); }
+.sc-card-opt .sc-card-stars { color: rgba(255,255,255,.95); }
+.sc-card-default .sc-card-sub, .sc-card-default .sc-card-lbl { color: #999; }
+.sc-card-default .sc-card-stars { color: #f5a623; }
+.sc-hypnogram { display: block; }
+</style>
 @endsection
 
 @section('scripts')
@@ -588,22 +648,16 @@ $relatedTools = [
       var hrs   = cycles * 1.5;
       var hrsStr = Number.isInteger(hrs) ? hrs + 'h' : Math.floor(hrs) + 'h 30m';
 
-      var bg = isOpt
-        ? 'background:var(--sleep); color:#fff;'
-        : 'background:#f8f9fa; color:var(--primary-dark); border:1px solid #e8e8e8;';
-      var sub = isOpt ? 'rgba(255,255,255,.7)' : '#999';
-      var starColor = isOpt ? 'rgba(255,255,255,.95)' : '#f5a623';
-      var optBadge = isOpt ? '<div style="font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; opacity:.9; margin-bottom:2px;">⭐ Optimal</div>' : '';
+      var cardClass = 'result-card ' + (isOpt ? 'sc-card-opt' : 'sc-card-default');
+      var optBadge = isOpt ? '<div class="sc-opt-badge">⭐ Optimal</div>' : '';
 
-      html += '<div class="result-card" data-cycles="' + cycles + '" '
-        + 'onclick="selectCard(this,' + cycles + ',' + JSON.stringify(args) + ')" '
-        + 'style="border-radius:12px; padding:12px 14px; text-align:center; cursor:pointer; '
-        + 'transition:all .15s; flex:1; min-width:80px; ' + bg + '">'
+      html += '<div class="' + cardClass + '" data-cycles="' + cycles + '" '
+        + 'onclick="selectCard(this,' + cycles + ',' + JSON.stringify(args) + ')">'
         + optBadge
-        + '<div style="font-size:1.1rem; font-weight:700; line-height:1.1;">' + formatTime(targetTime) + '</div>'
-        + '<div style="font-size:.7rem; margin-top:3px; color:' + sub + '">' + cycles + ' cycles · ' + hrsStr + '</div>'
-        + '<div style="font-size:.85rem; margin-top:4px; color:' + starColor + '; letter-spacing:1px;">' + stars(sc, '★', '☆') + '</div>'
-        + '<div style="font-size:.62rem; color:' + sub + ';">' + lbl + '</div>'
+        + '<div class="sc-card-time">' + formatTime(targetTime) + '</div>'
+        + '<div class="sc-card-sub">' + cycles + ' cycles · ' + hrsStr + '</div>'
+        + '<div class="sc-card-stars">' + stars(sc, '★', '☆') + '</div>'
+        + '<div class="sc-card-lbl">' + lbl + '</div>'
         + '</div>';
     });
 
@@ -664,9 +718,9 @@ $relatedTools = [
     var noteEl = document.getElementById('chronoNote');
     if (currentChronotype !== 'bear') {
       noteEl.textContent = CHRONO_DESCS[currentChronotype];
-      noteEl.style.display = 'block';
+      noteEl.classList.remove('d-none');
     } else {
-      noteEl.style.display = 'none';
+      noteEl.classList.add('d-none');
     }
   }
 
@@ -712,7 +766,7 @@ $relatedTools = [
       });
     }
 
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + totalH + '" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;">';
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + totalH + '" width="100%" xmlns="http://www.w3.org/2000/svg" class="sc-hypnogram">';
     svg += '<rect width="' + W + '" height="' + totalH + '" fill="#f9fafb"/>';
 
     // Horizontal grid lines

@@ -80,6 +80,34 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.wu-optional    { font-size: .83rem; }
+.wu-result-label { font-size: .9rem; font-weight: 600; color: var(--primary-dark); }
+.wu-footnote    { font-size: .8rem; color: #888; }
+.wu-stage-badge { color: #fff; border-radius: 6px; padding: 4px 8px; font-size: .75rem; font-weight: 700; min-width: 50px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+.wu-stage-1     { background: #aacde8; }
+.wu-stage-2     { background: #4a9fd4; }
+.wu-stage-3     { background: #1a5fa8; }
+.wu-stage-rem   { background: #7c6ff7; }
+.wu-sign-bad    { background: #fff3f3; }
+.wu-sign-good   { background: #f0fff4; }
+.wu-sign-text   { font-size: .88rem; color: #555; }
+.wu-card-short  { background: #ffeeba; border: 1px solid rgba(133,100,4,.3); }
+.wu-card-short  .wu-rated-text { color: #856404; }
+.wu-card-below  { background: #fff3cd; border: 1px solid rgba(102,77,3,.3); }
+.wu-card-below  .wu-rated-text { color: #664d03; }
+.wu-card-good   { background: #d1eddb; border: 1px solid rgba(21,87,36,.3); }
+.wu-card-good   .wu-rated-text { color: #155724; }
+.wu-card-optimal { background: #cce5ff; border: 1px solid rgba(0,64,133,.3); }
+.wu-card-optimal .wu-rated-text { color: #004085; }
+.wu-rec-label   { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.wu-time        { font-size: 1.4rem; font-weight: 800; }
+.wu-cycles      { font-size: .75rem; font-weight: 600; margin: 4px 0; }
+.wu-label-sm    { font-size: .72rem; color: #666; margin-top: 6px; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -111,7 +139,7 @@ $relatedTools = [
             <div class="mb-4">
               <label for="fallAsleep" class="form-label fw-600">
                 How long does it take you to fall asleep?
-                <span class="text-muted fw-400" style="font-size:.83rem;">average: 10–20 min</span>
+                <span class="text-muted fw-400 wu-optional">average: 10–20 min</span>
               </label>
               <select id="fallAsleep" class="form-select">
                 <option value="5">5 minutes (falls asleep very fast)</option>
@@ -123,17 +151,17 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcWakeUp()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcWakeUp()">
               Show Best Wake-Up Times →
             </button>
 
             <div id="results" class="mt-4 d-none">
               <div class="ms-divider"></div>
-              <p class="mb-3" style="color:var(--primary-dark); font-size:.9rem; font-weight:600;">
+              <p class="mb-3 wu-result-label">
                 Best wake-up times if you're in bed at <span id="bedtimeLabel"></span>:
               </p>
               <div class="row g-3" id="wakeCards"></div>
-              <p class="mt-3 mb-0" style="font-size:.8rem; color:#888;">
+              <p class="mt-3 mb-0 wu-footnote">
                 ⭐ marks the optimal window (5–6 cycles = 7.5–9 hours). Waking at these times means you surface at the end of a natural sleep cycle.
               </p>
             </div>
@@ -142,7 +170,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Sleep Cycle Quick Facts</h3>
           @foreach([
@@ -177,18 +205,18 @@ $relatedTools = [
       </div>
       <div class="col-lg-6">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Sleep stages within each 90-min cycle</p>
+          <p class="ms-panel-head mb-3">Sleep stages within each 90-min cycle</p>
           @foreach([
-            ['Stage 1','~5 min','#aacde8','Light sleep. Easy to wake, muscles relax.'],
-            ['Stage 2','~25 min','#4a9fd4','Sleep spindles. Memory consolidation begins.'],
-            ['Stage 3','~35 min','#1a5fa8','Deep sleep. Physical repair. Hard to wake.'],
-            ['REM','~25 min','#7c6ff7','Dreaming. Emotional processing. Expands in later cycles.'],
-          ] as [$s,$d,$c,$desc])
+            ['Stage 1','~5 min','wu-stage-1','Light sleep. Easy to wake, muscles relax.'],
+            ['Stage 2','~25 min','wu-stage-2','Sleep spindles. Memory consolidation begins.'],
+            ['Stage 3','~35 min','wu-stage-3','Deep sleep. Physical repair. Hard to wake.'],
+            ['REM','~25 min','wu-stage-rem','Dreaming. Emotional processing. Expands in later cycles.'],
+          ] as [$s,$d,$cls,$desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $c }}; color:#fff; border-radius:6px; padding:4px 8px; font-size:.75rem; font-weight:700; min-width:50px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $d }}</div>
+            <div class="wu-stage-badge {{ $cls }}">{{ $d }}</div>
             <div>
-              <div class="fw-600" style="font-size:.87rem; color:#1a1a2e;">{{ $s }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-600 ms-ref-title">{{ $s }}</div>
+              <div class="ms-ref-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -212,9 +240,9 @@ $relatedTools = [
             'Weekend wake times are 2+ hours later than weekdays',
             'You feel most alert mid-morning, not within 30 minutes of waking',
           ] as $s)
-          <div class="d-flex gap-2 p-2 rounded-3" style="background:#fff3f3;">
-            <div style="color:var(--primary-cta); flex-shrink:0; font-weight:700;">✗</div>
-            <div style="font-size:.88rem; color:#555;">{{ $s }}</div>
+          <div class="d-flex gap-2 p-2 rounded-3 wu-sign-bad">
+            <div class="text-cta flex-shrink-0 fw-bold">✗</div>
+            <div class="wu-sign-text">{{ $s }}</div>
           </div>
           @endforeach
         </div>
@@ -229,9 +257,9 @@ $relatedTools = [
             'You remember the content of a dream (indicates light-sleep wake)',
             'Energy on weekdays matches weekends at the same wake time',
           ] as $s)
-          <div class="d-flex gap-2 p-2 rounded-3" style="background:#f0fff4;">
-            <div style="color:#28a745; flex-shrink:0; font-weight:700;">✓</div>
-            <div style="font-size:.88rem; color:#555;">{{ $s }}</div>
+          <div class="d-flex gap-2 p-2 rounded-3 wu-sign-good">
+            <div class="text-success flex-shrink-0 fw-bold">✓</div>
+            <div class="wu-sign-text">{{ $s }}</div>
           </div>
           @endforeach
         </div>
@@ -245,11 +273,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Best Wake-Up Time for Night Shift Workers</h2>
+    <h2 class="mb-4 text-brand">Best Wake-Up Time for Night Shift Workers</h2>
     <p>For night shift workers, "wake-up time" means the time you need to be alert for work — not the morning. Enter your shift start time as your target wake-up time, subtract 15 minutes for grogginess, and use the calculator to find when to go to sleep. If your shift starts at 10:00 pm, target a wake-up of 9:30 pm and work backwards to find your ideal daytime sleep start.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Wake-Up Calculator for Early Birds vs Night Owls</h2>
+    <h2 class="mt-5 mb-4 text-brand">Wake-Up Calculator for Early Birds vs Night Owls</h2>
     <p>Chronotype — your genetic sleep preference — determines whether you are a natural early bird (morning type) or night owl (evening type). Early birds naturally complete their cycles earlier and wake easily at 5–6 am. Night owls have a delayed circadian phase and function best waking at 8–10 am. Neither is wrong — but forcing a night owl to wake at 5 am long-term increases cardiovascular risk. Use this calculator to find wake times that work with your chronotype, not against it.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Why 5 or 6 Sleep Cycles Is the Sweet Spot</h2>
+    <h2 class="mt-5 mb-4 text-brand">Why 5 or 6 Sleep Cycles Is the Sweet Spot</h2>
     <p>Most adults perform best after 5 complete sleep cycles (7.5 hours) or 6 cycles (9 hours). Four cycles (6 hours) is sufficient for a night when sleep time is limited, but chronically sleeping 4 cycles builds significant sleep debt. Three cycles or fewer (under 4.5 hours) impairs cognitive performance, reaction time, and emotional regulation — even if it does not feel that way.</p>
   </div>
 </section>
@@ -284,10 +312,10 @@ $relatedTools = [
   }
 
   function rating(cycles) {
-    if (cycles <= 3) return { label: 'Very Short', color: '#856404', bg: '#ffeeba' };
-    if (cycles === 4) return { label: 'Below Optimal', color: '#664d03', bg: '#fff3cd' };
-    if (cycles === 5) return { label: 'Good ✓', color: '#155724', bg: '#d1eddb' };
-    return { label: 'Optimal ⭐', color: '#004085', bg: '#cce5ff' };
+    if (cycles <= 3) return { label: 'Very Short',    cls: 'wu-card-short' };
+    if (cycles === 4) return { label: 'Below Optimal', cls: 'wu-card-below' };
+    if (cycles === 5) return { label: 'Good ✓',        cls: 'wu-card-good' };
+    return { label: 'Optimal ⭐', cls: 'wu-card-optimal' };
   }
 
   window.calcWakeUp = function () {
@@ -306,11 +334,11 @@ $relatedTools = [
       var r = rating(cycles);
       var isOpt = cycles >= 5;
       html += '<div class="col-6 col-md-3">'
-        + '<div class="p-3 rounded-3 text-center h-100" style="background:' + r.bg + '; border:1px solid ' + r.color + '30;">'
-        + (isOpt ? '<div style="font-size:.65rem; font-weight:700; color:' + r.color + '; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">⭐ Recommended</div>' : '')
-        + '<div style="font-size:1.4rem; font-weight:800; color:' + r.color + ';">' + formatTime(wakeMin) + '</div>'
-        + '<div style="font-size:.75rem; color:' + r.color + '; font-weight:600; margin:4px 0;">' + cycles + ' cycles · ' + hoursLabel(cycles) + '</div>'
-        + '<div style="font-size:.72rem; color:#666; margin-top:6px;">' + r.label + '</div>'
+        + '<div class="p-3 rounded-3 text-center h-100 ' + r.cls + '">'
+        + (isOpt ? '<div class="wu-rec-label wu-rated-text">⭐ Recommended</div>' : '')
+        + '<div class="wu-time wu-rated-text">' + formatTime(wakeMin) + '</div>'
+        + '<div class="wu-cycles wu-rated-text">' + cycles + ' cycles · ' + hoursLabel(cycles) + '</div>'
+        + '<div class="wu-label-sm">' + r.label + '</div>'
         + '</div></div>';
     });
 

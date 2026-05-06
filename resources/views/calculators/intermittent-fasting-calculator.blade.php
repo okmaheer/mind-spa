@@ -79,6 +79,28 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.if-info-title   { font-size:.85rem; font-weight:600; color:#e65100; margin-bottom:8px; }
+.if-info-desc    { font-size:.82rem; color:#555; margin:0; }
+.if-5-2-summary  { background:#fff8e1; border:1px solid #ffd566; }
+.if-5-2-title    { font-size:1rem; color:#e65100; margin-bottom:12px; }
+.if-eat-card     { background:#fff8e1; border:1px solid #ffd566; }
+.if-fast-card    { background:#e8f0ff; border:1px solid #b8d0ff; }
+.if-time-val-eat  { font-size:1.5rem; font-weight:700; color:var(--nutrition); }
+.if-time-val-fast { font-size:1.5rem; font-weight:700; color:var(--primary-mid); }
+.if-time-label   { font-size:.75rem; color:#666; margin-top:2px; }
+.if-timeline-txt { font-size:.78rem; color:#444; line-height:1.9; }
+.if-time-badge      { border-radius:8px; padding:5px 10px; font-weight:700; font-size:.78rem; min-width:70px; text-align:center; flex-shrink:0; }
+.if-badge-fed       { background:#e8f5e9; color:#2e7d32; border:1px solid rgba(46,125,50,.19); }
+.if-badge-post      { background:#fff8e1; color:#e65100; border:1px solid rgba(230,81,0,.19); }
+.if-badge-fast      { background:#e3f2fd; color:#1565c0; border:1px solid rgba(21,101,192,.19); }
+.if-badge-deep      { background:#ede7f6; color:#4527a0; border:1px solid rgba(69,39,160,.19); }
+.if-badge-extend    { background:#fce4ec; color:#880e4f; border:1px solid rgba(136,14,79,.19); }
+.if-badge-desc   { font-size:.81rem; color:#555; line-height:1.5; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -147,9 +169,9 @@ $relatedTools = [
 
             {{-- 5:2 inputs --}}
             <div id="if52Inputs" class="d-none mb-3">
-              <div class="p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffe082;">
-                <p style="font-size:.85rem; font-weight:600; color:#e65100; margin-bottom:8px;">5:2 Protocol Information</p>
-                <p style="font-size:.82rem; color:#555; margin:0;">On your 2 fasting days, limit intake to 500–600 calories. Choose non-consecutive days (e.g. Monday and Thursday). Eat normally on the other 5 days.</p>
+              <div class="p-3 rounded-3 ms-box-yellow">
+                <p class="if-info-title">5:2 Protocol Information</p>
+                <p class="if-info-desc">On your 2 fasting days, limit intake to 500–600 calories. Choose non-consecutive days (e.g. Monday and Thursday). Eat normally on the other 5 days.</p>
               </div>
             </div>
 
@@ -164,57 +186,57 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="ifCalculate()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="ifCalculate()">
               Generate My Fasting Schedule →
             </button>
 
             {{-- Results --}}
             <div id="ifResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
-              <div id="if52Summary" class="d-none p-4 rounded-3" style="background:#fff8e1; border:1px solid #ffd566;">
-                <h4 style="font-size:1rem; color:#e65100; margin-bottom:12px;">5:2 Weekly Fasting Plan</h4>
-                <p style="font-size:.88rem; color:#555; margin-bottom:8px;"><strong>Fasting days:</strong> Limit to 500 kcal (women) or 600 kcal (men) on 2 non-consecutive days.</p>
-                <p style="font-size:.88rem; color:#555; margin-bottom:8px;"><strong>Suggested fasting days:</strong> Monday &amp; Thursday</p>
-                <p style="font-size:.88rem; color:#555; margin-bottom:0;"><strong>Eating days (5):</strong> Eat normally at maintenance calories — no restriction needed.</p>
+              <div id="if52Summary" class="d-none p-4 rounded-3 if-5-2-summary">
+                <h4 class="if-5-2-title">5:2 Weekly Fasting Plan</h4>
+                <p class="text-sm text-muted mb-2"><strong>Fasting days:</strong> Limit to 500 kcal (women) or 600 kcal (men) on 2 non-consecutive days.</p>
+                <p class="text-sm text-muted mb-2"><strong>Suggested fasting days:</strong> Monday &amp; Thursday</p>
+                <p class="text-sm text-muted mb-0"><strong>Eating days (5):</strong> Eat normally at maintenance calories — no restriction needed.</p>
               </div>
 
               <div id="ifScheduleBlock">
                 <div class="row g-3 mb-4">
                   <div class="col-6">
-                    <div class="text-center p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffd566;">
-                      <div id="ifEatOpenDisplay" style="font-size:1.5rem; font-weight:700; color:var(--nutrition);"></div>
-                      <div style="font-size:.75rem; color:#666; margin-top:2px;">🍽️ Eating window opens</div>
+                    <div class="text-center p-3 rounded-3 if-eat-card">
+                      <div id="ifEatOpenDisplay" class="if-time-val-eat"></div>
+                      <div class="if-time-label">🍽️ Eating window opens</div>
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="text-center p-3 rounded-3" style="background:#e8f0ff; border:1px solid #b8d0ff;">
-                      <div id="ifEatCloseDisplay" style="font-size:1.5rem; font-weight:700; color:var(--primary-mid);"></div>
-                      <div style="font-size:.75rem; color:#666; margin-top:2px;">🚫 Eating window closes</div>
+                    <div class="text-center p-3 rounded-3 if-fast-card">
+                      <div id="ifEatCloseDisplay" class="if-time-val-fast"></div>
+                      <div class="if-time-label">🚫 Eating window closes</div>
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="text-center p-3 rounded-3" style="background:#e8f0ff; border:1px solid #b8d0ff;">
-                      <div id="ifFastStartDisplay" style="font-size:1.5rem; font-weight:700; color:var(--primary-mid);"></div>
-                      <div style="font-size:.75rem; color:#666; margin-top:2px;">⏱️ Fast begins</div>
+                    <div class="text-center p-3 rounded-3 if-fast-card">
+                      <div id="ifFastStartDisplay" class="if-time-val-fast"></div>
+                      <div class="if-time-label">⏱️ Fast begins</div>
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="text-center p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffd566;">
-                      <div id="ifFastEndDisplay" style="font-size:1.5rem; font-weight:700; color:var(--nutrition);"></div>
-                      <div style="font-size:.75rem; color:#666; margin-top:2px;">✅ Fast ends (next day)</div>
+                    <div class="text-center p-3 rounded-3 if-eat-card">
+                      <div id="ifFastEndDisplay" class="if-time-val-eat"></div>
+                      <div class="if-time-label">✅ Fast ends (next day)</div>
                     </div>
                   </div>
                 </div>
 
-                <div class="p-3 rounded-3 mb-3" style="background:#f0fff4; border:1px solid #b3f0c8;">
-                  <div style="font-size:.8rem; font-weight:600; color:#1a6e3a; margin-bottom:8px;">⏳ What happens during your fast</div>
-                  <div id="ifTimeline" style="font-size:.78rem; color:#444; line-height:1.9;"></div>
+                <div class="p-3 rounded-3 mb-3 ms-box-green">
+                  <div class="ms-box-green-title">⏳ What happens during your fast</div>
+                  <div id="ifTimeline" class="if-timeline-txt"></div>
                 </div>
 
-                <div class="p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffe082;">
-                  <div style="font-size:.8rem; font-weight:600; color:#e65100; margin-bottom:6px;">💡 Protocol Tips</div>
-                  <div id="ifTips" style="font-size:.78rem; color:#555; line-height:1.8;"></div>
+                <div class="p-3 rounded-3 ms-box-yellow">
+                  <div class="ms-box-yellow-title">💡 Protocol Tips</div>
+                  <div id="ifTips" class="ms-box-tips-txt"></div>
                 </div>
               </div>
             </div>
@@ -226,7 +248,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick IF Facts</h3>
           @foreach([
@@ -262,17 +284,17 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Fasting timeline milestones</p>
+          <p class="fw-semibold mb-3 ms-data-label">Fasting timeline milestones</p>
           @foreach([
-            ['0–4 hrs',   '#e8f5e9', '#2e7d32', 'Fed state. Insulin elevated. Body uses glucose for energy. Fat storage active.'],
-            ['4–12 hrs',  '#fff8e1', '#e65100', 'Post-absorptive. Insulin falling. Glycogen being used. Early fat oxidation begins.'],
-            ['12–16 hrs', '#e3f2fd', '#1565c0', 'Fasting state. Glycogen depleted. Fat burning accelerates. Ketones rising.'],
-            ['16–24 hrs', '#ede7f6', '#4527a0', 'Autophagy peaks. Growth hormone rising. Deep ketosis. Maximum fat oxidation.'],
-            ['24–72 hrs', '#fce4ec', '#880e4f', 'Extended fast. Stem cell activation. Significant immune system regeneration.'],
-          ] as [$time, $bg, $text, $desc])
+            ['0–4 hrs',   'if-badge-fed',    'Fed state. Insulin elevated. Body uses glucose for energy. Fat storage active.'],
+            ['4–12 hrs',  'if-badge-post',   'Post-absorptive. Insulin falling. Glycogen being used. Early fat oxidation begins.'],
+            ['12–16 hrs', 'if-badge-fast',   'Fasting state. Glycogen depleted. Fat burning accelerates. Ketones rising.'],
+            ['16–24 hrs', 'if-badge-deep',   'Autophagy peaks. Growth hormone rising. Deep ketosis. Maximum fat oxidation.'],
+            ['24–72 hrs', 'if-badge-extend', 'Extended fast. Stem cell activation. Significant immune system regeneration.'],
+          ] as [$time, $cls, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $bg }}; color:{{ $text }}; border-radius:8px; padding:5px 10px; font-weight:700; font-size:.78rem; min-width:70px; text-align:center; flex-shrink:0; border:1px solid {{ $text }}30;">{{ $time }}</div>
-            <div style="font-size:.81rem; color:#555; line-height:1.5;">{{ $desc }}</div>
+            <div class="if-time-badge {{ $cls }}">{{ $time }}</div>
+            <div class="if-badge-desc">{{ $desc }}</div>
           </div>
           @endforeach
         </div>
@@ -288,13 +310,13 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">16:8 Intermittent Fasting Schedule — Best Eating Window Times</h2>
+    <h2 class="mb-4 text-brand">16:8 Intermittent Fasting Schedule — Best Eating Window Times</h2>
     <p>The 16:8 protocol is the most researched and widely adopted form of intermittent fasting, and for good reason: a 16-hour fast is long enough to trigger meaningful metabolic benefits (glycogen depletion, fat oxidation, early autophagy) while still allowing an 8-hour eating window that fits most social and work schedules. The most popular window is 12:00 PM to 8:00 PM — this lets you skip breakfast and eat a late lunch, afternoon snack, and dinner without conflicting with evening social events. For morning exercisers, a 10:00 AM to 6:00 PM window allows a post-workout meal. For night owls, 2:00 PM to 10:00 PM works well. The specific hours matter less than consistency — your circadian rhythm adapts to the pattern within 1–2 weeks, reducing hunger outside the window substantially.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">5:2 Fasting Calculator — How Many Calories on Fast Days?</h2>
+    <h2 class="mt-5 mb-4 text-brand">5:2 Fasting Calculator — How Many Calories on Fast Days?</h2>
     <p>The 5:2 protocol, popularised by Dr Michael Mosley's research, involves eating normally 5 days per week and restricting calories to 500 (women) or 600 (men) on 2 non-consecutive fasting days. The original research, published in the International Journal of Obesity (2011), compared 5:2 to continuous calorie restriction and found equivalent weight loss with better improvements in insulin sensitivity. On fasting days, spreading calories across 2 small meals (e.g., 250 kcal breakfast and 250 kcal dinner) is easier than OMAD for most people. Choosing non-consecutive days — Monday and Thursday or Tuesday and Friday — prevents two consecutive difficult days and allows recovery. Unlike daily IF protocols, 5:2 does not require watching eating window times on non-fasting days.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Intermittent Fasting for Women — Is It Different?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Intermittent Fasting for Women — Is It Different?</h2>
     <p>Women can absolutely benefit from intermittent fasting, but the approach may need to be more conservative, particularly at first. Female hormones — including oestrogen, progesterone, and luteinising hormone — are sensitive to caloric restriction and fasting stress. Extended fasts (18+ hours) can temporarily disrupt the hypothalamic-pituitary-ovarian axis, affecting menstrual cycles and fertility in some women. This is more likely with very long fasts, very low calorie intake within the eating window, and high exercise volume simultaneously. The evidence-based approach for women new to IF: start with 12:12, establish that for 2–4 weeks, then optionally progress to 14:10 or 16:8. Listen to cycle changes — if periods become irregular, shorten the fasting window. Women with PCOS may find IF particularly beneficial for insulin regulation, as PCOS often involves insulin resistance.</p>
 
   </div>
@@ -315,7 +337,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Who Should Avoid IF</h3>
         <p>Intermittent fasting is not appropriate for everyone. People with type 1 diabetes (risk of hypoglycaemia), those with a history of eating disorders, children and adolescents, pregnant or breastfeeding women, and people who are underweight should not follow fasting protocols without medical supervision. If you take medications that require food, consult your doctor before starting IF.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-orange">
-          <p style="margin:0; font-size:.85rem; color:#6d4c00;"><strong>Note:</strong> This calculator is for general wellness guidance. Intermittent fasting is not suitable for everyone. Consult a healthcare professional before starting any fasting protocol, especially if you have diabetes, a history of eating disorders, or take prescription medications.</p>
+          <p class="mb-0 text-sm"><strong>Note:</strong> This calculator is for general wellness guidance. Intermittent fasting is not suitable for everyone. Consult a healthcare professional before starting any fasting protocol, especially if you have diabetes, a history of eating disorders, or take prescription medications.</p>
         </div>
       </div>
     </div>

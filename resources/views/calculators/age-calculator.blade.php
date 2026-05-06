@@ -79,6 +79,23 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.age-label-sm   { font-size: .82rem; }
+.age-main-box   { background: linear-gradient(135deg, #f3e8ff 0%, #ede0ff 100%); border: 1px solid #d8b4ff; }
+.age-stat-box   { background: #f3e8ff; border: 1px solid #d8b4ff; }
+.age-info-box   { background: #f8f9fa; border: 1px solid #e0e0e0; }
+.age-meta-label { font-size: .75rem; color: #888; margin-bottom: 4px; }
+.age-meta-val   { font-weight: 700; color: var(--primary-dark); font-size: .9rem; }
+.age-meta-val-life { font-weight: 700; color: var(--life); font-size: .9rem; }
+.age-dob-label  { font-size: .78rem; color: #6b46a8; margin-top: 4px; }
+.age-stat-label { font-size: .72rem; color: #6b46a8; margin-top: 2px; }
+.age-gen-pill   { background: #f3e8ff; color: var(--life); border-radius: 8px; padding: 5px 10px; font-weight: 700; font-size: .78rem; min-width: 90px; text-align: center; flex-shrink: 0; border: 1px solid #d8b4ff; }
+.age-gen-title  { font-size: .87rem; color: #1a1a2e; }
+.age-gen-desc   { font-size: .79rem; color: #666; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -112,78 +129,78 @@ $relatedTools = [
             <div class="mb-4">
               <label for="ageAsOf" class="form-label fw-semibold">
                 Calculate age as of
-                <span class="text-muted fw-normal" style="font-size:.82rem;">(default: today)</span>
+                <span class="text-muted fw-normal age-label-sm">(default: today)</span>
               </label>
               <input type="date" id="ageAsOf" class="form-control" aria-label="Calculate as of date">
             </div>
 
-            <button class="btn btn-cta w-100" onclick="agCalculate()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="agCalculate()">
               Calculate My Age →
             </button>
 
             {{-- Results --}}
             <div id="agResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               {{-- Main age display --}}
-              <div class="text-center p-4 rounded-3 mb-3" style="background:linear-gradient(135deg, #f3e8ff 0%, #ede0ff 100%); border:1px solid #d8b4ff;">
-                <div id="agMainAge" style="font-size:1.6rem; font-weight:700; color:var(--life); line-height:1.3;"></div>
-                <div id="agDobLabel" style="font-size:.78rem; color:#6b46a8; margin-top:4px;"></div>
+              <div class="text-center p-4 rounded-3 mb-3 age-main-box">
+                <div id="agMainAge" class="ms-stat-val-lg text-life lh-sm"></div>
+                <div id="agDobLabel" class="age-dob-label"></div>
               </div>
 
               <div class="row g-3 mb-3">
                 <div class="col-6 col-md-3">
-                  <div class="text-center p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div id="agTotalDays" style="font-size:1.2rem; font-weight:700; color:var(--life);"></div>
-                    <div style="font-size:.72rem; color:#6b46a8; margin-top:2px;">Total days</div>
+                  <div class="text-center p-3 rounded-3 age-stat-box">
+                    <div id="agTotalDays" class="ms-stat-val-sm text-life"></div>
+                    <div class="age-stat-label">Total days</div>
                   </div>
                 </div>
                 <div class="col-6 col-md-3">
-                  <div class="text-center p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div id="agTotalHours" style="font-size:1.2rem; font-weight:700; color:var(--life);"></div>
-                    <div style="font-size:.72rem; color:#6b46a8; margin-top:2px;">Total hours</div>
+                  <div class="text-center p-3 rounded-3 age-stat-box">
+                    <div id="agTotalHours" class="ms-stat-val-sm text-life"></div>
+                    <div class="age-stat-label">Total hours</div>
                   </div>
                 </div>
                 <div class="col-6 col-md-3">
-                  <div class="text-center p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div id="agTotalMinutes" style="font-size:1.2rem; font-weight:700; color:var(--life);"></div>
-                    <div style="font-size:.72rem; color:#6b46a8; margin-top:2px;">Total minutes</div>
+                  <div class="text-center p-3 rounded-3 age-stat-box">
+                    <div id="agTotalMinutes" class="ms-stat-val-sm text-life"></div>
+                    <div class="age-stat-label">Total minutes</div>
                   </div>
                 </div>
                 <div class="col-6 col-md-3">
-                  <div class="text-center p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div id="agWeeks" style="font-size:1.2rem; font-weight:700; color:var(--life);"></div>
-                    <div style="font-size:.72rem; color:#6b46a8; margin-top:2px;">Total weeks</div>
+                  <div class="text-center p-3 rounded-3 age-stat-box">
+                    <div id="agWeeks" class="ms-stat-val-sm text-life"></div>
+                    <div class="age-stat-label">Total weeks</div>
                   </div>
                 </div>
               </div>
 
               <div class="row g-3 mb-3">
                 <div class="col-md-6">
-                  <div class="p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">🎂 Next Birthday</div>
-                    <div id="agNextBirthday" style="font-weight:700; color:var(--primary-dark); font-size:.9rem;"></div>
+                  <div class="p-3 rounded-3 age-info-box">
+                    <div class="age-meta-label">🎂 Next Birthday</div>
+                    <div id="agNextBirthday" class="age-meta-val"></div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="p-3 rounded-3" style="background:#f8f9fa; border:1px solid #e0e0e0;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">📅 Born on a</div>
-                    <div id="agBornDay" style="font-weight:700; color:var(--primary-dark); font-size:.9rem;"></div>
+                  <div class="p-3 rounded-3 age-info-box">
+                    <div class="age-meta-label">📅 Born on a</div>
+                    <div id="agBornDay" class="age-meta-val"></div>
                   </div>
                 </div>
               </div>
 
               <div class="row g-3">
                 <div class="col-md-6">
-                  <div class="p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">🧬 Your Generation</div>
-                    <div id="agGeneration" style="font-weight:700; color:var(--life); font-size:.9rem;"></div>
+                  <div class="p-3 rounded-3 age-stat-box">
+                    <div class="age-meta-label">🧬 Your Generation</div>
+                    <div id="agGeneration" class="age-meta-val-life"></div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="p-3 rounded-3" style="background:#f3e8ff; border:1px solid #d8b4ff;">
-                    <div style="font-size:.75rem; color:#888; margin-bottom:4px;">🎯 1 Billion Seconds</div>
-                    <div id="agBillionSec" style="font-weight:700; color:var(--life); font-size:.9rem;"></div>
+                  <div class="p-3 rounded-3 age-stat-box">
+                    <div class="age-meta-label">🎯 1 Billion Seconds</div>
+                    <div id="agBillionSec" class="age-meta-val-life"></div>
                   </div>
                 </div>
               </div>
@@ -196,7 +213,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Age Facts</h3>
           @foreach([
@@ -232,20 +249,20 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Generations at a glance</p>
+          <p class="ms-panel-head mb-3">Generations at a glance</p>
           @foreach([
-            ['Gen Alpha',        '2013–present',  'Digital natives born into smartphones and AI.'],
-            ['Gen Z',            '1997–2012',      'First true digital-native generation.'],
-            ['Millennials',      '1981–1996',      'Grew up with the internet; shaped social media.'],
-            ['Gen X',            '1965–1980',      'The "middle child" generation — often overlooked.'],
-            ['Baby Boomers',     '1946–1964',      'Post-WWII prosperity generation.'],
-            ['Silent Gen',       '1928–1945',      'Shaped by the Depression and WWII.'],
+            ['Gen Alpha',    '2013–present', 'Digital natives born into smartphones and AI.'],
+            ['Gen Z',        '1997–2012',    'First true digital-native generation.'],
+            ['Millennials',  '1981–1996',    'Grew up with the internet; shaped social media.'],
+            ['Gen X',        '1965–1980',    'The "middle child" generation — often overlooked.'],
+            ['Baby Boomers', '1946–1964',    'Post-WWII prosperity generation.'],
+            ['Silent Gen',   '1928–1945',    'Shaped by the Depression and WWII.'],
           ] as [$gen, $years, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:#f3e8ff; color:var(--life); border-radius:8px; padding:5px 10px; font-weight:700; font-size:.78rem; min-width:90px; text-align:center; flex-shrink:0; border:1px solid #d8b4ff;">{{ $years }}</div>
+            <div class="age-gen-pill">{{ $years }}</div>
             <div>
-              <div class="fw-semibold" style="font-size:.87rem; color:#1a1a2e;">{{ $gen }}</div>
-              <div style="font-size:.79rem; color:#666;">{{ $desc }}</div>
+              <div class="fw-semibold age-gen-title">{{ $gen }}</div>
+              <div class="age-gen-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -262,13 +279,13 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">Age Calculator in Days — How Many Days Old Are You?</h2>
+    <h2 class="mb-4 text-brand">Age Calculator in Days — How Many Days Old Are You?</h2>
     <p>Your age in days is a surprisingly meaningful number. A person turning 30 has lived approximately 10,957 days (accounting for 7 or 8 leap years depending on birth date). At 50 years old, you have experienced roughly 18,262 days. Every 1,000 days of life is a milestone worth noting — at 1,000 days you are about 2 years and 9 months old, at 10,000 days you are approximately 27 years old. Many people find thinking about life in days creates a vivid sense of time's value that years alone do not convey. The total days figure is also the most precise way to express age for legal or scientific purposes, since it eliminates ambiguity about leap years and month lengths entirely.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Age Calculator for Legal Purposes — Am I 18 Yet?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Age Calculator for Legal Purposes — Am I 18 Yet?</h2>
     <p>Legal age thresholds vary by jurisdiction but commonly fall at 16, 18, and 21 years. The precise calculation matters when determining eligibility: you reach a legal age on the anniversary of your birth date, not on January 1 of the year you turn that age. If you were born on December 31, 2005, you do not turn 18 until December 31, 2023 — not on January 1, 2023. This calculator uses exact calendar date comparison, making it suitable for quick legal age verification. For jurisdictions that treat the day before the birthday as the qualifying day (some common law countries use this rule, where the day before your 18th birthday counts as your 18th), be aware that your result may differ by one day. Always confirm with a legal professional for official age-related decisions.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How to Calculate Age Between Two Dates</h2>
+    <h2 class="mt-5 mb-4 text-brand">How to Calculate Age Between Two Dates</h2>
     <p>To calculate the age (or time elapsed) between any two dates — not just from a birthday to today — use the "calculate as of" field to set a custom end date. This lets you answer questions like: "How old was my grandfather when the moon landing happened?" (July 20, 1969), or "How old will I be on my retirement date?" The algorithm counts complete years first, then complete months within the final partial year, then remaining days — giving you a precise breakdown of years, months, and days between any two calendar dates. For simple date subtraction in full days, the total days figure provides an unambiguous answer that does not depend on how you count month boundaries.</p>
 
   </div>

@@ -74,6 +74,24 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.du-preset-label    { font-size: .9rem; color: var(--primary-dark); }
+.du-preset-btn      { border-radius: 50px; border: 2px solid #e0e0e0; padding: 6px 14px; font-size: .82rem; font-weight: 600; color: #555; background: #fff; }
+.du-preset-btn-active { background: var(--life) !important; color: #fff !important; border-color: var(--life) !important; }
+.du-event-label     { font-size: 1rem; color: var(--primary-dark); }
+.du-stat-lg         { font-size: 1.8rem; font-weight: 700; }
+.du-stat-md         { font-size: 1.2rem; font-weight: 700; }
+.du-detail          { background: #f8f9fa; font-size: .88rem; color: #555; }
+.du-note            { color: #888; font-size: .82rem; }
+.du-hol-icon        { font-size: 1.1rem; width: 28px; text-align: center; }
+.du-hol-date        { font-size: .82rem; color: #888; font-weight: 600; }
+.du-hol-card        { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); cursor: pointer; }
+.du-hol-name        { font-size: .82rem; color: var(--primary-dark); }
+.du-hol-count       { font-size: 1.2rem; color: var(--life); }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Hero --}}
@@ -95,11 +113,10 @@ $relatedTools = [
 
         <div class="card border-0 mb-n4 ms-tool-card">
           <div class="card-body p-4 p-md-5">
-            <p class="fw-600 mb-3" style="font-size:.9rem; color:var(--primary-dark);">Quick presets:</p>
+            <p class="du-preset-label fw-600 mb-3">Quick presets:</p>
             <div class="d-flex flex-wrap gap-2 mb-4" id="presetBtns">
               @foreach(['New Year','Christmas','Valentine\'s Day','Halloween','Easter'] as $event)
-              <button type="button" class="btn preset-btn"
-                      style="border-radius:50px; border:2px solid #e0e0e0; padding:6px 14px; font-size:.82rem; font-weight:600; color:#555; background:#fff;"
+              <button type="button" class="btn du-preset-btn"
                       onclick="selectPreset('{{ $event }}')">{{ $event }}</button>
               @endforeach
             </div>
@@ -112,44 +129,44 @@ $relatedTools = [
                 <input type="text" id="duEventName" class="form-control" placeholder="Event name (optional)">
               </div>
             </div>
-            <button class="btn btn-cta w-100 mt-4" onclick="calcDaysUntil()" style="font-size:1rem;">Count Down →</button>
+            <button class="btn btn-cta w-100 mt-4" onclick="calcDaysUntil()">Count Down →</button>
 
             <div id="duResults" class="mt-4 d-none">
               <div class="ms-divider"></div>
-              <p id="duEventLabel" class="fw-600 mb-3 text-center" style="font-size:1rem; color:var(--primary-dark);"></p>
+              <p id="duEventLabel" class="du-event-label fw-600 mb-3 text-center"></p>
               <div class="row g-3 text-center">
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-purple">
-                    <div id="duDays" style="font-size:1.8rem; font-weight:700; color:var(--life);">—</div>
+                    <div id="duDays" class="du-stat-lg text-life">—</div>
                     <div class="ms-stat-label">Days</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
-                  <div style="background:#f0fff4; border-radius:10px; padding:14px 8px;">
-                    <div id="duWeeks" style="font-size:1.4rem; font-weight:700; color:var(--green-text);">—</div>
+                  <div class="ms-stat ms-stat-green">
+                    <div id="duWeeks" class="ms-stat-val text-green-brand">—</div>
                     <div class="ms-stat-label">Weeks</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-orange">
-                    <div id="duHours" style="font-size:1.2rem; font-weight:700; color:#e97b1e;">—</div>
+                    <div id="duHours" class="du-stat-md text-orange-brand">—</div>
                     <div class="ms-stat-label">Hours</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-pink">
-                    <div id="duWeekends" style="font-size:1.4rem; font-weight:700; color:var(--cta-text);">—</div>
+                    <div id="duWeekends" class="ms-stat-val text-cta">—</div>
                     <div class="ms-stat-label">Weekends</div>
                   </div>
                 </div>
               </div>
-              <div id="duDetail" class="mt-3 p-3 rounded text-center" style="background:#f8f9fa; font-size:.88rem; color:#555;"></div>
+              <div id="duDetail" class="mt-3 p-3 rounded text-center du-detail"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Time Facts</h3>
           @foreach([
@@ -183,7 +200,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="font-size:.88rem; color:var(--primary-dark); text-transform:uppercase; letter-spacing:.5px;">Fixed holiday dates (recurring annually)</p>
+          <p class="ms-panel-head mb-3">Fixed holiday dates (recurring annually)</p>
           @foreach([
             ['🎉','New Year\'s Day','January 1'],
             ['❤️','Valentine\'s Day','February 14'],
@@ -193,9 +210,9 @@ $relatedTools = [
             ['🥂','New Year\'s Eve','December 31'],
           ] as [$icon,$name,$date])
           <div class="d-flex align-items-center gap-3 mb-2">
-            <div style="width:28px; text-align:center; font-size:1.1rem;">{{ $icon }}</div>
-            <div style="flex:1; font-size:.87rem; color:#333;">{{ $name }}</div>
-            <div style="font-size:.82rem; color:#888; font-weight:600;">{{ $date }}</div>
+            <div class="du-hol-icon">{{ $icon }}</div>
+            <div class="flex-grow-1 ms-ref-title">{{ $name }}</div>
+            <div class="du-hol-date">{{ $date }}</div>
           </div>
           @endforeach
         </div>
@@ -209,7 +226,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Days Until Major 2025–2026 Events</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">Quick-access countdown panel — updates automatically from today's date.</p>
+      <p class="text-muted ms-intro-text">Quick-access countdown panel — updates automatically from today's date.</p>
     </div>
     <div class="row g-3 justify-content-center" id="holidayGrid"></div>
   </div>
@@ -221,13 +238,13 @@ $relatedTools = [
 {{-- Long-tail --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Days Until Christmas — Countdown to December 25</h2>
+    <h2 class="mb-4 text-brand">Days Until Christmas — Countdown to December 25</h2>
     <p>Christmas Day falls on December 25 every year. The countdown from January 1 starts at 358 days (359 in a leap year) and ticks down every day. Many people begin Christmas planning in October when there are roughly 80–90 days remaining. Retailers typically begin Christmas merchandising when there are 100+ days left. Use the Christmas preset above for an up-to-the-day count.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Days Until My Birthday Calculator — How Long Until I Turn [Age]?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Days Until My Birthday Calculator — How Long Until I Turn [Age]?</h2>
     <p>To count down to your next birthday, enter the birthday date (this year if it hasn't happened yet, next year if it has) into the custom field. The calculator shows the exact days remaining and the day of the week your birthday falls on. If you want to count down to a milestone birthday (like turning 30 or 40), simply enter that specific date in the custom field and add a label like "30th Birthday" in the event name field.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Many Days Until the New Year?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Many Days Until the New Year?</h2>
     <p>New Year's Day is January 1. The countdown depends entirely on today's date. On January 2, the count resets to 364 days (365 in a leap year) until the next January 1. The final week of December is when "days until New Year" becomes a genuine topic of conversation — most people are tracking single digits by December 28–29. The New Year preset auto-detects whether January 1 of this year or next year is the correct target.</p>
   </div>
 </section>
@@ -281,10 +298,8 @@ $relatedTools = [
     var iso = d.toISOString().substring(0, 10);
     document.getElementById('duTarget').value    = iso;
     document.getElementById('duEventName').value = name;
-    document.querySelectorAll('.preset-btn').forEach(function(b){
-      b.style.background = b.textContent.trim() === name ? 'var(--life)' : '#fff';
-      b.style.color      = b.textContent.trim() === name ? '#fff' : '#555';
-      b.style.borderColor = b.textContent.trim() === name ? 'var(--life)' : '#e0e0e0';
+    document.querySelectorAll('.du-preset-btn').forEach(function(b){
+      b.classList.toggle('du-preset-btn-active', b.textContent.trim() === name);
     });
     calcDaysUntil();
   };
@@ -326,7 +341,7 @@ $relatedTools = [
     document.getElementById('duDetail').innerHTML =
       '<strong>' + dayOfWeek + ', ' + dateStr + '</strong><br>'
       + days + ' days · ' + weeks + ' weeks ' + (remDays > 0 ? 'and ' + remDays + ' days' : 'exactly') + '<br>'
-      + '<span style="color:#888; font-size:.82rem;">That\'s about ' + weekends + ' weekends away</span>';
+      + '<span class="du-note">That\'s about ' + weekends + ' weekends away</span>';
 
     document.getElementById('duResults').classList.remove('d-none');
     document.getElementById('duResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -347,10 +362,10 @@ $relatedTools = [
     var diff = Math.ceil((d - new Date()) / 86400000);
     var col  = document.createElement('div');
     col.className = 'col-6 col-md-4 col-lg-2';
-    col.innerHTML = '<div class="card border-0 text-center p-3 h-100" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); cursor:pointer;" onclick="selectPreset(\''+h.name+'\')">'
-      + '<div style="font-size:1.8rem; margin-bottom:6px;">'+h.icon+'</div>'
-      + '<div class="fw-600" style="font-size:.82rem; color:var(--primary-dark);">'+h.name+'</div>'
-      + '<div class="fw-700 mt-1" style="font-size:1.2rem; color:var(--life);">'+diff+'</div>'
+    col.innerHTML = '<div class="card border-0 text-center p-3 h-100 du-hol-card" onclick="selectPreset(\''+h.name+'\')">'
+      + '<div class="du-hol-icon">'+h.icon+'</div>'
+      + '<div class="fw-600 du-hol-name">'+h.name+'</div>'
+      + '<div class="fw-700 mt-1 du-hol-count">'+diff+'</div>'
       + '<div class="ms-stat-label">days away</div>'
       + '</div>';
     grid.appendChild(col);

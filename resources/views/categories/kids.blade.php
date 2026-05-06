@@ -70,6 +70,20 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.kids-hero-badge        { background: rgba(255,255,255,.2);  color: #fff; border-radius: 50px; font-size: .8rem;  padding: 5px 14px; }
+.kids-hero-badge-sm     { background: rgba(255,255,255,.15); color: #fff; border-radius: 50px; font-size: .78rem; padding: 5px 14px; }
+.kids-safety-box        { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 10px; padding: 14px 20px; display: inline-flex; align-items: center; gap: 10px; }
+.kids-safety-icon       { font-size: 1.4rem; }
+.kids-safety-text       { color: #fff; font-size: .88rem; font-weight: 600; }
+.kids-stat-box          { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 28px 32px; text-align: center; }
+.kids-stat-sub          { color: rgba(255,255,255,.8); font-size: .9rem; }
+.kids-stat-divider      { height: 1px; background: rgba(255,255,255,.2); margin: 14px 0; }
+.kids-age-badge         { background: rgba(23,162,184,.12); color: #0d7a8d; border-radius: 50px; padding: 2px 10px; font-size: .75rem; font-weight: 600; }
+</style>
+@endsection
+
 @section('content')
 
 <nav aria-label="Breadcrumb" class="ms-cat-nav">
@@ -89,9 +103,9 @@ $relatedTools = [
         <div class="d-flex align-items-center gap-3 mb-3">
           <span class="ms-hero-icon">{{ $cat['icon'] }}</span>
           <div class="d-flex gap-2 flex-wrap">
-            <span class="badge" style="background:rgba(255,255,255,.2); color:#fff; border-radius:50px; font-size:.8rem; padding:5px 14px;">Kids Zone</span>
-            <span class="badge" style="background:rgba(255,255,255,.15); color:#fff; border-radius:50px; font-size:.78rem; padding:5px 14px;">✓ No Ads</span>
-            <span class="badge" style="background:rgba(255,255,255,.15); color:#fff; border-radius:50px; font-size:.78rem; padding:5px 14px;">✓ No Signup</span>
+            <span class="badge kids-hero-badge">Kids Zone</span>
+            <span class="badge kids-hero-badge-sm">✓ No Ads</span>
+            <span class="badge kids-hero-badge-sm">✓ No Signup</span>
           </div>
         </div>
         <h1 class="ms-cat-hero-h1">Kids Zone — Free Educational Games &amp; Quizzes</h1>
@@ -99,18 +113,18 @@ $relatedTools = [
           Fun, safe, and educational activities for children aged 5–14. Maths puzzles, spelling, science, word games, and animal quizzes —
           completely free with no ads, no accounts, and no data collected.
         </p>
-        <div style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:10px; padding:14px 20px; display:inline-flex; align-items:center; gap:10px;">
-          <span style="font-size:1.4rem;">🔒</span>
-          <span style="color:#fff; font-size:.88rem; font-weight:600;">Safe for Kids — Zero ads, zero tracking, zero data collection</span>
+        <div class="kids-safety-box">
+          <span class="kids-safety-icon">🔒</span>
+          <span class="kids-safety-text">Safe for Kids — Zero ads, zero tracking, zero data collection</span>
         </div>
       </div>
       <div class="col-lg-4 d-none d-lg-flex justify-content-end">
-        <div style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); border-radius:16px; padding:28px 32px; text-align:center;">
+        <div class="kids-stat-box">
           <div class="ms-hero-stat-num">5</div>
-          <div style="color:rgba(255,255,255,.8); font-size:.9rem;">Activities</div>
-          <div style="height:1px; background:rgba(255,255,255,.2); margin:14px 0;"></div>
+          <div class="kids-stat-sub">Activities</div>
+          <div class="kids-stat-divider"></div>
           <div class="ms-hero-stat-val">Ages 5–14</div>
-          <div style="color:rgba(255,255,255,.8); font-size:.9rem;">Designed for</div>
+          <div class="kids-stat-sub">Designed for</div>
         </div>
       </div>
     </div>
@@ -155,7 +169,7 @@ $relatedTools = [
             <div>
               <div class="ms-tool-name">{{ $name }}</div>
               <div class="ms-tool-desc mb-2">{{ $desc }}</div>
-              <span style="background:rgba(23,162,184,.12); color:#0d7a8d; border-radius:50px; padding:2px 10px; font-size:.75rem; font-weight:600;">{{ $age }}</span>
+              <span class="kids-age-badge">{{ $age }}</span>
             </div>
           </div>
         </a>

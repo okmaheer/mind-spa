@@ -79,6 +79,29 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.ret-formula-box  { background:#f8f9fa; border-left:4px solid var(--life); font-family:monospace; font-size:.9rem; color:var(--primary-dark); }
+.ret-term-pill    { background:var(--life); color:#fff; border-radius:6px; padding:4px 8px; font-weight:700; font-size:.72rem; min-width:110px; text-align:center; flex-shrink:0; margin-top:2px; line-height:1.4; }
+.ret-term-desc    { font-size:.86rem; color:#555; line-height:1.5; }
+.ret-sub          { max-width:580px; margin:auto; }
+.ret-tbl          { border-radius:12px; overflow:hidden; font-size:.88rem; }
+.ret-th-lg        { padding:14px 18px; }
+.ret-td-lg        { padding:12px 18px; }
+.ret-td-target    { padding:12px 18px; font-weight:700; color:var(--life); }
+.ret-tbl-note     { font-size:.8rem; color:#888; margin-top:12px; }
+.ret-th           { padding:8px 12px; }
+.ret-td-sm        { padding:8px 12px; }
+.ret-card         { background:#f8f4ff; border:1px solid #d4c5f9; height:100%; }
+.ret-card-label   { font-size:.75rem; text-transform:uppercase; letter-spacing:.5px; color:#888; margin-bottom:4px; }
+.ret-card-val     { font-size:1.5rem; font-weight:700; }
+.ret-card-sub     { font-size:.8rem; color:#888; }
+.ret-retire-row     { background:#f8f4ff; font-weight:700; }
+.ret-banner-success { background:#d1e7dd; color:#0a3622; border:1px solid #a3cfbb; }
+.ret-banner-warn    { background:#fff3cd; color:#664d03; border:1px solid #ffecb5; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -156,27 +179,27 @@ $relatedTools = [
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcRetirement()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcRetirement()">
               Calculate My Retirement →
             </button>
 
             {{-- Results --}}
             <div id="retResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="row g-3 mb-4" id="retSummaryCards"></div>
 
-              <div id="retStatusBanner" class="p-3 rounded-3 mb-4 text-center" style="font-size:1rem; font-weight:600;"></div>
+              <div id="retStatusBanner" class="p-3 rounded-3 mb-4 text-center fs-6 fw-semibold"></div>
 
-              <p class="fw-semibold mb-2" style="font-size:.88rem; color:var(--primary-dark);">PROJECTED SAVINGS GROWTH</p>
+              <p class="ms-data-label fw-semibold mb-2">PROJECTED SAVINGS GROWTH</p>
               <div class="table-responsive">
-                <table class="table table-sm" style="font-size:.85rem;" id="retGrowthTable">
-                  <thead style="background:#f8f9fa;">
+                <table class="table table-sm text-sm" id="retGrowthTable">
+                  <thead class="table-light">
                     <tr>
-                      <th style="padding:8px 12px;">Year</th>
-                      <th style="padding:8px 12px;">Age</th>
-                      <th style="padding:8px 12px;">Savings (nominal)</th>
-                      <th style="padding:8px 12px;">Real value (inflation-adj.)</th>
+                      <th class="ret-th">Year</th>
+                      <th class="ret-th">Age</th>
+                      <th class="ret-th">Savings (nominal)</th>
+                      <th class="ret-th">Real value (inflation-adj.)</th>
                     </tr>
                   </thead>
                   <tbody id="retGrowthBody"></tbody>
@@ -189,7 +212,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Retirement Quick Facts</h3>
           @foreach([
@@ -200,7 +223,7 @@ $relatedTools = [
             ['30+ yrs',  'Average retirement length for those retiring at 65'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--life); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.85rem; min-width:70px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
+            <div class="ms-fact-pill ms-fact-pill-life">{{ $stat }}</div>
             <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
@@ -213,14 +236,14 @@ $relatedTools = [
 </section>
 
 {{-- ── 2. How It Works ──────────────────────────────────────────────────────── --}}
-<section style="background:#fff; padding:72px 0; padding-top:80px;">
+<section class="ms-section-white">
   <div class="container-xl">
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How the 4% Rule Works: Making Your Money Last in Retirement</h2>
         <p>The <strong>4% rule</strong>, originating from the 1994 Trinity Study, states that you can withdraw 4% of your retirement portfolio in year one, and adjust that amount for inflation each subsequent year, with a high probability your money will last 30+ years.</p>
-        <div class="p-3 mb-3 rounded-3" style="background:#f8f9fa; border-left:4px solid var(--life); font-family:monospace; font-size:.9rem; color:var(--primary-dark);">
+        <div class="p-3 mb-3 rounded-3 ret-formula-box">
           FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r
         </div>
         <p>Where FV is future portfolio value, PV is current savings, r is the monthly return rate (annual ÷ 12), n is months to retirement, and PMT is your monthly contribution.</p>
@@ -228,7 +251,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Key retirement planning concepts</p>
+          <p class="ms-data-label fw-semibold mb-3">Key retirement planning concepts</p>
           @foreach([
             ['25× Rule',             'Multiply annual expenses by 25 to find your retirement number. Based on the 4% safe withdrawal rate.'],
             ['Compound Growth',      'Returns earned on previous returns. Time in the market matters more than timing the market.'],
@@ -237,8 +260,8 @@ $relatedTools = [
             ['Sequence of Returns',  'Poor returns early in retirement are more damaging than poor returns later. Consider a cash buffer.'],
           ] as [$term, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--life); color:#fff; border-radius:6px; padding:4px 8px; font-weight:700; font-size:.72rem; min-width:110px; text-align:center; flex-shrink:0; margin-top:2px; line-height:1.4;">{{ $term }}</div>
-            <div style="font-size:.86rem; color:#555; line-height:1.5;">{{ $desc }}</div>
+            <div class="ret-term-pill">{{ $term }}</div>
+            <div class="ret-term-desc">{{ $desc }}</div>
           </div>
           @endforeach
         </div>
@@ -252,19 +275,19 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Retirement Savings Target by Age and Annual Expenses</h2>
-      <p class="text-muted" style="max-width:580px; margin:auto;">Using the 25× rule (4% withdrawal rate). These are nominal targets — real targets will be higher due to inflation.</p>
+      <p class="text-muted ret-sub">Using the 25× rule (4% withdrawal rate). These are nominal targets — real targets will be higher due to inflation.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.88rem;">
+          <table class="table table-bordered ret-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:14px 18px;">Annual Expenses</th>
-                <th style="padding:14px 18px;">Target (25×)</th>
-                <th style="padding:14px 18px;">Monthly Income (4%)</th>
-                <th style="padding:14px 18px;">Save $1k/mo from 25 (7% return)</th>
-                <th style="padding:14px 18px;">On Track?</th>
+                <th class="ret-th-lg">Annual Expenses</th>
+                <th class="ret-th-lg">Target (25×)</th>
+                <th class="ret-th-lg">Monthly Income (4%)</th>
+                <th class="ret-th-lg">Save $1k/mo from 25 (7% return)</th>
+                <th class="ret-th-lg">On Track?</th>
               </tr>
             </thead>
             <tbody>
@@ -277,17 +300,17 @@ $relatedTools = [
                 ['$100,000', '$2,500,000', '$8,333',  '~Age 79', '❌ High income or FIRE strategy needed'],
               ] as [$exp, $target, $monthly, $age, $status])
               <tr>
-                <td style="padding:12px 18px; font-weight:600;">{{ $exp }}</td>
-                <td style="padding:12px 18px; font-weight:700; color:var(--life);">{{ $target }}</td>
-                <td style="padding:12px 18px;">{{ $monthly }}</td>
-                <td style="padding:12px 18px;">{{ $age }}</td>
-                <td style="padding:12px 18px; font-size:.85rem;">{{ $status }}</td>
+                <td class="ret-td-lg fw-semibold">{{ $exp }}</td>
+                <td class="ret-td-target">{{ $target }}</td>
+                <td class="ret-td-lg">{{ $monthly }}</td>
+                <td class="ret-td-lg">{{ $age }}</td>
+                <td class="ret-td-lg text-sm">{{ $status }}</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <p style="font-size:.8rem; color:#888; margin-top:12px;">Assumes 7% annual return on $1,000/month contribution starting at age 25, no existing savings. For illustration only.</p>
+        <p class="ret-tbl-note">Assumes 7% annual return on $1,000/month contribution starting at age 25, no existing savings. For illustration only.</p>
       </div>
     </div>
   </div>
@@ -297,7 +320,7 @@ $relatedTools = [
 
 
 {{-- ── 5. Long-tail SEO Sections ────────────────────────────────────────────── --}}
-<section style="background:#f8f9ff; padding:72px 0;">
+<section class="ms-section-accent">
   <div class="container-xl">
 
     <div class="row justify-content-center mb-5">
@@ -417,10 +440,10 @@ $relatedTools = [
 
     document.getElementById('retSummaryCards').innerHTML = cards.map(c =>
       `<div class="col-sm-6">
-        <div class="p-3 rounded-3 text-center" style="background:#f8f4ff; border:1px solid #d4c5f9; height:100%;">
-          <div style="font-size:.75rem; text-transform:uppercase; letter-spacing:.5px; color:#888; margin-bottom:4px;">${c.label}</div>
-          <div style="font-size:1.5rem; font-weight:700; color:${c.accent};">${c.value}</div>
-          <div style="font-size:.8rem; color:#888;">${c.sub}</div>
+        <div class="p-3 rounded-3 text-center ret-card">
+          <div class="ret-card-label">${c.label}</div>
+          <div class="ret-card-val" style="color:${c.accent};">${c.value}</div>
+          <div class="ret-card-sub">${c.sub}</div>
         </div>
       </div>`
     ).join('');
@@ -428,10 +451,10 @@ $relatedTools = [
     // Status banner
     const banner = document.getElementById('retStatusBanner');
     if (onTrack) {
-      banner.style.background = '#d1e7dd'; banner.style.color = '#0a3622'; banner.style.border = '1px solid #a3cfbb';
+      banner.className = 'p-3 rounded-3 mb-4 text-center fs-6 fw-semibold ret-banner-success';
       banner.innerHTML = `✅ You are on track! Projected savings of ${fmt(fvNominal, sym)} exceeds your target of ${fmt(savingsNeeded, sym)} (25× expenses).`;
     } else {
-      banner.style.background = '#fff3cd'; banner.style.color = '#664d03'; banner.style.border = '1px solid #ffecb5';
+      banner.className = 'p-3 rounded-3 mb-4 text-center fs-6 fw-semibold ret-banner-warn';
       banner.innerHTML = `⚠️ Gap of ${fmt(gap, sym)}. Your projected savings of ${fmt(fvNominal, sym)} falls short of your ${fmt(savingsNeeded, sym)} target (25× expenses).`;
     }
 
@@ -446,11 +469,11 @@ $relatedTools = [
         const realVal = nomVal / Math.pow(1 + inflation, yr);
         const age = currentAge + yr;
         const isRetire = yr === years;
-        tbodyHtml += `<tr ${isRetire ? 'style="background:#f8f4ff; font-weight:700;"' : ''}>
-          <td style="padding:8px 12px;">${yr === 0 ? 'Now' : 'Year ' + yr}</td>
-          <td style="padding:8px 12px;">Age ${age}</td>
-          <td style="padding:8px 12px;">${fmt(nomVal, sym)}</td>
-          <td style="padding:8px 12px; color:#666;">${fmt(realVal, sym)}</td>
+        tbodyHtml += `<tr${isRetire ? ' class="ret-retire-row"' : ''}>
+          <td class="ret-td-sm">${yr === 0 ? 'Now' : 'Year ' + yr}</td>
+          <td class="ret-td-sm">Age ${age}</td>
+          <td class="ret-td-sm">${fmt(nomVal, sym)}</td>
+          <td class="ret-td-sm text-muted">${fmt(realVal, sym)}</td>
         </tr>`;
       }
     }

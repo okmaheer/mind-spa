@@ -74,6 +74,22 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.iw-optional     { font-size: .83rem; }
+.iw-result-label { font-size: .9rem; color: var(--primary-dark); }
+.iw-form-note    { font-size: .76rem; color: #999; margin-top: 3px; }
+.iw-frame-note   { font-size: .82rem; color: #555; }
+.iw-formula-card { background: #f8f9fa; border: 2px solid #e0e0e0; }
+.iw-formula-name { font-size: .7rem; font-weight: 600; color: #888; text-transform: uppercase; }
+.iw-formula-val  { font-size: 1.2rem; font-weight: 700; }
+.iw-formula-lbs  { font-size: .68rem; color: #aaa; }
+.iw-formula-item-title { font-size: .8rem; color: #555; }
+.iw-formula-item-note  { font-size: .76rem; color: #999; margin-top: 3px; }
+.iw-table        { font-size: .88rem; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Hero --}}
@@ -119,26 +135,26 @@ $relatedTools = [
                 </div>
               </div>
               <div class="col-sm-6">
-                <label class="form-label fw-600">Current Weight <span class="text-muted fw-400" style="font-size:.83rem;">optional</span></label>
+                <label class="form-label fw-600">Current Weight <span class="text-muted fw-400 iw-optional">optional</span></label>
                 <div class="input-group">
                   <input type="number" id="iwCurrent" class="form-control" placeholder="kg">
                   <span class="input-group-text">kg</span>
                 </div>
               </div>
             </div>
-            <button class="btn btn-cta w-100 mt-4" onclick="calcIdealWeight()" style="font-size:1rem;">Calculate Ideal Weight →</button>
+            <button class="btn btn-cta w-100 mt-4" onclick="calcIdealWeight()">Calculate Ideal Weight →</button>
 
             <div id="iwResults" class="mt-4 d-none">
               <div class="ms-divider"></div>
-              <p class="fw-600 mb-3" style="font-size:.9rem; color:var(--primary-dark);">Your ideal weight estimates:</p>
+              <p class="iw-result-label fw-600 mb-3">Your ideal weight estimates:</p>
               <div class="row g-2 mb-3" id="iwFormulaCards"></div>
-              <div id="iwSummary" class="p-3 rounded-3" style="background:#f0f7ff; font-size:.88rem; color:#1a4a7a;"></div>
+              <div id="iwSummary" class="ms-note ms-note-blue"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Ideal Weight Facts</h3>
           @foreach([
@@ -172,18 +188,18 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">The four formulas (for 170cm / 5'7" height)</p>
+          <p class="ms-panel-head mb-3">The four formulas (for 170cm / 5'7" height)</p>
           @foreach([
             ['Devine (1974)','Male: 50 + 2.3 × (inches above 60)','Female: 45.5 + 2.3 × (inches above 60)','Originally for drug dosage calculations in hospitals'],
             ['Robinson (1983)','Male: 52 + 1.9 × (inches above 60)','Female: 49 + 1.7 × (inches above 60)','Published as a refinement of Devine with updated population data'],
             ['Miller (1983)','Male: 56.2 + 1.41 × (inches above 60)','Female: 53.1 + 1.36 × (inches above 60)','Another 1983 refinement; gives slightly higher values for tall people'],
             ['Hamwi (1964)','Male: 48 + 2.7 × (inches above 60)','Female: 45.5 + 2.2 × (inches above 60)','Oldest formula; still widely used in clinical dietetics'],
           ] as [$name,$male,$female,$note])
-          <div class="mb-3 pb-3" style="border-bottom:1px solid #eee;">
+          <div class="mb-3 pb-3 border-bottom">
             <div class="ms-tool-link-name">{{ $name }}</div>
-            <div style="font-size:.8rem; color:#555;">♂ {{ $male }}</div>
-            <div style="font-size:.8rem; color:#555;">♀ {{ $female }}</div>
-            <div style="font-size:.76rem; color:#999; margin-top:3px;">{{ $note }}</div>
+            <div class="iw-formula-item-title">♂ {{ $male }}</div>
+            <div class="iw-formula-item-title">♀ {{ $female }}</div>
+            <div class="iw-formula-item-note">{{ $note }}</div>
           </div>
           @endforeach
         </div>
@@ -197,12 +213,12 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Ideal Weight by Height — Quick Reference</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">Average of Robinson, Devine, Miller & Hamwi formulas. Medium frame. Values in kg.</p>
+      <p class="text-muted ms-intro-text">Average of Robinson, Devine, Miller & Hamwi formulas. Medium frame. Values in kg.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="table-responsive">
-          <table class="table table-bordered" style="font-size:.88rem;">
+          <table class="table table-bordered iw-table">
             <thead class="ms-table-head">
               <tr><th>Height</th><th>Male (avg)</th><th>Female (avg)</th><th>BMI 18.5–24.9 range</th></tr>
             </thead>
@@ -232,13 +248,13 @@ $relatedTools = [
 {{-- Long-tail --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Ideal Weight for Women by Height — Which Formula Is Best?</h2>
+    <h2 class="mb-4 text-brand">Ideal Weight for Women by Height — Which Formula Is Best?</h2>
     <p>For women, the Robinson formula is generally considered the best-calibrated of the four. It was specifically developed as a refinement of Devine with updated population samples. The Devine formula (which was derived from data on men and simply adjusted for women) tends to produce slightly lower values. For practical purposes, average the four formulas and add ±10% for your frame size — the resulting range gives a realistic target without over-specifying a single number.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Ideal Body Weight Calculator for Men — Military and Clinical Standards</h2>
+    <h2 class="mt-5 mb-4 text-brand">Ideal Body Weight Calculator for Men — Military and Clinical Standards</h2>
     <p>The US military uses a weight-for-height table with maximum weight limits and a body fat standard as the fallback. A man who exceeds the maximum weight table but passes the body fat tape test is still eligible — this recognises that muscular individuals legitimately exceed IBW predictions. The Army's standards roughly correspond to BMI 27.5 for men, which is above the standard "overweight" threshold but reflects the reality of physically fit, muscular soldiers.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Frame Size Affects Your Ideal Weight</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Frame Size Affects Your Ideal Weight</h2>
     <p>Frame size is rarely discussed but meaningfully changes your target range. Bone density and skeletal dimensions contribute significantly to total body weight — a large-framed person with healthy body composition simply weighs more than a small-framed person at the same height and fitness level. The ±10% adjustment for frame size translates to roughly 6–8kg for most adults. If you're naturally broad-shouldered with dense bones, a weight at the upper end of your IBW range is perfectly appropriate.</p>
   </div>
 </section>
@@ -256,7 +272,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">The Practical Limitation</h3>
         <p>These formulas produce a single point estimate that gives a false sense of precision. A 175cm man is told his IBW is 72kg — but a muscular 80kg man with 12% body fat and a lean 65kg man with 22% body fat are on opposite ends of the health spectrum despite both sitting near the IBW range. Use IBW as one data point alongside body fat percentage, waist circumference, and fitness markers.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Note:</strong> Ideal weight is a reference tool, not a medical target. Speak with a healthcare provider or registered dietitian if you have specific health conditions or concerns about your weight. Body composition, metabolic health, and fitness level matter far more than any single number.</p>
+          <p class="mb-0 ms-disclaimer"><strong>Note:</strong> Ideal weight is a reference tool, not a medical target. Speak with a healthcare provider or registered dietitian if you have specific health conditions or concerns about your weight. Body composition, metabolic health, and fitness level matter far more than any single number.</p>
         </div>
       </div>
     </div>
@@ -302,10 +318,10 @@ $relatedTools = [
 
     var html = '';
     cards.forEach(function(c) {
-      html += '<div class="col-6 col-sm-3"><div class="text-center p-2 rounded" style="background:#f8f9fa; border:2px solid #e0e0e0;">'
-        + '<div style="font-size:.7rem; font-weight:600; color:#888; text-transform:uppercase;">' + c[0] + '</div>'
-        + '<div style="font-size:1.2rem; font-weight:700; color:' + c[2] + ';">' + c[1].toFixed(1) + ' kg</div>'
-        + '<div style="font-size:.68rem; color:#aaa;">' + (c[1] * 2.2046).toFixed(0) + ' lbs</div>'
+      html += '<div class="col-6 col-sm-3"><div class="text-center p-2 rounded iw-formula-card">'
+        + '<div class="iw-formula-name">' + c[0] + '</div>'
+        + '<div class="iw-formula-val" style="color:' + c[2] + ';">' + c[1].toFixed(1) + ' kg</div>'
+        + '<div class="iw-formula-lbs">' + (c[1] * 2.2046).toFixed(0) + ' lbs</div>'
         + '</div></div>';
     });
     document.getElementById('iwFormulaCards').innerHTML = html;
@@ -323,7 +339,7 @@ $relatedTools = [
     document.getElementById('iwSummary').innerHTML =
       '<strong>Average ideal weight: ' + avg.toFixed(1) + ' kg (' + (avg * 2.2046).toFixed(0) + ' lbs)</strong>' + gapText + '<br>'
       + 'BMI healthy range for your height: <strong>' + bmiLow.toFixed(1) + '–' + bmiHigh.toFixed(1) + ' kg</strong><br>'
-      + '<span style="font-size:.82rem; color:#555;">Frame adjustment (' + frame + '): ×' + m.toFixed(1) + ' applied to all formulas.</span>';
+      + '<span class="iw-frame-note">Frame adjustment (' + frame + '): ×' + m.toFixed(1) + ' applied to all formulas.</span>';
 
     document.getElementById('iwResults').classList.remove('d-none');
     document.getElementById('iwResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });

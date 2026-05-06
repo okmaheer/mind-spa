@@ -80,6 +80,30 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.caf-help-text     { font-size:.8rem; color:#888; margin-top:6px; }
+.caf-drink-table   { font-size:.88rem; }
+.caf-halflife-cell { color:#888; font-size:.82rem; }
+.caf-note-box      { background:#f0f4ff; border-left:4px solid var(--sleep); }
+.caf-note-text     { margin:0; font-size:.88rem; color:#333; line-height:1.7; }
+.caf-meta-h        { font-size:1rem; }
+.caf-meta-card     { background:#f8f9fa; border:1px solid #e8e8e8; }
+.caf-meta-icon     { font-size:1.3rem; flex-shrink:0; line-height:1; padding-top:2px; }
+.caf-meta-name     { font-weight:700; font-size:.85rem; color:var(--primary-dark); }
+.caf-meta-pct      { font-size:.78rem; }
+.caf-meta-halflife { font-size:.78rem; color:var(--sleep); font-weight:600; margin:2px 0; }
+.caf-meta-desc     { font-size:.78rem; color:#666; line-height:1.5; }
+.caf-result-icon   { font-size:2rem; margin-bottom:8px; }
+.caf-result-label  { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.caf-result-time   { font-size:2.5rem; font-weight:800; }
+.caf-result-sub    { font-size:.88rem; color:#555; margin-top:8px; }
+.caf-stat-card     { background:#f8f9fa; border-radius:10px; padding:12px; }
+.caf-stat-val      { font-size:1.1rem; font-weight:800; color:var(--sleep); }
+.caf-tips-box      { background:#f0f4ff; border:1px solid rgba(108,99,255,.19); font-size:.85rem; color:#444; line-height:1.7; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -116,7 +140,7 @@ $relatedTools = [
                 <option value="9">Slow metaboliser — caffeine lasts much longer, easily disrupts sleep</option>
                 <option value="12">Very sensitive — even morning coffee can affect sleep quality</option>
               </select>
-              <div style="font-size:.8rem; color:#888; margin-top:6px;">Not sure? Start with "average." If you sleep fine after a 5pm coffee, you may be a fast metaboliser.</div>
+              <div class="caf-help-text">Not sure? Start with "average." If you sleep fine after a 5pm coffee, you may be a fast metaboliser.</div>
             </div>
 
             <div class="mb-4">
@@ -131,7 +155,7 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcCaffeine()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcCaffeine()">
               Find My Caffeine Cutoff →
             </button>
 
@@ -144,7 +168,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Caffeine Facts</h3>
           @foreach([
@@ -174,10 +198,10 @@ $relatedTools = [
       <div class="col-lg-6">
         <h2 class="mb-4">Caffeine Content by Drink</h2>
         <div class="table-responsive">
-          <table class="table" style="font-size:.88rem;">
-            <thead style="background:#f8f9fa;">
+          <table class="table caf-drink-table">
+            <thead class="table-light">
               <tr>
-                <th style="font-weight:700; color:var(--primary-dark);">Drink</th>
+                <th class="fw-bold text-brand">Drink</th>
                 <th>Caffeine</th>
                 <th>Half gone by</th>
               </tr>
@@ -196,9 +220,9 @@ $relatedTools = [
                 ['Dark chocolate (30g)','~20mg','3–4h later'],
               ] as [$drink,$caf,$halflife])
               <tr>
-                <td style="color:var(--primary-dark);">{{ $drink }}</td>
-                <td style="font-weight:600; color:var(--sleep);">{{ $caf }}</td>
-                <td style="color:#888; font-size:.82rem;">{{ $halflife }}</td>
+                <td class="text-brand">{{ $drink }}</td>
+                <td class="fw-semibold text-sleep">{{ $caf }}</td>
+                <td class="caf-halflife-cell">{{ $halflife }}</td>
               </tr>
               @endforeach
             </tbody>
@@ -209,8 +233,8 @@ $relatedTools = [
         <h2 class="mb-4">How Caffeine Disrupts Sleep</h2>
         <p>Caffeine works by blocking adenosine receptors. Adenosine is the brain's sleep-pressure chemical — it builds up throughout the day and drives the urge to sleep. Caffeine doesn't reduce adenosine; it simply blocks the receptors that sense it. When caffeine wears off, all the accumulated adenosine floods the receptors at once — the classic "caffeine crash."</p>
         <p>The critical insight: even when caffeine no longer keeps you awake, it continues to reduce slow-wave deep sleep as measured by brain activity monitors. A 2023 double-blind study showed that 400mg of caffeine taken 6 hours before bed caused a 20% reduction in deep sleep without any subjective sleep quality difference reported by participants.</p>
-        <div class="p-4 rounded-3" style="background:#f0f4ff; border-left:4px solid var(--sleep);">
-          <p style="margin:0; font-size:.88rem; color:#333; line-height:1.7;"><strong>The sleep debt cycle:</strong> Caffeine → reduced deep sleep → more daytime fatigue → more caffeine → less deep sleep → compounding debt. Breaking this cycle requires 5–7 days of caffeine restriction while sleep rebuilds.</p>
+        <div class="p-4 rounded-3 caf-note-box">
+          <p class="caf-note-text"><strong>The sleep debt cycle:</strong> Caffeine → reduced deep sleep → more daytime fatigue → more caffeine → less deep sleep → compounding debt. Breaking this cycle requires 5–7 days of caffeine restriction while sleep rebuilds.</p>
         </div>
       </div>
     </div>
@@ -229,19 +253,19 @@ $relatedTools = [
         <p>You can't get tested cheaply, but your sleep pattern tells you: if afternoon coffee consistently doesn't affect your sleep, you're likely a fast metaboliser. If even morning coffee seems to affect sleep quality, you may be a very slow metaboliser — often linked to hormonal contraceptive use, which inhibits CYP1A2.</p>
       </div>
       <div class="col-lg-6">
-        <h3 style="font-size:1rem;" class="mb-3">Caffeine Metabolism Types</h3>
+        <h3 class="caf-meta-h mb-3">Caffeine Metabolism Types</h3>
         @foreach([
           ['⚡','Fast Metaboliser','~40–50% of people','Half-life: 3–4h','Can typically handle coffee until 5–6 PM without sleep impact.'],
           ['🔄','Average Metaboliser','~30–40% of people','Half-life: 5–7h','Should stop caffeine by 2–3 PM for a 11 PM bedtime.'],
           ['🐢','Slow Metaboliser','~15–20% of people','Half-life: 8–12h','Even noon coffee can affect deep sleep. Caffeine sensitivity is high.'],
           ['⚠️','Very Sensitive','Hormonal OC, CYP1A2 inhibitors','Half-life: up to 16h','Hormonal birth control can double caffeine half-life. Morning-only caffeine recommended.'],
         ] as [$icon,$type,$pct,$halflife,$desc])
-        <div class="d-flex gap-3 p-3 mb-2 rounded-3" style="background:#f8f9fa; border:1px solid #e8e8e8;">
-          <div style="font-size:1.3rem; flex-shrink:0; line-height:1; padding-top:2px;">{{ $icon }}</div>
+        <div class="d-flex gap-3 p-3 mb-2 rounded-3 caf-meta-card">
+          <div class="caf-meta-icon">{{ $icon }}</div>
           <div>
-            <div style="font-weight:700; font-size:.85rem; color:var(--primary-dark);">{{ $type }} <span style="font-weight:400; color:#888; font-size:.78rem;">{{ $pct }}</span></div>
-            <div style="font-size:.78rem; color:var(--sleep); font-weight:600; margin:2px 0;">{{ $halflife }}</div>
-            <div style="font-size:.78rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+            <div class="caf-meta-name">{{ $type }} <span class="fw-normal text-muted caf-meta-pct">{{ $pct }}</span></div>
+            <div class="caf-meta-halflife">{{ $halflife }}</div>
+            <div class="caf-meta-desc">{{ $desc }}</div>
           </div>
         </div>
         @endforeach
@@ -255,11 +279,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">How Late Is Too Late to Drink Coffee?</h2>
+    <h2 class="mb-4 text-brand">How Late Is Too Late to Drink Coffee?</h2>
     <p>The general rule supported by research (including a 2013 study in the Journal of Clinical Sleep Medicine): avoid caffeine within 6 hours of your intended bedtime. However, this is an average. Fast metabolisers (CYP1A2 fast allele) may tolerate coffee up to 3–4 hours before bed. Slow metabolisers and those with caffeine sensitivity should cut off 8–10 hours before bed. The calculator uses your selected metabolism speed to give you a personalised cut-off time rather than a one-size-fits-all rule.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Caffeine Calculator for Night Shift Workers</h2>
+    <h2 class="mt-5 mb-4 text-brand">Caffeine Calculator for Night Shift Workers</h2>
     <p>Night shift workers face a particular caffeine challenge: they need to stay alert during the shift but must sleep during the day. The key strategy: use caffeine strategically in the first half of the shift only. If your shift runs 10 pm–6 am, limit caffeine to before 2:00 am. A second tactic is the "caffeine nap" — drink a coffee immediately before a 20-minute nap. By the time you wake, the caffeine has been absorbed and you get the combined benefit of both. Avoid caffeine within 6 hours of your planned daytime sleep period.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Does Decaf Coffee Affect Sleep?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Does Decaf Coffee Affect Sleep?</h2>
     <p>Decaffeinated coffee still contains 2–25 mg of caffeine per cup (compared to 80–120 mg in regular coffee). For most people, this small amount is negligible. However, highly sensitive individuals or those with slow caffeine metabolism may notice even decaf disrupts sleep when consumed in the evening. Decaf also contains chlorogenic acids and other compounds that can slightly elevate cortisol. For the best sleep, switch to herbal tea (not green or black tea) after 6 pm.</p>
   </div>
 </section>
@@ -309,25 +333,25 @@ $relatedTools = [
     var icon = isSafe ? '✅' : isWarning ? '⚠️' : '🚫';
 
     var html = '<div class="p-4 rounded-3 mb-3 text-center" style="background:' + bg + '; border:1px solid ' + color + '30;">'
-      + '<div style="font-size:2rem; margin-bottom:8px;">' + icon + '</div>'
-      + '<div style="font-size:.8rem; font-weight:700; color:' + color + '; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">Last safe caffeine time</div>'
-      + '<div style="font-size:2.5rem; font-weight:800; color:' + color + ';">' + cutoffStr + '</div>'
-      + '<div style="font-size:.88rem; color:#555; margin-top:8px;">Based on ' + hoursNeeded + 'h clearance time for ' + cafMg + 'mg caffeine</div>'
+      + '<div class="caf-result-icon">' + icon + '</div>'
+      + '<div class="caf-result-label" style="color:' + color + ';">Last safe caffeine time</div>'
+      + '<div class="caf-result-time" style="color:' + color + ';">' + cutoffStr + '</div>'
+      + '<div class="caf-result-sub">Based on ' + hoursNeeded + 'h clearance time for ' + cafMg + 'mg caffeine</div>'
       + '</div>';
 
     html += '<div class="row g-3 mb-3">'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.1rem; font-weight:800; color:var(--sleep);">' + cafMg + 'mg</div>'
+      + '<div class="col-4 text-center"><div class="caf-stat-card">'
+      + '<div class="caf-stat-val">' + cafMg + 'mg</div>'
       + '<div class="ms-stat-label">Caffeine dose</div></div></div>'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.1rem; font-weight:800; color:var(--sleep);">' + halfLife + 'h</div>'
+      + '<div class="col-4 text-center"><div class="caf-stat-card">'
+      + '<div class="caf-stat-val">' + halfLife + 'h</div>'
       + '<div class="ms-stat-label">Half-life</div></div></div>'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.1rem; font-weight:800; color:' + color + ';">' + Math.round(residualAtBed) + 'mg</div>'
+      + '<div class="col-4 text-center"><div class="caf-stat-card">'
+      + '<div class="caf-stat-val" style="color:' + color + ';">' + Math.round(residualAtBed) + 'mg</div>'
       + '<div class="ms-stat-label">At bedtime</div></div></div>'
       + '</div>';
 
-    html += '<div class="p-3 rounded-3" style="background:#f0f4ff; border:1px solid var(--sleep)30; font-size:.85rem; color:#444; line-height:1.7;">'
+    html += '<div class="p-3 rounded-3 caf-tips-box">'
       + '<strong>Tips:</strong><br>'
       + '• Drink water first thing in the morning before any caffeine<br>'
       + '• Don\'t drink coffee within 90 minutes of waking — cortisol is already high<br>'

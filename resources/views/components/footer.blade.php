@@ -1,10 +1,10 @@
-<footer style="background:var(--primary-dark); color:rgba(255,255,255,.8); padding:60px 0 0; border-top:3px solid var(--primary-cta);" role="contentinfo">
+<footer class="ms-footer" role="contentinfo">
   <div class="container-xl">
     <div class="row g-5">
 
       {{-- Col 1: Brand --}}
       <div class="col-12 col-md-6 col-lg-3">
-        <a href="{{ route('home') }}" class="d-flex align-items-center gap-2 mb-3 text-decoration-none" style="color:#fff;">
+        <a href="{{ route('home') }}" class="ms-footer-brand d-flex align-items-center gap-2 mb-3 text-decoration-none">
           <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
             <circle cx="14" cy="14" r="13" stroke="#e94560" stroke-width="2"/>
             <path d="M9 14c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -13,21 +13,21 @@
           </svg>
           <span class="fw-700 fs-5">MindSnap</span>
         </a>
-        <p style="font-size:.88rem; color:rgba(255,255,255,.6); line-height:1.7;">
+        <p class="ms-footer-desc">
           Free health calculators, sleep tools, and brain games for everyone.
           No signup. No fees. Works worldwide.
         </p>
         <div class="d-flex gap-2 flex-wrap mt-3">
-          <span class="badge" style="background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); border-radius:50px; font-size:.75rem;">✓ 100% Free</span>
-          <span class="badge" style="background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); border-radius:50px; font-size:.75rem;">✓ No Signup</span>
-          <span class="badge" style="background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); border-radius:50px; font-size:.75rem;">✓ 190+ Countries</span>
+          <span class="badge ms-footer-badge">✓ 100% Free</span>
+          <span class="badge ms-footer-badge">✓ No Signup</span>
+          <span class="badge ms-footer-badge">✓ 190+ Countries</span>
         </div>
       </div>
 
       {{-- Col 2: Health Tools --}}
       <div class="col-6 col-lg-3">
-        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Health Tools</p>
-        <ul class="list-unstyled" style="font-size:.875rem;">
+        <p class="text-white fw-700 mb-3 ms-footer-col-heading">Health Tools</p>
+        <ul class="list-unstyled ms-footer-list">
           @foreach([
             ['Sleep Calculator', '/sleep-calculator'],
             ['BMI Calculator',   '/bmi-calculator'],
@@ -39,9 +39,7 @@
             ['All Fitness Tools','/fitness-tools'],
           ] as [$label, $href])
           <li class="mb-2">
-            <a href="{{ $href }}" style="color:rgba(255,255,255,.7); transition:color .15s;"
-               onmouseover="this.style.color='#e94560'"
-               onmouseout="this.style.color='rgba(255,255,255,.7)'">{{ $label }}</a>
+            <a href="{{ $href }}" class="ms-footer-link">{{ $label }}</a>
           </li>
           @endforeach
         </ul>
@@ -49,8 +47,8 @@
 
       {{-- Col 3: Games --}}
       <div class="col-6 col-lg-3">
-        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Brain Games</p>
-        <ul class="list-unstyled" style="font-size:.875rem;">
+        <p class="text-white fw-700 mb-3 ms-footer-col-heading">Brain Games</p>
+        <ul class="list-unstyled ms-footer-list">
           @foreach([
             ['Typing Speed Test', '/typing-speed-test'],
             ['Reaction Time',     '/reaction-time-test'],
@@ -60,9 +58,7 @@
             ['All Games',         '/games'],
           ] as [$label, $href])
           <li class="mb-2">
-            <a href="{{ $href }}" style="color:rgba(255,255,255,.7); transition:color .15s;"
-               onmouseover="this.style.color='#e94560'"
-               onmouseout="this.style.color='rgba(255,255,255,.7)'">{{ $label }}</a>
+            <a href="{{ $href }}" class="ms-footer-link">{{ $label }}</a>
           </li>
           @endforeach
         </ul>
@@ -70,8 +66,8 @@
 
       {{-- Col 4: Company --}}
       <div class="col-12 col-md-6 col-lg-3">
-        <p class="text-white fw-700 mb-3" style="font-size:.9rem; letter-spacing:.5px; text-transform:uppercase;">Company</p>
-        <ul class="list-unstyled" style="font-size:.875rem;">
+        <p class="text-white fw-700 mb-3 ms-footer-col-heading">Company</p>
+        <ul class="list-unstyled ms-footer-list">
           @foreach([
             ['About MindSnap',   '/about'],
             ['Privacy Policy',   '/privacy'],
@@ -80,15 +76,13 @@
             ['Life Tools',       '/life-tools'],
           ] as [$label, $href])
           <li class="mb-2">
-            <a href="{{ $href }}" style="color:rgba(255,255,255,.7); transition:color .15s;"
-               onmouseover="this.style.color='#e94560'"
-               onmouseout="this.style.color='rgba(255,255,255,.7)'">{{ $label }}</a>
+            <a href="{{ $href }}" class="ms-footer-link">{{ $label }}</a>
           </li>
           @endforeach
         </ul>
-        <div class="mt-3 p-3 rounded" style="background:rgba(23,162,184,.15); border:1px solid rgba(23,162,184,.3);">
-          <span style="font-size:.82rem; color:#17a2b8; font-weight:600;">👶 Safe for Kids</span>
-          <p style="font-size:.78rem; color:rgba(255,255,255,.6); margin:4px 0 0;">
+        <div class="mt-3 p-3 rounded ms-footer-kids-box">
+          <span class="ms-footer-kids-label">👶 Safe for Kids</span>
+          <p class="ms-footer-kids-text">
             Kids Zone has no ads, no data collection, no accounts required.
           </p>
         </div>
@@ -97,18 +91,13 @@
     </div>
 
     {{-- Bottom bar --}}
-    <div class="d-flex flex-wrap justify-content-between align-items-center py-4 mt-5"
-         style="border-top:1px solid rgba(255,255,255,.1); gap:12px;">
-      <p style="font-size:.82rem; color:rgba(255,255,255,.7); margin:0;">
+    <div class="d-flex flex-wrap justify-content-between align-items-center py-4 mt-5 ms-footer-bottom">
+      <p class="ms-footer-copy">
         © {{ date('Y') }} MindSnap.co — All rights reserved.
       </p>
       <div class="d-flex flex-wrap gap-2">
         @foreach(config('mindsnap.categories') as $key => $cat)
-        <a href="{{ url($cat['slug']) }}"
-           class="badge text-decoration-none"
-           style="background:rgba(255,255,255,.08); color:rgba(255,255,255,.6); border-radius:50px; font-size:.72rem; padding:4px 10px;"
-           onmouseover="this.style.background='rgba(233,69,96,.2)'; this.style.color='#e94560';"
-           onmouseout="this.style.background='rgba(255,255,255,.08)'; this.style.color='rgba(255,255,255,.6)';">
+        <a href="{{ url($cat['slug']) }}" class="badge text-decoration-none ms-footer-cat-badge">
           {{ $cat['icon'] }} {{ $cat['label'] }}
         </a>
         @endforeach

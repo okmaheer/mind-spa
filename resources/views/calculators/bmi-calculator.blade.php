@@ -1,8 +1,33 @@
-@extends('layouts.app')
+   @extends('layouts.app')
 
 @section('title', 'BMI Calculator — Body Mass Index for Men, Women & Teens | MindSnap')
 @section('description', 'Free BMI calculator: enter height and weight to get your body mass index, weight category, and healthy weight range. Works in kg/cm or lbs/ft. No signup.')
 @section('canonical', config('app.url') . '/bmi-calculator')
+
+@section('styles')
+<style>
+.bmi-value      { font-size:3rem; font-weight:700; color:var(--primary-dark); line-height:1; }
+.bmi-category   { display:inline-block; margin-top:8px; padding:6px 18px; border-radius:50px; font-weight:700; font-size:.95rem; }
+.bmi-details    { font-size:.9rem; color:#555; text-align:center; }
+.bmi-scale-bar  { position:relative; height:20px; border-radius:10px; overflow:visible;
+                  background:linear-gradient(to right,#4fc3f7 0%,#66bb6a 20%,#66bb6a 45%,#ffa726 65%,#ef5350 100%); }
+.bmi-marker     { position:absolute; top:-5px; width:4px; height:30px; background:#1a1a2e;
+                  border-radius:2px; transform:translateX(-50%); transition:left .4s ease; }
+.bmi-scale-labels { font-size:.7rem; color:#888; }
+.bmi-age-note   { font-size:.82rem; }
+.bmi-formula-box { background:#f8f9fa; border-left:4px solid var(--fitness); font-family:monospace; font-size:1rem; color:var(--primary-dark); }
+.bmi-measures-badge-green { font-size:.75rem; font-weight:700; min-width:64px; padding-top:2px; color:var(--green-text); }
+.bmi-measures-badge-red   { font-size:.75rem; font-weight:700; min-width:64px; padding-top:2px; color:var(--cta-text); }
+.bmi-measures-desc { font-size:.87rem; color:#555; line-height:1.5; }
+.bmi-dot-uw  { background: #4fc3f7; }
+.bmi-dot-nm  { background: #66bb6a; }
+.bmi-dot-ow  { background: #ffa726; }
+.bmi-dot-ob1 { background: #ef9a9a; }
+.bmi-dot-ob2 { background: #e57373; }
+.bmi-dot-ob3 { background: #c62828; }
+.bmi-td-sm   { font-size: .85rem; }
+</style>
+@endsection
 
 @section('schema')
 <script type="application/ld+json">
@@ -112,12 +137,10 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Unit system">
-              <button class="btn flex-fill bmi-unit-btn active" data-unit="metric"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
+              <button class="btn flex-fill mode-btn mode-btn-fitness bmi-unit-btn active" data-unit="metric">
                 Metric (kg / cm)
               </button>
-              <button class="btn flex-fill bmi-unit-btn" data-unit="imperial"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
+              <button class="btn flex-fill mode-btn bmi-unit-btn" data-unit="imperial">
                 Imperial (lbs / ft)
               </button>
             </div>
@@ -162,39 +185,38 @@ $relatedTools = [
                 </select>
               </div>
               <div class="col-6">
-                <label for="bmiAge" class="form-label fw-600">Age <span class="text-muted fw-400" style="font-size:.82rem;">(optional)</span></label>
+                <label for="bmiAge" class="form-label fw-600">Age <span class="text-muted fw-400 bmi-age-note">(optional)</span></label>
                 <input type="number" id="bmiAge" class="form-control" placeholder="e.g. 30" min="2" max="120" aria-label="Age in years">
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcBMI()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcBMI()">
               Calculate BMI →
             </button>
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
-              <div class="ms-divider" style="margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="text-center mb-3">
-                <div id="bmiValue" style="font-size:3rem; font-weight:700; color:var(--primary-dark); line-height:1;"></div>
-                <div id="bmiCategory" style="display:inline-block; margin-top:8px; padding:6px 18px; border-radius:50px; font-weight:700; font-size:.95rem;"></div>
+                <div id="bmiValue" class="bmi-value"></div>
+                <div id="bmiCategory" class="bmi-category"></div>
               </div>
 
-              <div id="bmiDetails" class="mb-3" style="font-size:.9rem; color:#555; text-align:center;"></div>
+              <div id="bmiDetails" class="bmi-details mb-3"></div>
 
               {{-- BMI Scale Bar --}}
-              <div class="mb-2" style="position:relative; height:20px; border-radius:10px; overflow:visible;
-                background:linear-gradient(to right, #4fc3f7 0%, #66bb6a 20%, #66bb6a 45%, #ffa726 65%, #ef5350 100%);">
-                <div id="bmiMarker" style="position:absolute; top:-5px; width:4px; height:30px; background:#1a1a2e; border-radius:2px; transform:translateX(-50%); transition:left .4s ease;"></div>
+              <div class="bmi-scale-bar mb-2">
+                <div id="bmiMarker" class="bmi-marker"></div>
               </div>
-              <div class="d-flex justify-content-between mb-3" style="font-size:.7rem; color:#888;">
+              <div class="d-flex justify-content-between bmi-scale-labels mb-3">
                 <span>Underweight<br>&lt;18.5</span>
-                <span style="text-align:center;">Normal<br>18.5–24.9</span>
-                <span style="text-align:center;">Overweight<br>25–29.9</span>
-                <span style="text-align:right;">Obese<br>30+</span>
+                <span class="text-center">Normal<br>18.5–24.9</span>
+                <span class="text-center">Overweight<br>25–29.9</span>
+                <span class="text-end">Obese<br>30+</span>
               </div>
 
-              <div id="bmiHealthyRange" class="p-3 rounded-3" style="background:#f0fff4; border:1px solid #c3e6cb; font-size:.88rem; color:#155724;"></div>
+              <div id="bmiHealthyRange" class="p-3 rounded-3 ms-note ms-note-green"></div>
             </div>
 
           </div>
@@ -202,7 +224,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick BMI Facts</h3>
           @foreach([
@@ -233,7 +255,7 @@ $relatedTools = [
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How BMI Is Calculated: The Quetelet Index Explained</h2>
         <p>BMI (Body Mass Index) was developed in 1832 by Belgian mathematician Adolphe Quetelet. The formula divides your weight in kilograms by the square of your height in metres:</p>
-        <div class="p-3 mb-3 rounded-3" style="background:#f8f9fa; border-left:4px solid var(--fitness); font-family:monospace; font-size:1rem; color:var(--primary-dark);">
+        <div class="p-3 mb-3 rounded-3 bmi-formula-box">
           BMI = weight (kg) ÷ height (m)²
         </div>
         <p>In imperial units, the formula adds a conversion factor: <strong>BMI = 703 × weight (lbs) ÷ height (inches)²</strong>.</p>
@@ -241,7 +263,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">What BMI measures vs. what it misses</p>
+          <p class="ms-panel-head mb-3">What BMI measures vs. what it misses</p>
           @foreach([
             ['✅ Measures', 'Weight relative to height — useful for population comparisons'],
             ['✅ Measures', 'General weight category — underweight, normal, overweight, obese'],
@@ -251,8 +273,8 @@ $relatedTools = [
             ['❌ Misses',   'Bone density, age-related muscle loss, and ethnicity differences'],
           ] as [$badge, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="font-size:.75rem; font-weight:700; min-width:64px; padding-top:2px; color:{{ str_starts_with($badge,'✅') ? 'var(--green-text)' : 'var(--cta-text)' }};">{{ $badge }}</div>
-            <div style="font-size:.87rem; color:#555; line-height:1.5;">{{ $desc }}</div>
+            <div class="{{ str_starts_with($badge,'✅') ? 'bmi-measures-badge-green' : 'bmi-measures-badge-red' }}">{{ $badge }}</div>
+            <div class="bmi-measures-desc">{{ $desc }}</div>
           </div>
           @endforeach
         </div>
@@ -266,43 +288,43 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>BMI Categories and What They Mean</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">World Health Organization classification for adults aged 18 and over.</p>
+      <p class="text-muted ms-intro-text">World Health Organization classification for adults aged 18 and over.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-9">
-        <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.92rem;">
+        <div class="table-responsive ms-table-rounded">
+          <table class="table table-bordered mb-0">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:14px 18px;">Category</th>
-                <th style="padding:14px 18px;">BMI Range</th>
-                <th style="padding:14px 18px;">Health Risk</th>
-                <th style="padding:14px 18px;">Common Causes</th>
+                <th class="px-3 py-3">Category</th>
+                <th class="px-3 py-3">BMI Range</th>
+                <th class="px-3 py-3">Health Risk</th>
+                <th class="px-3 py-3">Common Causes</th>
               </tr>
             </thead>
             <tbody>
               @foreach([
-                ['Underweight',     '< 18.5',    'Moderate',    '#4fc3f7', 'Malnutrition, eating disorders, hyperthyroidism, chronic illness'],
-                ['Normal Weight',   '18.5–24.9', 'Minimal',     '#66bb6a', 'Healthy diet, regular physical activity, balanced energy balance'],
-                ['Overweight',      '25.0–29.9', 'Increased',   '#ffa726', 'Excess calorie intake, sedentary lifestyle, hormonal factors'],
-                ['Obese (Class I)', '30.0–34.9', 'High',        '#ef9a9a', 'Significant calorie surplus, genetic predisposition, medical conditions'],
-                ['Obese (Class II)','35.0–39.9', 'Very High',   '#e57373', 'Severe calorie imbalance, limited mobility, metabolic disorders'],
-                ['Obese (Class III)','≥ 40.0',   'Extremely High','#c62828', 'Morbid obesity — complex multifactorial causes'],
-              ] as [$cat, $range, $risk, $color, $causes])
+                ['Underweight',     '< 18.5',    'Moderate',      'bmi-dot-uw',  'Malnutrition, eating disorders, hyperthyroidism, chronic illness'],
+                ['Normal Weight',   '18.5–24.9', 'Minimal',       'bmi-dot-nm',  'Healthy diet, regular physical activity, balanced energy balance'],
+                ['Overweight',      '25.0–29.9', 'Increased',     'bmi-dot-ow',  'Excess calorie intake, sedentary lifestyle, hormonal factors'],
+                ['Obese (Class I)', '30.0–34.9', 'High',          'bmi-dot-ob1', 'Significant calorie surplus, genetic predisposition, medical conditions'],
+                ['Obese (Class II)','35.0–39.9', 'Very High',     'bmi-dot-ob2', 'Severe calorie imbalance, limited mobility, metabolic disorders'],
+                ['Obese (Class III)','≥ 40.0',   'Extremely High','bmi-dot-ob3', 'Morbid obesity — complex multifactorial causes'],
+              ] as [$cat, $range, $risk, $dotCls, $causes])
               <tr>
-                <td style="padding:12px 18px; font-weight:600;">
-                  <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:{{ $color }}; margin-right:8px;"></span>
+                <td class="px-3 py-2 fw-600">
+                  <span class="ms-dot me-2 {{ $dotCls }}"></span>
                   {{ $cat }}
                 </td>
-                <td style="padding:12px 18px;">{{ $range }}</td>
-                <td style="padding:12px 18px;">{{ $risk }}</td>
-                <td style="padding:12px 18px; color:#666; font-size:.85rem;">{{ $causes }}</td>
+                <td class="px-3 py-2">{{ $range }}</td>
+                <td class="px-3 py-2">{{ $risk }}</td>
+                <td class="px-3 py-2 text-muted bmi-td-sm">{{ $causes }}</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <p style="font-size:.8rem; color:#888; margin-top:12px;">Source: World Health Organization (WHO) Global Database on Body Mass Index.</p>
+        <p class="ms-source">Source: World Health Organization (WHO) Global Database on Body Mass Index.</p>
       </div>
     </div>
   </div>
@@ -315,15 +337,15 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">BMI Calculator for Women — Understanding Female Body Composition</h2>
+    <h2 class="mb-4 text-brand">BMI Calculator for Women — Understanding Female Body Composition</h2>
     <p>Women's bodies are biologically designed to carry 6–11% more body fat than men of equivalent BMI, primarily to support hormonal function, fertility, and pregnancy. This means the standard BMI table — derived largely from male-dominated datasets — may slightly overestimate health risk for women with a BMI of 25–27. The American College of Obstetricians and Gynecologists recommends using BMI alongside waist circumference (goal: under 88 cm / 35 inches) for a more accurate picture.</p>
     <p>For women approaching or past menopause, estrogen decline triggers a shift in fat distribution from the hips and thighs to the abdomen — often without any change in BMI. This makes abdominal obesity screening especially important for women over 50, even when BMI appears normal. Bone density (DEXA) scans are more accurate than BMI for assessing health status in this age group.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">BMI Chart for Men by Age — How Age Affects Healthy BMI</h2>
+    <h2 class="mt-5 mb-4 text-brand">BMI Chart for Men by Age — How Age Affects Healthy BMI</h2>
     <p>While the WHO healthy BMI range (18.5–24.9) applies to all adult men, age significantly changes what a given BMI means in practice. Men in their 20s with a BMI of 22 typically have 15–20% body fat. A 60-year-old man with the same BMI may have 25–30% body fat due to age-related muscle loss (sarcopenia), despite appearing "normal" by the chart.</p>
     <p>A large analysis in The Lancet found that men over 65 with BMIs of 25–27 ("overweight" by standard classification) had lower all-cause mortality than those in the 22–24.9 range, suggesting that the optimal BMI shifts upward as men age and the protective effects of modest fat reserves outweigh the metabolic risks. For men in their 60s and beyond, maintaining muscle mass through resistance training is more important than achieving a particular BMI number.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Is BMI Accurate for Athletes and Muscular People?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Is BMI Accurate for Athletes and Muscular People?</h2>
     <p>BMI is notoriously inaccurate for athletes. Muscle tissue is approximately 18% denser than fat tissue — meaning a highly muscular person weighs more per unit of volume than someone with equivalent fat. An NFL lineman, competitive powerlifter, or professional rugby player may have a BMI of 30–35 (classified as "obese") while carrying under 10% body fat and having excellent cardiovascular health metrics.</p>
     <p>For athletes and regularly exercising individuals, better alternatives include DEXA body composition scans (gold standard), hydrostatic weighing, or skinfold caliper measurements. The US military uses a tape-measure-based body fat estimation rather than BMI specifically because BMI misclassifies muscular recruits. If you exercise regularly and lift weights, treat your BMI result as one data point rather than a definitive health verdict — your body fat percentage and waist circumference are far more informative.</p>
 
@@ -345,7 +367,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Ethnic Differences in BMI Thresholds</h3>
         <p>Research consistently shows that health risks associated with excess body fat begin at lower BMI values in South Asian, East Asian, and some other ethnic populations. The WHO has proposed adjusted cut-offs for Asian populations: overweight at BMI 23+ and obesity at BMI 27.5+. If you are of South or East Asian descent, discuss these adjusted thresholds with your healthcare provider, as the standard 25/30 cut-offs may underestimate your risk.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Disclaimer:</strong> This BMI calculator is for informational and educational purposes only. It is not a medical device and does not provide medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before making changes to your diet, exercise routine, or health management plan.</p>
+          <p class="mb-0 ms-disclaimer"><strong>Disclaimer:</strong> This BMI calculator is for informational and educational purposes only. It is not a medical device and does not provide medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before making changes to your diet, exercise routine, or health management plan.</p>
         </div>
       </div>
     </div>
@@ -365,14 +387,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.bmi-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       document.getElementById('bmiMetric').classList.toggle('d-none', currentUnit !== 'metric');
       document.getElementById('bmiImperial').classList.toggle('d-none', currentUnit !== 'imperial');

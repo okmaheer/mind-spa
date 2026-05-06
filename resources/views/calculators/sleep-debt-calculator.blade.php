@@ -80,6 +80,54 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.sd-need-hint    { font-size:.83rem; }
+.sd-slider-val   { min-width:40px; font-weight:700; color:var(--sleep); }
+.sd-day-label    { font-size:.72rem; color:#888; display:block; text-align:center; margin-bottom:4px; }
+.sd-day-input    { font-size:.9rem; padding:8px 4px; }
+.sd-intro-sub    { max-width:540px; margin:0 auto 40px; }
+.sd-level-mild   { background:#d1eddb; border:1px solid rgba(21,87,36,.19); }
+.sd-level-mild .sd-level-debt, .sd-level-mild .sd-level-label,
+.sd-level-mild .sd-result-debt, .sd-level-mild .sd-result-label { color:#155724; }
+.sd-level-mod    { background:#fff3cd; border:1px solid rgba(102,77,3,.19); }
+.sd-level-mod .sd-level-debt, .sd-level-mod .sd-level-label,
+.sd-level-mod .sd-result-debt, .sd-level-mod .sd-result-label { color:#664d03; }
+.sd-level-sig    { background:#ffe5cc; border:1px solid rgba(122,64,4,.19); }
+.sd-level-sig .sd-level-debt, .sd-level-sig .sd-level-label,
+.sd-level-sig .sd-result-debt, .sd-level-sig .sd-result-label { color:#7a4004; }
+.sd-level-sev    { background:#ffd5d5; border:1px solid rgba(114,28,36,.19); }
+.sd-level-sev .sd-level-debt, .sd-level-sev .sd-level-label,
+.sd-level-sev .sd-result-debt, .sd-level-sev .sd-result-label { color:#721c24; }
+.sd-level-debt   { font-size:1.2rem; font-weight:800; }
+.sd-level-label  { font-weight:700; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.4px; }
+.sd-level-desc   { font-size:.82rem; color:#555; line-height:1.7; margin:0; }
+.sd-period-h     { font-size:1rem; }
+.sd-period-desc  { font-size:.75rem; color:#888; }
+.sd-period-title { font-size:.82rem; font-weight:700; }
+.sd-bar-track    { background:#f0f0f0; border-radius:4px; height:8px; }
+.sd-bar-fill     { height:100%; border-radius:4px; }
+.sd-p-mild     .sd-period-title { color:#155724; }
+.sd-p-mild     .sd-bar-fill     { background:#155724; }
+.sd-p-moderate .sd-period-title { color:#664d03; }
+.sd-p-moderate .sd-bar-fill     { background:#664d03; }
+.sd-p-serious  .sd-period-title { color:#7a4004; }
+.sd-p-serious  .sd-bar-fill     { background:#7a4004; }
+.sd-p-severe   .sd-period-title { color:#721c24; }
+.sd-p-severe   .sd-bar-fill     { background:#721c24; }
+.sd-bar-source   { font-size:.78rem; color:#888; margin-top:12px; }
+.sd-result-icon  { font-size:2rem; margin-bottom:8px; }
+.sd-result-debt  { font-size:1.6rem; font-weight:800; }
+.sd-result-label { font-weight:700; margin:4px 0 8px; text-transform:uppercase; font-size:.8rem; letter-spacing:.5px; }
+.sd-result-sub   { font-size:.88rem; color:#555; margin:0; }
+.sd-stat-card    { background:#f8f9fa; border-radius:10px; padding:12px; }
+.sd-stat-val     { font-size:1.3rem; font-weight:800; color:var(--sleep); }
+.sd-recovery-box { background:#f0f4ff; border:1px solid rgba(108,99,255,.19); }
+.sd-recovery-title { font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:8px; }
+.sd-recovery-list  { margin:0; padding-left:18px; font-size:.85rem; color:#555; line-height:1.8; }
+</style>
+@endsection
+
 @section('content')
 
 <section class="ms-hero">
@@ -116,12 +164,12 @@ $relatedTools = [
             <div class="mb-4">
               <label for="neededHours" class="form-label fw-600">
                 Hours of sleep you personally need per night
-                <span class="text-muted fw-400" style="font-size:.83rem;">pre-filled from age group average</span>
+                <span class="text-muted fw-normal sd-need-hint">pre-filled from age group average</span>
               </label>
               <div class="d-flex align-items-center gap-3">
                 <input type="range" id="neededSlider" min="6" max="10" step="0.5" value="8"
-                       class="form-range flex-grow-1" oninput="syncSlider('needed')">
-                <span id="neededVal" style="min-width:40px; font-weight:700; color:var(--sleep);">8h</span>
+                       class="form-range grow" oninput="syncSlider('needed')">
+                <span id="neededVal" class="sd-slider-val">8h</span>
               </div>
             </div>
 
@@ -130,17 +178,16 @@ $relatedTools = [
               <div class="row g-2" id="dayInputs">
                 @foreach(['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] as $day)
                 <div class="col">
-                  <label style="font-size:.72rem; color:#888; display:block; text-align:center; margin-bottom:4px;">{{ $day }}</label>
-                  <input type="number" class="form-control day-input text-center" data-day="{{ strtolower($day) }}"
+                  <label class="sd-day-label">{{ $day }}</label>
+                  <input type="number" class="form-control day-input text-center sd-day-input" data-day="{{ strtolower($day) }}"
                          value="7" min="0" max="14" step="0.5"
-                         style="font-size:.9rem; padding:8px 4px;"
                          aria-label="{{ $day }} sleep hours">
                 </div>
                 @endforeach
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcDebt()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcDebt()">
               Calculate My Sleep Debt →
             </button>
 
@@ -153,7 +200,7 @@ $relatedTools = [
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Sleep Debt Impact</h3>
           @foreach([
@@ -180,19 +227,19 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">The Real Cost of Sleep Debt</h2>
-    <p class="text-center text-muted mb-5" style="max-width:540px; margin:0 auto 40px;">Research-backed effects of cumulative sleep deprivation at different debt levels.</p>
+    <p class="text-center text-muted mb-5 sd-intro-sub">Research-backed effects of cumulative sleep deprivation at different debt levels.</p>
     <div class="row g-4">
       @foreach([
-        ['0–2 hrs','Mild Deficit','#d1eddb','#155724','Slightly reduced attention and reaction time. Most people don\'t notice. Manageable with one recovery night.'],
-        ['2–5 hrs','Moderate Deficit','#fff3cd','#664d03','Measurable decline in memory, mood, and decision-making. 2–3× higher risk of microsleeps while driving. Feels like normal tiredness.'],
-        ['5–10 hrs','Significant Deficit','#ffe5cc','#7a4004','Equivalent to mild alcohol intoxication. Reaction time, working memory, and creativity are all impaired — but subjects rate themselves as only "slightly sleepy." Requires 3–5 recovery nights.'],
-        ['10+ hrs','Severe Deficit','#ffd5d5','#721c24','Equivalent to 48h of total sleep deprivation. Immune function suppressed, metabolic markers disrupted, emotional regulation breaks down. Requires 1–2 weeks of recovery sleep.'],
-      ] as [$debt,$label,$bg,$color,$desc])
+        ['0–2 hrs','Mild Deficit','sd-level-mild','Slightly reduced attention and reaction time. Most people don\'t notice. Manageable with one recovery night.'],
+        ['2–5 hrs','Moderate Deficit','sd-level-mod','Measurable decline in memory, mood, and decision-making. 2–3× higher risk of microsleeps while driving. Feels like normal tiredness.'],
+        ['5–10 hrs','Significant Deficit','sd-level-sig','Equivalent to mild alcohol intoxication. Reaction time, working memory, and creativity are all impaired — but subjects rate themselves as only "slightly sleepy." Requires 3–5 recovery nights.'],
+        ['10+ hrs','Severe Deficit','sd-level-sev','Equivalent to 48h of total sleep deprivation. Immune function suppressed, metabolic markers disrupted, emotional regulation breaks down. Requires 1–2 weeks of recovery sleep.'],
+      ] as [$debt,$label,$cls,$desc])
       <div class="col-sm-6 col-lg-3">
-        <div class="p-4 rounded-3 h-100" style="background:{{ $bg }}; border:1px solid {{ $color }}30;">
-          <div style="font-size:1.2rem; font-weight:800; color:{{ $color }};">{{ $debt }}</div>
-          <div style="font-weight:700; color:{{ $color }}; font-size:.85rem; margin:4px 0 12px; text-transform:uppercase; letter-spacing:.4px;">{{ $label }}</div>
-          <p style="font-size:.82rem; color:#555; line-height:1.7; margin:0;">{{ $desc }}</p>
+        <div class="p-4 rounded-3 h-100 {{ $cls }}">
+          <div class="sd-level-debt">{{ $debt }}</div>
+          <div class="sd-level-label">{{ $label }}</div>
+          <p class="sd-level-desc">{{ $desc }}</p>
         </div>
       </div>
       @endforeach
@@ -212,24 +259,24 @@ $relatedTools = [
         <p>This is the core problem with modern sleep culture: we benchmark our performance against our impaired baseline, not against our rested potential. The productivity gains from recovering sleep debt are often invisible because people cannot remember what "fully rested" feels like.</p>
       </div>
       <div class="col-lg-6">
-        <h3 style="font-size:1rem;" class="mb-4">Cumulative Effect of 6h Sleep Over 2 Weeks</h3>
+        <h3 class="sd-period-h mb-4">Cumulative Effect of 6h Sleep Over 2 Weeks</h3>
         @foreach([
-          ['Days 1–3','Slightly impaired attention and reaction time. Most people don\'t notice.',10,'#d1eddb','#155724'],
-          ['Days 4–7','Measurable decline in memory, decision-making, and emotional regulation.',35,'#fff3cd','#664d03'],
-          ['Days 8–11','Equivalent to missing 1 full night of sleep. Significant cognitive deficit.',65,'#ffe5cc','#7a4004'],
-          ['Days 12–14','Equivalent to 48h sleep deprivation. Brain cannot self-assess impairment.',100,'#ffd5d5','#721c24'],
-        ] as [$period,$desc,$pct,$bg,$color])
-        <div class="mb-3">
+          ['Days 1–3','Slightly impaired attention and reaction time. Most people don\'t notice.',10,'sd-p-mild'],
+          ['Days 4–7','Measurable decline in memory, decision-making, and emotional regulation.',35,'sd-p-moderate'],
+          ['Days 8–11','Equivalent to missing 1 full night of sleep. Significant cognitive deficit.',65,'sd-p-serious'],
+          ['Days 12–14','Equivalent to 48h sleep deprivation. Brain cannot self-assess impairment.',100,'sd-p-severe'],
+        ] as [$period,$desc,$pct,$cls])
+        <div class="mb-3 {{ $cls }}">
           <div class="d-flex justify-content-between mb-1">
-            <span style="font-size:.82rem; font-weight:700; color:{{ $color }};">{{ $period }}</span>
-            <span style="font-size:.75rem; color:#888;">{{ $desc }}</span>
+            <span class="sd-period-title">{{ $period }}</span>
+            <span class="sd-period-desc">{{ $desc }}</span>
           </div>
-          <div style="background:#f0f0f0; border-radius:4px; height:8px;">
-            <div style="width:{{ $pct }}%; height:100%; background:{{ $color }}; border-radius:4px;"></div>
+          <div class="sd-bar-track">
+            <div class="sd-bar-fill" style="width:{{ $pct }}%;"></div>
           </div>
         </div>
         @endforeach
-        <p style="font-size:.78rem; color:#888; margin-top:12px;">Source: Van Dongen et al. (2003), Sleep, University of Pennsylvania</p>
+        <p class="sd-bar-source">Source: Van Dongen et al. (2003), Sleep, University of Pennsylvania</p>
       </div>
     </div>
   </div>
@@ -240,11 +287,11 @@ $relatedTools = [
 
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Can You Recover from Chronic Sleep Deprivation?</h2>
+    <h2 class="mb-4 text-brand">Can You Recover from Chronic Sleep Deprivation?</h2>
     <p>Yes — but not as quickly as most people think. Research from the University of Colorado found that one or two "recovery" nights does not fully reverse the cognitive impairments from a week of sleep restriction. Full cognitive recovery typically requires 3 consecutive nights of adequate sleep after moderate sleep debt, and up to 2–3 weeks of consistent sleep after chronic deprivation. Metabolic markers (insulin sensitivity, cortisol levels) take even longer to normalise.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Long Does It Take to Pay Back Sleep Debt?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Long Does It Take to Pay Back Sleep Debt?</h2>
     <p>A commonly cited "rule of thumb" is that you need approximately 4 days of adequate sleep to recover from 1 hour of sleep debt. In practice: mild debt (1–5 hours) resolves in 1–2 weeks of consistent sleep. Moderate debt (5–20 hours, built over months) takes 2–4 weeks. Severe chronic sleep deprivation (years of insufficient sleep) may never be fully reversed, with some research suggesting permanent changes to brain structure in extreme cases. The strongest message from sleep science: prevention is far easier than recovery.</p>
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Sleep Debt Symptoms — How to Know You Are Sleep Deprived</h2>
+    <h2 class="mt-5 mb-4 text-brand">Sleep Debt Symptoms — How to Know You Are Sleep Deprived</h2>
     <p>Common symptoms of significant sleep debt include: falling asleep within 5 minutes of lying down (healthy is 10–20 minutes), microsleeps (involuntary 1–30 second sleep episodes while awake), increased appetite particularly for high-carbohydrate foods, emotional reactivity disproportionate to the situation, impaired decision-making that you cannot perceive yourself, and a feeling of being "fine" that disappears the moment you stop being busy. The inability to accurately assess your own impairment is one of the most dangerous aspects of sleep debt.</p>
   </div>
 </section>
@@ -278,21 +325,21 @@ $relatedTools = [
     var debt = totalNeeded - totalActual;
     var avgActual = totalActual / 7;
 
-    var level, bg, color, icon, recoveryNights;
+    var level, levelCls, color, icon, recoveryNights;
     if (debt <= 0) {
-      level = 'No Sleep Debt'; bg = '#d1eddb'; color = '#155724'; icon = '✅';
+      level = 'No Sleep Debt'; levelCls = 'sd-level-mild'; color = '#155724'; icon = '✅';
       recoveryNights = 0;
     } else if (debt <= 2) {
-      level = 'Mild Deficit'; bg = '#d1eddb'; color = '#155724'; icon = '🟡';
+      level = 'Mild Deficit'; levelCls = 'sd-level-mild'; color = '#155724'; icon = '🟡';
       recoveryNights = 1;
     } else if (debt <= 5) {
-      level = 'Moderate Deficit'; bg = '#fff3cd'; color = '#664d03'; icon = '⚠️';
+      level = 'Moderate Deficit'; levelCls = 'sd-level-mod'; color = '#664d03'; icon = '⚠️';
       recoveryNights = 3;
     } else if (debt <= 10) {
-      level = 'Significant Deficit'; bg = '#ffe5cc'; color = '#7a4004'; icon = '🔴';
+      level = 'Significant Deficit'; levelCls = 'sd-level-sig'; color = '#7a4004'; icon = '🔴';
       recoveryNights = 5;
     } else {
-      level = 'Severe Deficit'; bg = '#ffd5d5'; color = '#721c24'; icon = '🚨';
+      level = 'Severe Deficit'; levelCls = 'sd-level-sev'; color = '#721c24'; icon = '🚨';
       recoveryNights = 10;
     }
 
@@ -300,31 +347,31 @@ $relatedTools = [
       ? 'You met your sleep need this week. Great work!'
       : 'You\'re missing <strong>' + debt.toFixed(1) + ' hours</strong> of sleep this week.';
 
-    var html = '<div class="p-4 rounded-3 mb-3" style="background:' + bg + '; border:1px solid ' + color + '30;">'
-      + '<div style="font-size:2rem; margin-bottom:8px;">' + icon + '</div>'
-      + '<div style="font-size:1.6rem; font-weight:800; color:' + color + ';">'
+    var html = '<div class="p-4 rounded-3 mb-3 ' + levelCls + '">'
+      + '<div class="sd-result-icon">' + icon + '</div>'
+      + '<div class="sd-result-debt">'
       + (debt <= 0 ? '0h debt' : debt.toFixed(1) + 'h debt') + '</div>'
-      + '<div style="font-weight:700; color:' + color + '; margin:4px 0 8px; text-transform:uppercase; font-size:.8rem; letter-spacing:.5px;">' + level + '</div>'
-      + '<p style="font-size:.88rem; color:#555; margin:0;">' + debtText + '</p>'
+      + '<div class="sd-result-label">' + level + '</div>'
+      + '<p class="sd-result-sub">' + debtText + '</p>'
       + '</div>';
 
     html += '<div class="row g-3 mb-3">'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.3rem; font-weight:800; color:var(--sleep);">' + avgActual.toFixed(1) + 'h</div>'
+      + '<div class="col-4 text-center"><div class="sd-stat-card">'
+      + '<div class="sd-stat-val">' + avgActual.toFixed(1) + 'h</div>'
       + '<div class="ms-stat-label">Avg per night</div></div></div>'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.3rem; font-weight:800; color:var(--sleep);">' + needed + 'h</div>'
+      + '<div class="col-4 text-center"><div class="sd-stat-card">'
+      + '<div class="sd-stat-val">' + needed + 'h</div>'
       + '<div class="ms-stat-label">You need</div></div></div>'
-      + '<div class="col-4 text-center"><div style="background:#f8f9fa; border-radius:10px; padding:12px;">'
-      + '<div style="font-size:1.3rem; font-weight:800; color:' + color + ';">'
+      + '<div class="col-4 text-center"><div class="sd-stat-card">'
+      + '<div class="sd-stat-val" style="color:' + color + ';">'
       + (debt <= 0 ? '0' : '-' + (needed - avgActual).toFixed(1)) + 'h</div>'
       + '<div class="ms-stat-label">Per night gap</div></div></div>'
       + '</div>';
 
     if (debt > 0) {
-      html += '<div class="p-3 rounded-3" style="background:#f0f4ff; border:1px solid var(--sleep)30;">'
-        + '<p style="font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:8px;">📋 Recovery Plan</p>'
-        + '<ul style="margin:0; padding-left:18px; font-size:.85rem; color:#555; line-height:1.8;">'
+      html += '<div class="p-3 rounded-3 sd-recovery-box">'
+        + '<p class="sd-recovery-title">📋 Recovery Plan</p>'
+        + '<ul class="sd-recovery-list">'
         + '<li>Add <strong>' + Math.min(60, Math.ceil(debt / 7 * 60)) + ' minutes</strong> of sleep per night over the next ' + recoveryNights + ' nights</li>'
         + '<li>Keep wake time consistent — only extend the bedtime earlier</li>'
         + '<li>Avoid alcohol, caffeine after 2 PM, and screens 1 hour before bed</li>'

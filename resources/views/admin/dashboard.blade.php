@@ -2,6 +2,13 @@
 
 @section('title', 'Overview')
 
+@section('styles')
+<style>
+.dash-icon  { font-size: 2rem; line-height: 1; }
+.dash-count { font-size: 2rem; font-weight: 800; line-height: 1; }
+</style>
+@endsection
+
 @section('content')
 
 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -17,17 +24,17 @@
 {{-- Stat cards --}}
 <div class="row g-3 mb-4">
   @foreach([
-    ['Total Tools',  $stats['total'],     'bg-white',          '#1a1a2e', '🔧'],
-    ['Published',    $stats['published'], 'bg-success bg-opacity-10', '#198754', '✅'],
-    ['Draft',        $stats['draft'],     'bg-secondary bg-opacity-10', '#6c757d', '📝'],
-    ['Scheduled',    $stats['scheduled'], 'bg-primary bg-opacity-10',   '#0d6efd', '🗓️'],
-  ] as [$label, $count, $bg, $color, $icon])
+    ['Total Tools',  $stats['total'],     'bg-white',                   'text-dark',      '🔧'],
+    ['Published',    $stats['published'], 'bg-success bg-opacity-10',   'text-success',   '✅'],
+    ['Draft',        $stats['draft'],     'bg-secondary bg-opacity-10', 'text-secondary', '📝'],
+    ['Scheduled',    $stats['scheduled'], 'bg-primary bg-opacity-10',   'text-primary',   '🗓️'],
+  ] as [$label, $count, $bg, $textCls, $icon])
   <div class="col-sm-6 col-xl-3">
     <div class="card border-0 shadow-sm h-100 {{ $bg }}">
       <div class="card-body d-flex align-items-center gap-3 p-4">
-        <span style="font-size:2rem; line-height:1;">{{ $icon }}</span>
+        <span class="dash-icon">{{ $icon }}</span>
         <div>
-          <div style="font-size:2rem; font-weight:800; color:{{ $color }}; line-height:1;">{{ $count }}</div>
+          <div class="dash-count {{ $textCls }}">{{ $count }}</div>
           <div class="text-muted small fw-semibold mt-1">{{ $label }}</div>
         </div>
       </div>

@@ -74,6 +74,26 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.prot-unit-select   { max-width: 80px; }
+.prot-goal-label    { border: 2px solid #e0e0e0; cursor: pointer; font-size: .88rem; }
+.prot-optional      { font-size: .83rem; }
+.prot-details       { background: #f8f9fa; font-size: .88rem; color: #555; }
+.prot-note          { color: #888; font-size: .82rem; }
+.prot-food-card     { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.prot-food-icon     { font-size: 2rem; margin-bottom: 8px; }
+.prot-food-name     { font-size: .88rem; color: var(--primary-dark); }
+.prot-food-note     { font-size: .74rem; color: #999; margin-top: 6px; line-height: 1.5; }
+.prot-badge         { color: #fff; border-radius: 6px; padding: 4px 8px; font-size: .75rem; font-weight: 700; min-width: 80px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+.prot-badge-grey    { background: #6c757d; }
+.prot-badge-teal    { background: #0b7285; }
+.prot-badge-orange  { background: #e97b1e; }
+.prot-badge-green   { background: var(--fitness); }
+.prot-badge-indigo  { background: #5048d6; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Hero --}}
@@ -100,7 +120,7 @@ $relatedTools = [
                 <label class="form-label fw-600">Weight</label>
                 <div class="input-group">
                   <input type="number" id="protWeight" class="form-control" value="70" min="30" max="300">
-                  <select id="protUnit" class="form-select" style="max-width:80px;">
+                  <select id="protUnit" class="form-select prot-unit-select">
                     <option value="kg">kg</option>
                     <option value="lbs">lbs</option>
                   </select>
@@ -121,7 +141,7 @@ $relatedTools = [
                 <div class="row g-2">
                   @foreach([['maintain','Maintain Muscle'],['fat-loss','Lose Fat'],['muscle','Build Muscle'],['athlete','Athletic Performance']] as [$v,$l])
                   <div class="col-6">
-                    <label class="d-flex align-items-center gap-2 p-2 rounded" style="border:2px solid #e0e0e0; cursor:pointer; font-size:.88rem;">
+                    <label class="d-flex align-items-center gap-2 p-2 rounded prot-goal-label">
                       <input type="radio" name="protGoal" value="{{ $v }}" {{ $v==='muscle'?'checked':'' }}> {{ $l }}
                     </label>
                   </div>
@@ -129,41 +149,41 @@ $relatedTools = [
                 </div>
               </div>
               <div class="col-12">
-                <label class="form-label fw-600">Body Fat % <span class="text-muted fw-400" style="font-size:.83rem;">optional — improves accuracy</span></label>
+                <label class="form-label fw-600">Body Fat % <span class="text-muted fw-400 prot-optional">optional — improves accuracy</span></label>
                 <input type="number" id="protBF" class="form-control" placeholder="e.g. 20" min="3" max="60">
               </div>
             </div>
-            <button class="btn btn-cta w-100 mt-4" onclick="calcProtein()" style="font-size:1rem;">Calculate Protein →</button>
+            <button class="btn btn-cta w-100 mt-4" onclick="calcProtein()">Calculate Protein →</button>
 
             <div id="protResults" class="mt-4 d-none">
               <div class="ms-divider"></div>
               <div class="row g-3 text-center">
                 <div class="col-4">
                   <div class="ms-stat ms-stat-green">
-                    <div id="protMin" style="font-size:1.4rem; font-weight:700; color:var(--green-text);">—</div>
+                    <div id="protMin" class="ms-stat-val text-green-brand">—</div>
                     <div class="ms-stat-label">Minimum (g/day)</div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="ms-stat ms-stat-blue">
-                    <div id="protTarget" style="font-size:1.6rem; font-weight:700; color:var(--primary-mid);">—</div>
+                    <div id="protTarget" class="ms-stat-val-lg text-mid">—</div>
                     <div class="ms-stat-label">Target (g/day)</div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="ms-stat ms-stat-orange">
-                    <div id="protMax" style="font-size:1.4rem; font-weight:700; color:#e97b1e;">—</div>
+                    <div id="protMax" class="ms-stat-val text-orange-brand">—</div>
                     <div class="ms-stat-label">Upper (g/day)</div>
                   </div>
                 </div>
               </div>
-              <div id="protDetails" class="mt-3 p-3 rounded" style="background:#f8f9fa; font-size:.88rem; color:#555;"></div>
+              <div id="protDetails" class="mt-3 p-3 rounded prot-details"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Protein Quick Facts</h3>
           @foreach([
@@ -198,19 +218,19 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Protein targets by goal (per kg body weight)</p>
+          <p class="ms-panel-head mb-3">Protein targets by goal (per kg body weight)</p>
           @foreach([
-            ['Sedentary / Maintenance','0.8–1.0g/kg','Meet basic tissue repair needs','#6c757d'],
-            ['General Fitness','1.2–1.4g/kg','Support activity and recovery','#0b7285'],
-            ['Fat Loss (cutting)','1.6–2.2g/kg','Preserve muscle in calorie deficit','#e97b1e'],
-            ['Muscle Gain (bulking)','1.6–2.0g/kg','Maximise muscle protein synthesis','var(--fitness)'],
-            ['Athletic Performance','1.8–2.4g/kg','High-volume training recovery','#5048d6'],
-          ] as [$goal,$range,$desc,$color])
+            ['Sedentary / Maintenance','0.8–1.0g/kg','Meet basic tissue repair needs','grey'],
+            ['General Fitness','1.2–1.4g/kg','Support activity and recovery','teal'],
+            ['Fat Loss (cutting)','1.6–2.2g/kg','Preserve muscle in calorie deficit','orange'],
+            ['Muscle Gain (bulking)','1.6–2.0g/kg','Maximise muscle protein synthesis','green'],
+            ['Athletic Performance','1.8–2.4g/kg','High-volume training recovery','indigo'],
+          ] as [$goal,$range,$desc,$key])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:{{ $color }}; color:#fff; border-radius:6px; padding:4px 8px; font-size:.75rem; font-weight:700; min-width:80px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $range }}</div>
+            <div class="prot-badge prot-badge-{{ $key }}">{{ $range }}</div>
             <div>
-              <div class="fw-600" style="font-size:.87rem; color:#1a1a2e;">{{ $goal }}</div>
-              <div style="font-size:.8rem; color:#666;">{{ $desc }}</div>
+              <div class="fw-600 ms-ref-title">{{ $goal }}</div>
+              <div class="ms-ref-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -225,7 +245,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>High-Protein Foods: Grams per 100g</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">The most protein-dense foods to help you hit your daily target.</p>
+      <p class="text-muted ms-intro-text">The most protein-dense foods to help you hit your daily target.</p>
     </div>
     <div class="row g-3 justify-content-center">
       @foreach([
@@ -239,11 +259,11 @@ $relatedTools = [
         ['🥛','Greek yoghurt (plain)','10g','Probiotic + high protein snack'],
       ] as [$icon,$food,$protein,$note])
       <div class="col-6 col-md-3">
-        <div class="card border-0 h-100 text-center p-3" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06);">
-          <div style="font-size:2rem; margin-bottom:8px;">{{ $icon }}</div>
-          <div class="fw-700" style="font-size:.88rem; color:var(--primary-dark);">{{ $food }}</div>
-          <div class="fw-700 mt-1" style="font-size:1.1rem; color:var(--fitness);">{{ $protein }}</div>
-          <div style="font-size:.74rem; color:#999; margin-top:6px; line-height:1.5;">{{ $note }}</div>
+        <div class="card border-0 h-100 text-center p-3 prot-food-card">
+          <div class="prot-food-icon">{{ $icon }}</div>
+          <div class="fw-700 prot-food-name">{{ $food }}</div>
+          <div class="fw-700 mt-1 ms-stat-val-sm text-fitness">{{ $protein }}</div>
+          <div class="prot-food-note">{{ $note }}</div>
         </div>
       </div>
       @endforeach
@@ -257,14 +277,14 @@ $relatedTools = [
 {{-- Long-tail sections --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Protein Calculator for Muscle Gain — How Much Is Enough?</h2>
+    <h2 class="mb-4 text-brand">Protein Calculator for Muscle Gain — How Much Is Enough?</h2>
     <p>When building muscle, the sweet spot for protein is 1.6–2.2g per kg of body weight per day. Research by Morton et al. (2018) found that above 1.62g/kg, additional protein provides diminishing returns for muscle gain in most people. However, during a calorie surplus (bulking), staying toward the upper end (2.0–2.2g/kg) ensures amino acids are never the limiting factor for muscle protein synthesis — even if training volume is high.</p>
     <p>Distribute protein evenly across 3–5 meals. Each meal should contain at least 2–3g of leucine — the key branched-chain amino acid that triggers muscle protein synthesis. Practical targets: 30–50g of protein per meal for most adults.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Protein Intake for Weight Loss — Does High Protein Help?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Protein Intake for Weight Loss — Does High Protein Help?</h2>
     <p>During a calorie deficit, protein becomes more critical, not less. When calories are restricted, the body increases the rate at which it breaks down muscle for energy. Eating 1.8–2.4g/kg of protein during fat loss preserves lean muscle mass, keeping your metabolism from slowing as much as it otherwise would. High-protein diets also significantly reduce hunger — protein suppresses ghrelin (the hunger hormone) more than carbohydrates or fat, making a calorie deficit easier to sustain.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Protein Calculator for Women — Are Requirements Different?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Protein Calculator for Women — Are Requirements Different?</h2>
     <p>Women's protein requirements per kilogram of lean body mass are essentially the same as men's. The total gram target is lower simply because women typically have less muscle mass and lower body weight. For women focused on body composition, 1.6–2.0g/kg supports both muscle maintenance and fat loss. Women during pregnancy need an additional 25g/day (roughly 1.1g/kg total). Breastfeeding adds another 20g/day above baseline. These increases support fetal development and milk production without compromising maternal muscle mass.</p>
   </div>
 </section>
@@ -284,7 +304,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Why Protein Timing Matters Less Than You Think</h3>
         <p>The "anabolic window" — the idea that you must consume protein within 30 minutes of training — has been largely debunked. Total daily protein is far more important than precise timing. That said, consuming protein within 2 hours post-workout is still a sensible practice, particularly in a fasted state.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Note:</strong> This tool provides general nutrition guidance. Individual protein needs can vary based on medical conditions, age, and health status. Consult a registered dietitian or physician before making significant dietary changes, especially if you have kidney disease, liver conditions, or other chronic health issues.</p>
+          <p class="mb-0 ms-disclaimer"><strong>Note:</strong> This tool provides general nutrition guidance. Individual protein needs can vary based on medical conditions, age, and health status. Consult a registered dietitian or physician before making significant dietary changes, especially if you have kidney disease, liver conditions, or other chronic health issues.</p>
         </div>
       </div>
     </div>
@@ -335,7 +355,7 @@ $relatedTools = [
       '<strong>Daily target: ' + targetG + 'g</strong>' + bfNote + '<br>' +
       'Per meal (' + mealsPerDay + ' meals): ~' + perMeal + 'g &nbsp;·&nbsp; ' +
       'Calories from protein: ' + cals + ' kcal<br>' +
-      '<span style="color:#888; font-size:.82rem;">≈ ' + Math.round(targetG / 31) + ' chicken breasts · ' +
+      '<span class="prot-note">≈ ' + Math.round(targetG / 31) + ' chicken breasts · ' +
       Math.round(targetG / 13) + ' eggs · ' + Math.round(targetG / 25) + ' cans of tuna</span>';
 
     document.getElementById('protResults').classList.remove('d-none');

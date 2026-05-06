@@ -73,6 +73,44 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.rp-mode-btn        { border-radius: 8px; font-weight: 600; font-size: .84rem; background: #f8f9fa; color: #555; border: 1px solid #e0e0e0; padding: 8px 14px; }
+.rp-mode-btn.active { background: var(--fitness); color: #fff; border-color: transparent; }
+.rp-unit-btn        { border-radius: 8px; font-weight: 600; font-size: .82rem; background: #f8f9fa; color: #555; border: 1px solid #e0e0e0; padding: 6px 14px; }
+.rp-unit-btn.active { background: var(--fitness); color: #fff; border-color: transparent; }
+.rp-dist-btn        { border-radius: 6px; border: 1px solid #e0e0e0; background: #f8f9fa; font-size: .82rem; }
+.rp-dist-btn.active { background: var(--fitness); color: #fff; border-color: transparent; }
+.rp-time-lbl        { font-size: .72rem; color: #aaa; text-align: center; margin-top: 2px; }
+.rp-tbl-lbl         { font-size: .85rem; color: var(--primary-dark); }
+.rp-tbl             { font-size: .82rem; }
+.rp-fact-pill       { background: var(--fitness); color: #fff; border-radius: 8px; padding: 6px 10px; font-weight: 700; font-size: .8rem; min-width: 80px; text-align: center; flex-shrink: 0; }
+.rp-pace-pill       { background: var(--fitness); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: .75rem; font-weight: 700; min-width: 70px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+.rp-pace-name       { font-size: .86rem; color: #1a1a2e; }
+.rp-pace-speed      { font-weight: 400; color: #888; }
+.rp-pace-note       { font-size: .8rem; color: #666; line-height: 1.5; }
+.rp-train-card      { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.rp-train-type      { border-radius: 8px; padding: 6px 12px; font-size: .82rem; font-weight: 700; display: inline-block; margin-bottom: 12px; color: #fff; }
+.rp-train-pace      { color: var(--primary-dark); font-size: 1rem; }
+.rp-train-hr        { font-size: .78rem; color: #888; margin-bottom: 8px; }
+.rp-train-desc      { font-size: .82rem; color: #666; line-height: 1.6; }
+.rp-stat-box        { border-radius: 10px; padding: 14px 8px; }
+.rp-stat-km         { background: #f0fff4; }
+.rp-stat-mi         { background: #f0f4ff; }
+.rp-stat-kmh        { background: #fff8ec; }
+.rp-stat-mph        { background: #fff0f3; }
+.rp-stat-val        { font-size: 1.4rem; font-weight: 800; }
+.rp-stat-km .rp-stat-val  { color: var(--fitness); }
+.rp-stat-mi .rp-stat-val  { color: var(--primary-mid); }
+.rp-stat-kmh .rp-stat-val { color: #e97b1e; }
+.rp-stat-mph .rp-stat-val { color: var(--cta-text); }
+.rp-stat-lbl        { font-size: .72rem; color: #888; margin-top: 4px; }
+.rp-dist-box        { background: #f0fff4; border-radius: 10px; padding: 20px; }
+.rp-dist-val        { font-size: 2rem; font-weight: 800; color: var(--fitness); }
+.rp-dist-lbl        { font-size: .82rem; color: #888; margin-top: 4px; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -100,40 +138,25 @@ $relatedTools = [
 
             {{-- Mode tabs --}}
             <div class="d-flex gap-2 mb-4 flex-wrap" role="group" aria-label="Calculation mode">
-              <button class="btn rp-mode-btn active" data-mode="pace"
-                style="border-radius:8px; font-weight:600; font-size:.84rem; background:var(--fitness); color:#fff; border:none; padding:8px 14px;">
-                Calculate Pace
-              </button>
-              <button class="btn rp-mode-btn" data-mode="time"
-                style="border-radius:8px; font-weight:600; font-size:.84rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; padding:8px 14px;">
-                Calculate Time
-              </button>
-              <button class="btn rp-mode-btn" data-mode="distance"
-                style="border-radius:8px; font-weight:600; font-size:.84rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; padding:8px 14px;">
-                Calculate Distance
-              </button>
+              <button class="btn rp-mode-btn active" data-mode="pace">Calculate Pace</button>
+              <button class="btn rp-mode-btn" data-mode="time">Calculate Time</button>
+              <button class="btn rp-mode-btn" data-mode="distance">Calculate Distance</button>
             </div>
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Distance unit">
-              <button class="btn rp-unit-btn active" data-unit="km"
-                style="border-radius:8px; font-weight:600; font-size:.82rem; background:var(--fitness); color:#fff; border:none; padding:6px 14px;">
-                km
-              </button>
-              <button class="btn rp-unit-btn" data-unit="mi"
-                style="border-radius:8px; font-weight:600; font-size:.82rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; padding:6px 14px;">
-                miles
-              </button>
+              <button class="btn rp-unit-btn active" data-unit="km">km</button>
+              <button class="btn rp-unit-btn" data-unit="mi">miles</button>
             </div>
 
             {{-- Distance selector --}}
             <div class="mb-3">
               <label class="form-label fw-semibold">Distance</label>
               <div class="d-flex gap-2 flex-wrap mb-2">
-                <button class="btn btn-sm rp-dist-btn" data-km="5" style="border-radius:6px; border:1px solid #e0e0e0; background:#f8f9fa; font-size:.82rem;">5K</button>
-                <button class="btn btn-sm rp-dist-btn" data-km="10" style="border-radius:6px; border:1px solid #e0e0e0; background:#f8f9fa; font-size:.82rem;">10K</button>
-                <button class="btn btn-sm rp-dist-btn" data-km="21.0975" style="border-radius:6px; border:1px solid #e0e0e0; background:#f8f9fa; font-size:.82rem;">Half Marathon</button>
-                <button class="btn btn-sm rp-dist-btn" data-km="42.195" style="border-radius:6px; border:1px solid #e0e0e0; background:#f8f9fa; font-size:.82rem;">Marathon</button>
+                <button class="btn btn-sm rp-dist-btn" data-km="5">5K</button>
+                <button class="btn btn-sm rp-dist-btn" data-km="10">10K</button>
+                <button class="btn btn-sm rp-dist-btn" data-km="21.0975">Half Marathon</button>
+                <button class="btn btn-sm rp-dist-btn" data-km="42.195">Marathon</button>
               </div>
               <input type="number" id="rpDistance" class="form-control" placeholder="Or enter custom distance (km)" min="0.1" max="1000" step="0.01">
             </div>
@@ -144,15 +167,15 @@ $relatedTools = [
               <div class="row g-2 mb-3">
                 <div class="col-4">
                   <input type="number" id="rpPaceH" class="form-control" placeholder="hrs" min="0" max="23" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Hours</div>
+                  <div class="rp-time-lbl">Hours</div>
                 </div>
                 <div class="col-4">
                   <input type="number" id="rpPaceM" class="form-control" placeholder="min" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Minutes</div>
+                  <div class="rp-time-lbl">Minutes</div>
                 </div>
                 <div class="col-4">
                   <input type="number" id="rpPaceS" class="form-control" placeholder="sec" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Seconds</div>
+                  <div class="rp-time-lbl">Seconds</div>
                 </div>
               </div>
             </div>
@@ -163,11 +186,11 @@ $relatedTools = [
               <div class="row g-2 mb-3">
                 <div class="col-6">
                   <input type="number" id="rpTimePaceM" class="form-control" placeholder="min" min="0" max="30" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Minutes</div>
+                  <div class="rp-time-lbl">Minutes</div>
                 </div>
                 <div class="col-6">
                   <input type="number" id="rpTimePaceS" class="form-control" placeholder="sec" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Seconds</div>
+                  <div class="rp-time-lbl">Seconds</div>
                 </div>
               </div>
             </div>
@@ -178,44 +201,44 @@ $relatedTools = [
               <div class="row g-2 mb-2">
                 <div class="col-4">
                   <input type="number" id="rpDistH" class="form-control" placeholder="hrs" min="0" max="23" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Hours</div>
+                  <div class="rp-time-lbl">Hours</div>
                 </div>
                 <div class="col-4">
                   <input type="number" id="rpDistM" class="form-control" placeholder="min" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Minutes</div>
+                  <div class="rp-time-lbl">Minutes</div>
                 </div>
                 <div class="col-4">
                   <input type="number" id="rpDistS" class="form-control" placeholder="sec" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Seconds</div>
+                  <div class="rp-time-lbl">Seconds</div>
                 </div>
               </div>
               <label class="form-label fw-semibold mt-2">Pace <span id="rpPaceUnitLabel2">(min:sec per km)</span></label>
               <div class="row g-2 mb-3">
                 <div class="col-6">
                   <input type="number" id="rpDistPaceM" class="form-control" placeholder="min" min="0" max="30" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Minutes</div>
+                  <div class="rp-time-lbl">Minutes</div>
                 </div>
                 <div class="col-6">
                   <input type="number" id="rpDistPaceS" class="form-control" placeholder="sec" min="0" max="59" step="1">
-                  <div style="font-size:.72rem; color:#aaa; text-align:center; margin-top:2px;">Seconds</div>
+                  <div class="rp-time-lbl">Seconds</div>
                 </div>
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calculatePace()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calculatePace()">
               Calculate →
             </button>
 
             {{-- Results --}}
             <div id="rpResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider mb-4"></div>
 
               <div class="row g-3 text-center mb-4" id="rpPrimaryResults"></div>
 
               <div id="rpRaceTable" class="d-none">
-                <p class="fw-semibold mb-2" style="font-size:.85rem; color:var(--primary-dark);">Race Finish Times at This Pace</p>
+                <p class="fw-semibold mb-2 rp-tbl-lbl">Race Finish Times at This Pace</p>
                 <div class="table-responsive">
-                  <table class="table table-sm table-bordered mb-0" style="font-size:.82rem;">
+                  <table class="table table-sm table-bordered mb-0 rp-tbl">
                     <thead class="ms-table-head">
                       <tr><th>Distance</th><th>Finish Time</th><th>Speed</th></tr>
                     </thead>
@@ -232,7 +255,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Running Facts</h3>
           @foreach([
@@ -243,7 +266,7 @@ $relatedTools = [
             ['80%', 'Long runs should be at easy pace'],
           ] as [$stat, $label])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--fitness); color:#fff; border-radius:8px; padding:6px 10px; font-weight:700; font-size:.8rem; min-width:80px; text-align:center; flex-shrink:0;">{{ $stat }}</div>
+            <div class="rp-fact-pill">{{ $stat }}</div>
             <div class="ms-fact-label">{{ $label }}</div>
           </div>
           @endforeach
@@ -268,7 +291,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Common Race Paces</p>
+          <p class="fw-semibold mb-3 ms-panel-head">Common Race Paces</p>
           @foreach([
             ['Sub-20 min 5K', '3:59 min/km', '15.0 km/h', 'Elite amateur / competitive club runner'],
             ['Sub-25 min 5K', '4:59 min/km', '12.0 km/h', 'Strong recreational runner'],
@@ -277,10 +300,10 @@ $relatedTools = [
             ['Sub-4 hr Marathon', '5:41 min/km', '10.6 km/h', 'Popular recreational marathon goal'],
           ] as [$label, $pace, $speed, $note])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--fitness); color:#fff; border-radius:6px; padding:4px 10px; font-size:.75rem; font-weight:700; min-width:70px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $pace }}</div>
+            <div class="rp-pace-pill">{{ $pace }}</div>
             <div>
-              <div class="fw-semibold" style="font-size:.86rem; color:#1a1a2e;">{{ $label }} <span style="font-weight:400; color:#888;">({{ $speed }})</span></div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $note }}</div>
+              <div class="fw-semibold rp-pace-name">{{ $label }} <span class="rp-pace-speed">({{ $speed }})</span></div>
+              <div class="rp-pace-note">{{ $note }}</div>
             </div>
           </div>
           @endforeach
@@ -295,7 +318,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Training Paces: Easy, Tempo, Threshold, and Interval</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Based on a 5K time of 25 minutes. Adjust proportionally for your pace.</p>
+      <p class="text-muted ms-intro-text">Based on a 5K time of 25 minutes. Adjust proportionally for your pace.</p>
     </div>
     <div class="row g-3 justify-content-center">
       @foreach([
@@ -305,11 +328,11 @@ $relatedTools = [
         ['Interval', '4:20–4:40 min/km', '#dc3545', '95–100% max HR', '400m–1600m repeats with recovery. Develops speed and VO2 max.'],
       ] as [$type, $pace, $color, $hrZone, $desc])
       <div class="col-md-6 col-lg-3">
-        <div class="card border-0 h-100 p-4" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06);">
-          <div style="background:{{ $color }}; color:#fff; border-radius:8px; padding:6px 12px; font-size:.82rem; font-weight:700; display:inline-block; margin-bottom:12px;">{{ $type }}</div>
-          <div class="fw-semibold mb-1" style="color:var(--primary-dark); font-size:1rem;">{{ $pace }}</div>
-          <div style="font-size:.78rem; color:#888; margin-bottom:8px;">{{ $hrZone }}</div>
-          <div style="font-size:.82rem; color:#666; line-height:1.6;">{{ $desc }}</div>
+        <div class="card border-0 h-100 p-4 rp-train-card">
+          <div class="rp-train-type" style="background:{{ $color }};">{{ $type }}</div>
+          <div class="fw-semibold mb-1 rp-train-pace">{{ $pace }}</div>
+          <div class="rp-train-hr">{{ $hrZone }}</div>
+          <div class="rp-train-desc">{{ $desc }}</div>
         </div>
       </div>
       @endforeach
@@ -323,15 +346,15 @@ $relatedTools = [
 {{-- ── 5. Long-tail keyword sections ─────────────────────────────────────────── --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Running Pace Calculator for 5K — What Pace Do I Need?</h2>
+    <h2 class="mb-4 text-brand">Running Pace Calculator for 5K — What Pace Do I Need?</h2>
     <p>The 5K is the most popular race distance in recreational running and a natural benchmark for progress. To run a sub-30-minute 5K, you need to average 5:59 min/km or faster. For sub-25, your average pace needs to be 4:59 min/km. For sub-20 — a significant milestone that puts you in the top 5–10% of recreational runners — you need to sustain 3:59 min/km for the entire distance.</p>
     <p>A useful rule for 5K race day: the first kilometre should feel slightly too easy. Your goal pace should feel comfortable but focused around kilometres 2–3, and you should be pushing your limit in the final kilometre. If you're already at maximum effort in kilometre 1, you've gone out too fast. Use the 'Calculate Time' mode in this calculator to find out what finish time corresponds to your target pace before race day.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Marathon Pace Calculator — How to Set a Realistic Finish Time Goal</h2>
+    <h2 class="mt-5 mb-4 text-brand">Marathon Pace Calculator — How to Set a Realistic Finish Time Goal</h2>
     <p>Setting a realistic marathon goal is one of the most important decisions a marathon runner makes. The most reliable predictor of marathon performance is your recent half marathon time. Multiply your half marathon time by 2.1 for a conservative estimate, or 2.05 if you have strong long-run training history. A runner who has run 1:45 for the half marathon can target approximately 3:39–3:41 for the full marathon.</p>
     <p>The 'wall' — a dramatic slowdown typically occurring around kilometre 30–35 — is caused by glycogen depletion. Runners who start at their true capability pace almost always hit the wall; those who start 5–10 seconds per km conservative and build through the second half typically do not. This calculator lets you plan kilometer splits in advance so you can race with precision rather than guesswork.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Easy Run Pace vs Tempo Pace — What's the Right Training Pace?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Easy Run Pace vs Tempo Pace — What's the Right Training Pace?</h2>
     <p>One of the most common training mistakes is running easy days too fast and therefore not recovering adequately for hard days. Your easy pace should feel genuinely easy — you can hold a full conversation, your breathing is relaxed, and you feel like you could continue for hours. For many runners, this means slowing down by 90 seconds to 2 minutes per km compared to their race pace.</p>
     <p>Tempo pace, by contrast, should feel 'comfortably hard' — you can speak a sentence but not a paragraph. It sits at the lactate threshold, which is the training intensity that most directly improves race performance. Typical tempo sessions are 20–40 minutes sustained or broken into shorter tempo intervals with brief recovery. Enter your target race pace into this calculator and use the speed output to calibrate your training zones accordingly.</p>
   </div>
@@ -350,7 +373,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Why GPS Devices Still Need Pace Calculators</h3>
         <p>GPS running watches are accurate under open sky but exhibit significant drift in tunnels, dense urban canyons, and forests. Over a marathon, GPS drift can add or subtract 200–400 metres, making the displayed pace unreliable in these environments. Knowing how to calculate your own pace from manual splits — using a stopwatch and known distance markers — remains a valuable skill for race day. This calculator can reverse-engineer any split: enter the distance of a lap and your split time to find your exact pace for that segment.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Note:</strong> Running calculators assume even effort across the distance. Real-world performance is affected by terrain, temperature, hills, fatigue accumulation, and fuelling. Use calculator results as targets and starting points, adjusting in real time during training and racing.</p>
+          <p class="mb-0 text-sm"><strong>Note:</strong> Running calculators assume even effort across the distance. Real-world performance is affected by terrain, temperature, hills, fatigue accumulation, and fuelling. Use calculator results as targets and starting points, adjusting in real time during training and racing.</p>
         </div>
       </div>
     </div>
@@ -372,14 +395,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.rp-mode-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentMode = this.dataset.mode;
       document.getElementById('rpPaceMode').classList.toggle('d-none', currentMode !== 'pace');
       document.getElementById('rpTimeMode').classList.toggle('d-none', currentMode !== 'time');
@@ -393,14 +410,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.rp-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       var lbl = 'min:sec per ' + currentUnit;
       document.getElementById('rpPaceUnitLabel').textContent = '(' + lbl + ')';
@@ -415,13 +426,9 @@ $relatedTools = [
   document.querySelectorAll('.rp-dist-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       document.querySelectorAll('.rp-dist-btn').forEach(function (b) {
-        b.style.background = '#f8f9fa';
-        b.style.borderColor = '#e0e0e0';
-        b.style.color = '#555';
+        b.classList.remove('active');
       });
-      this.style.background = 'var(--fitness)';
-      this.style.borderColor = 'var(--fitness)';
-      this.style.color = '#fff';
+      this.classList.add('active');
       var km = parseFloat(this.dataset.km);
       var dist = currentUnit === 'km' ? km : (km / KM_PER_MI);
       document.getElementById('rpDistance').value = parseFloat(dist.toFixed(3));
@@ -491,18 +498,18 @@ $relatedTools = [
   };
 
   function showPaceResults(secPerKm, secPerMi, speedKmh, speedMph) {
-    var html = '<div class="col-6 col-md-3"><div style="background:#f0fff4; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--fitness);">' + fmtPace(secPerKm) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">min per km</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#f0f4ff; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--primary-mid);">' + fmtPace(secPerMi) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">min per mile</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#fff8ec; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:#e97b1e;">' + speedKmh.toFixed(1) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">km/h</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#fff0f3; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--cta-text);">' + speedMph.toFixed(1) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">mph</div></div></div>';
+    var html = '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-km text-center">'
+      + '<div class="rp-stat-val">' + fmtPace(secPerKm) + '</div>'
+      + '<div class="rp-stat-lbl">min per km</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-mi text-center">'
+      + '<div class="rp-stat-val">' + fmtPace(secPerMi) + '</div>'
+      + '<div class="rp-stat-lbl">min per mile</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-kmh text-center">'
+      + '<div class="rp-stat-val">' + speedKmh.toFixed(1) + '</div>'
+      + '<div class="rp-stat-lbl">km/h</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-mph text-center">'
+      + '<div class="rp-stat-val">' + speedMph.toFixed(1) + '</div>'
+      + '<div class="rp-stat-lbl">mph</div></div></div>';
     document.getElementById('rpPrimaryResults').innerHTML = html;
     buildRaceTable(secPerKm);
     document.getElementById('rpResults').classList.remove('d-none');
@@ -510,18 +517,18 @@ $relatedTools = [
   }
 
   function showTimeResults(totalSec, secPerKm, speedKmh, speedMph) {
-    var html = '<div class="col-6 col-md-3"><div style="background:#f0fff4; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--fitness);">' + fmtTime(totalSec) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">finish time</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#f0f4ff; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--primary-mid);">' + fmtPace(secPerKm) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">min/km</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#fff8ec; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:#e97b1e;">' + speedKmh.toFixed(1) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">km/h</div></div></div>'
-      + '<div class="col-6 col-md-3"><div style="background:#fff0f3; border-radius:10px; padding:14px 8px; text-align:center;">'
-      + '<div style="font-size:1.4rem; font-weight:800; color:var(--cta-text);">' + speedMph.toFixed(1) + '</div>'
-      + '<div style="font-size:.72rem; color:#888; margin-top:4px;">mph</div></div></div>';
+    var html = '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-km text-center">'
+      + '<div class="rp-stat-val">' + fmtTime(totalSec) + '</div>'
+      + '<div class="rp-stat-lbl">finish time</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-mi text-center">'
+      + '<div class="rp-stat-val">' + fmtPace(secPerKm) + '</div>'
+      + '<div class="rp-stat-lbl">min/km</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-kmh text-center">'
+      + '<div class="rp-stat-val">' + speedKmh.toFixed(1) + '</div>'
+      + '<div class="rp-stat-lbl">km/h</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-mph text-center">'
+      + '<div class="rp-stat-val">' + speedMph.toFixed(1) + '</div>'
+      + '<div class="rp-stat-lbl">mph</div></div></div>';
     document.getElementById('rpPrimaryResults').innerHTML = html;
     buildRaceTable(secPerKm);
     document.getElementById('rpResults').classList.remove('d-none');
@@ -530,9 +537,9 @@ $relatedTools = [
 
   function showDistResults(distKm, distDisplay) {
     var unit = currentUnit;
-    var html = '<div class="col-12 col-md-6 mx-auto"><div style="background:#f0fff4; border-radius:10px; padding:20px; text-align:center;">'
-      + '<div style="font-size:2rem; font-weight:800; color:var(--fitness);">' + distDisplay.toFixed(2) + ' ' + unit + '</div>'
-      + '<div style="font-size:.82rem; color:#888; margin-top:4px;">distance covered</div></div></div>';
+    var html = '<div class="col-12 col-md-6 mx-auto"><div class="rp-dist-box text-center">'
+      + '<div class="rp-dist-val">' + distDisplay.toFixed(2) + ' ' + unit + '</div>'
+      + '<div class="rp-dist-lbl">distance covered</div></div></div>';
     document.getElementById('rpPrimaryResults').innerHTML = html;
     document.getElementById('rpRaceTable').classList.add('d-none');
     document.getElementById('rpResults').classList.remove('d-none');

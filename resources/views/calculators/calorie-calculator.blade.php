@@ -85,6 +85,27 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.cal-unit-btn        { border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; }
+.cal-unit-btn.active { background:var(--fitness); color:#fff; border-color:transparent; }
+.cal-mult-pill       { background:var(--fitness); color:#fff; border-radius:6px; padding:4px 10px; font-size:.82rem; font-weight:700; min-width:50px; text-align:center; flex-shrink:0; margin-top:2px; }
+.cal-level-name      { font-size:.87rem; color:#1a1a2e; }
+.cal-level-desc      { font-size:.8rem; color:#666; line-height:1.5; }
+.cal-sub             { max-width:520px; margin:auto; }
+.cal-tbl             { border-radius:12px; overflow:hidden; font-size:.88rem; }
+.cal-th              { padding:12px 16px; }
+.cal-td              { padding:10px 16px; }
+.cal-tbl-note        { font-size:.8rem; color:#888; margin-top:12px; }
+.cal-formula-box     { background:#f8f9fa; border-left:4px solid var(--fitness); font-size:.85rem; color:var(--primary-dark); }
+.cal-macro-green     { background:#e8f5e9; border-radius:10px; padding:12px 6px; }
+.cal-macro-orange    { background:#fff3e0; border-radius:10px; padding:12px 6px; }
+.cal-macro-blue      { background:#e3f2fd; border-radius:10px; padding:12px 6px; }
+.cal-macro-val       { font-size:1.3rem; font-weight:700; }
+.cal-macro-sub       { font-size:.72rem; color:#555; margin-top:2px; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -112,12 +133,10 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Unit system">
-              <button class="btn flex-fill cal-unit-btn active" data-unit="metric"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
+              <button class="btn flex-fill cal-unit-btn active" data-unit="metric">
                 Metric (kg / cm)
               </button>
-              <button class="btn flex-fill cal-unit-btn" data-unit="imperial"
-                      style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
+              <button class="btn flex-fill cal-unit-btn" data-unit="imperial">
                 Imperial (lbs / ft)
               </button>
             </div>
@@ -185,37 +204,37 @@ $relatedTools = [
               </select>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calcCalories()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calcCalories()">
               Calculate Calories →
             </button>
 
             {{-- Results --}}
             <div id="results" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="row g-3 mb-4 text-center">
                 <div class="col-6">
-                  <div style="background:#f0fff4; border-radius:12px; padding:16px 10px;">
-                    <div id="calBMR" style="font-size:1.8rem; font-weight:700; color:var(--green-text);"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">BMR (calories at rest)</div>
+                  <div class="ms-stat-lg ms-stat-green">
+                    <div id="calBMR" class="ms-stat-val-xl text-green"></div>
+                    <div class="ms-stat-sub">BMR (calories at rest)</div>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div style="background:#e8f4fd; border-radius:12px; padding:16px 10px;">
-                    <div id="calTDEE" style="font-size:1.8rem; font-weight:700; color:var(--teal-text);"></div>
-                    <div style="font-size:.75rem; color:#555; margin-top:4px;">TDEE (maintenance)</div>
+                  <div class="ms-stat-lg ms-stat-blue">
+                    <div id="calTDEE" class="ms-stat-val-xl text-teal"></div>
+                    <div class="ms-stat-sub">TDEE (maintenance)</div>
                   </div>
                 </div>
               </div>
 
-              <div class="p-4 rounded-3 mb-4 text-center" style="background:var(--primary-dark); color:#fff;">
-                <div style="font-size:.8rem; opacity:.7; margin-bottom:6px;" id="calGoalLabel"></div>
-                <div id="calTarget" style="font-size:2.4rem; font-weight:700;"></div>
-                <div style="font-size:.8rem; opacity:.7; margin-top:4px;">calories per day</div>
+              <div class="p-4 rounded-3 mb-4 text-center ms-target-box">
+                <div class="ms-target-lbl mb-2" id="calGoalLabel"></div>
+                <div id="calTarget" class="ms-target-val"></div>
+                <div class="ms-target-lbl mt-1">calories per day</div>
               </div>
 
               <div class="mb-3">
-                <div class="fw-600 mb-2" style="font-size:.88rem; color:var(--primary-dark);">Estimated Macronutrient Split</div>
+                <div class="ms-data-label fw-600 mb-2">Estimated Macronutrient Split</div>
                 <div id="calMacros" class="row g-2 text-center"></div>
               </div>
             </div>
@@ -225,7 +244,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Calorie Facts</h3>
           @foreach([
@@ -256,7 +275,7 @@ $relatedTools = [
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How the Harris-Benedict Equation Calculates Your BMR</h2>
         <p>Your Basal Metabolic Rate (BMR) is the number of calories your body burns at complete rest to sustain life — breathing, circulation, cell production, and temperature regulation. The Harris-Benedict equation, first published in 1919 and revised in 1984, estimates BMR from your sex, age, height, and weight:</p>
-        <div class="p-3 mb-3 rounded-3" style="background:#f8f9fa; border-left:4px solid var(--fitness); font-size:.85rem; color:var(--primary-dark);">
+        <div class="p-3 mb-3 rounded-3 cal-formula-box">
           <strong>Male BMR</strong> = 88.362 + (13.397 × kg) + (4.799 × cm) − (5.677 × age)<br>
           <strong>Female BMR</strong> = 447.593 + (9.247 × kg) + (3.098 × cm) − (4.330 × age)
         </div>
@@ -264,7 +283,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Activity Level Multipliers</p>
+          <p class="ms-data-label fw-600 mb-3">Activity Level Multipliers</p>
           @foreach([
             ['1.2×',   'Sedentary',        'Desk job, no formal exercise, mostly sitting'],
             ['1.375×', 'Lightly Active',   '1–3 days of light exercise or sport per week'],
@@ -273,10 +292,10 @@ $relatedTools = [
             ['1.9×',   'Extra Active',     'Twice-daily training or very heavy physical labour'],
           ] as [$mult, $level, $desc])
           <div class="d-flex align-items-start gap-3 mb-3">
-            <div style="background:var(--fitness); color:#fff; border-radius:6px; padding:4px 10px; font-size:.82rem; font-weight:700; min-width:50px; text-align:center; flex-shrink:0; margin-top:2px;">{{ $mult }}</div>
+            <div class="cal-mult-pill">{{ $mult }}</div>
             <div>
-              <div class="fw-600" style="font-size:.87rem; color:#1a1a2e;">{{ $level }}</div>
-              <div style="font-size:.8rem; color:#666; line-height:1.5;">{{ $desc }}</div>
+              <div class="fw-600 cal-level-name">{{ $level }}</div>
+              <div class="cal-level-desc">{{ $desc }}</div>
             </div>
           </div>
           @endforeach
@@ -291,19 +310,19 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Estimated Daily Calorie Needs by Age and Activity</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Based on average height and weight. Use the calculator above for your personalised figure.</p>
+      <p class="text-muted cal-sub">Based on average height and weight. Use the calculator above for your personalised figure.</p>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-10">
         <div class="table-responsive">
-          <table class="table table-bordered" style="border-radius:12px; overflow:hidden; font-size:.88rem;">
+          <table class="table table-bordered cal-tbl">
             <thead class="ms-table-head">
               <tr>
-                <th style="padding:12px 16px;">Age Group</th>
-                <th style="padding:12px 16px;">Men — Sedentary</th>
-                <th style="padding:12px 16px;">Men — Active</th>
-                <th style="padding:12px 16px;">Women — Sedentary</th>
-                <th style="padding:12px 16px;">Women — Active</th>
+                <th class="cal-th">Age Group</th>
+                <th class="cal-th">Men — Sedentary</th>
+                <th class="cal-th">Men — Active</th>
+                <th class="cal-th">Women — Sedentary</th>
+                <th class="cal-th">Women — Active</th>
               </tr>
             </thead>
             <tbody>
@@ -314,17 +333,17 @@ $relatedTools = [
                 ['71+',   '2,000', '2,400', '1,600', '2,000'],
               ] as [$age, $ms, $ma, $ws, $wa])
               <tr>
-                <td style="padding:10px 16px; font-weight:600;">{{ $age }}</td>
-                <td style="padding:10px 16px;">{{ $ms }} cal</td>
-                <td style="padding:10px 16px;">{{ $ma }} cal</td>
-                <td style="padding:10px 16px;">{{ $ws }} cal</td>
-                <td style="padding:10px 16px;">{{ $wa }} cal</td>
+                <td class="cal-td fw-semibold">{{ $age }}</td>
+                <td class="cal-td">{{ $ms }} cal</td>
+                <td class="cal-td">{{ $ma }} cal</td>
+                <td class="cal-td">{{ $ws }} cal</td>
+                <td class="cal-td">{{ $wa }} cal</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <p style="font-size:.8rem; color:#888; margin-top:12px;">Source: Dietary Guidelines for Americans 2020–2025, USDA.</p>
+        <p class="cal-tbl-note">Source: Dietary Guidelines for Americans 2020–2025, USDA.</p>
       </div>
     </div>
   </div>
@@ -337,15 +356,15 @@ $relatedTools = [
 <section class="ms-section-accent">
   <div class="container ms-longtail">
 
-    <h2 class="mb-4" style="color:var(--primary-dark);">Calorie Calculator for Weight Loss — How Big a Deficit Is Safe?</h2>
+    <h2 class="mb-4 text-brand">Calorie Calculator for Weight Loss — How Big a Deficit Is Safe?</h2>
     <p>The most common weight loss mistake is creating a deficit that is too large. A 1,000+ calorie daily deficit feels faster in theory, but research consistently shows it accelerates muscle loss, triggers metabolic adaptation (where your body lowers its resting energy expenditure), and leads to rebound weight gain in the majority of cases within two years.</p>
     <p>A well-designed deficit of 400–600 calories — roughly 20–25% below TDEE — produces steady fat loss while preserving muscle when combined with adequate protein and resistance training. At this rate, someone with 10 kg to lose would reach their goal in approximately 20–25 weeks. This is not slow — it is the speed at which fat loss sticks permanently.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">TDEE Calculator for Women — Why Calorie Needs Differ by Sex</h2>
+    <h2 class="mt-5 mb-4 text-brand">TDEE Calculator for Women — Why Calorie Needs Differ by Sex</h2>
     <p>Women's calorie needs are genuinely lower than men's at equivalent height, weight, and activity — not due to any metabolic disadvantage, but because women typically carry proportionally more body fat and less lean muscle mass. Since muscle tissue burns approximately three times more calories at rest than fat tissue, the difference in body composition directly reduces TDEE.</p>
     <p>Additionally, women's calorie needs fluctuate across the menstrual cycle by approximately 100–300 calories per day, rising in the luteal phase (after ovulation) as progesterone increases resting metabolic rate. This is a well-documented physiological phenomenon and is one reason why appetite, hunger, and energy naturally vary across the month. Tracking calories rigidly without accounting for this cycle can be counterproductive.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Calorie Calculator for Muscle Gain — Eating in a Surplus</h2>
+    <h2 class="mt-5 mb-4 text-brand">Calorie Calculator for Muscle Gain — Eating in a Surplus</h2>
     <p>Building muscle is a slow, energetically expensive process. Even in optimal conditions — heavy resistance training, ideal nutrition, adequate sleep — a natural trainee can only build 0.5–2 kg of muscle per month. This means the energy surplus required is modest: 200–500 extra calories per day is sufficient.</p>
     <p>A common mistake is "dirty bulking" — eating in a large surplus of 700–1,000+ calories per day. While it accelerates scale weight gain, a significant portion of that gain is fat, not muscle. This requires an extended cut phase to reverse, often resulting in net muscle gain no greater than a more modest approach. A "lean bulk" of +300 calories, high protein, and progressive training maximises the muscle-to-fat ratio of weight gained.</p>
 
@@ -367,7 +386,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Non-Exercise Activity Thermogenesis (NEAT)</h3>
         <p>The most variable component of TDEE is NEAT — all the non-exercise movement in a day: fidgeting, walking, standing, housework, gesturing. Research by Dr. James Levine at the Mayo Clinic found NEAT varies by up to 2,000 calories per day between individuals of similar size. When people overeat, NEAT often unconsciously rises; when they undereat, it falls. This explains why two people with the same TDEE calculation respond differently to the same deficit — and why the calculator's output is a starting point, not a final answer.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Disclaimer:</strong> This calorie calculator provides an estimate based on established equations and is intended for general informational use. Individual calorie needs vary. Consult a registered dietitian or physician before making significant changes to your diet, especially if you have a medical condition.</p>
+          <p class="mb-0 text-sm"><strong>Disclaimer:</strong> This calorie calculator provides an estimate based on established equations and is intended for general informational use. Individual calorie needs vary. Consult a registered dietitian or physician before making significant changes to your diet, especially if you have a medical condition.</p>
         </div>
       </div>
     </div>
@@ -386,14 +405,8 @@ $relatedTools = [
     btn.addEventListener('click', function () {
       document.querySelectorAll('.cal-unit-btn').forEach(function (b) {
         b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
       });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       document.getElementById('calMetric').classList.toggle('d-none', currentUnit !== 'metric');
       document.getElementById('calImperial').classList.toggle('d-none', currentUnit !== 'imperial');
@@ -464,17 +477,17 @@ $relatedTools = [
     document.getElementById('calGoalLabel').textContent = goalLabel;
 
     document.getElementById('calMacros').innerHTML =
-      '<div class="col-4"><div style="background:#e8f5e9; border-radius:10px; padding:12px 6px;">' +
-        '<div style="font-size:1.3rem; font-weight:700; color:var(--green-text);">' + proteinG + 'g</div>' +
-        '<div style="font-size:.72rem; color:#555; margin-top:2px;">Protein<br>' + proteinCal + ' cal</div>' +
+      '<div class="col-4"><div class="cal-macro-green">' +
+        '<div class="cal-macro-val text-green">' + proteinG + 'g</div>' +
+        '<div class="cal-macro-sub">Protein<br>' + proteinCal + ' cal</div>' +
       '</div></div>' +
-      '<div class="col-4"><div style="background:#fff3e0; border-radius:10px; padding:12px 6px;">' +
-        '<div style="font-size:1.3rem; font-weight:700; color:#e65100;">' + carbG + 'g</div>' +
-        '<div style="font-size:.72rem; color:#555; margin-top:2px;">Carbs<br>' + carbCal + ' cal</div>' +
+      '<div class="col-4"><div class="cal-macro-orange">' +
+        '<div class="cal-macro-val text-orange-brand">' + carbG + 'g</div>' +
+        '<div class="cal-macro-sub">Carbs<br>' + carbCal + ' cal</div>' +
       '</div></div>' +
-      '<div class="col-4"><div style="background:#e3f2fd; border-radius:10px; padding:12px 6px;">' +
-        '<div style="font-size:1.3rem; font-weight:700; color:var(--teal-text);">' + fatG + 'g</div>' +
-        '<div style="font-size:.72rem; color:#555; margin-top:2px;">Fat<br>' + fatCal + ' cal</div>' +
+      '<div class="col-4"><div class="cal-macro-blue">' +
+        '<div class="cal-macro-val text-teal">' + fatG + 'g</div>' +
+        '<div class="cal-macro-sub">Fat<br>' + fatCal + ' cal</div>' +
       '</div></div>';
 
     var resultsEl = document.getElementById('results');

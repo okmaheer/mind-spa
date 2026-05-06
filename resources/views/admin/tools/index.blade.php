@@ -48,6 +48,7 @@
   .ext-link            { color:#cbd5e1; text-decoration:none; }
   .ext-link:hover      { color:#3b82f6; }
   .date-cell           { font-size:.78rem; color:#94a3b8; }
+  .text-slate          { color: #94a3b8; }
 
   /* ── Toggle switch ───────────────────────────────── */
   .publish-toggle              { width:2.6em; height:1.4em; cursor:pointer; }
@@ -102,7 +103,7 @@
   </div>
   <div class="col-6 col-lg-3">
     <div class="stat-card draft">
-      <div class="num" style="color:#94a3b8;">{{ $stats['draft'] }}</div>
+      <div class="num text-slate">{{ $stats['draft'] }}</div>
       <div class="lbl">Draft</div>
     </div>
   </div>

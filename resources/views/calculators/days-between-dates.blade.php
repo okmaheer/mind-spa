@@ -74,6 +74,22 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.dbd-checkbox-label { cursor: pointer; font-size: .88rem; }
+.dbd-detail         { background: #f8f9fa; font-size: .88rem; color: #555; text-align: center; }
+.dbd-note           { color: #888; font-size: .82rem; }
+.dbd-month-cell     { background: #fff; border: 1px solid #e8e8e8; }
+.dbd-month-name     { font-size: .75rem; color: #888; }
+.dbd-month-days     { font-size: .9rem; font-weight: 700; color: var(--life); }
+.dbd-month-note     { font-size: .75rem; color: #aaa; margin-top: 10px; margin-bottom: 0; }
+.dbd-span-card      { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.dbd-span-label     { font-size: .85rem; color: var(--primary-dark); }
+.dbd-span-days      { font-size: 1.2rem; color: var(--life); }
+.dbd-span-biz       { font-size: .74rem; color: #888; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- Hero --}}
@@ -105,51 +121,51 @@ $relatedTools = [
                 <input type="date" id="dbEnd" class="form-control">
               </div>
               <div class="col-12 d-flex gap-4 flex-wrap">
-                <label class="d-flex align-items-center gap-2" style="cursor:pointer; font-size:.88rem;">
+                <label class="d-flex align-items-center gap-2 dbd-checkbox-label">
                   <input type="checkbox" id="dbIncludeEnd" checked> Include end date
                 </label>
-                <label class="d-flex align-items-center gap-2" style="cursor:pointer; font-size:.88rem;">
+                <label class="d-flex align-items-center gap-2 dbd-checkbox-label">
                   <input type="checkbox" id="dbBizDays"> Business days only
                 </label>
               </div>
             </div>
-            <button class="btn btn-cta w-100 mt-4" onclick="calcDaysBetween()" style="font-size:1rem;">Calculate →</button>
+            <button class="btn btn-cta w-100 mt-4" onclick="calcDaysBetween()">Calculate →</button>
 
             <div id="dbResults" class="mt-4 d-none">
               <div class="ms-divider"></div>
               <div class="row g-3 text-center">
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-purple">
-                    <div id="dbDays" style="font-size:1.6rem; font-weight:700; color:var(--life);">—</div>
+                    <div id="dbDays" class="ms-stat-val-lg text-life">—</div>
                     <div class="ms-stat-label">Days</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
-                  <div style="background:#f0fff4; border-radius:10px; padding:14px 8px;">
-                    <div id="dbWeeks" style="font-size:1.4rem; font-weight:700; color:var(--green-text);">—</div>
+                  <div class="ms-stat ms-stat-green">
+                    <div id="dbWeeks" class="ms-stat-val text-green-brand">—</div>
                     <div class="ms-stat-label">Weeks</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-orange">
-                    <div id="dbMonths" style="font-size:1.4rem; font-weight:700; color:#e97b1e;">—</div>
+                    <div id="dbMonths" class="ms-stat-val text-orange-brand">—</div>
                     <div class="ms-stat-label">Months</div>
                   </div>
                 </div>
                 <div class="col-6 col-sm-3">
                   <div class="ms-stat ms-stat-pink">
-                    <div id="dbBiz" style="font-size:1.4rem; font-weight:700; color:var(--cta-text);">—</div>
+                    <div id="dbBiz" class="ms-stat-val text-cta">—</div>
                     <div class="ms-stat-label">Business Days</div>
                   </div>
                 </div>
               </div>
-              <div id="dbDetail" class="mt-3 p-3 rounded" style="background:#f8f9fa; font-size:.88rem; color:#555; text-align:center;"></div>
+              <div id="dbDetail" class="mt-3 p-3 rounded dbd-detail"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Date Facts</h3>
           @foreach([
@@ -183,7 +199,7 @@ $relatedTools = [
       </div>
       <div class="col-lg-6">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-600 mb-3" style="font-size:.88rem; color:var(--primary-dark); text-transform:uppercase; letter-spacing:.5px;">Days in each month</p>
+          <p class="ms-panel-head mb-3">Days in each month</p>
           <div class="row g-2">
             @foreach([
               ['Jan','31'],['Feb','28/29'],['Mar','31'],['Apr','30'],
@@ -191,14 +207,14 @@ $relatedTools = [
               ['Sep','30'],['Oct','31'],['Nov','30'],['Dec','31'],
             ] as [$m,$d])
             <div class="col-3">
-              <div class="text-center p-2 rounded" style="background:#fff; border:1px solid #e8e8e8;">
-                <div style="font-size:.75rem; color:#888;">{{ $m }}</div>
-                <div style="font-size:.9rem; font-weight:700; color:var(--life);">{{ $d }}</div>
+              <div class="text-center p-2 rounded dbd-month-cell">
+                <div class="dbd-month-name">{{ $m }}</div>
+                <div class="dbd-month-days">{{ $d }}</div>
               </div>
             </div>
             @endforeach
           </div>
-          <p style="font-size:.75rem; color:#aaa; margin:10px 0 0;">Feb has 29 days in leap years (divisible by 4, except century years unless also divisible by 400).</p>
+          <p class="dbd-month-note">Feb has 29 days in leap years (divisible by 4, except century years unless also divisible by 400).</p>
         </div>
       </div>
     </div>
@@ -210,7 +226,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>Common Date Spans at a Glance</h2>
-      <p class="text-muted" style="max-width:480px; margin:auto;">Quick reference for frequently needed date counts.</p>
+      <p class="text-muted ms-intro-text">Quick reference for frequently needed date counts.</p>
     </div>
     <div class="row g-3 justify-content-center">
       @foreach([
@@ -222,10 +238,10 @@ $relatedTools = [
         ['2 years','730 days','~504 business days'],
       ] as [$period,$days,$biz])
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card border-0 text-center p-3 h-100" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06);">
-          <div class="fw-700" style="font-size:.85rem; color:var(--primary-dark);">{{ $period }}</div>
-          <div class="fw-700 my-2" style="font-size:1.2rem; color:var(--life);">{{ $days }}</div>
-          <div style="font-size:.74rem; color:#888;">{{ $biz }}</div>
+        <div class="card border-0 text-center p-3 h-100 dbd-span-card">
+          <div class="fw-700 dbd-span-label">{{ $period }}</div>
+          <div class="fw-700 my-2 dbd-span-days">{{ $days }}</div>
+          <div class="dbd-span-biz">{{ $biz }}</div>
         </div>
       </div>
       @endforeach
@@ -239,13 +255,13 @@ $relatedTools = [
 {{-- Long-tail --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">How Many Business Days Between Two Dates?</h2>
+    <h2 class="mb-4 text-brand">How Many Business Days Between Two Dates?</h2>
     <p>For contracts, project timelines, and legal deadlines, business days are what matter. Weekends don't count. If a contract says "deliver in 10 business days" and you start on a Monday, the deadline is two weeks away (the following Friday), not 10 calendar days later. This calculator counts business days by checking every day in the range individually and skipping Saturdays and Sundays — giving you an accurate count for planning purposes.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Days Between Dates for Project Planning and Deadlines</h2>
+    <h2 class="mt-5 mb-4 text-brand">Days Between Dates for Project Planning and Deadlines</h2>
     <p>Project managers use date-span calculators to build timelines, set milestones, and calculate buffer time. A useful technique: calculate the total calendar days between your start and your hard deadline, then subtract weekends and known holiday dates to get your available business days. Divide that by the number of tasks to find how many working days each task can consume without pushing the deadline.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How Many Days Until My Vacation, Event, or Holiday?</h2>
+    <h2 class="mt-5 mb-4 text-brand">How Many Days Until My Vacation, Event, or Holiday?</h2>
     <p>Enter today's date as the start and your event date as the end to count down to any future date. The calculator shows the total days remaining, the weeks and days breakdown, and the number of working days — useful if you're tracking how many working days remain before an annual leave period. For a dedicated countdown timer with presets for major holidays, use the Days Until Calculator.</p>
   </div>
 </section>
@@ -316,7 +332,7 @@ $relatedTools = [
       '<strong>' + totalDays.toLocaleString() + ' days</strong> · '
       + weeks + ' weeks ' + (remDays > 0 ? 'and ' + remDays + ' days' : 'exactly') + ' · '
       + md.months + ' months and ' + md.days + ' days<br>'
-      + '<span style="color:#888; font-size:.82rem;">'
+      + '<span class="dbd-note">'
       + bizDays + ' business days · ' + weekends + ' weekend days</span>';
 
     document.getElementById('dbResults').classList.remove('d-none');

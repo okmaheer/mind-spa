@@ -5,9 +5,17 @@
 @section('canonical', config('app.url') . '/privacy')
 @section('robots', 'noindex, follow')
 
+@section('styles')
+<style>
+.priv-wrap     { max-width: 760px; padding-top: 60px; padding-bottom: 80px; }
+.priv-title    { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+.priv-subtitle { color: var(--text-muted); font-size: .9rem; margin-bottom: 40px; }
+</style>
+@endsection
+
 @section('content')
 
-<div class="container" style="max-width:760px; padding-top:60px; padding-bottom:80px;">
+<div class="container priv-wrap">
 
   <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb ms-breadcrumb">
@@ -16,8 +24,8 @@
     </ol>
   </nav>
 
-  <h1 style="font-size:2rem; font-weight:800; color:var(--primary-dark); margin-bottom:8px;">Privacy Policy</h1>
-  <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:40px;">Last updated: {{ date('F j, Y') }}</p>
+  <h1 class="priv-title text-brand">Privacy Policy</h1>
+  <p class="priv-subtitle">Last updated: {{ date('F j, Y') }}</p>
 
   <div class="ms-section-seo">
 

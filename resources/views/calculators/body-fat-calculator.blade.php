@@ -73,6 +73,36 @@ $relatedTools = [
 ];
 @endphp
 
+@section('styles')
+<style>
+.bf-unit-btn, .bf-sex-btn   { border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0; }
+.bf-unit-btn.active, .bf-sex-btn.active { background:var(--fitness); color:#fff; border:none; }
+.bf-result-label { font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px; }
+.bf-result-pct   { font-size:3rem; font-weight:800; color:var(--fitness); line-height:1; }
+.bf-cat-badge    { font-size:1rem; font-weight:700; margin-top:8px; padding:4px 16px; border-radius:50px; display:inline-block; }
+.bf-fat-card     { background:#f0fff4; border-radius:10px; padding:14px 8px; }
+.bf-mass-val     { font-size:1.3rem; font-weight:700; }
+.bf-mass-label   { font-size:.75rem; color:#888; margin-top:4px; }
+.bf-cat-dot          { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.bf-dot-athletic     { background:#fd7e14; }
+.bf-dot-fitness      { background:#ffc107; }
+.bf-dot-average      { background:#28a745; }
+.bf-dot-obese        { background:#6c757d; }
+.bf-cat-name     { flex:1; font-size:.86rem; color:#333; font-weight:500; }
+.bf-cat-val      { font-size:.8rem; color:#555; min-width:50px; text-align:center; }
+.bf-table-sub    { max-width:520px; margin:auto; }
+.bf-guide-card   { border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.bf-guide-icon   { font-size:2rem; margin-bottom:10px; }
+.bf-guide-desc   { font-size:.82rem; color:#666; line-height:1.6; }
+.bf-src          { color:#aaa; }
+.bf-bar-wrap     { display:flex; border-radius:8px; overflow:hidden; height:14px; margin-bottom:8px; }
+.bf-bar-seg      { opacity:.7; }
+.bf-bar-pos      { position:relative; height:8px; }
+.bf-bar-marker   { position:absolute; transform:translateX(-50%); width:2px; height:16px; background:#1a1a2e; top:-4px; border-radius:1px; }
+.bf-bar-labels   { display:flex; justify-content:space-between; font-size:.7rem; color:#aaa; margin-top:4px; }
+</style>
+@endsection
+
 @section('content')
 
 {{-- ── 1. Hero / Tool ───────────────────────────────────────────────────────── --}}
@@ -100,28 +130,16 @@ $relatedTools = [
 
             {{-- Unit toggle --}}
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Measurement unit">
-              <button class="btn flex-fill bf-unit-btn active" data-unit="cm"
-                style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;">
-                cm / kg
-              </button>
-              <button class="btn flex-fill bf-unit-btn" data-unit="in"
-                style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;">
-                in / lbs
-              </button>
+              <button class="btn flex-fill bf-unit-btn active" data-unit="cm">cm / kg</button>
+              <button class="btn flex-fill bf-unit-btn" data-unit="in">in / lbs</button>
             </div>
 
             {{-- Sex toggle --}}
             <div class="mb-3">
               <label class="form-label fw-semibold">Sex</label>
               <div class="d-flex gap-2">
-                <button class="btn flex-fill bf-sex-btn active" data-sex="male"
-                  style="border-radius:8px; font-weight:600; font-size:.88rem; background:var(--fitness); color:#fff; border:none;" onclick="bfSetSex('male', this)">
-                  Male
-                </button>
-                <button class="btn flex-fill bf-sex-btn" data-sex="female"
-                  style="border-radius:8px; font-weight:600; font-size:.88rem; background:#f8f9fa; color:#555; border:1px solid #e0e0e0;" onclick="bfSetSex('female', this)">
-                  Female
-                </button>
+                <button class="btn flex-fill bf-sex-btn active" data-sex="male" onclick="bfSetSex('male', this)">Male</button>
+                <button class="btn flex-fill bf-sex-btn" data-sex="female" onclick="bfSetSex('female', this)">Female</button>
               </div>
             </div>
 
@@ -142,37 +160,37 @@ $relatedTools = [
                 <label for="bfNeck" class="form-label fw-semibold">Neck <span class="bf-unit-label">(cm)</span></label>
                 <input type="number" id="bfNeck" class="form-control" placeholder="e.g. 38" min="20" max="80" step="0.5">
               </div>
-              <div class="col-12" id="bfHipGroup">
+              <div class="col-12 d-none" id="bfHipGroup">
                 <label for="bfHip" class="form-label fw-semibold">Hip <span class="bf-unit-label">(cm)</span> <small class="text-muted fw-normal">widest point</small></label>
                 <input type="number" id="bfHip" class="form-control" placeholder="e.g. 95" min="40" max="200" step="0.5">
               </div>
             </div>
 
-            <button class="btn btn-cta w-100" onclick="calculateBodyFat()" style="font-size:1rem;">
+            <button class="btn btn-cta w-100" onclick="calculateBodyFat()">
               Calculate Body Fat →
             </button>
 
             {{-- Results --}}
             <div id="bfResults" class="mt-4 d-none">
-              <div style="height:1px; background:#f0f0f0; margin-bottom:20px;"></div>
+              <div class="ms-divider"></div>
 
               <div class="text-center mb-4">
-                <div style="font-size:.8rem; color:#888; text-transform:uppercase; letter-spacing:.5px; font-weight:600; margin-bottom:4px;">Body Fat Percentage</div>
-                <div id="bfPercentDisplay" style="font-size:3rem; font-weight:800; color:var(--fitness); line-height:1;"></div>
-                <div id="bfCategoryDisplay" style="font-size:1rem; font-weight:700; margin-top:8px; padding:4px 16px; border-radius:50px; display:inline-block;"></div>
+                <div class="bf-result-label">Body Fat Percentage</div>
+                <div id="bfPercentDisplay" class="bf-result-pct"></div>
+                <div id="bfCategoryDisplay" class="bf-cat-badge"></div>
               </div>
 
               <div class="row g-3 mb-4 text-center">
                 <div class="col-6">
-                  <div style="background:#f0fff4; border-radius:10px; padding:14px 8px;">
-                    <div id="bfFatMass" style="font-size:1.3rem; font-weight:700; color:var(--fitness);"></div>
-                    <div style="font-size:.75rem; color:#888; margin-top:4px;">Fat Mass</div>
+                  <div class="bf-fat-card">
+                    <div id="bfFatMass" class="bf-mass-val text-fitness"></div>
+                    <div class="bf-mass-label">Fat Mass</div>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="ms-stat ms-stat-purple">
-                    <div id="bfLeanMass" style="font-size:1.3rem; font-weight:700; color:var(--primary-mid);"></div>
-                    <div style="font-size:.75rem; color:#888; margin-top:4px;">Lean Mass</div>
+                    <div id="bfLeanMass" class="bf-mass-val text-mid"></div>
+                    <div class="bf-mass-label">Lean Mass</div>
                   </div>
                 </div>
               </div>
@@ -189,7 +207,7 @@ $relatedTools = [
       </div>
 
       {{-- Right: Quick facts --}}
-      <div class="col-lg-5 d-none d-lg-block" style="padding-top:10px;">
+      <div class="col-lg-5 d-none d-lg-block pt-2">
         <div class="ms-facts-wrap">
           <h3 class="ms-facts-title">Quick Body Fat Facts</h3>
           @foreach([
@@ -225,22 +243,22 @@ $relatedTools = [
       </div>
       <div class="col-lg-7">
         <div class="p-4 rounded-3 ms-data-box">
-          <p class="fw-semibold mb-3" style="color:var(--primary-dark); font-size:.88rem; text-transform:uppercase; letter-spacing:.5px;">Body Fat Categories (ACE)</p>
+          <p class="fw-semibold mb-3 ms-data-label">Body Fat Categories (ACE)</p>
           @foreach([
             ['Essential Fat', '2–5%', '10–13%', '#dc3545'],
-            ['Athletic', '6–13%', '14–20%', '#fd7e14'],
-            ['Fitness', '14–17%', '21–24%', '#ffc107'],
-            ['Average / Acceptable', '18–24%', '25–31%', '#28a745'],
-            ['Obese', '25%+', '32%+', '#6c757d'],
-          ] as [$cat, $men, $women, $color])
+            ['Athletic', '6–13%', '14–20%', 'bf-dot-athletic'],
+            ['Fitness', '14–17%', '21–24%', 'bf-dot-fitness'],
+            ['Average / Acceptable', '18–24%', '25–31%', 'bf-dot-average'],
+            ['Obese', '25%+', '32%+', 'bf-dot-obese'],
+          ] as [$cat, $men, $women, $cls])
           <div class="d-flex align-items-center gap-3 mb-2">
-            <div style="width:12px; height:12px; border-radius:50%; background:{{ $color }}; flex-shrink:0;"></div>
-            <div style="flex:1; font-size:.86rem; color:#333; font-weight:500;">{{ $cat }}</div>
-            <div style="font-size:.8rem; color:#555; min-width:50px; text-align:center;">♂ {{ $men }}</div>
-            <div style="font-size:.8rem; color:#555; min-width:50px; text-align:center;">♀ {{ $women }}</div>
+            <div class="bf-cat-dot {{ $cls }}"></div>
+            <div class="bf-cat-name">{{ $cat }}</div>
+            <div class="bf-cat-val">♂ {{ $men }}</div>
+            <div class="bf-cat-val">♀ {{ $women }}</div>
           </div>
           @endforeach
-          <p style="font-size:.75rem; color:#aaa; margin-top:12px; margin-bottom:0;">Source: American Council on Exercise (ACE)</p>
+          <p class="text-xs mt-3 mb-0 bf-src">Source: American Council on Exercise (ACE)</p>
         </div>
       </div>
     </div>
@@ -252,7 +270,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>How to Take Accurate Measurements</h2>
-      <p class="text-muted" style="max-width:520px; margin:auto;">Small measurement errors cause large result changes. Follow these steps for reliable readings.</p>
+      <p class="text-muted bf-table-sub">Small measurement errors cause large result changes. Follow these steps for reliable readings.</p>
     </div>
     <div class="row g-3 justify-content-center">
       @foreach([
@@ -262,10 +280,10 @@ $relatedTools = [
         ['📐','General Tips','Measure at the same time of day (ideally morning). Use a flexible but non-stretch measuring tape. Take each measurement twice and use the average for best accuracy.'],
       ] as [$icon, $label, $desc])
       <div class="col-md-6 col-lg-3">
-        <div class="card border-0 h-100 p-4" style="border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06);">
-          <div style="font-size:2rem; margin-bottom:10px;">{{ $icon }}</div>
-          <div class="fw-semibold mb-2" style="color:var(--primary-dark);">{{ $label }}</div>
-          <div style="font-size:.82rem; color:#666; line-height:1.6;">{{ $desc }}</div>
+        <div class="card border-0 h-100 p-4 bf-guide-card">
+          <div class="bf-guide-icon">{{ $icon }}</div>
+          <div class="fw-semibold mb-2 text-brand">{{ $label }}</div>
+          <div class="bf-guide-desc">{{ $desc }}</div>
         </div>
       </div>
       @endforeach
@@ -279,15 +297,15 @@ $relatedTools = [
 {{-- ── 5. Long-tail keyword sections ─────────────────────────────────────────── --}}
 <section class="ms-section-accent">
   <div class="container ms-longtail">
-    <h2 class="mb-4" style="color:var(--primary-dark);">Body Fat Calculator for Women — Understanding Female Body Fat Ranges</h2>
+    <h2 class="mb-4 text-brand">Body Fat Calculator for Women — Understanding Female Body Fat Ranges</h2>
     <p>Female body fat ranges are higher than male ranges at every category because of essential fat differences driven by hormones and reproductive biology. A woman at 22% body fat is in the healthy-to-fitness range, equivalent to a man at around 12–14%. This distinction matters because many women compare themselves to male body fat standards and conclude they are overfat when they are not.</p>
     <p>Women also distribute fat differently. Estrogen directs fat storage to subcutaneous depots around the hips, thighs, and breasts. This is called gynoid fat distribution. While more visible, this fat type is less metabolically dangerous than visceral fat. Android fat distribution (around the abdomen) is more associated with insulin resistance and cardiovascular risk — this pattern is more common after menopause when estrogen levels decline.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">Body Fat Percentage for Men — What's Athletic vs Healthy?</h2>
+    <h2 class="mt-5 mb-4 text-brand">Body Fat Percentage for Men — What's Athletic vs Healthy?</h2>
     <p>For men, the fitness range of 14–17% body fat represents a physique with some muscle definition visible but not extreme leanness. The athletic range of 6–13% is where most serious athletes and bodybuilders operate — muscle separation is visible, and veins are apparent. Below 6% represents the essential fat threshold; bodybuilders who achieve this level for competitions experience hormonal disruption and require a rapid return to higher body fat levels.</p>
     <p>The health risk for men increases primarily at body fat percentages above 25%, which corresponds to clinical obesity levels. However, where fat is stored matters as much as how much: a man with 22% body fat concentrated in the abdomen (high waist circumference) carries more cardiovascular risk than one with the same percentage distributed more peripherally.</p>
 
-    <h2 class="mt-5 mb-4" style="color:var(--primary-dark);">How to Reduce Body Fat Percentage Without Losing Muscle</h2>
+    <h2 class="mt-5 mb-4 text-brand">How to Reduce Body Fat Percentage Without Losing Muscle</h2>
     <p>The key to reducing body fat while preserving muscle is a combination of adequate protein, resistance training, and a moderate calorie deficit. Cutting calories too aggressively (more than 700–1000 kcal/day) forces the body to break down muscle for energy. A 300–500 kcal/day deficit is the evidence-based sweet spot for fat loss with minimal muscle loss.</p>
     <p>Protein intake during a cut should be 1.6–2.2 g/kg of bodyweight. Resistance training — at least 2–3 sessions per week — sends an anabolic signal that tells your body to maintain muscle tissue even in a deficit. Cardiovascular exercise contributes to the calorie deficit but should not replace resistance training. Many lifters find that body recomposition (losing fat while maintaining or gaining muscle) is achievable at small deficits combined with high protein and heavy training, especially for beginners and detrained individuals returning to lifting.</p>
   </div>
@@ -308,7 +326,7 @@ $relatedTools = [
         <h3 class="ms-seo-h3">Body Fat vs Body Weight on the Scale</h3>
         <p>Scale weight and body fat percentage can move in opposite directions. If you start resistance training while in a moderate calorie deficit, you may lose fat while gaining muscle — your scale weight barely changes, but your body fat percentage drops and your physique improves significantly. This is why serious body composition tracking uses both scale weight and body fat percentage together, not either metric alone.</p>
         <div class="mt-4 p-4 rounded-3 ms-note ms-note-green">
-          <p style="margin:0; font-size:.85rem; color:#155724;"><strong>Note:</strong> This calculator provides an estimate for general wellness guidance. It is not a medical diagnostic tool. If you have concerns about your body composition or metabolic health, consult a registered dietitian or physician.</p>
+          <p class="mb-0 text-sm"><strong>Note:</strong> This calculator provides an estimate for general wellness guidance. It is not a medical diagnostic tool. If you have concerns about your body composition or metabolic health, consult a registered dietitian or physician.</p>
         </div>
       </div>
     </div>
@@ -326,16 +344,8 @@ $relatedTools = [
 
   document.querySelectorAll('.bf-unit-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      document.querySelectorAll('.bf-unit-btn').forEach(function (b) {
-        b.classList.remove('active');
-        b.style.background = '#f8f9fa';
-        b.style.color = '#555';
-        b.style.border = '1px solid #e0e0e0';
-      });
+      document.querySelectorAll('.bf-unit-btn').forEach(function (b) { b.classList.remove('active'); });
       this.classList.add('active');
-      this.style.background = 'var(--fitness)';
-      this.style.color = '#fff';
-      this.style.border = 'none';
       currentUnit = this.dataset.unit;
       var isIn = currentUnit === 'in';
       document.querySelectorAll('.bf-unit-label').forEach(function (el) { el.textContent = isIn ? '(in)' : '(cm)'; });
@@ -346,22 +356,11 @@ $relatedTools = [
 
   window.bfSetSex = function (sex, btn) {
     currentSex = sex;
-    document.querySelectorAll('.bf-sex-btn').forEach(function (b) {
-      b.classList.remove('active');
-      b.style.background = '#f8f9fa';
-      b.style.color = '#555';
-      b.style.border = '1px solid #e0e0e0';
-    });
+    document.querySelectorAll('.bf-sex-btn').forEach(function (b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    btn.style.background = 'var(--fitness)';
-    btn.style.color = '#fff';
-    btn.style.border = 'none';
-    document.getElementById('bfHipGroup').style.display = sex === 'female' ? '' : 'none';
+    document.getElementById('bfHipGroup').classList.toggle('d-none', sex !== 'female');
     document.getElementById('bfResults').classList.add('d-none');
   };
-
-  // Hide hip on load for male
-  document.getElementById('bfHipGroup').style.display = 'none';
 
   window.calculateBodyFat = function () {
     var height = parseFloat(document.getElementById('bfHeight').value);
@@ -435,16 +434,16 @@ $relatedTools = [
       : [['Essential', 14, '#dc3545'], ['Athletic', 21, '#fd7e14'], ['Fitness', 25, '#ffc107'], ['Average', 32, '#28a745'], ['Obese', 45, '#6c757d']];
 
     var totalRange = cats[cats.length - 1][1];
-    var barHtml = '<div style="display:flex; border-radius:8px; overflow:hidden; height:14px; margin-bottom:8px;">';
+    var barHtml = '<div class="bf-bar-wrap">';
     cats.forEach(function (c) {
-      barHtml += '<div style="flex:' + c[1] + '; background:' + c[2] + '; opacity:.7;"></div>';
+      barHtml += '<div class="bf-bar-seg" style="flex:' + c[1] + '; background:' + c[2] + ';"></div>';
     });
     barHtml += '</div>';
     var markerPct = Math.min(100, (bf / totalRange) * 100);
-    barHtml += '<div style="position:relative; height:8px;">'
-      + '<div style="position:absolute; left:' + markerPct.toFixed(1) + '%; transform:translateX(-50%); width:2px; height:16px; background:#1a1a2e; top:-4px; border-radius:1px;"></div>'
+    barHtml += '<div class="bf-bar-pos">'
+      + '<div class="bf-bar-marker" style="left:' + markerPct.toFixed(1) + '%;"></div>'
       + '</div>'
-      + '<div style="display:flex; justify-content:space-between; font-size:.7rem; color:#aaa; margin-top:4px;">'
+      + '<div class="bf-bar-labels">'
       + cats.map(function(c){ return '<span>' + c[0] + '</span>'; }).join('')
       + '</div>';
 
