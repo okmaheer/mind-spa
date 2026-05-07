@@ -22,6 +22,11 @@ Route::get('/sleep-tools',       [CategoryController::class, 'sleep'])->name('ca
 Route::get('/fitness-tools',     [CategoryController::class, 'fitness'])->name('category.fitness');
 Route::get('/nutrition-tools',   [CategoryController::class, 'nutrition'])->name('category.nutrition');
 
+Route::get('/mental-health-tools',[CategoryController::class, 'mentalHealth'])->name('category.mental-health');
+Route::get('/productivity-tools',[CategoryController::class, 'productivity'])->name('category.productivity');
+Route::get('/study-tools',       [CategoryController::class, 'study'])->name('category.study');
+Route::get('/pet-tools',         [CategoryController::class, 'pets'])->name('category.pets');
+
 Route::get('/kids',              [CategoryController::class, 'kids'])->name('category.kids');
 Route::get('/life-tools',        [CategoryController::class, 'life'])->name('category.life');
 Route::get('/games',             [CategoryController::class, 'games'])->name('category.games');
@@ -66,6 +71,25 @@ Route::get('/ovulation-calculator',       [CalculatorController::class, 'ovulati
 Route::get('/retirement-calculator',      [CalculatorController::class, 'retirement'])->name('calc.retirement');
 Route::get('/life-percentage-calculator', [CalculatorController::class, 'lifePercentage'])->name('calc.life-percent');
 
+
+// ── Mental Health Tools ───────────────────────────────────────────────────────
+
+Route::get('/attachment-style-quiz',    [CalculatorController::class, 'attachmentStyleQuiz'])->name('calc.attachment-style');
+Route::get('/anxiety-quiz',             [CalculatorController::class, 'anxietyQuiz'])->name('calc.anxiety');
+Route::get('/depression-screening',     [CalculatorController::class, 'depressionScreening'])->name('calc.depression');
+
+// ── Productivity Tools ────────────────────────────────────────────────────────
+
+Route::get('/pomodoro-timer',           [CalculatorController::class, 'pomodoroTimer'])->name('calc.pomodoro');
+
+// ── Study Tools ───────────────────────────────────────────────────────────────
+
+Route::get('/reading-speed-test',       [CalculatorController::class, 'readingSpeedTest'])->name('calc.reading-speed');
+
+// ── Pet Tools ─────────────────────────────────────────────────────────────────
+
+Route::get('/dog-age-calculator',       [CalculatorController::class, 'dogAge'])->name('calc.dog-age');
+Route::get('/cat-age-calculator',       [CalculatorController::class, 'catAge'])->name('calc.cat-age');
 
 // ── Kids Zone ─────────────────────────────────────────────────────────────────
 

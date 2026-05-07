@@ -53,4 +53,23 @@ class CalculatorController extends Controller
     public function ovulation()       { return $this->renderOrAbort('calculators.ovulation-calculator'); }
     public function retirement()      { return $this->renderOrAbort('calculators.retirement-calculator'); }
     public function lifePercentage()  { return $this->renderOrAbort('calculators.life-percentage-calculator'); }
+
+    // ── Mental Health Tools ─────────────────────────────────────────────────
+
+    public function attachmentStyleQuiz() { return $this->renderOrAbort('calculators.attachment-style-quiz'); }
+    public function anxietyQuiz()         { return $this->renderOrAbort('calculators.anxiety-quiz'); }
+    public function depressionScreening() { return $this->renderOrAbort('calculators.depression-screening'); }
+
+    // ── Productivity Tools ──────────────────────────────────────────────────
+
+    public function pomodoroTimer()       { return $this->renderOrAbort('calculators.pomodoro-timer'); }
+
+    // ── Study Tools ─────────────────────────────────────────────────────────
+
+    public function readingSpeedTest()    { return $this->renderOrAbort('calculators.reading-speed-test'); }
+
+    // ── Pet Tools ───────────────────────────────────────────────────────────
+
+    public function dogAge()              { return $this->renderOrAbort('calculators.dog-age-calculator'); }
+    public function catAge()              { return $this->renderOrAbort('calculators.cat-age-calculator'); }
 }
