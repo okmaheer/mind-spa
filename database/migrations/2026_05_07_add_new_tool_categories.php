@@ -33,7 +33,7 @@ return new class extends Migration
                 'icon'             => '😰',
                 'description'      => 'Clinically validated 7-question anxiety screening — get your score instantly.',
                 'meta_title'       => 'GAD-7 Anxiety Test — Free Online Screening | MindSnap',
-                'meta_description' => 'Take the clinically validated GAD-7 anxiety screening test free online. Get your score instantly with a clear explanation of what it means for your wellbeing.',
+                'meta_description' => 'Free GAD-7 anxiety test online — 7 questions, instant score. Find out if your anxiety is minimal, mild, moderate, or severe with a clinician-validated quiz.',
                 'monthly_searches'  => 50000,
                 'sort_order'       => 20,
                 'is_active'        => true,
