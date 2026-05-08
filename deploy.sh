@@ -15,7 +15,7 @@ cd $DEPLOY_PATH
 
 # Enter maintenance mode
 echo -e "${YELLOW}Entering maintenance mode...${NC}"
-php artisan down --message 'The app is being updated. Please try again in a minute.' || true
+php artisan down || true
 
 # Update codebase
 echo -e "${GREEN}Pulling latest code from GitHub...${NC}"
@@ -37,7 +37,7 @@ php artisan view:clear
 
 # Run database migrations
 echo -e "${GREEN}Running database migrations...${NC}"
-php artisan migrate
+php artisan migrate --force
 
 # Optimize for production
 echo -e "${GREEN}Optimizing for production...${NC}"
