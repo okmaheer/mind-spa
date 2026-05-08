@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Nutrition Calculators — Water Intake & Intermittent Fasting | MindSnap')
+@section('title', 'Free Nutrition Calculators — Water & Fasting | MindSnap')
 @section('description', 'Free nutrition calculators: daily water intake calculator based on your weight and activity level, plus intermittent fasting calculator for 16:8, 18:6, OMAD, and 5:2 protocols. Instant results, no signup.')
 @section('canonical', config('app.url') . '/nutrition-tools')
 

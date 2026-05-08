@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Online Brain Games — Typing Speed, Memory & Reaction Test | MindSnap')
+@section('title', 'Free Online Brain Games — Typing, Memory & More | MindSnap')
 @section('description', 'Free online brain games: typing speed test, reaction time test, memory test, word scramble game, and colour blind test. Train and test your brain in minutes. No download, no signup needed.')
 @section('canonical', config('app.url') . '/games')
 

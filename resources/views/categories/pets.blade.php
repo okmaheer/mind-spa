@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Pet Age Calculators — Dog & Cat Age in Human Years | MindSnap')
+@section('title', 'Free Pet Age Calculators — Dog & Cat Years | MindSnap')
 @section('description', 'Free pet age calculators — convert dog or cat age to human years instantly. Dog calculator adjusts for breed size. Cat calculator uses AAFP life stages.')
 @section('canonical', config('app.url') . '/pet-tools')
 

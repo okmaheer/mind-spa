@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sleep Debt Calculator — How Much Sleep Do You Owe? | MindSnap')
+@section('title', 'Sleep Debt Calculator — How Much Do You Owe? | MindSnap')
 @section('description', 'Free sleep debt calculator: enter your actual vs ideal sleep each night and see exactly how much sleep debt you\'ve built up. Get a science-based recovery plan to fix chronic sleep deprivation. No signup.')
 @section('canonical', config('app.url') . '/sleep-debt-calculator')
 
@@ -125,6 +125,25 @@ $relatedTools = [
 .sd-recovery-box { background:#f0f4ff; border:1px solid rgba(108,99,255,.19); }
 .sd-recovery-title { font-weight:700; color:var(--primary-dark); font-size:.88rem; margin-bottom:8px; }
 .sd-recovery-list  { margin:0; padding-left:18px; font-size:.85rem; color:#555; line-height:1.8; }
+.sd-adv-toggle     { font-size:.85rem; font-weight:600; color:var(--sleep); cursor:pointer; border:none; background:none; padding:4px 0; }
+.sd-adv-toggle::after { content:'  ▾'; }
+.sd-adv-toggle[aria-expanded="true"]::after { content:'  ▲'; }
+.sd-night-bars     { display:flex; gap:6px; align-items:flex-end; height:100px; }
+.sd-night-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; }
+.sd-night-bar      { width:100%; border-radius:4px 4px 0 0; min-height:4px; }
+.sd-night-bar-good { background:#28a745; }
+.sd-night-bar-warn { background:#ffc107; }
+.sd-night-bar-bad  { background:#dc3545; }
+.sd-night-lbl      { font-size:.62rem; color:#888; text-align:center; margin-top:3px; }
+.sd-night-val      { font-size:.68rem; font-weight:700; text-align:center; margin-bottom:2px; }
+.sd-night-val-good { color:#28a745; }
+.sd-night-val-warn { color:#856404; }
+.sd-night-val-bad  { color:#dc3545; }
+.sd-gap-mild       { color:#155724; }
+.sd-gap-mod        { color:#664d03; }
+.sd-gap-sig        { color:#7a4004; }
+.sd-gap-sev        { color:#721c24; }
+.sd-night-source   { font-size:.72rem; color:#aaa; margin-top:8px; }
 </style>
 @endsection
 
@@ -194,6 +213,7 @@ $relatedTools = [
             <div id="debtResult" class="mt-4 d-none">
               <div class="ms-divider"></div>
               <div id="debtContent"></div>
+              <div id="sdAdvancedSection" class="collapse mt-3"></div>
             </div>
 
           </div>
@@ -254,6 +274,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-sleep mb-3">The Research</span>
         <h2 class="mb-4">Why Sleep Debt Feels "Fine" Until It's Not</h2>
+<img src="{{ asset('images/sleep-debt-accumulation.svg') }}" alt="Sleep debt accumulation chart showing how missed sleep adds up over a week" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The most dangerous aspect of sleep debt isn't the impairment itself — it's that the brain loses its ability to accurately gauge that impairment. A landmark 2003 study by Van Dongen and colleagues at the University of Pennsylvania had participants sleep 6 or 4 hours per night for 14 consecutive nights.</p>
         <p>By day 14, the 6-hour group showed cognitive performance equivalent to someone who had been awake for <strong>48 straight hours</strong>. Yet subjective sleepiness ratings plateaued around day 5 — participants thought they had adapted. They hadn't. They had simply lost the neurological sensitivity to detect their own deficit.</p>
         <p>This is the core problem with modern sleep culture: we benchmark our performance against our impaired baseline, not against our rested potential. The productivity gains from recovering sleep debt are often invisible because people cannot remember what "fully rested" feels like.</p>
@@ -310,36 +331,87 @@ $relatedTools = [
     document.getElementById('neededVal').textContent = val + 'h';
   };
 
-  window.syncSlider = function (type) {
+  window.syncSlider = function () {
     var v = parseFloat(document.getElementById('neededSlider').value);
     document.getElementById('neededVal').textContent = v + 'h';
   };
 
+  // Load saved inputs
+  (function () {
+    try {
+      var saved = JSON.parse(localStorage.getItem('sd_last') || 'null');
+      if (saved) {
+        if (saved.needed) {
+          document.getElementById('neededSlider').value = saved.needed;
+          document.getElementById('neededVal').textContent = saved.needed + 'h';
+        }
+        if (saved.days) {
+          var inputs = document.querySelectorAll('.day-input');
+          inputs.forEach(function (inp, i) {
+            if (saved.days[i] !== undefined) inp.value = saved.days[i];
+          });
+        }
+      }
+    } catch (e) {}
+  })();
+
+  function buildNightBreakdown(dayValues, needed) {
+    var dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var maxH = Math.max(needed + 1, Math.max.apply(null, dayValues));
+    var bars = '<p class="fw-semibold mb-2 rp-tbl-lbl">Per-Night Sleep vs Your ' + needed + 'h Need</p>'
+      + '<div class="sd-night-bars">';
+    dayValues.forEach(function (h, i) {
+      var heightPx = Math.round((h / maxH) * 80);
+      var diff = h - needed;
+      var barCls = h >= needed ? 'sd-night-bar-good' : (h >= needed - 1 ? 'sd-night-bar-warn' : 'sd-night-bar-bad');
+      var valCls = h >= needed ? 'sd-night-val-good' : (h >= needed - 1 ? 'sd-night-val-warn' : 'sd-night-val-bad');
+      var diffStr = diff >= 0 ? '+' + diff.toFixed(1) + 'h' : diff.toFixed(1) + 'h';
+      bars += '<div class="sd-night-bar-wrap">'
+        + '<div class="sd-night-val ' + valCls + '">' + diffStr + '</div>'
+        + '<div class="sd-night-bar ' + barCls + '" style="height:' + heightPx + 'px;"></div>'
+        + '<div class="sd-night-lbl">' + dayNames[i] + '</div>'
+        + '</div>';
+    });
+    bars += '</div>';
+    bars += '<p class="sd-night-source">Green = met your need · Yellow = within 1h short · Red = deficit night</p>';
+    return bars;
+  }
+
   window.calcDebt = function () {
     var needed = parseFloat(document.getElementById('neededSlider').value);
-    var days = document.querySelectorAll('.day-input');
+    var dayInputs = document.querySelectorAll('.day-input');
+    var dayValues = [];
     var totalActual = 0;
-    days.forEach(function (d) { totalActual += parseFloat(d.value) || 0; });
+    dayInputs.forEach(function (d) {
+      var v = parseFloat(d.value) || 0;
+      dayValues.push(v);
+      totalActual += v;
+    });
+
+    // Save to localStorage
+    try {
+      localStorage.setItem('sd_last', JSON.stringify({ needed: needed, days: dayValues }));
+    } catch (e) {}
 
     var totalNeeded = needed * 7;
     var debt = totalNeeded - totalActual;
     var avgActual = totalActual / 7;
 
-    var level, levelCls, color, icon, recoveryNights;
+    var level, levelCls, gapCls, icon, recoveryNights;
     if (debt <= 0) {
-      level = 'No Sleep Debt'; levelCls = 'sd-level-mild'; color = '#155724'; icon = '✅';
+      level = 'No Sleep Debt'; levelCls = 'sd-level-mild'; gapCls = 'sd-gap-mild'; icon = '✅';
       recoveryNights = 0;
     } else if (debt <= 2) {
-      level = 'Mild Deficit'; levelCls = 'sd-level-mild'; color = '#155724'; icon = '🟡';
+      level = 'Mild Deficit'; levelCls = 'sd-level-mild'; gapCls = 'sd-gap-mild'; icon = '🟡';
       recoveryNights = 1;
     } else if (debt <= 5) {
-      level = 'Moderate Deficit'; levelCls = 'sd-level-mod'; color = '#664d03'; icon = '⚠️';
+      level = 'Moderate Deficit'; levelCls = 'sd-level-mod'; gapCls = 'sd-gap-mod'; icon = '⚠️';
       recoveryNights = 3;
     } else if (debt <= 10) {
-      level = 'Significant Deficit'; levelCls = 'sd-level-sig'; color = '#7a4004'; icon = '🔴';
+      level = 'Significant Deficit'; levelCls = 'sd-level-sig'; gapCls = 'sd-gap-sig'; icon = '🔴';
       recoveryNights = 5;
     } else {
-      level = 'Severe Deficit'; levelCls = 'sd-level-sev'; color = '#721c24'; icon = '🚨';
+      level = 'Severe Deficit'; levelCls = 'sd-level-sev'; gapCls = 'sd-gap-sev'; icon = '🚨';
       recoveryNights = 10;
     }
 
@@ -363,7 +435,7 @@ $relatedTools = [
       + '<div class="sd-stat-val">' + needed + 'h</div>'
       + '<div class="ms-stat-label">You need</div></div></div>'
       + '<div class="col-4 text-center"><div class="sd-stat-card">'
-      + '<div class="sd-stat-val" style="color:' + color + ';">'
+      + '<div class="sd-stat-val ' + gapCls + '">'
       + (debt <= 0 ? '0' : '-' + (needed - avgActual).toFixed(1)) + 'h</div>'
       + '<div class="ms-stat-label">Per night gap</div></div></div>'
       + '</div>';
@@ -380,7 +452,19 @@ $relatedTools = [
         + '</ul></div>';
     }
 
+    html += '<div class="mt-3">'
+      + '<button class="sd-adv-toggle" type="button" data-bs-toggle="collapse" '
+      + 'data-bs-target="#sdAdvancedSection" aria-expanded="false" aria-controls="sdAdvancedSection">'
+      + 'Show per-night breakdown'
+      + '</button></div>';
+
     document.getElementById('debtContent').innerHTML = html;
+    document.getElementById('sdAdvancedSection').innerHTML = buildNightBreakdown(dayValues, needed);
+
+    // Reset collapse state so toggle works fresh each calculation
+    var advEl = document.getElementById('sdAdvancedSection');
+    advEl.classList.remove('show');
+
     document.getElementById('debtResult').classList.remove('d-none');
     document.getElementById('debtResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };

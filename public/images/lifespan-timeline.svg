@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" width="640" height="120" role="img" aria-label="Human lifespan timeline showing decades from birth to 90 years">
+  <rect width="640" height="120" fill="#f8fafc" rx="12"/>
+  <defs><linearGradient id="lifeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#a78bfa"/>
+    <stop offset="25%"  stop-color="#60a5fa"/>
+    <stop offset="50%"  stop-color="#34d399"/>
+    <stop offset="75%"  stop-color="#fb923c"/>
+    <stop offset="100%" stop-color="#f87171"/>
+  </linearGradient></defs>
+  <rect x="40" y="40" width="560" height="24" rx="6" fill="url(#lifeGrad)"/>
+  <text x="40"  y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">0</text>
+  <text x="180" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">20</text>
+  <text x="320" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">40</text>
+  <text x="460" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">60</text>
+  <text x="600" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">80+</text>
+  <line x1="180" y1="40" x2="180" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <line x1="320" y1="40" x2="320" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <line x1="460" y1="40" x2="460" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <text x="110" y="56" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Childhood</text>
+  <text x="250" y="56" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Young Adult</text>
+  <text x="390" y="56" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Middle Age</text>
+  <text x="530" y="56" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Senior</text>
+  <text x="320" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Global average life expectancy: ~73 years — varies significantly by country and lifestyle</text>
+</svg>

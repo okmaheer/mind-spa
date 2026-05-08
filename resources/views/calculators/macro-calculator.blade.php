@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Macro Calculator — Daily Protein, Carb & Fat Targets for Your Goal | MindSnap')
+@section('title', 'Macro Calculator — Protein, Carb & Fat Targets | MindSnap')
 @section('description', 'Free macro calculator: get personalized protein, carbohydrate, and fat targets based on your weight, goal, and activity level. Instant macro split. No signup.')
 @section('canonical', config('app.url') . '/macro-calculator')
 
@@ -38,6 +38,16 @@
 .mac-td             { padding: 10px 18px; }
 .mac-td-name        { padding: 10px 18px; font-weight: 600; }
 .mac-td-role        { padding: 10px 18px; font-size: .85rem; color: #666; }
+.mac-adv-toggle     { font-size: .85rem; font-weight: 600; color: var(--fitness); cursor: pointer; border: none; background: none; padding: 4px 0; }
+.mac-adv-toggle::after { content: '  ▾'; }
+.mac-adv-toggle[aria-expanded="true"]::after { content: '  ▲'; }
+.mac-meal-btn       { border-radius: 8px; border: 1px solid #e0e0e0; background: #f8f9fa; font-size: .82rem; padding: 5px 14px; }
+.mac-meal-btn.active { background: var(--fitness); color: #fff; border-color: transparent; }
+.mac-meal-card      { background: #f8f9fa; border-radius: 10px; padding: 12px; }
+.mac-meal-title     { font-size: .78rem; font-weight: 700; color: #555; margin-bottom: 6px; }
+.mac-meal-row       { font-size: .82rem; }
+.mac-fiber-box      { background: #e8f5e9; border-radius: 10px; padding: 12px 16px; font-size: .82rem; }
+.mac-last-result    { font-size: .8rem; color: #888; padding: 6px 10px; background: #f8f9fa; border-radius: 6px; margin-bottom: 10px; }
 </style>
 @endsection
 
@@ -241,6 +251,7 @@ $relatedTools = [
               </div>
             </div>
 
+            <div id="macLastResult" class="mac-last-result d-none"></div>
             <button class="btn btn-cta w-100" onclick="calcMacros()">
               Calculate Macros →
             </button>
@@ -289,6 +300,23 @@ $relatedTools = [
                 <span class="mac-legend-item"><span class="mac-legend-dot mac-legend-dot-carb"></span> Carbs</span>
                 <span class="mac-legend-item"><span class="mac-legend-dot mac-legend-dot-fat"></span> Fat</span>
               </div>
+
+              <div class="mt-3">
+                <button class="mac-adv-toggle" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#macAdvanced" aria-expanded="false"
+                        aria-controls="macAdvanced">
+                  Show per-meal breakdown &amp; fiber target
+                </button>
+                <div class="collapse mt-3" id="macAdvanced">
+                  <div class="d-flex gap-2 mb-3" id="macMealBtns">
+                    <button class="btn btn-sm mac-meal-btn active" data-meals="3">3 meals</button>
+                    <button class="btn btn-sm mac-meal-btn" data-meals="4">4 meals</button>
+                    <button class="btn btn-sm mac-meal-btn" data-meals="5">5 meals</button>
+                  </div>
+                  <div id="macMealGrid" class="row g-2 mb-3"></div>
+                  <div id="macFiberBox" class="mac-fiber-box"></div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -326,6 +354,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How Macros Work: Protein, Carbs, and Fat Explained</h2>
+        <img src="{{ asset('images/macro-split.svg') }}" alt="Balanced macro split diagram showing 30% protein, 40% carbohydrates, and 30% fat with calorie per gram values" width="640" height="200" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The three macronutrients provide all of your dietary calories. Each plays distinct and irreplaceable roles:</p>
         <p><strong class="text-green">Protein</strong> builds and repairs muscle tissue, produces enzymes and hormones, and is the most satiating macronutrient. At 4 cal/g, it is equally calorie-dense to carbohydrates, but its thermic effect (25–30% of its calories are burned in digestion) makes it the most metabolically "expensive" food.</p>
         <p><strong class="text-orange-brand">Carbohydrates</strong> are the body's preferred fuel, especially for high-intensity exercise. They are stored as glycogen in muscles and the liver. At 4 cal/g, they are calorie-efficient and essential for performance.</p>
@@ -450,6 +479,51 @@ $relatedTools = [
 (function () {
 
   var currentUnit = 'metric';
+  var lastMacros  = null;
+
+  // Load saved inputs
+  (function () {
+    try {
+      var s = JSON.parse(localStorage.getItem('mac_last') || 'null');
+      if (!s) return;
+      if (s.sex)      document.getElementById('macSex').value      = s.sex;
+      if (s.age)      document.getElementById('macAge').value       = s.age;
+      if (s.activity) document.getElementById('macActivity').value  = s.activity;
+      if (s.goal)   { document.getElementById('macGoal').value      = s.goal; toggleCustom(s.goal); }
+      if (s.weightKg) document.getElementById('macWeightKg').value  = s.weightKg;
+      if (s.heightCm) document.getElementById('macHeightCm').value  = s.heightCm;
+      if (s.totalCal) {
+        var el = document.getElementById('macLastResult');
+        el.textContent = 'Last: ' + s.totalCal + ' cal/day · ' + s.protG + 'g P / ' + s.carbG + 'g C / ' + s.fatG + 'g F';
+        el.classList.remove('d-none');
+      }
+    } catch (e) {}
+  })();
+
+  function buildMealGrid(n) {
+    if (!lastMacros) return;
+    var p = lastMacros;
+    var html = '';
+    for (var i = 1; i <= n; i++) {
+      html += '<div class="col-' + (n <= 3 ? '4' : (n === 4 ? '6' : '4')) + '">'
+        + '<div class="mac-meal-card text-center">'
+        + '<div class="mac-meal-title">Meal ' + i + '</div>'
+        + '<div class="mac-meal-row text-green fw-bold">' + Math.round(p.protG / n) + 'g protein</div>'
+        + '<div class="mac-meal-row text-orange-brand fw-bold">' + Math.round(p.carbG / n) + 'g carbs</div>'
+        + '<div class="mac-meal-row text-teal fw-bold">' + Math.round(p.fatG / n) + 'g fat</div>'
+        + '<div class="mac-meal-row text-muted" style="font-size:.72rem">' + Math.round(p.totalCal / n) + ' cal</div>'
+        + '</div></div>';
+    }
+    document.getElementById('macMealGrid').innerHTML = html;
+  }
+
+  document.getElementById('macMealBtns').addEventListener('click', function (e) {
+    var btn = e.target.closest('.mac-meal-btn');
+    if (!btn) return;
+    document.querySelectorAll('.mac-meal-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    buildMealGrid(parseInt(btn.dataset.meals));
+  });
 
   window.toggleCustom = function (val) {
     document.getElementById('macCustom').classList.toggle('d-none', val !== 'custom');
@@ -546,6 +620,37 @@ $relatedTools = [
       '<div class="mac-bar-prot" style="width:' + Math.round(protPct * 100) + '%;"></div>' +
       '<div class="mac-bar-carb" style="width:' + Math.round(carbPct * 100) + '%;"></div>' +
       '<div class="mac-bar-fat"  style="width:' + Math.round(fatPct  * 100) + '%;"></div>';
+
+    // Save + update per-meal section
+    lastMacros = { totalCal: totalCal, protG: protG, carbG: carbG, fatG: fatG };
+    try {
+      localStorage.setItem('mac_last', JSON.stringify({
+        sex: sex, age: age, activity: String(activity), goal: goal,
+        weightKg: currentUnit === 'metric' ? document.getElementById('macWeightKg').value : '',
+        heightCm: currentUnit === 'metric' ? document.getElementById('macHeightCm').value : '',
+        totalCal: totalCal, protG: protG, carbG: carbG, fatG: fatG
+      }));
+    } catch (e) {}
+    var lastEl = document.getElementById('macLastResult');
+    lastEl.textContent = 'Last: ' + totalCal + ' cal/day · ' + protG + 'g P / ' + carbG + 'g C / ' + fatG + 'g F';
+    lastEl.classList.remove('d-none');
+
+    // Build per-meal breakdown (default 3 meals)
+    var activeMeals = document.querySelector('.mac-meal-btn.active');
+    buildMealGrid(activeMeals ? parseInt(activeMeals.dataset.meals) : 3);
+
+    // Fiber recommendation
+    var fiberTarget = sex === 'male' ? 38 : 25;
+    document.getElementById('macFiberBox').innerHTML =
+      '<strong>Daily Fiber Target:</strong> ' + fiberTarget + 'g/day '
+      + '(' + (sex === 'male' ? 'men' : 'women') + ', USDA DRI). '
+      + 'Fiber is technically a carbohydrate but is not digested — subtract it from net carbs on labels. '
+      + 'Good sources: oats, lentils, beans, broccoli, berries.';
+
+    // Reset advanced collapse on recalculate
+    document.getElementById('macAdvanced').classList.remove('show');
+    var advBtn = document.querySelector('[data-bs-target="#macAdvanced"]');
+    if (advBtn) advBtn.setAttribute('aria-expanded', 'false');
 
     var resultsEl = document.getElementById('results');
     resultsEl.classList.remove('d-none');

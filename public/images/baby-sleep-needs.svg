@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="Baby and child sleep needs by age: newborns 14-17 hours, infants 12-15 hours, toddlers 11-14 hours, school age 9-11 hours">
+  <rect width="640" height="160" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="30" width="130" height="80" rx="8" fill="#f9a8d4"/>
+  <text x="85"  y="58"  text-anchor="middle" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#fff">14–17h</text>
+  <text x="85"  y="74"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#fce7f3">per day</text>
+  <text x="85"  y="98"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#be185d">Newborn</text>
+  <text x="85"  y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#be185d">0–3 months</text>
+  <rect x="168" y="30" width="130" height="80" rx="8" fill="#fb923c"/>
+  <text x="233" y="58"  text-anchor="middle" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#fff">12–15h</text>
+  <text x="233" y="74"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#ffedd5">per day</text>
+  <text x="233" y="98"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#7c2d12">Infant</text>
+  <text x="233" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#7c2d12">4–11 months</text>
+  <rect x="316" y="30" width="130" height="80" rx="8" fill="#34d399"/>
+  <text x="381" y="58"  text-anchor="middle" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#fff">11–14h</text>
+  <text x="381" y="74"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#d1fae5">per day</text>
+  <text x="381" y="98"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#064e3b">Toddler</text>
+  <text x="381" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#064e3b">1–2 years</text>
+  <rect x="464" y="30" width="152" height="80" rx="8" fill="#6366f1"/>
+  <text x="540" y="58"  text-anchor="middle" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#fff">9–11h</text>
+  <text x="540" y="74"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#e0e7ff">per day</text>
+  <text x="540" y="98"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#e0e7ff">School Age</text>
+  <text x="540" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#c7d2fe">6–12 years</text>
+  <text x="320" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Source: American Academy of Sleep Medicine (AASM) — includes naps for infants and toddlers</text>
+</svg>

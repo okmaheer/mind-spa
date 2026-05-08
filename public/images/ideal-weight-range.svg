@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="Ideal weight ranges by height for adults: at 170cm healthy weight is 53-72 kg, at 180cm it is 60-81 kg">
+  <rect width="640" height="160" fill="#f8fafc" rx="12"/>
+  <rect x="20" y="14" width="600" height="26" rx="4" fill="#1e293b"/>
+  <text x="130" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Height</text>
+  <text x="310" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Healthy Weight Range (BMI 18.5–24.9)</text>
+  <text x="560" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Midpoint</text>
+  <g font-family="Inter,sans-serif" font-size="12">
+    <rect x="20" y="40"  width="600" height="22" fill="#f1f5f9"/>
+    <text x="130" y="55"  text-anchor="middle" fill="#1e293b">160 cm (5&apos;3")</text>
+    <rect x="220" y="43" width="160" height="16" rx="3" fill="#4ade80"/>
+    <text x="310" y="55"  text-anchor="middle" fill="#065f46" font-weight="600">47 – 64 kg</text>
+    <text x="560" y="55"  text-anchor="middle" fill="#64748b">55 kg</text>
+    <rect x="20" y="62"  width="600" height="22" fill="#fff"/>
+    <text x="130" y="77"  text-anchor="middle" fill="#1e293b">170 cm (5&apos;7")</text>
+    <rect x="220" y="65" width="185" height="16" rx="3" fill="#34d399"/>
+    <text x="310" y="77"  text-anchor="middle" fill="#065f46" font-weight="600">53 – 72 kg</text>
+    <text x="560" y="77"  text-anchor="middle" fill="#64748b">62 kg</text>
+    <rect x="20" y="84"  width="600" height="22" fill="#f1f5f9"/>
+    <text x="130" y="99"  text-anchor="middle" fill="#1e293b">180 cm (5&apos;11")</text>
+    <rect x="220" y="87" width="205" height="16" rx="3" fill="#6ee7b7"/>
+    <text x="310" y="99"  text-anchor="middle" fill="#065f46" font-weight="600">60 – 81 kg</text>
+    <text x="560" y="99"  text-anchor="middle" fill="#64748b">70 kg</text>
+    <rect x="20" y="106" width="600" height="22" fill="#fff"/>
+    <text x="130" y="121" text-anchor="middle" fill="#1e293b">190 cm (6&apos;3")</text>
+    <rect x="220" y="109" width="225" height="16" rx="3" fill="#a7f3d0"/>
+    <text x="310" y="121" text-anchor="middle" fill="#065f46" font-weight="600">67 – 90 kg</text>
+    <text x="560" y="121" text-anchor="middle" fill="#64748b">78 kg</text>
+  </g>
+  <text x="320" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Based on BMI 18.5–24.9 · Consult a doctor for personalised targets</text>
+</svg>

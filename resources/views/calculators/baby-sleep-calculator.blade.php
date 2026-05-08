@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Baby Sleep Calculator — Nap Schedule & Bedtime by Age | MindSnap')
+@section('title', 'Baby Sleep Calculator — Nap & Bedtime by Age | MindSnap')
 @section('description', 'Free baby sleep calculator: get the ideal nap schedule, number of naps, and bedtime for your baby\'s age — newborn, 3 months, 6 months, 1 year, 2 years, and 3 years. Based on AAP pediatric sleep guidelines.')
 @section('canonical', config('app.url') . '/baby-sleep-calculator')
 
@@ -193,6 +193,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Sleep Needs by Age</h2>
+<img src="{{ asset('images/baby-sleep-needs.svg') }}" alt="Baby sleep needs chart showing recommended sleep hours by age from newborn to toddler" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
     <p class="text-center text-muted mb-5 ms-intro-text">Recommendations from the American Academy of Sleep Medicine and AAP.</p>
     <div class="table-responsive">
       <table class="table bsc-age-table">

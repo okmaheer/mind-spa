@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 110" width="640" height="110" role="img" aria-label="40-week pregnancy timeline divided into three trimesters: weeks 1-12 first trimester, weeks 13-27 second trimester, weeks 28-40 third trimester">
+  <rect width="640" height="110" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="34" width="168" height="38" rx="6 0 0 6" fill="#f9a8d4"/>
+  <rect x="188" y="34" width="224" height="38" fill="#fb923c"/>
+  <rect x="412" y="34" width="208" height="38" rx="0 6 6 0" fill="#6366f1"/>
+  <text x="104" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">1st Trimester</text>
+  <text x="104" y="71" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#fce7f3">Weeks 1–12</text>
+  <text x="300" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">2nd Trimester</text>
+  <text x="300" y="71" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#ffedd5">Weeks 13–27</text>
+  <text x="516" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#fff">3rd Trimester</text>
+  <text x="516" y="71" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#e0e7ff">Weeks 28–40</text>
+  <!-- week markers -->
+  <text x="20"  y="90" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Wk 1</text>
+  <text x="188" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Wk 13</text>
+  <text x="412" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Wk 28</text>
+  <text x="620" y="90" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#6366f1" font-weight="700">Due Date Wk 40</text>
+  <text x="320" y="19" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1e293b">280 days from LMP (Naegele's Rule) — only 5% of babies arrive exactly on their due date</text>
+</svg>

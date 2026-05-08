@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Heart Rate Calculator — Max Heart Rate & Training Zones for Fat Burn | MindSnap')
+@section('title', 'Heart Rate Calculator — Max HR & Training Zones | MindSnap')
 @section('description', 'Free heart rate zone calculator: find your maximum heart rate and target heart rate zones for fat burning, cardio, and HIIT. Based on age and resting heart rate. No signup.')
 @section('canonical', config('app.url') . '/heart-rate-calculator')
 
@@ -93,6 +93,18 @@ $relatedTools = [
 .hr-zone-segment    { flex:1; opacity:.8; }
 .hr-zone-labels     { display:flex; font-size:.68rem; color:#888; }
 .hr-zone-label-item { flex:1; text-align:center; }
+.hr-goal-btn  { border:2px solid #dee2e6; color:#555; background:#fff; border-radius:20px; font-size:.82rem; padding:4px 14px; cursor:pointer; transition:all .15s; }
+.hr-goal-fat.hr-goal-active       { border-color:#28a745; color:#28a745; background:#f0fff4; font-weight:600; }
+.hr-goal-cardio.hr-goal-active    { border-color:#ffc107; color:#856404; background:#fffbf0; font-weight:600; }
+.hr-goal-threshold.hr-goal-active { border-color:#fd7e14; color:#c25900; background:#fff5f0; font-weight:600; }
+.hr-goal-hiit.hr-goal-active      { border-color:#dc3545; color:#b02a37; background:#fff0f0; font-weight:600; }
+.hr-zone-row-highlighted td { background:#fffde7; font-weight:600; }
+.hr-adv-toggle { font-size:.85rem; color:var(--fitness); text-decoration:none; }
+.hr-adv-toggle:hover { text-decoration:underline; }
+.hr-adv-toggle::after { content:' ▾'; }
+.hr-adv-toggle[aria-expanded="true"]::after { content:' ▲'; }
+.hr-vo2-value  { font-size:2rem; font-weight:700; color:var(--primary-dark); line-height:1; }
+.hr-last-result { font-size:.82rem; color:#888; background:#f8f9fa; border-radius:8px; padding:8px 12px; }
 </style>
 @endsection
 
@@ -142,6 +154,17 @@ $relatedTools = [
               <div id="hrKarvonenNote" class="mt-1 d-none hr-karvonen-note">Karvonen formula uses your resting HR for more personalised zone calculations.</div>
             </div>
 
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Training goal <small class="text-muted fw-normal">optional — highlights your zone</small></label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="hr-goal-btn hr-goal-fat"       data-goal="fat">🔥 Fat Burn</button>
+                <button type="button" class="hr-goal-btn hr-goal-cardio"    data-goal="cardio">💨 Cardio</button>
+                <button type="button" class="hr-goal-btn hr-goal-threshold" data-goal="threshold">⚡ Threshold</button>
+                <button type="button" class="hr-goal-btn hr-goal-hiit"      data-goal="hiit">🚀 HIIT</button>
+              </div>
+            </div>
+
+            <div id="hrLastResult" class="hr-last-result d-none mb-3"></div>
             <button class="btn btn-cta w-100" onclick="calculateHR()">
               Calculate Heart Rate Zones →
             </button>
@@ -174,6 +197,43 @@ $relatedTools = [
                   <tbody id="hrZoneTable"></tbody>
                 </table>
               </div>
+              {{-- Goal callout --}}
+              <div id="hrGoalCallout" class="mt-3 p-3 rounded-3 ms-note d-none"></div>
+
+              {{-- Advanced toggle --}}
+              <div class="text-center mt-3">
+                <button class="hr-adv-toggle btn btn-link p-0"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#hrAdvanced"
+                        aria-expanded="false">
+                  Show advanced metrics
+                </button>
+              </div>
+
+              {{-- Advanced: VO2max + how to measure resting HR --}}
+              <div class="collapse mt-3" id="hrAdvanced">
+                <div class="ms-divider mb-3"></div>
+
+                <div id="hrVo2Section" class="mb-4 d-none">
+                  <p class="fw-600 mb-1 text-sm">Estimated VO₂max <span class="text-muted fw-400">(from resting HR)</span></p>
+                  <div id="hrVo2Value" class="hr-vo2-value mb-1"></div>
+                  <p id="hrVo2Desc" class="text-sm text-muted mb-1"></p>
+                  <p class="text-xs text-muted mb-0">Formula: Uth et al. (2004) — 15 × (maxHR ÷ restingHR)</p>
+                </div>
+
+                <div>
+                  <p class="fw-600 mb-2 text-sm">How to measure your resting heart rate accurately</p>
+                  <ol class="text-sm text-muted ps-3 mb-0">
+                    <li class="mb-1">Stay lying still in bed for at least 5 minutes after waking — before coffee, phone, or getting up</li>
+                    <li class="mb-1">Find your pulse at your wrist (radial artery, below the thumb) or lightly on your neck</li>
+                    <li class="mb-1">Count beats for 60 seconds — or count for 30 seconds and multiply by 2</li>
+                    <li class="mb-1">Repeat on 3 consecutive mornings and use the average</li>
+                    <li>Avoid alcohol the night before and caffeine before measuring</li>
+                  </ol>
+                </div>
+              </div>
+
             </div>
             {{-- /Results --}}
 
@@ -213,6 +273,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How Heart Rate Zones Work: The Science of Training Intensity</h2>
+        <img src="{{ asset('images/heart-rate-zones.svg') }}" alt="Heart rate training zones chart: Zone 1 recovery 50–60%, Zone 2 fat burn 60–70%, Zone 3 cardio 70–80%, Zone 4 threshold 80–90%, Zone 5 max effort 90–100% of max heart rate" width="640" height="210" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Heart rate zones divide your intensity spectrum into meaningful bands, each with distinct physiological effects. Training in the right zone for the right purpose is one of the most evidence-backed principles in endurance sports and cardiovascular fitness.</p>
         <p>At low intensities, your body primarily burns fat for fuel. As intensity increases, it shifts toward carbohydrates, which can be metabolised faster to meet higher energy demands. At maximum intensity, the anaerobic system takes over entirely.</p>
         <p>The Karvonen formula, introduced in 1957, was a significant improvement over simple percentage-of-max methods because it uses your heart rate reserve — the functional range between your resting and max HR — as the basis for zone calculation. This personalises zones to your actual cardiovascular fitness level.</p>
@@ -323,84 +384,156 @@ $relatedTools = [
 <script>
 (function () {
 
+  var _maxHR, _resting, _selectedGoal = null;
+
+  var ZONES = [
+    { name: 'Very Light', minPct: 0.50, maxPct: 0.60, purpose: 'Recovery, warm-up, cool-down' },
+    { name: 'Light / Fat Burn', minPct: 0.60, maxPct: 0.70, purpose: 'Fat burning, aerobic base building' },
+    { name: 'Moderate / Cardio', minPct: 0.70, maxPct: 0.80, purpose: 'Cardiovascular fitness, mixed fuel' },
+    { name: 'Hard / Threshold', minPct: 0.80, maxPct: 0.90, purpose: 'Lactate threshold, endurance speed' },
+    { name: 'Max / VO₂ Max', minPct: 0.90, maxPct: 1.00, purpose: 'HIIT, anaerobic, peak performance' },
+  ];
+
+  var GOAL_MAP = {
+    fat:       { zone: 2, note: 'For fat burning, target Zone 2 — burns the highest proportion of calories from fat and can be sustained for 30–60+ minutes.' },
+    cardio:    { zone: 3, note: 'For cardiovascular fitness, train in Zone 3 — improves aerobic capacity using a mix of fat and carbohydrates.' },
+    threshold: { zone: 4, note: 'For threshold training, push into Zone 4 — raises your lactate threshold so you can sustain higher speeds for longer.' },
+    hiit:      { zone: 5, note: 'For HIIT, drive into Zone 5 during work intervals — builds VO₂max and produces significant post-exercise calorie burn.' },
+  };
+
+  // ── localStorage: show last result ───────────────────────────────────────
+  (function () {
+    try {
+      var last = JSON.parse(localStorage.getItem('hr_last'));
+      if (last && last.maxHR && last.date) {
+        var el = document.getElementById('hrLastResult');
+        el.textContent = 'Last result: Max HR ' + last.maxHR + ' bpm on ' + last.date;
+        el.classList.remove('d-none');
+      }
+    } catch (e) {}
+  })();
+
+  // ── Formula selector note ─────────────────────────────────────────────────
   document.getElementById('hrFormula').addEventListener('change', function () {
     document.getElementById('hrKarvonenNote').classList.toggle('d-none', this.value !== 'karvonen');
   });
 
-  var ZONES = [
-    { name: 'Zone 1 — Very Light',  minPct: 0.50, maxPct: 0.60, color: '#4a9fd4', purpose: 'Recovery, warm-up, cool-down' },
-    { name: 'Zone 2 — Light',        minPct: 0.60, maxPct: 0.70, color: '#28a745', purpose: 'Fat burning, aerobic base' },
-    { name: 'Zone 3 — Moderate',     minPct: 0.70, maxPct: 0.80, color: '#ffc107', purpose: 'Cardiovascular fitness' },
-    { name: 'Zone 4 — Hard',         minPct: 0.80, maxPct: 0.90, color: '#fd7e14', purpose: 'Threshold training' },
-    { name: 'Zone 5 — Maximum',      minPct: 0.90, maxPct: 1.00, color: '#dc3545', purpose: 'VO2 max, HIIT, anaerobic' },
-  ];
+  // ── Goal selector ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.hr-goal-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var wasActive = this.classList.contains('hr-goal-active');
+      document.querySelectorAll('.hr-goal-btn').forEach(function (b) { b.classList.remove('hr-goal-active'); });
+      if (!wasActive) {
+        this.classList.add('hr-goal-active');
+        _selectedGoal = this.dataset.goal;
+      } else {
+        _selectedGoal = null;
+      }
+      if (_maxHR) applyGoalHighlight();
+    });
+  });
 
+  function applyGoalHighlight() {
+    // Clear all highlights
+    for (var i = 1; i <= 5; i++) {
+      var row = document.getElementById('hrZoneRow' + i);
+      if (row) row.classList.remove('hr-zone-row-highlighted');
+    }
+    var callout = document.getElementById('hrGoalCallout');
+    if (!_selectedGoal || !GOAL_MAP[_selectedGoal]) {
+      callout.classList.add('d-none');
+      return;
+    }
+    var g = GOAL_MAP[_selectedGoal];
+    var targetRow = document.getElementById('hrZoneRow' + g.zone);
+    if (targetRow) targetRow.classList.add('hr-zone-row-highlighted');
+    callout.textContent = g.note;
+    callout.className = 'mt-3 p-3 rounded-3 ms-note ms-note-green';
+    callout.classList.remove('d-none');
+  }
+
+  // ── Main calculation ──────────────────────────────────────────────────────
   window.calculateHR = function () {
     var age     = parseInt(document.getElementById('hrAge').value);
     var resting = parseInt(document.getElementById('hrResting').value);
     var formula = document.getElementById('hrFormula').value;
 
-    if (!age || age < 10 || age > 100) {
-      alert('Please enter a valid age (10–100).');
-      return;
-    }
-
+    if (!age || age < 10 || age > 100) { alert('Please enter a valid age (10–100).'); return; }
     if (formula === 'karvonen' && (!resting || resting < 30)) {
-      alert('The Karvonen formula requires a valid resting heart rate. Please enter your resting HR or choose a different formula.');
+      alert('Karvonen requires a valid resting heart rate. Please enter it or choose a different formula.');
       return;
     }
 
-    var maxHR;
-    if (formula === 'tanaka') {
-      maxHR = Math.round(208 - 0.7 * age);
-    } else {
-      maxHR = 220 - age;
-    }
-
-    var useKarvonen = formula === 'karvonen' && resting && resting >= 30;
+    var maxHR = formula === 'tanaka' ? Math.round(208 - 0.7 * age) : 220 - age;
+    var useKarvonen = formula === 'karvonen' && resting >= 30;
     var hrr = useKarvonen ? (maxHR - resting) : null;
 
-    function zoneMin(pct) {
-      if (useKarvonen) return Math.round(hrr * pct + resting);
-      return Math.round(maxHR * pct);
+    function bpm(pct) {
+      return useKarvonen ? Math.round(hrr * pct + resting) : Math.round(maxHR * pct);
     }
-    function zoneMax(pct) {
-      if (useKarvonen) return Math.round(hrr * pct + resting);
-      return Math.round(maxHR * pct);
-    }
+
+    _maxHR   = maxHR;
+    _resting = resting;
 
     document.getElementById('hrMaxDisplay').textContent = maxHR;
 
-    // Zone bar
+    // Zone colour bar
     var barHtml = '<div class="hr-zone-bar-row">';
-    ZONES.forEach(function (z, i) {
-      barHtml += '<div class="hr-zone-segment hr-zone-' + (i + 1) + '"></div>';
-    });
+    for (var i = 0; i < 5; i++) barHtml += '<div class="hr-zone-segment hr-zone-' + (i + 1) + '"></div>';
     barHtml += '</div><div class="hr-zone-labels">';
-    ZONES.forEach(function (z, i) {
-      barHtml += '<div class="hr-zone-label-item">Z' + (i + 1) + '</div>';
-    });
+    for (var j = 0; j < 5; j++) barHtml += '<div class="hr-zone-label-item">Z' + (j + 1) + '</div>';
     barHtml += '</div>';
     document.getElementById('hrZoneBar').innerHTML = barHtml;
 
     // Zone table
     var tableHtml = '';
     ZONES.forEach(function (z, i) {
-      var low  = zoneMin(z.minPct);
-      var high = zoneMax(z.maxPct);
+      var low  = bpm(z.minPct);
+      var high = bpm(z.maxPct);
       var pctLabel = Math.round(z.minPct * 100) + '–' + Math.round(z.maxPct * 100) + '%';
-      tableHtml += '<tr>'
+      tableHtml += '<tr id="hrZoneRow' + (i + 1) + '">'
         + '<td><span class="ms-dot me-2 hr-zone-' + (i + 1) + '"></span>Zone ' + (i + 1) + '</td>'
-        + '<td>' + z.name.split('—')[1].trim() + '</td>'
+        + '<td>' + z.name + '</td>'
         + '<td>' + pctLabel + '</td>'
         + '<td><strong>' + low + '–' + high + ' bpm</strong></td>'
-        + '<td>' + z.purpose + '</td>'
+        + '<td class="text-muted">' + z.purpose + '</td>'
         + '</tr>';
     });
     document.getElementById('hrZoneTable').innerHTML = tableHtml;
 
-    document.getElementById('hrResults').classList.remove('d-none');
-    document.getElementById('hrResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Apply goal highlight if already selected
+    applyGoalHighlight();
+
+    // ── Advanced: VO2max from resting HR (Uth et al. 2004) ───────────────
+    var vo2Section = document.getElementById('hrVo2Section');
+    if (resting && resting >= 30) {
+      var vo2 = Math.round(15 * (maxHR / resting));
+      var vo2Level;
+      if      (vo2 >= 60) vo2Level = 'Superior';
+      else if (vo2 >= 55) vo2Level = 'Excellent';
+      else if (vo2 >= 50) vo2Level = 'Good';
+      else if (vo2 >= 45) vo2Level = 'Fair';
+      else if (vo2 >= 40) vo2Level = 'Below average';
+      else                vo2Level = 'Poor — consistent aerobic training will improve this';
+      document.getElementById('hrVo2Value').textContent = vo2 + ' ml/kg/min';
+      document.getElementById('hrVo2Desc').textContent  = 'Fitness level: ' + vo2Level + '. VO₂max is the gold standard of cardiovascular fitness.';
+      vo2Section.classList.remove('d-none');
+    } else {
+      vo2Section.classList.add('d-none');
+    }
+
+    // ── localStorage save ─────────────────────────────────────────────────
+    try {
+      var dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      localStorage.setItem('hr_last', JSON.stringify({ maxHR: maxHR, date: dateStr }));
+      var lastEl = document.getElementById('hrLastResult');
+      lastEl.textContent = 'Last result: Max HR ' + maxHR + ' bpm on ' + dateStr;
+      lastEl.classList.remove('d-none');
+    } catch (e) {}
+
+    var resultsEl = document.getElementById('hrResults');
+    resultsEl.classList.remove('d-none');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
 })();

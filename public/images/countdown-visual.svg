@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 110" width="640" height="110" role="img" aria-label="Countdown progress bar showing days elapsed and days remaining until a target event">
+  <rect width="640" height="110" fill="#f8fafc" rx="12"/>
+  <text x="320" y="22" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e293b">Days Until Your Event — Progress Tracker</text>
+  <!-- progress bar -->
+  <rect x="20" y="36" width="600" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="20" y="36" width="390" height="28" rx="6 0 0 6" fill="#6366f1"/>
+  <text x="215" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">65% elapsed — 195 days passed</text>
+  <text x="505" y="55" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">105 days left</text>
+  <!-- markers -->
+  <text x="20"  y="82" font-family="Inter,sans-serif" font-size="11" fill="#6366f1" font-weight="700">Today</text>
+  <text x="610" y="82" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#6366f1" font-weight="700">🎯 Event Day</text>
+  <text x="320" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Counts down to birthdays, exams, holidays, weddings, and any custom date</text>
+</svg>

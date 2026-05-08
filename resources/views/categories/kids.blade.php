@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kids Zone — Free Educational Games & Quizzes for Children | MindSnap')
+@section('title', 'Kids Zone — Free Educational Games & Quizzes | MindSnap')
 @section('description', 'Free educational activities for kids aged 5–14: math puzzles, word games, science quiz, animal quiz, and spelling quiz. Ad-free, no accounts, no data collection. Safe for classroom and home use.')
 @section('canonical', config('app.url') . '/kids')
 @section('robots', 'index, follow')

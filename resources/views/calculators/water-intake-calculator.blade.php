@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Water Intake Calculator — Daily Water Needs by Weight & Activity | MindSnap')
+@section('title', 'Water Intake Calculator — Daily Water Needs | MindSnap')
 @section('description', 'Free water intake calculator: find your daily hydration target based on weight, activity level, and climate. Includes water from food and drinks. No signup.')
 @section('canonical', config('app.url') . '/water-intake-calculator')
 
@@ -266,6 +266,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-nutrition mb-3">How It Works</span>
         <h2 class="mb-4">How Your Body Uses Water: Why Hydration Matters</h2>
+        <img src="{{ asset('images/water-intake-guide.svg') }}" alt="Daily water intake guide showing 8–15 glasses equals 2–4 litres per day, with 2.7L recommended for women and 3.7L for men" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Water is involved in virtually every biological process — regulating temperature, transporting nutrients, flushing waste, lubricating joints, and enabling cellular metabolism. Even mild dehydration (1–2% of body weight) impairs cognitive performance, reduces physical endurance by up to 10%, and increases perceived effort.</p>
         <p>Your kidneys regulate fluid balance tightly, but they rely on adequate input. In hot conditions or during exercise, sweat losses can exceed 1–2 litres per hour, outpacing what most people drink instinctively.</p>
         <p>This calculator uses the standard 35ml per kilogram of body weight formula as its base, then multiplies by your activity and climate factors — a method used by sports dietitians and consistent with ACSM guidelines.</p>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Running Pace Calculator — Pace, Speed & Finish Time for 5K, 10K, Half Marathon | MindSnap')
+@section('title', 'Running Pace Calculator — Pace & Finish Time | MindSnap')
 @section('description', 'Free running pace calculator: convert between pace, speed, and finish time for any distance. Works for 5K, 10K, half marathon, and full marathon. No signup.')
 @section('canonical', config('app.url') . '/running-pace-calculator')
 
@@ -108,6 +108,20 @@ $relatedTools = [
 .rp-dist-box        { background: #f0fff4; border-radius: 10px; padding: 20px; }
 .rp-dist-val        { font-size: 2rem; font-weight: 800; color: var(--fitness); }
 .rp-dist-lbl        { font-size: .82rem; color: #888; margin-top: 4px; }
+.rp-last-result     { font-size: .8rem; color: #888; padding: 6px 10px; background: #f8f9fa; border-radius: 6px; margin-bottom: 10px; }
+.rp-adv-toggle      { font-size: .85rem; font-weight: 600; color: var(--fitness); cursor: pointer; border: none; background: none; padding: 4px 0; }
+.rp-adv-toggle::after { content: '  ▾'; }
+.rp-adv-toggle[aria-expanded="true"]::after { content: '  ▲'; }
+.rp-zone-row        { border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; }
+.rp-zone-easy       { background: #e8f5e9; }
+.rp-zone-marathon   { background: #e3f2fd; }
+.rp-zone-threshold  { background: #fff8e1; }
+.rp-zone-interval   { background: #fce4ec; }
+.rp-zone-sprint     { background: #fbe9e7; }
+.rp-zone-pace       { font-size: .9rem; font-weight: 800; color: var(--primary-dark); min-width: 54px; text-align: center; }
+.rp-zone-name       { font-size: .82rem; font-weight: 700; color: #1a1a2e; }
+.rp-zone-desc       { font-size: .77rem; color: #666; }
+.rp-cadence-tip     { font-size: .82rem; background: #f0fff4; border-radius: 8px; padding: 10px 14px; margin-top: 10px; }
 </style>
 @endsection
 
@@ -225,6 +239,7 @@ $relatedTools = [
               </div>
             </div>
 
+            <div id="rpLastResult" class="rp-last-result d-none"></div>
             <button class="btn btn-cta w-100" onclick="calculatePace()">
               Calculate →
             </button>
@@ -244,6 +259,17 @@ $relatedTools = [
                     </thead>
                     <tbody id="rpRaceTableBody"></tbody>
                   </table>
+                </div>
+
+                <div class="mt-3">
+                  <button class="rp-adv-toggle" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#rpAdvanced" aria-expanded="false"
+                          aria-controls="rpAdvanced">
+                    Show training zones &amp; pace strategy
+                  </button>
+                  <div class="collapse mt-3" id="rpAdvanced">
+                    <div id="rpTrainingZones"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -285,6 +311,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">Running Pace vs Speed: What's the Difference?</h2>
+        <img src="{{ asset('images/running-pace-chart.svg') }}" alt="Running pace chart showing finish times for 5K, 10K and half marathon at paces from 4 to 8 minutes per kilometre" width="640" height="180" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Running pace and speed express the same thing from opposite directions. Pace is time per unit distance (minutes per km or mile). Speed is distance per unit time (km/h or mph). Runners use pace because it directly answers "how long will this take?" — crucial when planning races and training sessions.</p>
         <p>The core calculation is simple: if you run 10 km in 50 minutes, your pace is 50 ÷ 10 = 5:00 min/km. Your speed is 10 ÷ (50/60) = 12 km/h. To convert between the two: speed (km/h) = 60 ÷ pace (min/km).</p>
         <p>This calculator handles three calculation types: given distance and time, it computes pace; given distance and pace, it computes finish time; given time and pace, it computes distance covered. All three are essential for race planning and workout tracking.</p>
@@ -389,6 +416,18 @@ $relatedTools = [
   var currentMode = 'pace';
   var currentUnit = 'km';
   var KM_PER_MI   = 1.60934;
+
+  // Load last result
+  (function () {
+    try {
+      var last = JSON.parse(localStorage.getItem('rp_last') || 'null');
+      if (last) {
+        var el = document.getElementById('rpLastResult');
+        el.textContent = 'Last: ' + last.pace + ' min/km on ' + last.date;
+        el.classList.remove('d-none');
+      }
+    } catch (e) {}
+  })();
 
   // Mode toggle
   document.querySelectorAll('.rp-mode-btn').forEach(function (btn) {
@@ -497,6 +536,44 @@ $relatedTools = [
     }
   };
 
+  function saveLast(secPerKm) {
+    var obj = { pace: fmtPace(secPerKm), date: new Date().toLocaleDateString(), secPerKm: secPerKm };
+    try { localStorage.setItem('rp_last', JSON.stringify(obj)); } catch (e) {}
+    var el = document.getElementById('rpLastResult');
+    el.textContent = 'Last: ' + obj.pace + ' min/km on ' + obj.date;
+    el.classList.remove('d-none');
+  }
+
+  function buildTrainingZones(secPerKm) {
+    var zones = [
+      { name: 'Easy / Recovery', cls: 'rp-zone-easy',      offset: +90, desc: 'Conversational pace. 80% of your training. Builds aerobic base and aids recovery.' },
+      { name: 'Marathon Pace',   cls: 'rp-zone-marathon',   offset: +30, desc: 'Steady long-run effort. Trains fat oxidation and race-day pacing discipline.' },
+      { name: 'Threshold / Tempo', cls: 'rp-zone-threshold', offset: -15, desc: 'Comfortably hard. Raises your lactate threshold — the single biggest predictor of race pace.' },
+      { name: 'Interval (VO₂max)', cls: 'rp-zone-interval', offset: -45, desc: '400m–1600m repeats. Develops maximum aerobic capacity and running economy.' },
+      { name: 'Sprint / Speed',  cls: 'rp-zone-sprint',     offset: -90, desc: '100m–400m with full recovery. Builds neuromuscular power and top-end speed.' },
+    ];
+    var html = '<p class="fw-semibold mb-2 rp-tbl-lbl">Training Zones Based on This Pace</p>';
+    zones.forEach(function (z) {
+      var zoneSec = Math.max(secPerKm + z.offset, 60);
+      html += '<div class="rp-zone-row ' + z.cls + '">'
+        + '<div class="rp-zone-pace">' + fmtPace(zoneSec) + '<br><small class="fw-normal text-muted" style="font-size:.65rem">min/km</small></div>'
+        + '<div><div class="rp-zone-name">' + z.name + '</div><div class="rp-zone-desc">' + z.desc + '</div></div>'
+        + '</div>';
+    });
+    var slowHalf = fmtPace(secPerKm + 5);
+    var fastHalf = fmtPace(Math.max(secPerKm - 5, 60));
+    html += '<div class="rp-cadence-tip">'
+      + '<strong>Negative Split Strategy:</strong> Start at <strong>' + slowHalf + '</strong> min/km, '
+      + 'build to <strong>' + fastHalf + '</strong> min/km in the second half. '
+      + 'A 5 sec/km conservative first half conserves glycogen and avoids the wall.'
+      + '</div>';
+    html += '<div class="rp-cadence-tip">'
+      + '<strong>Cadence Target:</strong> Aim for <strong>170–180 steps per minute (SPM)</strong>. '
+      + 'Most GPS watches can display cadence live. Increasing by 5–10% from your natural cadence reduces impact force and injury risk.'
+      + '</div>';
+    document.getElementById('rpTrainingZones').innerHTML = html;
+  }
+
   function showPaceResults(secPerKm, secPerMi, speedKmh, speedMph) {
     var html = '<div class="col-6 col-md-3"><div class="rp-stat-box rp-stat-km text-center">'
       + '<div class="rp-stat-val">' + fmtPace(secPerKm) + '</div>'
@@ -511,7 +588,9 @@ $relatedTools = [
       + '<div class="rp-stat-val">' + speedMph.toFixed(1) + '</div>'
       + '<div class="rp-stat-lbl">mph</div></div></div>';
     document.getElementById('rpPrimaryResults').innerHTML = html;
+    saveLast(secPerKm);
     buildRaceTable(secPerKm);
+    buildTrainingZones(secPerKm);
     document.getElementById('rpResults').classList.remove('d-none');
     document.getElementById('rpResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
@@ -530,7 +609,9 @@ $relatedTools = [
       + '<div class="rp-stat-val">' + speedMph.toFixed(1) + '</div>'
       + '<div class="rp-stat-lbl">mph</div></div></div>';
     document.getElementById('rpPrimaryResults').innerHTML = html;
+    saveLast(secPerKm);
     buildRaceTable(secPerKm);
+    buildTrainingZones(secPerKm);
     document.getElementById('rpResults').classList.remove('d-none');
     document.getElementById('rpResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }

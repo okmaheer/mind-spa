@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Life Percentage Calculator — What % of Your Life Has Passed? | MindSnap')
+@section('title', 'Life Percentage Calculator — % of Life Passed | MindSnap')
 @section('description', 'Free life percentage calculator: find out what percentage of your life has passed based on your age and country life expectancy. Includes days remaining and milestones. No signup.')
 @section('canonical', config('app.url') . '/life-percentage-calculator')
 
@@ -233,6 +233,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Life Expectancy Is Calculated and What It Really Means</h2>
+<img src="{{ asset('images/life-percentage-bar.svg') }}" alt="Life percentage bar showing years lived versus expected years remaining" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Life expectancy at birth is calculated from life tables — demographic tools that track death probabilities at every age within a population. It represents how long someone born today would live if current mortality rates never changed.</p>
         <p>In practice, mortality rates have improved year over year for most of the past century. This means the actual lifespan of today's children will likely exceed the life expectancy figure. As a reference for the calculator, it's most useful as "an average approximation" rather than a personal prediction.</p>
         <p>The calculator adjusts for sex because women outlive men by an average of 4–5 years globally. Select your country and sex to get the most relevant estimate.</p>

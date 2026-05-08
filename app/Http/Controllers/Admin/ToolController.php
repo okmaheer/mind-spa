@@ -77,6 +77,7 @@ class ToolController extends Controller
     {
         Artisan::call('cache:clear');
         Artisan::call('view:clear');
+        Artisan::call('mindsnap:sitemap');
         PublishableRegistry::clearCache($tool->slug);
     }
 }

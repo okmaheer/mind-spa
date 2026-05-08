@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 165" width="640" height="165" role="img" aria-label="Weekly training volume guide: minimum 10 sets per muscle group, optimal 15-20 sets, maximum recoverable 20-25 sets per week">
+  <rect width="640" height="165" fill="#f8fafc" rx="12"/>
+  <rect x="20" y="14" width="600" height="26" rx="4" fill="#1e293b"/>
+  <text x="140" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Volume Level</text>
+  <text x="360" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Weekly Sets / Muscle Group</text>
+  <text x="560" y="31" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Result</text>
+  <g font-family="Inter,sans-serif" font-size="12">
+    <rect x="20" y="40"  width="600" height="24" fill="#fef2f2"/>
+    <rect x="240" y="43" width="60"  height="17" rx="3" fill="#fca5a5"/>
+    <text x="140" y="56" text-anchor="middle" fill="#dc2626" font-weight="700">Too Low</text>
+    <text x="360" y="56" text-anchor="middle" fill="#1e293b">&lt; 10 sets</text>
+    <text x="560" y="56" text-anchor="middle" fill="#64748b">Maintenance only</text>
+    <rect x="20" y="64"  width="600" height="24" fill="#f0fdf4"/>
+    <rect x="240" y="67" width="100" height="17" rx="3" fill="#86efac"/>
+    <text x="140" y="80" text-anchor="middle" fill="#16a34a" font-weight="700">Minimum</text>
+    <text x="360" y="80" text-anchor="middle" fill="#1e293b">10–12 sets</text>
+    <text x="560" y="80" text-anchor="middle" fill="#64748b">Slow growth</text>
+    <rect x="20" y="88"  width="600" height="24" fill="#ecfdf5"/>
+    <rect x="240" y="91" width="140" height="17" rx="3" fill="#4ade80"/>
+    <text x="140" y="104" text-anchor="middle" fill="#059669" font-weight="700">Optimal ⭐</text>
+    <text x="360" y="104" text-anchor="middle" fill="#1e293b">15–20 sets</text>
+    <text x="560" y="104" text-anchor="middle" fill="#059669" font-weight="600">Best gains</text>
+    <rect x="20" y="112" width="600" height="24" fill="#fffbeb"/>
+    <rect x="240" y="115" width="160" height="17" rx="3" fill="#fde68a"/>
+    <text x="140" y="128" text-anchor="middle" fill="#d97706" font-weight="700">High</text>
+    <text x="360" y="128" text-anchor="middle" fill="#1e293b">20–25 sets</text>
+    <text x="560" y="128" text-anchor="middle" fill="#64748b">Advanced only</text>
+  </g>
+  <text x="320" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Split sets across 2+ sessions per muscle per week for best results — frequency matters</text>
+</svg>

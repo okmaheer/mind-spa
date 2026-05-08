@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" width="640" height="120" role="img" aria-label="Optimal wake-up times based on 90-minute sleep cycles: 6 hours for 4 cycles, 7.5 hours for 5 cycles, 9 hours for 6 cycles">
+  <rect width="640" height="120" fill="#f8fafc" rx="12"/>
+  <text x="24" y="30" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#1e293b">Bedtime 10:00 PM → Best wake-up times</text>
+  <!-- cycle blocks -->
+  <rect x="20"  y="40" width="84" height="32" rx="4" fill="#e0e7ff"/>
+  <rect x="108" y="40" width="84" height="32" rx="4" fill="#c7d2fe"/>
+  <rect x="196" y="40" width="84" height="32" rx="4" fill="#a5b4fc"/>
+  <rect x="284" y="40" width="84" height="32" rx="4" fill="#818cf8"/>
+  <rect x="372" y="40" width="84" height="32" rx="4" fill="#6366f1"/>
+  <rect x="460" y="40" width="84" height="32" rx="4" fill="#4f46e5"/>
+  <text x="62"  y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#3730a3">90 min</text>
+  <text x="150" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#3730a3">90 min</text>
+  <text x="238" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#3730a3">90 min</text>
+  <text x="326" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#fff">90 min</text>
+  <text x="414" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#fff">90 min</text>
+  <text x="502" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#fff">90 min</text>
+  <!-- wake labels -->
+  <text x="20"  y="87" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">10pm</text>
+  <text x="196" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#059669">✓ 1am</text>
+  <text x="284" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#059669">✓ 2:30am</text>
+  <text x="372" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#6366f1">✓ 4am</text>
+  <text x="460" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#6366f1">✓ 5:30am</text>
+  <text x="544" y="87" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#6366f1">✓ 7am</text>
+  <text x="320" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Wake at end of a cycle (light sleep) to avoid sleep inertia — +14 min to fall asleep</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 170" width="640" height="170" role="img" aria-label="One rep max percentage chart: training at 95% of 1RM for 1-2 reps up to 60% for 15-20 reps">
+  <rect width="640" height="170" fill="#f8fafc" rx="12"/>
+  <rect x="20" y="16" width="600" height="26" rx="4" fill="#1e293b"/>
+  <text x="170" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">% of 1RM</text>
+  <text x="370" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Reps Possible</text>
+  <text x="550" y="33" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Training Goal</text>
+  <!-- data rows -->
+  <g font-family="Inter,sans-serif" font-size="12">
+    <rect x="20" y="42"  width="600" height="22" fill="#fef2f2"/>
+    <text x="170" y="57"  text-anchor="middle" fill="#dc2626" font-weight="700">95%</text>
+    <text x="370" y="57"  text-anchor="middle" fill="#1e293b">1–2 reps</text>
+    <text x="550" y="57"  text-anchor="middle" fill="#64748b">Max Strength</text>
+    <rect x="20" y="64"  width="600" height="22" fill="#fff7ed"/>
+    <text x="170" y="79"  text-anchor="middle" fill="#ea580c" font-weight="700">85–90%</text>
+    <text x="370" y="79"  text-anchor="middle" fill="#1e293b">3–5 reps</text>
+    <text x="550" y="79"  text-anchor="middle" fill="#64748b">Strength</text>
+    <rect x="20" y="86"  width="600" height="22" fill="#fefce8"/>
+    <text x="170" y="101" text-anchor="middle" fill="#ca8a04" font-weight="700">75–80%</text>
+    <text x="370" y="101" text-anchor="middle" fill="#1e293b">6–10 reps</text>
+    <text x="550" y="101" text-anchor="middle" fill="#64748b">Hypertrophy (size)</text>
+    <rect x="20" y="108" width="600" height="22" fill="#f0fdf4"/>
+    <text x="170" y="123" text-anchor="middle" fill="#16a34a" font-weight="700">65–70%</text>
+    <text x="370" y="123" text-anchor="middle" fill="#1e293b">12–15 reps</text>
+    <text x="550" y="123" text-anchor="middle" fill="#64748b">Muscular Endurance</text>
+    <rect x="20" y="130" width="600" height="22" fill="#f0f9ff"/>
+    <text x="170" y="145" text-anchor="middle" fill="#0284c7" font-weight="700">55–60%</text>
+    <text x="370" y="145" text-anchor="middle" fill="#1e293b">15–20+ reps</text>
+    <text x="550" y="145" text-anchor="middle" fill="#64748b">Cardio / Warm-Up</text>
+  </g>
+</svg>

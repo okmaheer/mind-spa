@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Fitness Calculators — BMI, Calorie, Macro & Body Fat | MindSnap')
+@section('title', 'Free Fitness Calculators — BMI, Calorie & Macro | MindSnap')
 @section('description', 'Free fitness calculators: BMI calculator, calorie calculator, calorie deficit, macro calculator, protein intake, body fat percentage, one rep max, heart rate zones, running pace, and ideal weight. Instant results, no signup.')
 @section('canonical', config('app.url') . '/fitness-tools')
 

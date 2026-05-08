@@ -1,6 +1,6 @@
    @extends('layouts.app')
 
-@section('title', 'BMI Calculator — Body Mass Index for Men, Women & Teens | MindSnap')
+@section('title', 'BMI Calculator — Body Mass Index for Adults | MindSnap')
 @section('description', 'Free BMI calculator: enter height and weight to get your body mass index, weight category, and healthy weight range. Works in kg/cm or lbs/ft. No signup.')
 @section('canonical', config('app.url') . '/bmi-calculator')
 
@@ -26,6 +26,18 @@
 .bmi-dot-ob2 { background: #e57373; }
 .bmi-dot-ob3 { background: #c62828; }
 .bmi-td-sm   { font-size: .85rem; }
+.bmi-last-result  { font-size:.82rem; color:#888; background:#f8f9fa; border-radius:8px; padding:8px 12px; }
+.bmi-weight-delta { background:#fff8e1; border-left:4px solid #ffa726; }
+.bmi-weight-delta-blue { background:#e3f4fd; border-left:4px solid #0277bd; }
+.bmi-rate-btn { border:2px solid #dee2e6; color:#555; background:#fff; border-radius:20px; font-size:.82rem; padding:4px 12px; cursor:pointer; transition:all .15s; }
+.bmi-rate-btn.bmi-rate-active { border-color:var(--fitness); color:var(--fitness); background:#f0f4ff; font-weight:600; }
+.bmi-prime-value { font-size:2rem; font-weight:700; color:var(--primary-dark); line-height:1; }
+.bmi-adv-toggle { font-size:.85rem; text-decoration:none; color:var(--fitness); }
+.bmi-adv-toggle:hover { text-decoration:underline; }
+.bmi-adv-toggle::after { content:' ▾'; }
+.bmi-adv-toggle[aria-expanded="true"]::after { content:' ▲'; }
+.bmi-whr-moderate { background:#fff8e1; border-left:4px solid #ffa726; }
+.bmi-whr-high     { background:#ffebee; border-left:4px solid #ef5350; }
 </style>
 @endsection
 
@@ -190,6 +202,7 @@ $relatedTools = [
               </div>
             </div>
 
+            <div id="bmiLastResult" class="bmi-last-result d-none mb-3"></div>
             <button class="btn btn-cta w-100" onclick="calcBMI()">
               Calculate BMI →
             </button>
@@ -217,6 +230,61 @@ $relatedTools = [
               </div>
 
               <div id="bmiHealthyRange" class="p-3 rounded-3 ms-note ms-note-green"></div>
+
+              {{-- Core: weight delta + simple calorie note --}}
+              <div id="bmiWeightDelta" class="p-3 rounded-3 d-none mt-3"></div>
+
+              {{-- Advanced toggle --}}
+              <div class="text-center mt-3">
+                <button class="btn bmi-adv-toggle"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#bmiAdvanced"
+                        aria-expanded="false">
+                  Show detailed breakdown
+                </button>
+              </div>
+
+              {{-- Advanced: collapsed by default --}}
+              <div class="collapse mt-3" id="bmiAdvanced">
+                <div class="ms-divider mb-3"></div>
+
+                {{-- BMI Prime --}}
+                <div class="mb-4">
+                  <p class="fw-600 mb-1 text-sm">BMI Prime <span class="text-muted fw-400">(1.0 = top of healthy range)</span></p>
+                  <div id="bmiPrimeValue" class="bmi-prime-value mb-1"></div>
+                  <p id="bmiPrimeDesc" class="text-sm text-muted mb-0"></p>
+                </div>
+
+                {{-- Timeline selector (shown only when BMI > 25) --}}
+                <div id="bmiTimelineSection" class="mb-4 d-none">
+                  <p class="fw-600 mb-2 text-sm">Adjust weight loss rate</p>
+                  <div class="d-flex gap-2 flex-wrap mb-2">
+                    <button class="bmi-rate-btn" data-rate="250" onclick="updateTimeline(250)">Slow (−0.25 kg/wk)</button>
+                    <button class="bmi-rate-btn bmi-rate-active" data-rate="500" onclick="updateTimeline(500)">Moderate (−0.5 kg/wk)</button>
+                    <button class="bmi-rate-btn" data-rate="750" onclick="updateTimeline(750)">Fast (−0.75 kg/wk)</button>
+                  </div>
+                  <div id="bmiTimelineResult" class="p-3 rounded-3 ms-note"></div>
+                </div>
+
+                {{-- WHR --}}
+                <div class="mb-1">
+                  <p class="fw-600 mb-2 text-sm">Waist-to-Hip Ratio <span class="text-muted fw-400">(optional — more accurate than BMI alone)</span></p>
+                  <div class="row g-2 mb-2">
+                    <div class="col-6">
+                      <label class="form-label text-sm mb-1">Waist (cm)</label>
+                      <input type="number" id="bmiWaist" class="form-control form-control-sm" placeholder="e.g. 80" min="40" max="200">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label text-sm mb-1">Hip (cm)</label>
+                      <input type="number" id="bmiHip" class="form-control form-control-sm" placeholder="e.g. 95" min="40" max="200">
+                    </div>
+                  </div>
+                  <button class="btn btn-sm btn-outline-secondary w-100" onclick="calcWHR()">Calculate WHR</button>
+                  <div id="bmiWHRResult" class="mt-2 p-3 rounded-3 ms-note d-none"></div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -254,6 +322,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How BMI Is Calculated: The Quetelet Index Explained</h2>
+        <img src="{{ asset('images/bmi-scale.svg') }}" alt="BMI categories scale showing underweight below 18.5, normal 18.5–24.9, overweight 25–29.9, and obese 30 and above" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>BMI (Body Mass Index) was developed in 1832 by Belgian mathematician Adolphe Quetelet. The formula divides your weight in kilograms by the square of your height in metres:</p>
         <div class="p-3 mb-3 rounded-3 bmi-formula-box">
           BMI = weight (kg) ÷ height (m)²
@@ -381,13 +450,24 @@ $relatedTools = [
 (function () {
 
   var currentUnit = 'metric';
+  var _weightKg, _heightM, _heightCm, _sex, _age, _tdee;
 
-  // Unit toggle
+  // ── localStorage: show last result on page load ───────────────────────────
+  (function () {
+    try {
+      var last = JSON.parse(localStorage.getItem('bmi_last'));
+      if (last && last.bmi && last.date) {
+        var el = document.getElementById('bmiLastResult');
+        el.textContent = 'Last result: BMI ' + last.bmi + ' (' + last.cat + ') on ' + last.date;
+        el.classList.remove('d-none');
+      }
+    } catch (e) {}
+  })();
+
+  // ── Unit toggle ───────────────────────────────────────────────────────────
   document.querySelectorAll('.bmi-unit-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      document.querySelectorAll('.bmi-unit-btn').forEach(function (b) {
-        b.classList.remove('active');
-      });
+      document.querySelectorAll('.bmi-unit-btn').forEach(function (b) { b.classList.remove('active'); });
       this.classList.add('active');
       currentUnit = this.dataset.unit;
       document.getElementById('bmiMetric').classList.toggle('d-none', currentUnit !== 'metric');
@@ -396,33 +476,32 @@ $relatedTools = [
     });
   });
 
+  // ── Main calculation ──────────────────────────────────────────────────────
   window.calcBMI = function () {
-    var heightM, weightKg;
+    var heightM, heightCm, weightKg;
 
     if (currentUnit === 'metric') {
-      var cm = parseFloat(document.getElementById('bmiHeightCm').value);
-      var kg = parseFloat(document.getElementById('bmiWeightKg').value);
-      if (!cm || !kg || cm < 100 || cm > 250 || kg < 20 || kg > 300) {
+      heightCm = parseFloat(document.getElementById('bmiHeightCm').value);
+      weightKg = parseFloat(document.getElementById('bmiWeightKg').value);
+      if (!heightCm || !weightKg || heightCm < 100 || heightCm > 250 || weightKg < 20 || weightKg > 300) {
         alert('Please enter valid height (100–250 cm) and weight (20–300 kg).');
         return;
       }
-      heightM  = cm / 100;
-      weightKg = kg;
+      heightM = heightCm / 100;
     } else {
       var ft  = parseFloat(document.getElementById('bmiHeightFt').value) || 0;
       var ins = parseFloat(document.getElementById('bmiHeightIn').value) || 0;
       var lbs = parseFloat(document.getElementById('bmiWeightLbs').value);
-      if (!lbs || (ft === 0 && ins === 0)) {
-        alert('Please enter valid height and weight.');
-        return;
-      }
-      var totalInches = ft * 12 + ins;
-      heightM  = totalInches * 0.0254;
+      if (!lbs || (ft === 0 && ins === 0)) { alert('Please enter valid height and weight.'); return; }
+      var totalIn = ft * 12 + ins;
+      heightM  = totalIn * 0.0254;
+      heightCm = totalIn * 2.54;
       weightKg = lbs * 0.453592;
     }
 
-    var bmi = weightKg / (heightM * heightM);
-    bmi = Math.round(bmi * 10) / 10;
+    var sex = document.getElementById('bmiSex').value;
+    var age = parseInt(document.getElementById('bmiAge').value) || 30;
+    var bmi = Math.round((weightKg / (heightM * heightM)) * 10) / 10;
 
     var cat, badgeBg, badgeColor;
     if      (bmi < 18.5) { cat = 'Underweight';  badgeBg = '#e3f4fd'; badgeColor = '#0277bd'; }
@@ -430,36 +509,129 @@ $relatedTools = [
     else if (bmi < 30)   { cat = 'Overweight';    badgeBg = '#fff3e0'; badgeColor = '#e65100'; }
     else                 { cat = 'Obese';          badgeBg = '#ffebee'; badgeColor = '#c62828'; }
 
-    // Marker position (BMI 15 = 0%, BMI 40 = 100%)
-    var pct = Math.min(100, Math.max(0, ((bmi - 15) / 25) * 100));
-
-    // Healthy weight range for this height
+    var pct    = Math.min(100, Math.max(0, ((bmi - 15) / 25) * 100));
     var minKg  = Math.round(18.5 * heightM * heightM * 10) / 10;
     var maxKg  = Math.round(24.9 * heightM * heightM * 10) / 10;
     var minLbs = Math.round(minKg * 2.20462 * 10) / 10;
     var maxLbs = Math.round(maxKg * 2.20462 * 10) / 10;
 
-    document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+    document.getElementById('bmiValue').textContent    = bmi.toFixed(1);
     document.getElementById('bmiCategory').textContent = cat;
     document.getElementById('bmiCategory').style.background = badgeBg;
-    document.getElementById('bmiCategory').style.color = badgeColor;
-    document.getElementById('bmiMarker').style.left = pct + '%';
+    document.getElementById('bmiCategory').style.color      = badgeColor;
+    document.getElementById('bmiMarker').style.left         = pct + '%';
 
-    var sex = document.getElementById('bmiSex').value;
-    var age = parseInt(document.getElementById('bmiAge').value);
-    var ageNote = (!isNaN(age) && age >= 65) ? ' Note: for adults 65+, a BMI of 25–27 may be optimal.' : '';
-
+    var ageNote = (age >= 65) ? ' For adults 65+, a BMI of 25–27 may be optimal.' : '';
     document.getElementById('bmiDetails').innerHTML =
       'Your BMI is <strong>' + bmi.toFixed(1) + '</strong> — ' + cat + '.' + ageNote;
-
     document.getElementById('bmiHealthyRange').innerHTML =
       '<strong>Healthy weight range for your height:</strong> ' +
-      minKg + ' – ' + maxKg + ' kg &nbsp;|&nbsp; ' +
-      minLbs + ' – ' + maxLbs + ' lbs';
+      minKg + '–' + maxKg + ' kg &nbsp;|&nbsp; ' + minLbs + '–' + maxLbs + ' lbs';
+
+    // ── Core: weight delta + calorie note ─────────────────────────────────
+    var deltaEl  = document.getElementById('bmiWeightDelta');
+    var timelineSection = document.getElementById('bmiTimelineSection');
+
+    // Mifflin-St Jeor BMR → TDEE (sedentary)
+    var bmr = sex === 'male'
+      ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
+      : 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+    _tdee = Math.round(bmr * 1.2);
+
+    if (bmi >= 18.5 && bmi < 25) {
+      deltaEl.innerHTML   = '<strong>✓ You\'re already in the healthy weight range.</strong> Maintenance calories: ~' + _tdee + ' kcal/day.';
+      deltaEl.className   = 'p-3 rounded-3 ms-note ms-note-green mt-3';
+      timelineSection.classList.add('d-none');
+    } else if (bmi >= 25) {
+      var kgToLose = Math.round((weightKg - maxKg) * 10) / 10;
+      var weeks500 = Math.round(kgToLose / 0.5);
+      deltaEl.innerHTML  =
+        'To reach the healthy range, lose <strong>' + kgToLose + ' kg</strong>. ' +
+        'At a moderate pace (−500 kcal/day): ~<strong>' + weeks500 + ' weeks</strong>. ' +
+        'Your estimated maintenance calories: ~' + _tdee + ' kcal/day.';
+      deltaEl.className  = 'p-3 rounded-3 bmi-weight-delta mt-3';
+      timelineSection.classList.remove('d-none');
+      updateTimeline(500);
+    } else {
+      var kgToGain = Math.round((minKg - weightKg) * 10) / 10;
+      deltaEl.innerHTML  = 'To reach the healthy range, gain <strong>' + kgToGain + ' kg</strong>.';
+      deltaEl.className  = 'p-3 rounded-3 bmi-weight-delta bmi-weight-delta-blue mt-3';
+      timelineSection.classList.add('d-none');
+    }
+    deltaEl.classList.remove('d-none');
+
+    // ── Advanced: BMI Prime ───────────────────────────────────────────────
+    var bmiPrime = Math.round((bmi / 24.9) * 100) / 100;
+    var primeDesc;
+    if      (bmiPrime < 0.74) primeDesc = 'Below the healthy range (< 0.74 = underweight).';
+    else if (bmiPrime <= 1.0) primeDesc = 'Within the healthy range. 1.0 = exactly at the upper boundary.';
+    else if (bmiPrime <= 1.2) primeDesc = Math.round((bmiPrime - 1) * 100) + '% above the healthy ceiling (overweight range).';
+    else                      primeDesc = Math.round((bmiPrime - 1) * 100) + '% above the healthy ceiling (obese range).';
+    document.getElementById('bmiPrimeValue').textContent = bmiPrime.toFixed(2);
+    document.getElementById('bmiPrimeDesc').textContent  = primeDesc;
+
+    // ── Store for advanced functions ──────────────────────────────────────
+    _weightKg = weightKg; _heightM = heightM; _heightCm = heightCm;
+    _sex = sex; _age = age;
+
+    // ── localStorage save ────────────────────────────────────────────────
+    try {
+      var dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      localStorage.setItem('bmi_last', JSON.stringify({ bmi: bmi.toFixed(1), cat: cat, date: dateStr }));
+      var lastEl = document.getElementById('bmiLastResult');
+      lastEl.textContent = 'Last result: BMI ' + bmi.toFixed(1) + ' (' + cat + ') on ' + dateStr;
+      lastEl.classList.remove('d-none');
+    } catch (e) {}
 
     var resultsEl = document.getElementById('results');
     resultsEl.classList.remove('d-none');
     resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  // ── Advanced: timeline selector ───────────────────────────────────────────
+  window.updateTimeline = function (deficit) {
+    if (!_weightKg) return;
+    document.querySelectorAll('.bmi-rate-btn').forEach(function (b) {
+      b.classList.toggle('bmi-rate-active', parseInt(b.dataset.rate) === deficit);
+    });
+    var maxKg    = Math.round(24.9 * _heightM * _heightM * 10) / 10;
+    var kgToLose = Math.max(0, Math.round((_weightKg - maxKg) * 10) / 10);
+    if (kgToLose <= 0) return;
+    var weeks  = Math.round(kgToLose / (deficit / 7700));
+    var target = new Date();
+    target.setDate(target.getDate() + weeks * 7);
+    var dateStr = target.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    var calTarget = _tdee ? '~<strong>' + (_tdee - deficit) + ' kcal/day</strong>' : '';
+    document.getElementById('bmiTimelineResult').innerHTML =
+      'Lose <strong>' + kgToLose + ' kg</strong> in ~<strong>' + weeks + ' weeks</strong> (by ' + dateStr + ').' +
+      (calTarget ? ' Eat ' + calTarget + '.' : '');
+  };
+
+  // ── Advanced: WHR calculator ──────────────────────────────────────────────
+  window.calcWHR = function () {
+    var waist = parseFloat(document.getElementById('bmiWaist').value);
+    var hip   = parseFloat(document.getElementById('bmiHip').value);
+    if (!waist || !hip || waist < 40 || hip < 40) {
+      alert('Please enter valid waist and hip measurements.');
+      return;
+    }
+    var whr = Math.round((waist / hip) * 100) / 100;
+    var sex  = _sex || document.getElementById('bmiSex').value;
+    var risk, cls;
+    if (sex === 'male') {
+      if      (whr < 0.9) { risk = 'Low risk';      cls = 'ms-note ms-note-green'; }
+      else if (whr < 1.0) { risk = 'Moderate risk'; cls = 'ms-note bmi-whr-moderate'; }
+      else                { risk = 'High risk';      cls = 'ms-note bmi-whr-high'; }
+    } else {
+      if      (whr < 0.80) { risk = 'Low risk';      cls = 'ms-note ms-note-green'; }
+      else if (whr < 0.85) { risk = 'Moderate risk'; cls = 'ms-note bmi-whr-moderate'; }
+      else                 { risk = 'High risk';      cls = 'ms-note bmi-whr-high'; }
+    }
+    var threshold = sex === 'male' ? '< 0.9 for men' : '< 0.80 for women';
+    var whrEl = document.getElementById('bmiWHRResult');
+    whrEl.innerHTML  = 'Your WHR is <strong>' + whr.toFixed(2) + '</strong> — <strong>' + risk + '</strong>. Healthy threshold: ' + threshold + '.';
+    whrEl.className  = 'mt-2 p-3 rounded-3 ' + cls;
+    whrEl.classList.remove('d-none');
   };
 
 })();

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" width="640" height="120" role="img" aria-label="Reading speed scale: slow reader 150 WPM, average adult 200-250 WPM, fast reader 300 WPM, speed reader 450 plus WPM">
+  <rect width="640" height="120" fill="#f8fafc" rx="12"/>
+  <defs><linearGradient id="wpmGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%"   stop-color="#94a3b8"/>
+    <stop offset="30%"  stop-color="#60a5fa"/>
+    <stop offset="60%"  stop-color="#34d399"/>
+    <stop offset="100%" stop-color="#a78bfa"/>
+  </linearGradient></defs>
+  <rect x="40" y="32" width="560" height="28" rx="6" fill="url(#wpmGrad)"/>
+  <line x1="184" y1="28" x2="184" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <line x1="352" y1="28" x2="352" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <line x1="464" y1="28" x2="464" y2="64" stroke="#fff" stroke-width="1.5"/>
+  <text x="112"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Slow</text>
+  <text x="268"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Average Adult</text>
+  <text x="408"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Fast</text>
+  <text x="552"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Speed Reader</text>
+  <text x="40"   y="80" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">100</text>
+  <text x="184"  y="80" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">200</text>
+  <text x="352"  y="80" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">300</text>
+  <text x="464"  y="80" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">400</text>
+  <text x="600"  y="80" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">600+</text>
+  <text x="322"  y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Words Per Minute — Average adult reads 200–250 WPM with ~70% comprehension</text>
+</svg>

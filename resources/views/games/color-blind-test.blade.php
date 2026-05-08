@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Colour Blind Test — Free Online Ishihara-Style Screening | MindSnap')
+@section('title', 'Colour Blind Test — Free Ishihara Screening | MindSnap')
 @section('description', 'Free online colour blind test with 10 Ishihara-style plates. Detect red-green, blue-yellow, and total colour vision deficiency. No signup, instant results.')
 @section('canonical', config('app.url') . '/color-blind-test')
 @section('og_image', config('app.url') . '/images/og-default.jpg')

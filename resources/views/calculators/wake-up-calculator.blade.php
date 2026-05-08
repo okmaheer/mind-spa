@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Wake-Up Time Calculator — Best Time to Wake Up From Your Bedtime | MindSnap')
+@section('title', 'Wake-Up Time Calculator — Best Wake-Up Times | MindSnap')
 @section('description', 'Enter your bedtime and instantly find the best wake-up times based on 90-minute sleep cycles. Avoid morning grogginess by waking between sleep cycles. Free wake-up calculator, no signup.')
 @section('canonical', config('app.url') . '/wake-up-calculator')
 
@@ -199,6 +199,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-sleep mb-3">How It Works</span>
         <h2 class="mb-4">Why Your Wake-Up Time Affects How You Feel All Day</h2>
+<img src="{{ asset('images/wake-up-timing.svg') }}" alt="Wake-up timing diagram showing sleep cycles and ideal alarm times" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Your brain moves through sleep in 90-minute cycles all night. Each cycle ends with a brief transition through light sleep — the natural point to wake. At this moment, your body temperature is rising, sleep pressure is lowest, and your brain is practically ready to surface on its own.</p>
         <p>Interrupt a cycle mid-way through Stage 3 (deep sleep) and you trigger sleep inertia: elevated adenosine, low core temperature, and impaired cognitive function that can persist for 30–60 minutes despite a full night of sleep.</p>
         <p>This calculator adds your fall-asleep delay to your bedtime, then counts forward in 90-minute blocks. The result is the exact clock time each cycle ends — the windows where waking feels natural and easy.</p>

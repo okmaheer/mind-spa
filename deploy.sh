@@ -44,6 +44,11 @@ echo -e "${GREEN}Optimizing for production...${NC}"
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+php artisan event:cache
+
+# Regenerate sitemap
+echo -e "${GREEN}Regenerating sitemap...${NC}"
+php artisan mindsnap:sitemap
 
 # Set permissions
 echo -e "${GREEN}Setting permissions...${NC}"

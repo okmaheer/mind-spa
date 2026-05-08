@@ -277,6 +277,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Understanding Your PHQ-9 Score</h2>
+<img src="{{ asset('images/phq9-severity-scale.svg') }}" alt="PHQ-9 severity scale showing depression score ranges from minimal to severe" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
     <p class="text-center text-muted mb-5 phq-intro-subtitle">Scores range from 0 to 27. Higher scores indicate greater depression symptom severity.</p>
     <div class="row g-4 justify-content-center">
       <div class="col-sm-6 col-lg">

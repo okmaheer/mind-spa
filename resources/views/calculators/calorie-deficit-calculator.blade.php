@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Calorie Deficit Calculator — How Many Calories to Cut for Weight Loss | MindSnap')
+@section('title', 'Calorie Deficit Calculator — Calories to Cut | MindSnap')
 @section('description', 'Free calorie deficit calculator: enter your goal weight and timeline to find your daily calorie target. Includes safe deficit ranges and weekly loss projections. No signup.')
 @section('canonical', config('app.url') . '/calorie-deficit-calculator')
 
@@ -103,6 +103,14 @@ $relatedTools = [
 .cd-tbl             { border-radius:12px; overflow:hidden; font-size:.9rem; }
 .cd-th              { padding:12px 16px; }
 .cd-td              { padding:10px 16px; }
+.cd-last-result { font-size:.82rem; color:#888; background:#f8f9fa; border-radius:8px; padding:8px 12px; }
+.cd-goal-date   { font-size:.95rem; }
+.cd-adv-toggle  { font-size:.85rem; color:var(--fitness); text-decoration:none; }
+.cd-adv-toggle:hover { text-decoration:underline; }
+.cd-adv-toggle::after { content:' ▾'; }
+.cd-adv-toggle[aria-expanded="true"]::after { content:' ▲'; }
+.cd-plateau-warn { background:#fff8e1; border-left:4px solid #ffa726; font-size:.87rem; }
+.cd-refeed-note  { background:#e3f4fd; border-left:4px solid #0277bd; font-size:.87rem; }
 </style>
 @endsection
 
@@ -215,6 +223,7 @@ $relatedTools = [
               </select>
             </div>
 
+            <div id="cdLastResult" class="cd-last-result d-none mb-3"></div>
             <button class="btn btn-cta w-100" onclick="calcDeficit()">
               Calculate My Deficit →
             </button>
@@ -260,6 +269,37 @@ $relatedTools = [
               </div>
 
               <div id="cdWarning" class="d-none p-3 rounded-3 cd-warning"></div>
+
+              {{-- Goal date --}}
+              <div id="cdGoalDateRow" class="text-center mt-3 cd-goal-date d-none">
+                🎯 At this rate you'll reach your goal by <strong id="cdGoalDate"></strong>
+              </div>
+
+              {{-- Advanced toggle --}}
+              <div class="text-center mt-3">
+                <button class="cd-adv-toggle btn btn-link p-0"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#cdAdvanced"
+                        aria-expanded="false">
+                  Show detailed breakdown
+                </button>
+              </div>
+
+              {{-- Advanced --}}
+              <div class="collapse mt-3" id="cdAdvanced">
+                <div class="ms-divider mb-3"></div>
+
+                <div class="mb-3">
+                  <p class="fw-600 text-sm mb-1">Weekly total deficit</p>
+                  <p id="cdWeeklyTotal" class="text-muted text-sm mb-0"></p>
+                </div>
+
+                <div id="cdPlateauWarn" class="p-3 rounded-3 cd-plateau-warn mb-3 d-none"></div>
+
+                <div id="cdRefeedNote" class="p-3 rounded-3 cd-refeed-note d-none"></div>
+              </div>
+
             </div>
 
           </div>
@@ -297,6 +337,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How a Calorie Deficit Creates Fat Loss: The Science Explained</h2>
+        <img src="{{ asset('images/calorie-balance.svg') }}" alt="Calorie balance diagram showing TDEE of 2500 calories versus intake of 2000 calories creating a 500 calorie deficit for 0.5kg weekly fat loss" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Fat cells store energy in the form of triglycerides. When your calorie intake is lower than your total daily expenditure, your body draws on these stores to fuel its functions. One kilogram of body fat contains approximately 7,700 calories of stored energy.</p>
         <p>This calculator uses the <strong>Mifflin-St Jeor equation</strong> — considered more accurate than the original Harris-Benedict formula — to estimate your TDEE:</p>
         <div class="p-3 rounded-3 mb-3 cd-formula-box">
@@ -425,11 +466,21 @@ $relatedTools = [
 
   var currentUnit = 'metric';
 
+  // ── localStorage: show last result ───────────────────────────────────────
+  (function () {
+    try {
+      var last = JSON.parse(localStorage.getItem('cd_last'));
+      if (last && last.target && last.date) {
+        var el = document.getElementById('cdLastResult');
+        el.textContent = 'Last result: ' + last.target + ' kcal/day target on ' + last.date;
+        el.classList.remove('d-none');
+      }
+    } catch (e) {}
+  })();
+
   document.querySelectorAll('.cd-unit-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      document.querySelectorAll('.cd-unit-btn').forEach(function (b) {
-        b.classList.remove('active');
-      });
+      document.querySelectorAll('.cd-unit-btn').forEach(function (b) { b.classList.remove('active'); });
       this.classList.add('active');
       currentUnit = this.dataset.unit;
       document.getElementById('cdMetric').classList.toggle('d-none', currentUnit !== 'metric');
@@ -442,7 +493,7 @@ $relatedTools = [
     var sex      = document.getElementById('cdSex').value;
     var age      = parseFloat(document.getElementById('cdAge').value);
     var activity = parseFloat(document.getElementById('cdActivity').value);
-    var rate     = parseFloat(document.getElementById('cdRate').value); // kg/week
+    var rate     = parseFloat(document.getElementById('cdRate').value);
     var heightCm, currentKg, goalKg;
 
     if (currentUnit === 'metric') {
@@ -466,42 +517,71 @@ $relatedTools = [
       return;
     }
 
-    // Mifflin-St Jeor BMR
-    var bmr;
-    if (sex === 'male') {
-      bmr = (10 * currentKg) + (6.25 * heightCm) - (5 * age) + 5;
-    } else {
-      bmr = (10 * currentKg) + (6.25 * heightCm) - (5 * age) - 161;
-    }
-    var tdee = Math.round(bmr * activity);
-
-    // Daily deficit from weekly rate: 1 kg = 7,700 cal
+    var bmr = sex === 'male'
+      ? (10 * currentKg) + (6.25 * heightCm) - (5 * age) + 5
+      : (10 * currentKg) + (6.25 * heightCm) - (5 * age) - 161;
+    var tdee         = Math.round(bmr * activity);
     var dailyDeficit = Math.round((rate * 7700) / 7);
     var targetCal    = Math.max(1200, tdee - dailyDeficit);
     var actualDeficit = tdee - targetCal;
+    var totalKg      = currentKg - goalKg;
+    var weeks        = Math.ceil(totalKg / rate);
 
-    var totalKg  = currentKg - goalKg;
-    var weeks    = Math.ceil(totalKg / rate);
-
-    // Format
     var rateDisplay = rate + ' kg (' + (rate * 2.20462).toFixed(2) + ' lbs)/week';
 
-    document.getElementById('cdTDEE').textContent     = tdee.toLocaleString() + ' cal';
-    document.getElementById('cdDeficitDay').textContent = actualDeficit.toLocaleString() + ' cal';
-    document.getElementById('cdTarget').textContent   = targetCal.toLocaleString();
-    document.getElementById('cdWeeks').textContent    = weeks + ' weeks';
-    document.getElementById('cdWeeklyLoss').textContent = rateDisplay;
+    document.getElementById('cdTDEE').textContent        = tdee.toLocaleString() + ' cal';
+    document.getElementById('cdDeficitDay').textContent  = actualDeficit.toLocaleString() + ' cal';
+    document.getElementById('cdTarget').textContent      = targetCal.toLocaleString();
+    document.getElementById('cdWeeks').textContent       = weeks + ' weeks';
+    document.getElementById('cdWeeklyLoss').textContent  = rateDisplay;
 
+    // ── Core: goal date ───────────────────────────────────────────────────
+    var goalDate = new Date();
+    goalDate.setDate(goalDate.getDate() + weeks * 7);
+    var goalDateStr = goalDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    document.getElementById('cdGoalDate').textContent = goalDateStr;
+    document.getElementById('cdGoalDateRow').classList.remove('d-none');
+
+    // ── Existing warning ──────────────────────────────────────────────────
     var warningEl = document.getElementById('cdWarning');
     if (actualDeficit > 1000) {
-      warningEl.innerHTML = '⚠️ <strong>Warning:</strong> Your calculated deficit exceeds 1,000 calories per day. This is considered aggressive and risks significant muscle loss. Consider choosing a slower weekly loss rate or consult a healthcare professional.';
+      warningEl.innerHTML = '⚠️ <strong>Warning:</strong> Your calculated deficit exceeds 1,000 calories per day. This risks significant muscle loss — consider a slower weekly rate or seek professional guidance.';
       warningEl.classList.remove('d-none');
     } else if (targetCal <= 1200 && sex === 'female') {
-      warningEl.innerHTML = '⚠️ <strong>Note:</strong> Your target is at or near the minimum recommended intake of 1,200 calories for women. Ensure adequate protein and micronutrient intake, and consider consulting a registered dietitian.';
+      warningEl.innerHTML = '⚠️ <strong>Note:</strong> Your target is at or near the 1,200 kcal minimum for women. Ensure adequate protein and consider consulting a dietitian.';
       warningEl.classList.remove('d-none');
     } else {
       warningEl.classList.add('d-none');
     }
+
+    // ── Advanced: weekly total + plateau warning + re-feed note ──────────
+    var weeklyTotal = actualDeficit * 7;
+    var fatGrams    = Math.round(weeklyTotal / 9.3); // ~9.3 kcal per gram of fat
+    document.getElementById('cdWeeklyTotal').textContent =
+      'Weekly deficit: ' + weeklyTotal.toLocaleString() + ' kcal ≈ ' + fatGrams + 'g of fat burned per week.';
+
+    var plateauEl = document.getElementById('cdPlateauWarn');
+    if (actualDeficit > tdee * 0.25) {
+      plateauEl.innerHTML = '⚠️ <strong>Plateau risk:</strong> Your deficit is over 25% of your TDEE. Deficits this large trigger metabolic adaptation — your body reduces TDEE to compensate. Consider reducing to 500 kcal/day and increasing exercise instead.';
+      plateauEl.classList.remove('d-none');
+    } else {
+      plateauEl.classList.add('d-none');
+    }
+
+    var refeedDeficit = Math.round((actualDeficit * 6) / 7);
+    document.getElementById('cdRefeedNote').innerHTML =
+      '💡 <strong>Re-feed day tip:</strong> Eating at maintenance one day per week averages your deficit to ~' +
+      refeedDeficit + ' kcal/day — helping prevent metabolic adaptation without meaningfully slowing progress.';
+    document.getElementById('cdRefeedNote').classList.remove('d-none');
+
+    // ── localStorage save ─────────────────────────────────────────────────
+    try {
+      var dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      localStorage.setItem('cd_last', JSON.stringify({ target: targetCal.toLocaleString(), date: dateStr }));
+      var lastEl = document.getElementById('cdLastResult');
+      lastEl.textContent = 'Last result: ' + targetCal.toLocaleString() + ' kcal/day target on ' + dateStr;
+      lastEl.classList.remove('d-none');
+    } catch (e) {}
 
     var resultsEl = document.getElementById('results');
     resultsEl.classList.remove('d-none');

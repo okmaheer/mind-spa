@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ovulation Calculator — Fertile Window & Best Days to Conceive | MindSnap')
+@section('title', 'Ovulation Calculator — Fertile Window & Best Days | MindSnap')
 @section('description', 'Free ovulation calculator: enter your last period date and cycle length to find your fertile window, ovulation day, and best days to conceive. No signup.')
 @section('canonical', config('app.url') . '/ovulation-calculator')
 
@@ -222,6 +222,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Ovulation Works: The Menstrual Cycle Explained</h2>
+<img src="{{ asset('images/ovulation-cycle.svg') }}" alt="Ovulation cycle diagram showing menstrual phases and fertile window timing" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The menstrual cycle has two main phases separated by ovulation. During the <strong>follicular phase</strong>, rising oestrogen causes one dominant follicle to mature in the ovary. A surge in luteinising hormone (LH) triggers the release of the egg — ovulation — typically around day 14 of a 28-day cycle.</p>
         <div class="p-3 mb-3 rounded-3 ov-formula-box">
           Ovulation Day = Cycle Length − 14

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="640" height="180" role="img" aria-label="Running pace chart showing finish times for 5K, 10K, half marathon and marathon at common pace ranges">
+  <rect width="640" height="180" fill="#f8fafc" rx="12"/>
+  <!-- header row -->
+  <rect x="20" y="16" width="600" height="28" rx="4" fill="#6366f1"/>
+  <text x="110" y="35" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Pace/km</text>
+  <text x="230" y="35" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">5K</text>
+  <text x="350" y="35" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">10K</text>
+  <text x="470" y="35" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Half Marathon</text>
+  <!-- rows -->
+  <rect x="20" y="44" width="600" height="24" rx="0" fill="#f1f5f9"/>
+  <text x="110" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">4:00 /km</text>
+  <text x="230" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#059669" font-weight="600">20:00</text>
+  <text x="350" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#059669" font-weight="600">40:00</text>
+  <text x="470" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#059669" font-weight="600">1:24:05</text>
+  <rect x="20" y="68" width="600" height="24" rx="0" fill="#fff"/>
+  <text x="110" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">5:00 /km</text>
+  <text x="230" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#3b82f6" font-weight="600">25:00</text>
+  <text x="350" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#3b82f6" font-weight="600">50:00</text>
+  <text x="470" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#3b82f6" font-weight="600">1:45:06</text>
+  <rect x="20" y="92" width="600" height="24" rx="0" fill="#f1f5f9"/>
+  <text x="110" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">6:00 /km</text>
+  <text x="230" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#d97706" font-weight="600">30:00</text>
+  <text x="350" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#d97706" font-weight="600">1:00:00</text>
+  <text x="470" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#d97706" font-weight="600">2:06:08</text>
+  <rect x="20" y="116" width="600" height="24" rx="0" fill="#fff"/>
+  <text x="110" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">7:00 /km</text>
+  <text x="230" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#ea580c" font-weight="600">35:00</text>
+  <text x="350" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#ea580c" font-weight="600">1:10:00</text>
+  <text x="470" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#ea580c" font-weight="600">2:27:09</text>
+  <rect x="20" y="140" width="600" height="24" rx="0 0 4 4" fill="#f1f5f9"/>
+  <text x="110" y="156" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">8:00 /km</text>
+  <text x="230" y="156" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8" font-weight="600">40:00</text>
+  <text x="350" y="156" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8" font-weight="600">1:20:00</text>
+  <text x="470" y="156" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8" font-weight="600">2:48:10</text>
+</svg>

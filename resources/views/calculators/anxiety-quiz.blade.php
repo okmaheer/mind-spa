@@ -258,6 +258,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Understanding Your GAD-7 Score</h2>
+<img src="{{ asset('images/gad7-severity-scale.svg') }}" alt="GAD-7 severity scale showing anxiety score ranges from minimal to severe anxiety" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
     <p class="text-center text-muted mb-5 gad-intro-subtitle">Scores range from 0 to 21. Higher scores indicate greater anxiety symptom severity.</p>
     <div class="row g-4 justify-content-center">
       <div class="col-sm-6 col-lg-3">

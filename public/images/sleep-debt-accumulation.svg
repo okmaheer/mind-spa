@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="640" height="180" role="img" aria-label="Sleep debt accumulation chart showing how losing 1-2 hours per night builds up to 7-14 hours of debt per week">
+  <rect width="640" height="180" fill="#0f172a" rx="12"/>
+  <line x1="60" y1="20"  x2="60"  y2="140" stroke="#334155" stroke-width="1.5"/>
+  <line x1="60" y1="140" x2="600" y2="140" stroke="#334155" stroke-width="1.5"/>
+  <!-- Y axis labels -->
+  <text x="54" y="28"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">14h</text>
+  <text x="54" y="68"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">7h</text>
+  <text x="54" y="108" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">3h</text>
+  <text x="54" y="140" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">0h</text>
+  <!-- guide lines -->
+  <line x1="60" y1="68"  x2="600" y2="68"  stroke="#1e3a5f" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- X axis labels (days) -->
+  <text x="60"  y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Mon</text>
+  <text x="135" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Tue</text>
+  <text x="210" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Wed</text>
+  <text x="285" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Thu</text>
+  <text x="360" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Fri</text>
+  <text x="435" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Sat</text>
+  <text x="510" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Sun</text>
+  <!-- -2h/night debt bars -->
+  <rect x="70"  y="122" width="50" height="18" rx="3" fill="#f87171"/>
+  <rect x="145" y="104" width="50" height="36" rx="3" fill="#f87171"/>
+  <rect x="220" y="86"  width="50" height="54" rx="3" fill="#f87171"/>
+  <rect x="295" y="68"  width="50" height="72" rx="3" fill="#ef4444"/>
+  <rect x="370" y="50"  width="50" height="90" rx="3" fill="#dc2626"/>
+  <!-- weekend recovery -->
+  <rect x="445" y="96"  width="50" height="44" rx="3" fill="#4ade80"/>
+  <rect x="520" y="120" width="50" height="20" rx="3" fill="#4ade80"/>
+  <text x="470" y="89" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#4ade80">recover</text>
+  <text x="320" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Losing 2h sleep/night = 10h debt by Friday — weekend sleep partially helps but doesn't fully recover</text>
+</svg>

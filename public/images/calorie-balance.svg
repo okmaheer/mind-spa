@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="Calorie balance: eating less than TDEE creates a deficit which leads to fat loss">
+  <rect width="640" height="160" fill="#f8fafc" rx="12"/>
+  <!-- TDEE bar (full) -->
+  <rect x="40" y="32" width="380" height="36" rx="6" fill="#6366f1"/>
+  <text x="52" y="56" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">TDEE — Total Daily Energy Expenditure</text>
+  <text x="428" y="56" font-family="Inter,sans-serif" font-size="13" fill="#6366f1" font-weight="700">e.g. 2,500 kcal</text>
+  <!-- deficit bar -->
+  <rect x="40" y="82" width="270" height="36" rx="6 0 0 6" fill="#34d399"/>
+  <rect x="310" y="82" width="110" height="36" rx="0 6 6 0" fill="#fca5a5" stroke="#f87171" stroke-width="1"/>
+  <text x="52"  y="106" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">Intake — 2,000 kcal</text>
+  <text x="316" y="106" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#dc2626">−500 deficit</text>
+  <!-- arrow + result -->
+  <text x="440" y="106" font-family="Inter,sans-serif" font-size="20" fill="#94a3b8">→</text>
+  <text x="470" y="100" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#059669">~0.5 kg / week</text>
+  <text x="470" y="115" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">fat loss</text>
+  <text x="320" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">500 kcal/day deficit = 3,500 kcal/week = ~1 lb (0.45 kg) of fat</text>
+</svg>

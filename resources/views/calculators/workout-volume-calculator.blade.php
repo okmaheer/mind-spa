@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Workout Volume Calculator — Weekly Sets per Muscle Group | MindSnap')
+@section('title', 'Workout Volume Calculator — Sets per Muscle Group | MindSnap')
 @section('description', 'Free workout volume calculator: track total training volume (sets × reps × weight) per muscle group and see if you are in the MEV, MAV, or MRV range. No signup.')
 @section('canonical', config('app.url') . '/workout-volume-calculator')
 
@@ -174,6 +174,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">What Is Training Volume and Why Does It Drive Muscle Growth?</h2>
+<img src="{{ asset('images/workout-volume-guide.svg') }}" alt="Workout volume guide showing recommended weekly sets per muscle group for hypertrophy" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Volume is the primary driver of muscle hypertrophy. A landmark 2017 meta-analysis by Schoenfeld et al. found a clear dose-response relationship: more weekly sets per muscle group = more muscle growth, up to a recoverable threshold. The relationship held across beginners and intermediates alike.</p>
         <p>The concept of volume landmarks — MEV, MAV, and MRV — comes from Dr. Mike Israetel's RP Strength research. MEV is the minimum you need to grow. MAV is where optimal growth happens. MRV is the ceiling above which recovery breaks down.</p>
         <p>This calculator tracks your total sets per muscle group across all your logged exercises, then positions you within these landmarks so you can make informed programming decisions.</p>

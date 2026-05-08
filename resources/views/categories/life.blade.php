@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Life Calculators — Age, Date, Pregnancy & Retirement | MindSnap')
+@section('title', 'Free Life Calculators — Age, Date & Retirement | MindSnap')
 @section('description', 'Free online life calculators: exact age calculator, days between two dates, pregnancy due date calculator, ovulation calculator, retirement age countdown, days until any event, and life percentage lived. Instant, no signup.')
 @section('canonical', config('app.url') . '/life-tools')
 

@@ -240,6 +240,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">The 4 Attachment Styles Explained</h2>
+<img src="{{ asset('images/attachment-styles-quadrant.svg') }}" alt="Attachment styles quadrant showing the four attachment types on anxiety and avoidance axes" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
     <p class="text-center text-muted mb-5 ms-intro-text">Based on decades of research by Bowlby, Ainsworth, and Bartholomew.</p>
 
     <div class="row g-4">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Productivity Tools — Pomodoro Timer & Focus Tools | MindSnap')
+@section('title', 'Free Productivity Tools — Pomodoro & Focus | MindSnap')
 @section('description', 'Free productivity tools including the Pomodoro Timer. No sign-up, no download — start a 25-minute focus session in one click.')
 @section('canonical', config('app.url') . '/productivity-tools')
 

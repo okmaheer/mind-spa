@@ -202,6 +202,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-pets mb-3">The Science</span>
         <h2 class="mb-4">Why Don't All Dogs Age the Same?</h2>
+<img src="{{ asset('images/dog-age-chart.svg') }}" alt="Dog age chart showing how dog years compare to human years by breed size" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The familiar "multiply by 7" shortcut has been repeated for decades, but it was never based on biology — it was a rough marketing device. Modern veterinary science paints a far more nuanced picture.</p>
         <p>Dogs age non-linearly and at radically different rates depending on body size. In the first two years of life, all dogs — regardless of breed — go through an intense developmental sprint. By the end of year one, a puppy has matured through the human equivalent of childhood, puberty, and adolescence all at once, reaching a human-equivalent age of roughly 15. By year two, they've added another 9 human years, reaching the equivalent of a 24-year-old adult.</p>
         <p>After year two, breed size becomes the dominant factor. A small dog (under 20 lbs) adds roughly <strong>4 human years per dog year</strong>. A medium dog adds <strong>5 human years per year</strong>. A large dog adds <strong>7 human years per year</strong> — meaning a 10-year-old Great Dane is already in geriatric territory, while a 10-year-old Chihuahua is still in its senior but active years.</p>

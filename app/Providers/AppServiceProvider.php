@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Middleware\SeoHeaders;
 use App\Models\Tool;
 use App\Services\PublishableRegistry;
 use App\Services\SeoService;
@@ -23,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         // Force HTTPS in production
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
+            URL::forceRootUrl(config('app.url'));
         }
 
         // Register single-segment tool slugs (e.g. "sleep-calculator", "bmi-calculator")

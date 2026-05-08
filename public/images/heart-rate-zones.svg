@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" width="640" height="210" role="img" aria-label="Heart rate training zones: Zone 1 recovery 50-60%, Zone 2 fat burn 60-70%, Zone 3 cardio 70-80%, Zone 4 threshold 80-90%, Zone 5 max effort 90-100%">
+  <rect width="640" height="210" fill="#f8fafc" rx="12"/>
+  <!-- Zone bars -->
+  <rect x="160" y="20"  width="420" height="28" rx="4" fill="#bfdbfe"/>
+  <rect x="160" y="56"  width="420" height="28" rx="4" fill="#6ee7b7"/>
+  <rect x="160" y="92"  width="420" height="28" rx="4" fill="#fde68a"/>
+  <rect x="160" y="128" width="420" height="28" rx="4" fill="#fdba74"/>
+  <rect x="160" y="164" width="420" height="28" rx="4" fill="#fca5a5"/>
+  <!-- Zone numbers -->
+  <text x="16" y="39"  font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#3b82f6">Zone 1</text>
+  <text x="16" y="75"  font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#10b981">Zone 2</text>
+  <text x="16" y="111" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#d97706">Zone 3</text>
+  <text x="16" y="147" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#ea580c">Zone 4</text>
+  <text x="16" y="183" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#dc2626">Zone 5</text>
+  <!-- Zone name + % -->
+  <text x="170" y="39"  font-family="Inter,sans-serif" font-size="12" fill="#1e293b">Recovery &amp; Warm-Up</text>
+  <text x="170" y="75"  font-family="Inter,sans-serif" font-size="12" fill="#1e293b">Fat Burn</text>
+  <text x="170" y="111" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">Aerobic / Cardio</text>
+  <text x="170" y="147" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">Lactate Threshold</text>
+  <text x="170" y="183" font-family="Inter,sans-serif" font-size="12" fill="#1e293b">Max Effort / VO2 Max</text>
+  <!-- % labels right -->
+  <text x="590" y="39"  text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#475569">50–60% max HR</text>
+  <text x="590" y="75"  text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#475569">60–70% max HR</text>
+  <text x="590" y="111" text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#475569">70–80% max HR</text>
+  <text x="590" y="147" text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#475569">80–90% max HR</text>
+  <text x="590" y="183" text-anchor="end" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#475569">90–100% max HR</text>
+</svg>

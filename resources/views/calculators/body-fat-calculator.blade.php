@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Body Fat Calculator — Estimate Body Fat Percentage by Measurements | MindSnap')
+@section('title', 'Body Fat Calculator — Estimate Your Body Fat % | MindSnap')
 @section('description', 'Free body fat percentage calculator: use Navy method measurements (neck, waist, hips) to estimate your body fat. Includes healthy range chart for men and women. No signup.')
 @section('canonical', config('app.url') . '/body-fat-calculator')
 
@@ -237,6 +237,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How the US Navy Body Fat Method Works</h2>
+        <img src="{{ asset('images/body-fat-zones.svg') }}" alt="Body fat percentage zones for men and women: essential fat, athletes, fitness, acceptable, and obese ranges" width="640" height="170" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The US Navy body fat method was developed to assess body composition without expensive lab equipment. It uses circumference measurements — waist, neck, and (for women) hips — combined with height to estimate body fat percentage.</p>
         <p>The underlying logic: the difference between abdominal circumference and neck circumference approximates visceral fat distribution. A larger waist relative to neck indicates more fat mass. Height acts as a normalising factor.</p>
         <p>The formula was validated against hydrostatic weighing (the gold standard) and found to estimate body fat within ±3–4 percentage points for most individuals. It's now used globally by military organisations, gyms, and fitness professionals for its practical accuracy.</p>

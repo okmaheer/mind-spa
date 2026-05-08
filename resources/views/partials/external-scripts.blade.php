@@ -1,8 +1,9 @@
 {{-- External Third-Party Scripts --}}
 
-{{-- Google Analytics 4: lazy-loaded after first user interaction --}}
+{{-- Google Analytics 4: production only, lazy-loaded after first user interaction --}}
 {{-- This eliminates GTM's 179ms main-thread block during LCP, improving TBT and Performance score --}}
 {{-- Pageviews are still tracked — the script loads within ~100ms of any interaction --}}
+@production
 <script>
 (function() {
   var loaded = false;
@@ -31,5 +32,6 @@
   setTimeout(loadGTM, 4000);
 })();
 </script>
+@endproduction
 
 {{-- Add more external scripts here as needed --}}

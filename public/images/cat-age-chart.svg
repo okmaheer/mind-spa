@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 130" width="640" height="130" role="img" aria-label="Cat to human age milestones: 1 cat year equals 15 human years, 2 cat years equals 24, each year after adds 4 human years">
+  <rect width="640" height="130" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="20" width="88" height="72" rx="8" fill="#f472b6"/>
+  <text x="64"  y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">1 yr</text>
+  <text x="64"  y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#fce7f3">= 15 human</text>
+  <rect x="124" y="20" width="88" height="72" rx="8" fill="#c084fc"/>
+  <text x="168" y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">2 yrs</text>
+  <text x="168" y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#f3e8ff">= 24 human</text>
+  <rect x="228" y="20" width="88" height="72" rx="8" fill="#818cf8"/>
+  <text x="272" y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">5 yrs</text>
+  <text x="272" y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#e0e7ff">= 36 human</text>
+  <rect x="332" y="20" width="88" height="72" rx="8" fill="#6366f1"/>
+  <text x="376" y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">10 yrs</text>
+  <text x="376" y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">= 56 human</text>
+  <rect x="436" y="20" width="88" height="72" rx="8" fill="#4f46e5"/>
+  <text x="480" y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">15 yrs</text>
+  <text x="480" y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">= 76 human</text>
+  <rect x="540" y="20" width="80" height="72" rx="8" fill="#3730a3"/>
+  <text x="580" y="54"  text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">20 yrs</text>
+  <text x="580" y="70"  text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">= 96 human</text>
+  <text x="320" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">AAFP formula: Year 1 = 15, Year 2 = +9, every year after = +4 human years</text>
+</svg>

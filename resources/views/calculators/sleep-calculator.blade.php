@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sleep Calculator — Free Bedtime & Wake-Up Time Finder | MindSnap')
+@section('title', 'Sleep Calculator — Bedtime & Wake-Up Time Finder | MindSnap')
 @section('description', 'Free sleep calculator: enter your wake-up time and instantly find the best bedtime based on 90-minute sleep cycles. Works for adults, teenagers, shift workers, and night owls. No signup.')
 @section('canonical', config('app.url') . '/sleep-calculator')
 
@@ -268,6 +268,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-sleep mb-3">How It Works</span>
         <h2 class="mb-4">How Sleep Cycles Work: The 90-Minute Science</h2>
+        <img src="{{ asset('images/sleep-cycles.svg') }}" alt="Sleep cycle diagram showing 5 complete 90-minute cycles over 7.5 hours with REM and deep sleep stages" width="640" height="200" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Your brain doesn't sleep in one long block. It cycles through four distinct stages — light sleep, deeper light sleep, slow-wave deep sleep, and REM — roughly every 90 minutes all night long.</p>
         <p>The trick is not just how long you sleep, but <em>when</em> you wake. Interrupting deep sleep triggers sleep inertia: that thick, cotton-headed grogginess that can persist for up to an hour. Wake during light sleep at the end of a cycle and you surface alert within seconds.</p>
         <p>This calculator counts backward from your alarm time in 90-minute blocks, adds your personal fall-asleep delay, then draws the actual sleep architecture of your night — so you can see exactly what you're trading off between the 6-hour and 7.5-hour options.</p>

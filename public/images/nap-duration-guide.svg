@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" width="640" height="160" role="img" aria-label="Nap duration guide: 10-20 minute power nap for alertness, 60 minutes for memory, 90 minutes for full cycle">
+  <rect width="640" height="160" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="30" width="160" height="70" rx="8" fill="#6366f1"/>
+  <text x="100" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">10–20</text>
+  <text x="100" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#c7d2fe">minutes</text>
+  <text x="100" y="91" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#a5b4fc">Power Nap</text>
+  <text x="100" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#6366f1">⚡ Best alertness</text>
+  <text x="100" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">No grogginess</text>
+  <rect x="240" y="30" width="160" height="70" rx="8" fill="#f59e0b"/>
+  <text x="320" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">60</text>
+  <text x="320" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#fef3c7">minutes</text>
+  <text x="320" y="91" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#fde68a">Memory Nap</text>
+  <text x="320" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#d97706">🧠 Boosts memory</text>
+  <text x="320" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Some grogginess</text>
+  <rect x="460" y="30" width="160" height="70" rx="8" fill="#34d399"/>
+  <text x="540" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="#fff">90</text>
+  <text x="540" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#d1fae5">minutes</text>
+  <text x="540" y="91" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#a7f3d0">Full Cycle Nap</text>
+  <text x="540" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#059669">✨ Full recovery</text>
+  <text x="540" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">Wake alert</text>
+</svg>

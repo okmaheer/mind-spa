@@ -144,6 +144,32 @@ $relatedTools = [
 .pom-tip-num             { width: 32px; height: 32px; border-radius: 50%; background: rgba(11,114,133,.12); border: 2px solid rgba(11,114,133,.25); color: var(--productivity); font-weight: 800; font-size: .9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .pom-tip-title           { font-weight: 700; color: var(--primary-dark); font-size: .95rem; }
 .pom-tip-desc            { font-size: .88rem; color: var(--text-muted); line-height: 1.65; margin-top: 3px; }
+
+/* ── Task input ── */
+.pom-task-input          { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; border-radius: 10px; font-size: .9rem; padding: 10px 14px; width: 100%; }
+.pom-task-input::placeholder { color: rgba(255,255,255,.4); }
+.pom-task-input:focus    { outline: none; border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.15); }
+.pom-task-lbl            { font-size: .82rem; color: rgba(255,255,255,.55); text-align: center; min-height: 1.2em; font-style: italic; }
+
+/* ── Advanced panel ── */
+.pom-adv-toggle          { background: transparent; border: none; color: rgba(255,255,255,.5); font-size: .82rem; font-weight: 600; cursor: pointer; padding: 0; }
+.pom-adv-toggle:hover    { color: rgba(255,255,255,.85); }
+.pom-adv-panel           { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; }
+.pom-streak-num          { font-size: 2rem; font-weight: 800; color: #fff; }
+.pom-streak-lbl          { font-size: .72rem; color: rgba(255,255,255,.5); }
+.pom-week-wrap           { display: flex; gap: 4px; align-items: flex-end; height: 64px; }
+.pom-week-col            { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.pom-week-bar            { width: 100%; border-radius: 3px 3px 0 0; min-height: 4px; }
+.pom-week-day-lbl        { font-size: .58rem; color: rgba(255,255,255,.4); margin-top: 3px; }
+.pom-queue-input         { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; border-radius: 8px; font-size: .85rem; padding: 7px 10px; flex: 1; }
+.pom-queue-input::placeholder { color: rgba(255,255,255,.35); }
+.pom-queue-add-btn       { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); color: #fff; border-radius: 8px; padding: 7px 14px; font-size: .82rem; cursor: pointer; white-space: nowrap; }
+.pom-queue-add-btn:hover { background: rgba(255,255,255,.25); }
+.pom-queue-list          { list-style: none; padding: 0; margin: 0; }
+.pom-queue-item          { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: .85rem; color: rgba(255,255,255,.8); cursor: pointer; }
+.pom-queue-item:last-child { border-bottom: none; }
+.pom-queue-item-done     { text-decoration: line-through; color: rgba(255,255,255,.3); }
+.pom-adv-lbl             { font-size: .72rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; font-weight: 600; margin-bottom: 8px; }
 </style>
 @endsection
 
@@ -166,6 +192,13 @@ $relatedTools = [
         <div class="card border-0 mb-n4 ms-tool-card" id="pomCard">
           <div class="card-body p-4 p-md-5">
 
+            {{-- Task input --}}
+            <div class="mb-3">
+              <input type="text" id="pomTask" class="pom-task-input"
+                     placeholder="What are you working on? (optional)" maxlength="80"
+                     oninput="pomUpdateTaskLabel()">
+            </div>
+
             {{-- Mode tabs --}}
             <div class="pom-tabs mb-4" role="tablist" aria-label="Timer mode">
               <button class="pom-tab pom-tab-active" id="tabFocus"      onclick="pomSetMode('focus')"      aria-pressed="true">Focus</button>
@@ -174,9 +207,10 @@ $relatedTools = [
             </div>
 
             {{-- Session label --}}
-            <div class="text-center mb-2">
+            <div class="text-center mb-1">
               <div class="pom-session-label" id="pomSessionLabel">Pomodoro 1 of 4</div>
             </div>
+            <div class="pom-task-lbl mb-2" id="pomTaskLabel"></div>
 
             {{-- Countdown --}}
             <div class="text-center mb-3">
@@ -240,6 +274,33 @@ $relatedTools = [
               </div>
             </div>
 
+            {{-- Advanced: Streak + Week + Task Queue --}}
+            <div class="text-center mt-3">
+              <button class="pom-adv-toggle" onclick="pomToggleAdvanced()" id="pomAdvBtn">
+                📊 Stats &amp; Task Queue
+              </button>
+            </div>
+            <div class="pom-adv-panel p-4 mt-2 d-none" id="pomAdvPanel">
+              <div class="row g-4 mb-4">
+                <div class="col-6 text-center">
+                  <div class="pom-adv-lbl">🔥 Current Streak</div>
+                  <div class="pom-streak-num" id="pomStreakNum">0</div>
+                  <div class="pom-streak-lbl">consecutive days (≥4 pomodoros)</div>
+                </div>
+                <div class="col-6 text-center">
+                  <div class="pom-adv-lbl">This Week</div>
+                  <div class="pom-week-wrap" id="pomWeekChart"></div>
+                </div>
+              </div>
+              <div class="pom-adv-lbl">Task Queue</div>
+              <div class="d-flex gap-2 mb-2">
+                <input type="text" id="pomQueueInput" class="pom-queue-input"
+                       placeholder="Add a task..." maxlength="80">
+                <button class="pom-queue-add-btn" onclick="pomAddTask()">+ Add</button>
+              </div>
+              <ul class="pom-queue-list" id="pomQueueList"></ul>
+            </div>
+
           </div>
         </div>
       </div>
@@ -285,6 +346,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-productivity mb-3">The Method</span>
         <h2 class="mb-4">What Is the Pomodoro Technique?</h2>
+<img src="{{ asset('images/pomodoro-technique.svg') }}" alt="Pomodoro technique diagram showing 25-minute work intervals and break structure" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The Pomodoro Technique was developed by Francesco Cirillo in the late 1980s while he was a university student struggling to focus. He picked up a tomato-shaped kitchen timer (<em>pomodoro</em> is Italian for tomato), set it for 25 minutes, and committed to working on a single task until it rang. The result was a structured approach to focus that has since been adopted by millions of professionals worldwide.</p>
         <p>The core cycle is simple: work for 25 minutes without interruption, take a 5-minute break, and repeat. After four completed sessions — one full "set" — you earn a longer 15–30 minute break. Each 25-minute block is one pomodoro. Incomplete sessions reset to zero; a pomodoro only counts if finished uninterrupted.</p>
         <p>The technique's power comes from several mechanisms: it makes large tasks feel approachable by breaking them into 25-minute commitments; it creates urgency through the countdown; it forces you to confront and track interruptions; and it builds in mandatory recovery before cognitive fatigue accumulates.</p>
@@ -368,15 +430,119 @@ $relatedTools = [
 <script>
 (function () {
   var MODES = { focus: 25, short: 5, long: 15 };
+  var today = new Date().toISOString().slice(0, 10);
+  var taskQueue = [];
+
+  // ── localStorage helpers ──
+  function loadTodayStats() {
+    try {
+      var data = JSON.parse(localStorage.getItem('pom_day') || '{}');
+      if (data.date === today) return { done: data.done || 0, focusMin: data.focusMin || 0 };
+    } catch (e) {}
+    return { done: 0, focusMin: 0 };
+  }
+
+  function saveTodayStats(done, focusMin) {
+    var data = { date: today, done: done, focusMin: focusMin };
+    try { localStorage.setItem('pom_day', JSON.stringify(data)); } catch (e) {}
+    // Also push to weekly history
+    try {
+      var hist = JSON.parse(localStorage.getItem('pom_hist') || '[]');
+      var existing = hist.findIndex(function (h) { return h.date === today; });
+      if (existing >= 0) {
+        hist[existing] = data;
+      } else {
+        hist.push(data);
+        if (hist.length > 14) hist = hist.slice(-14);
+      }
+      localStorage.setItem('pom_hist', JSON.stringify(hist));
+    } catch (e) {}
+  }
+
+  function loadHistory() {
+    try { return JSON.parse(localStorage.getItem('pom_hist') || '[]'); } catch (e) { return []; }
+  }
+
+  function calcStreak(history) {
+    var streak = 0;
+    var d = new Date();
+    d.setDate(d.getDate() - 1); // start from yesterday
+    for (var i = 0; i < 30; i++) {
+      var ds = d.toISOString().slice(0, 10);
+      var entry = history.find(function (h) { return h.date === ds; });
+      if (entry && entry.done >= 4) {
+        streak++;
+        d.setDate(d.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  function buildWeekChart(history) {
+    var days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    var cols = '';
+    var maxCount = 1;
+    var week = [];
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date();
+      d.setDate(d.getDate() - i);
+      var ds = d.toISOString().slice(0, 10);
+      var entry = history.find(function (h) { return h.date === ds; });
+      var count = entry ? entry.done : 0;
+      if (count > maxCount) maxCount = count;
+      week.push({ lbl: days[d.getDay()], count: count, isToday: ds === today });
+    }
+    week.forEach(function (w) {
+      var pct = Math.round((w.count / maxCount) * 56);
+      var bg = w.isToday ? 'rgba(255,255,255,.8)' : (w.count >= 4 ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.2)');
+      cols += '<div class="pom-week-col">'
+        + '<div class="pom-week-bar" style="height:' + pct + 'px;background:' + bg + ';"></div>'
+        + '<div class="pom-week-day-lbl">' + w.lbl + '</div>'
+        + '</div>';
+    });
+    document.getElementById('pomWeekChart').innerHTML = cols;
+  }
+
+  function renderAdvanced() {
+    var hist = loadHistory();
+    var streak = calcStreak(hist);
+    document.getElementById('pomStreakNum').textContent = streak;
+    buildWeekChart(hist);
+    renderQueue();
+  }
+
+  // ── Task queue ──
+  function renderQueue() {
+    var html = '';
+    taskQueue.forEach(function (t, i) {
+      html += '<li class="pom-queue-item' + (t.done ? ' pom-queue-item-done' : '') + '" onclick="pomToggleTask(' + i + ')">'
+        + (t.done ? '✅' : '◻') + ' ' + t.text
+        + '</li>';
+    });
+    document.getElementById('pomQueueList').innerHTML = html || '<li class="pom-queue-item" style="opacity:.4;cursor:default">No tasks yet</li>';
+  }
+
+  function saveQueue() {
+    try { localStorage.setItem('pom_queue', JSON.stringify(taskQueue)); } catch (e) {}
+  }
+
+  // Load persisted state
+  var todayStats = loadTodayStats();
+  try {
+    taskQueue = JSON.parse(localStorage.getItem('pom_queue') || '[]');
+  } catch (e) { taskQueue = []; }
+
   var state = {
     mode: 'focus',
     running: false,
     secondsLeft: 25 * 60,
     totalSeconds: 25 * 60,
-    pomodorosDone: 0,
+    pomodorosDone: todayStats.done,
     currentSet: 0,
     intervalId: null,
-    totalFocusMin: 0,
+    totalFocusMin: todayStats.focusMin,
   };
 
   function getMins() {
@@ -431,6 +597,7 @@ $relatedTools = [
   function updateStats() {
     document.getElementById('statTotalDone').textContent = state.pomodorosDone;
     document.getElementById('statFocusMin').textContent = state.totalFocusMin;
+    saveTodayStats(state.pomodorosDone, state.totalFocusMin);
   }
 
   function setMode(mode, autoStart) {
@@ -578,10 +745,43 @@ $relatedTools = [
     btn.textContent = hidden ? '✕ Close Settings' : '⚙ Settings';
   };
 
+  window.pomUpdateTaskLabel = function () {
+    var val = document.getElementById('pomTask').value.trim();
+    document.getElementById('pomTaskLabel').textContent = val ? '🎯 ' + val : '';
+  };
+
+  window.pomToggleAdvanced = function () {
+    var panel = document.getElementById('pomAdvPanel');
+    var hidden = panel.classList.contains('d-none');
+    panel.classList.toggle('d-none', !hidden);
+    if (hidden) renderAdvanced();
+  };
+
+  window.pomAddTask = function () {
+    var inp = document.getElementById('pomQueueInput');
+    var text = inp.value.trim();
+    if (!text) return;
+    taskQueue.push({ text: text, done: false });
+    saveQueue();
+    renderQueue();
+    inp.value = '';
+  };
+
+  window.pomToggleTask = function (i) {
+    taskQueue[i].done = !taskQueue[i].done;
+    saveQueue();
+    renderQueue();
+  };
+
+  document.getElementById('pomQueueInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') pomAddTask();
+  });
+
   updateDisplay();
   updateDots();
   updateSessionLabel();
   updateStats();
+  renderQueue();
 })();
 </script>
 @endsection

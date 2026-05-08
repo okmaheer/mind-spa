@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Intermittent Fasting Calculator — Eating Window & Fasting Schedule | MindSnap')
+@section('title', 'Intermittent Fasting Calculator — Eating Window | MindSnap')
 @section('description', 'Free intermittent fasting calculator: choose your IF protocol (16:8, 18:6, 5:2, OMAD) and get your exact eating window, fasting window, and daily schedule. No signup.')
 @section('canonical', config('app.url') . '/intermittent-fasting-calculator')
 
@@ -278,6 +278,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-nutrition mb-3">How It Works</span>
         <h2 class="mb-4">How Intermittent Fasting Works: Metabolic Switching Explained</h2>
+<img src="{{ asset('images/intermittent-fasting-window.svg') }}" alt="Intermittent fasting window diagram showing 16:8 and other popular fasting schedules" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>When you eat, your body digests carbohydrates into glucose and stores excess as glycogen in the liver and muscles. In a fed state, insulin is elevated and fat burning is suppressed — your body is in storage mode.</p>
         <p>After roughly 12 hours of fasting, liver glycogen depletes and insulin drops. Your body switches its primary fuel source from glucose to fatty acids and ketone bodies — a process called metabolic switching. This is when IF's metabolic benefits begin.</p>
         <p>At around 16–18 hours, autophagy (cellular "self-cleaning") ramps up significantly. At 24 hours, growth hormone spikes to preserve muscle mass. These cascading hormonal changes — not calorie restriction alone — are why IF produces different outcomes to simply eating less throughout the day.</p>

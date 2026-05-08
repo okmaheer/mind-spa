@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ideal Weight Calculator — Healthy Weight Range for Your Height | MindSnap')
+@section('title', 'Ideal Weight Calculator — Healthy Weight Range | MindSnap')
 @section('description', 'Free ideal weight calculator: find your healthy weight range by height and sex using Robinson, Devine, Miller, and Hamwi formulas. Includes frame size adjustment. No signup.')
 @section('canonical', config('app.url') . '/ideal-weight-calculator')
 
@@ -182,6 +182,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How Ideal Weight Formulas Were Developed</h2>
+<img src="{{ asset('images/ideal-weight-range.svg') }}" alt="Ideal weight range chart comparing Devine, Robinson, Miller, and Hamwi formulas" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Ideal body weight formulas were originally developed not for fitness goals but for clinical use — calculating drug dosages, ventilator settings, and nutritional support in hospitalised patients. The Hamwi formula (1964) appeared first, followed by Devine (1974), then Robinson and Miller both published refinements in 1983.</p>
         <p>Each formula uses a linear equation based on height: a base weight for 5 feet (152.4cm) with an increment per inch of height above that. They differ slightly in their base values and per-inch increments, which is why they produce different results for the same person.</p>
         <p>None of the formulas account for muscle mass, body composition, or ethnicity — factors that meaningfully affect what a healthy weight looks like for a specific individual.</p>

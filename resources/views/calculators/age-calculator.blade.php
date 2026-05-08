@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Age Calculator — Exact Age in Years, Months, Days & Hours | MindSnap')
+@section('title', 'Age Calculator — Exact Age in Years & Months | MindSnap')
 @section('description', 'Free age calculator: enter your date of birth to get your exact age in years, months, days, hours, and minutes. Also shows next birthday countdown. No signup.')
 @section('canonical', config('app.url') . '/age-calculator')
 
@@ -93,6 +93,20 @@ $relatedTools = [
 .age-gen-pill   { background: #f3e8ff; color: var(--life); border-radius: 8px; padding: 5px 10px; font-weight: 700; font-size: .78rem; min-width: 90px; text-align: center; flex-shrink: 0; border: 1px solid #d8b4ff; }
 .age-gen-title  { font-size: .87rem; color: #1a1a2e; }
 .age-gen-desc   { font-size: .79rem; color: #666; }
+.age-adv-toggle { font-size: .85rem; font-weight: 600; color: var(--life); cursor: pointer; border: none; background: none; padding: 4px 0; }
+.age-adv-toggle::after { content: '  ▾'; }
+.age-adv-toggle[aria-expanded="true"]::after { content: '  ▲'; }
+.age-life-stat  { background: #f3e8ff; border-radius: 10px; padding: 12px; text-align: center; }
+.age-life-val   { font-size: 1.3rem; font-weight: 800; color: var(--life); }
+.age-life-lbl   { font-size: .7rem; color: #888; margin-top: 2px; }
+.age-ms-row     { display: flex; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: .84rem; }
+.age-ms-row:last-child { border-bottom: none; }
+.age-ms-date    { font-weight: 700; color: var(--life); min-width: 110px; }
+.age-zodiac-box { border-radius: 10px; padding: 12px 16px; font-size: .85rem; }
+.age-zodiac-western { background: #f3e8ff; }
+.age-zodiac-chinese { background: #fff8e1; }
+.age-zodiac-sign { font-size: 1.5rem; }
+.age-zodiac-name { font-weight: 700; color: var(--primary-dark); }
 </style>
 @endsection
 
@@ -190,7 +204,7 @@ $relatedTools = [
                 </div>
               </div>
 
-              <div class="row g-3">
+              <div class="row g-3 mb-3">
                 <div class="col-md-6">
                   <div class="p-3 rounded-3 age-stat-box">
                     <div class="age-meta-label">🧬 Your Generation</div>
@@ -202,6 +216,21 @@ $relatedTools = [
                     <div class="age-meta-label">🎯 1 Billion Seconds</div>
                     <div id="agBillionSec" class="age-meta-val-life"></div>
                   </div>
+                </div>
+              </div>
+
+              <div class="mt-2 text-center">
+                <button class="age-adv-toggle" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#ageAdvanced" aria-expanded="false"
+                        aria-controls="ageAdvanced">
+                  Show life stats, milestones &amp; zodiac
+                </button>
+                <div class="collapse mt-3 text-start" id="ageAdvanced">
+                  <p class="fw-semibold mb-2 rp-tbl-lbl">Life in Numbers (estimated)</p>
+                  <div class="row g-2 mb-3" id="ageLifeStats"></div>
+                  <p class="fw-semibold mb-2 rp-tbl-lbl">Upcoming Milestones</p>
+                  <div id="ageMilestones" class="mb-3"></div>
+                  <div class="row g-2" id="ageZodiac"></div>
                 </div>
               </div>
             </div>
@@ -243,6 +272,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Age Is Calculated: Calendar Math Explained</h2>
+<img src="{{ asset('images/lifespan-timeline.svg') }}" alt="Lifespan timeline showing age milestones and life expectancy ranges" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Calculating exact age sounds simple — but calendar math is surprisingly nuanced. Months have different lengths (28–31 days), leap years add an extra day every 4 years (mostly), and the concept of a "completed year" requires tracking month and day boundaries, not just subtracting year numbers.</p>
         <p>This calculator computes age in three passes: first the number of complete years since birth, then the number of complete months remaining, then the remaining days. For total counts (total days, hours, minutes), it uses the raw millisecond difference between dates, which automatically handles every leap year ever.</p>
         <p>The "calculate as of" feature lets you find someone's age at a specific historical date — useful for legal documents, historical research, or knowing how old someone was when a major event occurred.</p>
@@ -366,6 +396,76 @@ $relatedTools = [
     return n.toLocaleString();
   }
 
+  function getWesternZodiac(m, d) {
+    if ((m === 12 && d >= 22) || (m === 1 && d <= 19)) return { name: 'Capricorn',    emoji: '♑', traits: 'Disciplined, responsible, ambitious' };
+    if ((m === 1  && d >= 20) || (m === 2 && d <= 18)) return { name: 'Aquarius',     emoji: '♒', traits: 'Independent, original, humanitarian' };
+    if ((m === 2  && d >= 19) || (m === 3 && d <= 20)) return { name: 'Pisces',       emoji: '♓', traits: 'Compassionate, intuitive, artistic' };
+    if ((m === 3  && d >= 21) || (m === 4 && d <= 19)) return { name: 'Aries',        emoji: '♈', traits: 'Bold, ambitious, passionate' };
+    if ((m === 4  && d >= 20) || (m === 5 && d <= 20)) return { name: 'Taurus',       emoji: '♉', traits: 'Reliable, patient, practical' };
+    if ((m === 5  && d >= 21) || (m === 6 && d <= 20)) return { name: 'Gemini',       emoji: '♊', traits: 'Curious, adaptable, communicative' };
+    if ((m === 6  && d >= 21) || (m === 7 && d <= 22)) return { name: 'Cancer',       emoji: '♋', traits: 'Intuitive, loyal, nurturing' };
+    if ((m === 7  && d >= 23) || (m === 8 && d <= 22)) return { name: 'Leo',          emoji: '♌', traits: 'Confident, creative, generous' };
+    if ((m === 8  && d >= 23) || (m === 9 && d <= 22)) return { name: 'Virgo',        emoji: '♍', traits: 'Analytical, meticulous, helpful' };
+    if ((m === 9  && d >= 23) || (m === 10 && d <= 22)) return { name: 'Libra',       emoji: '♎', traits: 'Diplomatic, fair-minded, social' };
+    if ((m === 10 && d >= 23) || (m === 11 && d <= 21)) return { name: 'Scorpio',     emoji: '♏', traits: 'Passionate, resourceful, brave' };
+    return { name: 'Sagittarius', emoji: '♐', traits: 'Optimistic, adventurous, philosophical' };
+  }
+
+  function getChineseZodiac(year) {
+    var a = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+    var e = ['🐀','🐂','🐯','🐰','🐲','🐍','🐴','🐏','🐵','🐓','🐕','🐷'];
+    var i = ((year - 1900) % 12 + 12) % 12;
+    return { name: a[i], emoji: e[i] };
+  }
+
+  function buildAdvanced(dob, asOf, totalMin) {
+    // Life stats
+    var heartbeats = Math.round(totalMin * 72);
+    var breaths    = Math.round(totalMin * 16);
+    var blinks     = Math.round(totalMin * 15);
+    var steps      = Math.round(totalMin * 100); // ~100 steps/min average awake time (rough)
+    document.getElementById('ageLifeStats').innerHTML =
+      '<div class="col-6 col-md-3"><div class="age-life-stat"><div class="age-life-val">' + fmt(heartbeats) + '</div><div class="age-life-lbl">❤️ heartbeats</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="age-life-stat"><div class="age-life-val">' + fmt(breaths) + '</div><div class="age-life-lbl">🫁 breaths</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="age-life-stat"><div class="age-life-val">' + fmt(blinks) + '</div><div class="age-life-lbl">👁 blinks</div></div></div>'
+      + '<div class="col-6 col-md-3"><div class="age-life-stat"><div class="age-life-val">' + fmt(steps) + '</div><div class="age-life-lbl">👣 steps (est.)</div></div></div>';
+
+    // Milestones
+    var currentDays = Math.floor((asOf - dob) / 86400000);
+    var milestoneMs = [
+      { label: '10,000 days', days: 10000 },
+      { label: '20,000 days', days: 20000 },
+      { label: '30,000 days', days: 30000 },
+      { label: '1 billion seconds (~31.7 yrs)', days: Math.ceil(1e9 / 86400) },
+      { label: '2 billion seconds (~63.4 yrs)', days: Math.ceil(2e9 / 86400) },
+    ];
+    var msHtml = '';
+    milestoneMs.forEach(function (m) {
+      var msDate = new Date(dob.getTime() + m.days * 86400000);
+      var diff   = Math.ceil((msDate - asOf) / 86400000);
+      var status = diff <= 0
+        ? '✅ Passed on ' + msDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : '📅 ' + msDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' (in ' + diff.toLocaleString() + ' days)';
+      msHtml += '<div class="age-ms-row"><span class="fw-semibold text-muted">' + m.label + '</span><span class="age-ms-date">' + status + '</span></div>';
+    });
+    document.getElementById('ageMilestones').innerHTML = msHtml;
+
+    // Zodiac
+    var western = getWesternZodiac(dob.getMonth() + 1, dob.getDate());
+    var chinese = getChineseZodiac(dob.getFullYear());
+    document.getElementById('ageZodiac').innerHTML =
+      '<div class="col-md-6"><div class="age-zodiac-box age-zodiac-western">'
+      + '<div class="age-zodiac-sign">' + western.emoji + '</div>'
+      + '<div class="age-zodiac-name">' + western.name + ' (Western)</div>'
+      + '<div class="text-muted" style="font-size:.78rem">' + western.traits + '</div>'
+      + '</div></div>'
+      + '<div class="col-md-6"><div class="age-zodiac-box age-zodiac-chinese">'
+      + '<div class="age-zodiac-sign">' + chinese.emoji + '</div>'
+      + '<div class="age-zodiac-name">Year of the ' + chinese.name + ' (Chinese)</div>'
+      + '<div class="text-muted" style="font-size:.78rem">Based on year of birth: ' + dob.getFullYear() + '</div>'
+      + '</div></div>';
+  }
+
   window.agCalculate = function () {
     var dobVal  = document.getElementById('ageDob').value;
     var asOfVal = document.getElementById('ageAsOf').value;
@@ -425,6 +525,13 @@ $relatedTools = [
     document.getElementById('agBornDay').textContent   = bornDay;
     document.getElementById('agGeneration').textContent = gen;
     document.getElementById('agBillionSec').textContent  = billionStr;
+
+    buildAdvanced(dob, asOf, totalMin);
+
+    // Reset collapse on recalculate
+    document.getElementById('ageAdvanced').classList.remove('show');
+    var advBtn = document.querySelector('[data-bs-target="#ageAdvanced"]');
+    if (advBtn) advBtn.setAttribute('aria-expanded', 'false');
 
     document.getElementById('agResults').classList.remove('d-none');
     document.getElementById('agResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });

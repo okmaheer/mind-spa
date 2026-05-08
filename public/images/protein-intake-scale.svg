@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 130" width="640" height="130" role="img" aria-label="Daily protein intake recommendations: 0.8g per kg for sedentary, 1.2-1.6g for active, 1.6-2.2g for muscle building">
+  <rect width="640" height="130" fill="#f8fafc" rx="12"/>
+  <defs>
+    <linearGradient id="protGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#bfdbfe"/>
+      <stop offset="35%"  stop-color="#6ee7b7"/>
+      <stop offset="70%"  stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="30" width="560" height="32" rx="8" fill="url(#protGrad)"/>
+  <!-- dividers -->
+  <line x1="236" y1="26" x2="236" y2="66" stroke="#fff" stroke-width="2"/>
+  <line x1="432" y1="26" x2="432" y2="66" stroke="#fff" stroke-width="2"/>
+  <!-- labels inside -->
+  <text x="138"  y="51" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e293b">Sedentary</text>
+  <text x="334"  y="51" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e293b">Active / Fitness</text>
+  <text x="516"  y="51" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#fff">Muscle Building</text>
+  <!-- g/kg markers -->
+  <text x="40"   y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">0.8 g/kg</text>
+  <text x="236"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">1.2 g/kg</text>
+  <text x="432"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">1.6 g/kg</text>
+  <text x="600"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">2.2 g/kg</text>
+  <text x="320" y="110" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Daily protein target per kilogram of bodyweight — increase with training intensity</text>
+</svg>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Nap Calculator — Best Nap Length to Wake Up Refreshed | MindSnap')
+@section('title', 'Nap Calculator — Best Nap Length & Duration | MindSnap')
 @section('description', 'Free nap calculator: find the perfect nap length — 10-min power nap, 20-min refresher, or full 90-min sleep cycle. Avoid sleep inertia. Works for shift workers, students, and adults. No signup.')
 @section('canonical', config('app.url') . '/nap-calculator')
 
@@ -250,6 +250,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-sleep mb-3">The Science</span>
         <h2 class="mb-4">The Science of Napping: What Studies Actually Show</h2>
+<img src="{{ asset('images/nap-duration-guide.svg') }}" alt="Nap duration guide showing optimal nap lengths for energy, memory, and recovery" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>A landmark 1995 NASA study of long-haul military pilots found that a <strong>26-minute nap</strong> improved cognitive performance by 34% and alertness by 54% versus a no-nap control. This study directly led to NASA's formal nap policy for astronauts and long-haul flight crews.</p>
         <p>A 2008 University of California study compared a 90-minute nap to rote learning and found the nap group significantly outperformed on a memory test 6 hours later — with nap participants who achieved REM sleep performing best of all. REM sleep's role in memory consolidation and creative problem-solving is now well-established.</p>
         <p>A 2021 study in <em>General Psychiatry</em> found that regular nappers (1–2 times per week) had significantly better cognitive function, larger brain volume in multiple regions, and higher scores on processing speed and visuospatial ability than non-nappers — controlling for age, health, and sleep duration.</p>

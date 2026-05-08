@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Jet Lag Calculator — Sleep Schedule Recovery Plan for Long Flights | MindSnap')
+@section('title', 'Jet Lag Calculator — Sleep Recovery Plan | MindSnap')
 @section('description', 'Free jet lag calculator: enter your home and destination time zones and get a personalised sleep recovery schedule. Covers eastward and westward travel, 28 time zones, and melatonin timing. Free, instant, no signup.')
 @section('canonical', config('app.url') . '/jet-lag-calculator')
 
@@ -290,6 +290,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-sleep mb-3">Melatonin Guide</span>
         <h2 class="mb-4">How to Use Melatonin for Jet Lag</h2>
+<img src="{{ asset('images/jet-lag-recovery.svg') }}" alt="Jet lag recovery timeline showing adjustment days needed by time zones crossed" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Melatonin is the most evidence-backed pharmacological intervention for jet lag. A Cochrane review of 10 randomised trials (Herxheimer & Petrie, 2002) concluded it is remarkably effective at reducing jet lag symptoms, particularly for eastward travel of 5 or more time zones.</p>
         <p>The key insight is <strong>timing over dose</strong>. Taking melatonin at the wrong time can worsen jet lag rather than help it. The circadian clock is a phase-response system — melatonin in the afternoon delays your clock; melatonin in the morning advances it. Only evening use (at destination bedtime) is appropriate for jet lag recovery.</p>
         <p>Use the lowest effective dose. Most commercial melatonin tablets are 5–10mg — 5 to 20 times higher than what research shows is effective (0.5mg). Higher doses increase next-day grogginess and suppress endogenous melatonin production over time.</p>

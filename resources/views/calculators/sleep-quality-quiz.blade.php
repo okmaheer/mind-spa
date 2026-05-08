@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sleep Quality Quiz — Score Your Sleep in 10 Questions | MindSnap')
+@section('title', 'Sleep Quality Quiz — 10-Question Sleep Score | MindSnap')
 @section('description', 'Free sleep quality quiz: 10 questions based on the Pittsburgh Sleep Quality Index (PSQI). Find out if you have poor sleep, insomnia, or a sleep disorder. Get your score and personalised improvement tips in 2 minutes.')
 @section('canonical', config('app.url') . '/sleep-quality-quiz')
 
@@ -208,6 +208,7 @@ $relatedTools = [
 <section class="ms-section-white">
   <div class="container-xl">
     <h2 class="text-center mb-2">Understanding Your Sleep Score</h2>
+<img src="{{ asset('images/sleep-quality-scale.svg') }}" alt="Sleep quality scale showing score ranges and what each level means for your health" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
     <p class="text-center text-muted mb-5 sq-intro">Based on the Pittsburgh Sleep Quality Index (PSQI) scoring framework.</p>
     <div class="row g-4 justify-content-center">
       @foreach([

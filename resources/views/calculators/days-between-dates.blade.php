@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Days Between Dates — Count Days, Weeks & Months Between Two Dates | MindSnap')
+@section('title', 'Days Between Dates — Count Days, Weeks & Months | MindSnap')
 @section('description', 'Free days between dates calculator: find the exact number of days, weeks, and months between any two dates. Includes business days count. No signup.')
 @section('canonical', config('app.url') . '/days-between-dates')
 
@@ -193,6 +193,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How to Count Days Between Two Dates</h2>
+<img src="{{ asset('images/days-between-visual.svg') }}" alt="Days between dates visual showing how calendar intervals are calculated" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>At its core, the calculation subtracts one date from another. In JavaScript (and most programming languages), dates are stored as milliseconds since January 1, 1970. The difference in milliseconds divided by 86,400,000 gives the number of days.</p>
         <p>Weeks are days ÷ 7. Months are more complex — they require counting full calendar months between the two dates and then the remaining days separately, since months have different lengths.</p>
         <p>Business days require checking each individual day in the range and excluding Saturdays and Sundays. For project planning purposes, you can treat this calculator's business day count as correct for countries where Mon–Fri are working days.</p>

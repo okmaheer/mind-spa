@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Health Calculators & Brain Quizzes for Everyone | MindSnap')
+@section('title', 'Free Health Calculators & Brain Quizzes | MindSnap')
 @section('description', 'MindSnap gives you free health tools, sleep calculators and brain quizzes — no signup, no fees, works on any device. Used by millions worldwide.')
 @section('canonical', config('app.url'))
 

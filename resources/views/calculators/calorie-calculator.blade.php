@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Calorie Calculator — Daily Calorie Needs (TDEE) for Weight Loss & Gain | MindSnap')
+@section('title', 'Calorie Calculator — Daily TDEE & Calorie Needs | MindSnap')
 @section('description', 'Free TDEE calorie calculator: find your total daily energy expenditure based on age, height, weight, sex, and activity level. Instant results. No signup.')
 @section('canonical', config('app.url') . '/calorie-calculator')
 
@@ -274,6 +274,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How the Harris-Benedict Equation Calculates Your BMR</h2>
+<img src="{{ asset('images/tdee-formula.svg') }}" alt="TDEE formula diagram showing BMR plus activity multipliers" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>Your Basal Metabolic Rate (BMR) is the number of calories your body burns at complete rest to sustain life — breathing, circulation, cell production, and temperature regulation. The Harris-Benedict equation, first published in 1919 and revised in 1984, estimates BMR from your sex, age, height, and weight:</p>
         <div class="p-3 mb-3 rounded-3 cal-formula-box">
           <strong>Male BMR</strong> = 88.362 + (13.397 × kg) + (4.799 × cm) − (5.677 × age)<br>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Animal Quiz for Kids — Habitats, Diets & Fun Facts | MindSnap')
+@section('title', 'Animal Quiz for Kids — Habitats & Fun Facts | MindSnap')
 @section('description', 'Free animal quiz for kids! Test knowledge of habitats, diets, baby names, and animal sounds. Fun facts after every answer. No ads, no signup required.')
 @section('canonical', config('app.url') . '/kids/animal-quiz')
 @section('og_image', config('app.url') . '/images/og-default.jpg')

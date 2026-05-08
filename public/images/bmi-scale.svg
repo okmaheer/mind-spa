@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 130" width="640" height="130" role="img" aria-label="BMI categories scale: Underweight below 18.5, Normal 18.5 to 24.9, Overweight 25 to 29.9, Obese 30 and above">
+  <defs>
+    <linearGradient id="bmiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#60a5fa"/>
+      <stop offset="27%"  stop-color="#4ade80"/>
+      <stop offset="55%"  stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#f87171"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="28" width="560" height="32" rx="8" fill="url(#bmiGrad)"/>
+  <!-- dividers -->
+  <line x1="191" y1="24" x2="191" y2="64" stroke="#1e293b" stroke-width="2"/>
+  <line x1="348" y1="24" x2="348" y2="64" stroke="#1e293b" stroke-width="2"/>
+  <line x1="460" y1="24" x2="460" y2="64" stroke="#1e293b" stroke-width="2"/>
+  <!-- zone labels -->
+  <text x="116"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1e293b">Underweight</text>
+  <text x="270"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1e293b">Normal</text>
+  <text x="404"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1e293b">Overweight</text>
+  <text x="550"  y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#fff">Obese</text>
+  <!-- value ticks -->
+  <text x="40"   y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">10</text>
+  <text x="191"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">18.5</text>
+  <text x="348"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">25</text>
+  <text x="460"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">30</text>
+  <text x="600"  y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#64748b">40+</text>
+  <!-- title -->
+  <text x="320" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">BMI Categories — World Health Organization</text>
+</svg>

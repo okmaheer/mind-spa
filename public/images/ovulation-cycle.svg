@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 115" width="640" height="115" role="img" aria-label="28-day menstrual cycle showing menstruation days 1-5, follicular phase days 1-13, ovulation day 14, luteal phase days 15-28">
+  <rect width="640" height="115" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="30" width="96"  height="38" rx="6 0 0 6" fill="#f87171"/>
+  <rect x="116" y="30" width="168" height="38" fill="#fde68a"/>
+  <rect x="284" y="30" width="64"  height="38" fill="#34d399"/>
+  <rect x="348" y="30" width="272" height="38" rx="0 6 6 0" fill="#818cf8"/>
+  <text x="68"  y="53" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Period</text>
+  <text x="68"  y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#fecaca">Days 1–5</text>
+  <text x="200" y="53" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#1e293b">Follicular</text>
+  <text x="200" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#92400e">Days 6–13</text>
+  <text x="316" y="50" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff">🥚 Ovul.</text>
+  <text x="316" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#d1fae5">Day 14</text>
+  <text x="484" y="53" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Luteal Phase</text>
+  <text x="484" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#e0e7ff">Days 15–28</text>
+  <!-- fertile window highlight -->
+  <rect x="244" y="26" width="144" height="6" rx="3" fill="#059669"/>
+  <text x="316" y="20" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#059669">↑ Peak Fertile Window</text>
+  <text x="320" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Cycle length varies 21–35 days · Ovulation shifts with cycle length · Track BBT for accuracy</text>
+</svg>

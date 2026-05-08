@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Sleep Calculators & Tools — Bedtime, Cycles & Sleep Schedule | MindSnap')
+@section('title', 'Free Sleep Calculators — Bedtime, Cycles & More | MindSnap')
 @section('description', 'Free sleep calculators: bedtime calculator, wake-up time, nap calculator, sleep debt tracker, jet lag recovery, caffeine cut-off time, baby sleep schedule, and sleep quality quiz. Based on 90-minute sleep cycles. No signup.')
 @section('canonical', config('app.url') . '/sleep-tools')
 

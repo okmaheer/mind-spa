@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'One Rep Max Calculator — Estimate Your 1RM for Any Lift | MindSnap')
+@section('title', 'One Rep Max Calculator — Estimate Your 1RM | MindSnap')
 @section('description', 'Free one rep max calculator: enter weight lifted and reps to estimate your 1RM using Epley, Brzycki, and Lander formulas. Works for bench press, squat, deadlift. No signup.')
 @section('canonical', config('app.url') . '/one-rep-max-calculator')
 
@@ -89,6 +89,23 @@ $relatedTools = [
 .orm-table-note         { font-size:.8rem; }
 .orm-formula-card       { background:#f8f9fa; border:1px solid #e0e0e0; }
 .orm-formula-val        { font-size:1.1rem; font-weight:700; color:var(--fitness); }
+.orm-lift-btn  { border:2px solid #dee2e6; color:#555; background:#fff; border-radius:20px; font-size:.8rem; padding:4px 12px; cursor:pointer; transition:all .15s; }
+.orm-lift-btn.orm-lift-active { border-color:var(--fitness); color:var(--fitness); background:#f0f4ff; font-weight:600; }
+.orm-saved-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f0f0f0; font-size:.87rem; }
+.orm-saved-row:last-child { border-bottom:none; }
+.orm-saved-lift { font-weight:600; color:var(--primary-dark); }
+.orm-saved-val  { color:var(--fitness); font-weight:700; }
+.orm-saved-date { font-size:.75rem; color:#aaa; }
+.orm-adv-toggle { font-size:.85rem; color:var(--fitness); text-decoration:none; }
+.orm-adv-toggle:hover { text-decoration:underline; }
+.orm-adv-toggle::after { content:' ▾'; }
+.orm-adv-toggle[aria-expanded="true"]::after { content:' ▲'; }
+.orm-level-badge { display:inline-block; padding:4px 14px; border-radius:20px; font-weight:700; font-size:.85rem; }
+.orm-level-untrained    { background:#f5f5f5; color:#666; }
+.orm-level-beginner     { background:#e3f2fd; color:#0277bd; }
+.orm-level-intermediate { background:#e8f5e9; color:#2e7d32; }
+.orm-level-advanced     { background:#fff8e1; color:#e65100; }
+.orm-level-elite        { background:#fce4ec; color:#c62828; }
 </style>
 @endsection
 
@@ -121,6 +138,17 @@ $relatedTools = [
             <div class="d-flex gap-2 mb-4" role="group" aria-label="Weight unit">
               <button class="btn flex-fill orm-unit-btn active" data-unit="kg">kg</button>
               <button class="btn flex-fill orm-unit-btn" data-unit="lbs">lbs</button>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Lift <small class="text-muted fw-normal">optional — saves to your tracker</small></label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="orm-lift-btn orm-lift-active" data-lift="Bench Press">Bench Press</button>
+                <button type="button" class="orm-lift-btn" data-lift="Squat">Squat</button>
+                <button type="button" class="orm-lift-btn" data-lift="Deadlift">Deadlift</button>
+                <button type="button" class="orm-lift-btn" data-lift="OHP">OHP</button>
+                <button type="button" class="orm-lift-btn" data-lift="Other">Other</button>
+              </div>
             </div>
 
             <div class="row g-3 mb-3">
@@ -185,6 +213,43 @@ $relatedTools = [
                   </table>
                 </div>
               </div>
+              {{-- Saved lifts panel --}}
+              <div id="ormSavedPanel" class="mt-4 d-none">
+                <div class="ms-divider mb-3"></div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <p class="fw-600 mb-0 text-sm">Your saved lifts</p>
+                  <button type="button" class="btn btn-link text-sm p-0 text-danger" onclick="clearSavedLifts()">Clear all</button>
+                </div>
+                <div id="ormSavedList"></div>
+              </div>
+
+              {{-- Advanced toggle --}}
+              <div class="text-center mt-3">
+                <button class="orm-adv-toggle btn btn-link p-0"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#ormAdvanced"
+                        aria-expanded="false">
+                  Compare to strength standards
+                </button>
+              </div>
+
+              {{-- Advanced: bodyweight strength standard --}}
+              <div class="collapse mt-3" id="ormAdvanced">
+                <div class="ms-divider mb-3"></div>
+                <p class="fw-600 mb-2 text-sm">Your strength level for this lift</p>
+                <div class="row g-2 mb-2">
+                  <div class="col-7">
+                    <label class="form-label text-sm mb-1">Your bodyweight <span id="ormBwUnit">(kg)</span></label>
+                    <input type="number" id="ormBodyweight" class="form-control form-control-sm" placeholder="e.g. 80" min="30" max="300" step="0.5">
+                  </div>
+                  <div class="col-5 d-flex align-items-end">
+                    <button class="btn btn-sm btn-outline-secondary w-100" onclick="compareStrengthStandard()">Compare</button>
+                  </div>
+                </div>
+                <div id="ormStrengthResult" class="mt-2 p-3 rounded-3 ms-note d-none"></div>
+              </div>
+
             </div>
             {{-- /Results --}}
 
@@ -224,6 +289,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-fitness mb-3">How It Works</span>
         <h2 class="mb-4">How 1RM Formulas Work: Epley, Brzycki, and Lander Compared</h2>
+        <img src="{{ asset('images/one-rep-max-percentages.svg') }}" alt="One rep max percentage chart: 95% for 1–2 reps max strength, 85–90% for 3–5 reps strength, 75–80% for 6–10 reps hypertrophy, 65–70% for endurance" width="640" height="170" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>One rep max formulas were developed by sports scientists to predict maximal strength from sub-maximal lifting. Instead of attempting a dangerous true 1RM every training session, you perform a heavy set at 3–10 reps and plug the weight and reps into a formula.</p>
         <p>The three most validated formulas are Epley (1985), Brzycki (1993), and Lander (1985). Each uses a slightly different mathematical model. Epley uses an additive factor; Brzycki uses a ratio; Lander was specifically validated against actual 1RM tests in a lab setting.</p>
         <p>All formulas become less accurate above 10 reps because fatigue and muscular endurance play larger roles. For the most reliable estimate, use a weight you can lift for 3–5 strict reps before failure.</p>
@@ -338,15 +404,26 @@ $relatedTools = [
 (function () {
 
   var currentUnit = 'kg';
+  var _chosen1RM  = 0;
 
+  // ── Lift selector ─────────────────────────────────────────────────────────
+  var _selectedLift = 'Bench Press';
+  document.querySelectorAll('.orm-lift-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.orm-lift-btn').forEach(function (b) { b.classList.remove('orm-lift-active'); });
+      this.classList.add('orm-lift-active');
+      _selectedLift = this.dataset.lift;
+    });
+  });
+
+  // ── Unit toggle ───────────────────────────────────────────────────────────
   document.querySelectorAll('.orm-unit-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      document.querySelectorAll('.orm-unit-btn').forEach(function (b) {
-        b.classList.remove('active');
-      });
+      document.querySelectorAll('.orm-unit-btn').forEach(function (b) { b.classList.remove('active'); });
       this.classList.add('active');
       currentUnit = this.dataset.unit;
       document.getElementById('ormUnitLabel').textContent = '(' + currentUnit + ')';
+      document.getElementById('ormBwUnit').textContent    = '(' + currentUnit + ')';
       document.getElementById('ormResults').classList.add('d-none');
     });
   });
@@ -356,9 +433,36 @@ $relatedTools = [
     document.getElementById('ormRepsWarning').classList.toggle('d-none', !(reps > 10));
   });
 
+  // ── localStorage: render saved lifts on load ──────────────────────────────
+  function renderSavedLifts() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('orm_lifts')) || {};
+      var keys  = Object.keys(saved);
+      if (keys.length === 0) { document.getElementById('ormSavedPanel').classList.add('d-none'); return; }
+      var html = '';
+      keys.forEach(function (lift) {
+        var entry = saved[lift];
+        html += '<div class="orm-saved-row">'
+          + '<span class="orm-saved-lift">' + lift + '</span>'
+          + '<span class="orm-saved-val">' + entry.val + ' ' + entry.unit + '</span>'
+          + '<span class="orm-saved-date">' + entry.date + '</span>'
+          + '</div>';
+      });
+      document.getElementById('ormSavedList').innerHTML = html;
+      document.getElementById('ormSavedPanel').classList.remove('d-none');
+    } catch (e) {}
+  }
+  renderSavedLifts();
+
+  window.clearSavedLifts = function () {
+    try { localStorage.removeItem('orm_lifts'); } catch (e) {}
+    document.getElementById('ormSavedPanel').classList.add('d-none');
+  };
+
+  // ── Main calculation ──────────────────────────────────────────────────────
   window.calculateORM = function () {
-    var weight = parseFloat(document.getElementById('ormWeight').value);
-    var reps   = parseInt(document.getElementById('ormReps').value);
+    var weight  = parseFloat(document.getElementById('ormWeight').value);
+    var reps    = parseInt(document.getElementById('ormReps').value);
     var formula = document.getElementById('ormFormula').value;
 
     if (!weight || weight <= 0 || !reps || reps < 1 || reps > 30) {
@@ -366,10 +470,7 @@ $relatedTools = [
       return;
     }
 
-    if (reps === 1) {
-      showResults(weight, weight, weight, weight, reps, formula);
-      return;
-    }
+    if (reps === 1) { showResults(weight, weight, weight, weight, reps, formula); return; }
 
     var epley   = weight * (1 + reps / 30);
     var brzycki = weight * 36 / (37 - reps);
@@ -381,25 +482,24 @@ $relatedTools = [
 
   function showResults(epley, brzycki, lander, average, reps, formula) {
     var chosen;
-    if (formula === 'epley')   chosen = epley;
+    if      (formula === 'epley')   chosen = epley;
     else if (formula === 'brzycki') chosen = brzycki;
-    else if (formula === 'lander') chosen = lander;
-    else chosen = average;
+    else if (formula === 'lander')  chosen = lander;
+    else                            chosen = average;
 
-    document.getElementById('ormPrimary').textContent = chosen.toFixed(1);
+    _chosen1RM = chosen;
+
+    document.getElementById('ormPrimary').textContent    = chosen.toFixed(1);
     document.getElementById('ormUnitDisplay').textContent = currentUnit + ' estimated 1RM';
 
     // Formula comparison
-    var breakdownHtml = '';
     var formulas = [
-      { name: 'Epley', val: epley },
-      { name: 'Brzycki', val: brzycki },
-      { name: 'Lander', val: lander },
-      { name: 'Average', val: average },
+      { name: 'Epley', val: epley }, { name: 'Brzycki', val: brzycki },
+      { name: 'Lander', val: lander }, { name: 'Average', val: average },
     ];
+    var breakdownHtml = '';
     formulas.forEach(function (f) {
-      breakdownHtml += '<div class="col-6 col-md-3">'
-        + '<div class="text-center p-2 rounded-2 orm-formula-card">'
+      breakdownHtml += '<div class="col-6 col-md-3"><div class="text-center p-2 rounded-2 orm-formula-card">'
         + '<div class="orm-formula-val">' + f.val.toFixed(1) + '</div>'
         + '<div class="ms-stat-label">' + f.name + '</div>'
         + '</div></div>';
@@ -413,20 +513,76 @@ $relatedTools = [
       { pct: 70, reps: '12–15', purpose: 'Hypertrophy (volume)' },
       { pct: 75, reps: '10–12', purpose: 'Hypertrophy' },
       { pct: 80, reps: '8–10', purpose: 'Hypertrophy / Strength' },
-      { pct: 85, reps: '5–6', purpose: 'Strength' },
-      { pct: 90, reps: '3–4', purpose: 'Near-max strength' },
-      { pct: 95, reps: '1–2', purpose: 'Peak / Competition prep' },
+      { pct: 85, reps: '5–6',  purpose: 'Strength' },
+      { pct: 90, reps: '3–4',  purpose: 'Near-max strength' },
+      { pct: 95, reps: '1–2',  purpose: 'Peak / Competition prep' },
     ];
     var tableHtml = '';
     percentData.forEach(function (row) {
-      var w = (chosen * row.pct / 100).toFixed(1);
-      tableHtml += '<tr><td>' + row.pct + '%</td><td><strong>' + w + ' ' + currentUnit + '</strong></td><td>' + row.reps + '</td><td>' + row.purpose + '</td></tr>';
+      tableHtml += '<tr><td>' + row.pct + '%</td><td><strong>' + (chosen * row.pct / 100).toFixed(1) + ' ' + currentUnit + '</strong></td><td>' + row.reps + '</td><td>' + row.purpose + '</td></tr>';
     });
     document.getElementById('ormPercentTable').innerHTML = tableHtml;
+
+    // ── Save to localStorage ──────────────────────────────────────────────
+    try {
+      var saved = JSON.parse(localStorage.getItem('orm_lifts')) || {};
+      var dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      saved[_selectedLift] = { val: chosen.toFixed(1), unit: currentUnit, date: dateStr };
+      localStorage.setItem('orm_lifts', JSON.stringify(saved));
+      renderSavedLifts();
+    } catch (e) {}
 
     document.getElementById('ormResults').classList.remove('d-none');
     document.getElementById('ormResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+
+  // ── Advanced: strength standard comparison ────────────────────────────────
+  window.compareStrengthStandard = function () {
+    var bw = parseFloat(document.getElementById('ormBodyweight').value);
+    if (!bw || bw < 30 || !_chosen1RM) { alert('Please enter your bodyweight and calculate your 1RM first.'); return; }
+    var ratio = _chosen1RM / bw;
+    // Bench press standards (male) — adjust by lift
+    var standards = {
+      'Bench Press': [
+        { level: 'Untrained',    max: 0.75, cls: 'orm-level-untrained' },
+        { level: 'Beginner',     max: 1.0,  cls: 'orm-level-beginner' },
+        { level: 'Intermediate', max: 1.5,  cls: 'orm-level-intermediate' },
+        { level: 'Advanced',     max: 1.75, cls: 'orm-level-advanced' },
+        { level: 'Elite',        max: 99,   cls: 'orm-level-elite' },
+      ],
+      'Squat': [
+        { level: 'Untrained',    max: 1.0,  cls: 'orm-level-untrained' },
+        { level: 'Beginner',     max: 1.25, cls: 'orm-level-beginner' },
+        { level: 'Intermediate', max: 2.0,  cls: 'orm-level-intermediate' },
+        { level: 'Advanced',     max: 2.5,  cls: 'orm-level-advanced' },
+        { level: 'Elite',        max: 99,   cls: 'orm-level-elite' },
+      ],
+      'Deadlift': [
+        { level: 'Untrained',    max: 1.0,  cls: 'orm-level-untrained' },
+        { level: 'Beginner',     max: 1.5,  cls: 'orm-level-beginner' },
+        { level: 'Intermediate', max: 2.0,  cls: 'orm-level-intermediate' },
+        { level: 'Advanced',     max: 2.5,  cls: 'orm-level-advanced' },
+        { level: 'Elite',        max: 99,   cls: 'orm-level-elite' },
+      ],
+      'OHP': [
+        { level: 'Untrained',    max: 0.5,  cls: 'orm-level-untrained' },
+        { level: 'Beginner',     max: 0.65, cls: 'orm-level-beginner' },
+        { level: 'Intermediate', max: 1.0,  cls: 'orm-level-intermediate' },
+        { level: 'Advanced',     max: 1.25, cls: 'orm-level-advanced' },
+        { level: 'Elite',        max: 99,   cls: 'orm-level-elite' },
+      ],
+    };
+    var liftStandards = standards[_selectedLift] || standards['Bench Press'];
+    var levelData = liftStandards[liftStandards.length - 1];
+    for (var i = 0; i < liftStandards.length; i++) {
+      if (ratio < liftStandards[i].max) { levelData = liftStandards[i]; break; }
+    }
+    var resultEl = document.getElementById('ormStrengthResult');
+    resultEl.innerHTML = _selectedLift + ' ratio: <strong>' + ratio.toFixed(2) + '× bodyweight</strong> — '
+      + '<span class="orm-level-badge ' + levelData.cls + '">' + levelData.level + '</span>';
+    resultEl.className = 'mt-2 p-3 rounded-3 ms-note';
+    resultEl.classList.remove('d-none');
+  };
 
 })();
 </script>

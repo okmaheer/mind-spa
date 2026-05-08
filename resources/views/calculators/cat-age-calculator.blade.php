@@ -190,6 +190,7 @@ $relatedTools = [
       <div class="col-lg-6">
         <span class="ms-badge ms-badge-pets mb-3">The Science</span>
         <h2 class="mb-4">How the AAFP Cat Age Formula Works</h2>
+<img src="{{ asset('images/cat-age-chart.svg') }}" alt="Cat age chart showing how cat years compare to human years across a cat's lifespan" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The American Association of Feline Practitioners (AAFP) overhauled cat life stage guidelines after decades of research revealed that feline aging is far more complex than any simple multiplier can capture.</p>
         <p>The key insight is that cats age <strong>non-linearly</strong>. In their first year of life, cats undergo the most dramatic developmental changes of any period — equivalent to a human child going from birth to 15 years old. By the end of year two, they've added another 9 human years, reaching a human-equivalent age of 24.</p>
         <p>From year three onward, the pace slows significantly. Each cat year adds approximately <strong>4 human years</strong> in the Prime stage (years 3–6), then settling to <strong>3 human years per cat year</strong> in the Mature, Senior, and Geriatric stages (years 7+). This non-linear model reflects the biological reality: the most rapid physical and neurological change happens early, while mid-to-late life proceeds more gradually.</p>

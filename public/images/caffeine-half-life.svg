@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 190" width="640" height="190" role="img" aria-label="Caffeine half-life curve showing caffeine levels dropping from 200mg over 12 hours with 5-hour half-life">
+  <rect width="640" height="190" fill="#0f172a" rx="12"/>
+  <line x1="60" y1="20" x2="60"  y2="150" stroke="#334155" stroke-width="1.5"/>
+  <line x1="60" y1="150" x2="620" y2="150" stroke="#334155" stroke-width="1.5"/>
+  <!-- Y labels -->
+  <text x="54" y="28"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">200mg</text>
+  <text x="54" y="78"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">100mg</text>
+  <text x="54" y="116" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">50mg</text>
+  <text x="54" y="137" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">25mg</text>
+  <!-- horizontal guides -->
+  <line x1="60" y1="78"  x2="620" y2="78"  stroke="#1e3a5f" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="60" y1="116" x2="620" y2="116" stroke="#1e3a5f" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- X labels (hours) -->
+  <text x="60"  y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">0h</text>
+  <text x="153" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#f59e0b">5h ½</text>
+  <text x="247" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#f59e0b">10h ½</text>
+  <text x="340" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">15h</text>
+  <text x="620" y="165" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">24h</text>
+  <!-- half-life markers -->
+  <line x1="153" y1="78"  x2="153" y2="150" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="247" y1="116" x2="247" y2="150" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- decay curve path -->
+  <path d="M60,24 C100,26 130,55 153,78 C176,101 200,110 247,116 C294,122 330,130 380,136 C430,140 530,145 620,148"
+    fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- sleep zone -->
+  <rect x="500" y="20" width="120" height="130" rx="4" fill="#1e3a5f" opacity="0.5"/>
+  <text x="560" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#93c5fd">😴 Sleep</text>
+  <text x="560" y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#93c5fd">Zone</text>
+  <text x="320" y="180" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Caffeine half-life ≈ 5 hours — a 3pm coffee still has 50mg active at 8pm</text>
+</svg>

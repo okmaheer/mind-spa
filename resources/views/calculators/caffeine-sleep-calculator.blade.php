@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Caffeine & Sleep Calculator — Last Safe Time to Drink Coffee | MindSnap')
+@section('title', 'Caffeine & Sleep Calculator — Safe Cutoff Time | MindSnap')
 @section('description', 'Free caffeine and sleep calculator: find the last safe time to drink coffee, tea, or energy drinks before bed. Based on your bedtime, caffeine sensitivity, and metabolism speed. See exactly how caffeine disrupts deep sleep.')
 @section('canonical', config('app.url') . '/caffeine-sleep-calculator')
 
@@ -197,6 +197,7 @@ $relatedTools = [
     <div class="row align-items-start g-5">
       <div class="col-lg-6">
         <h2 class="mb-4">Caffeine Content by Drink</h2>
+<img src="{{ asset('images/caffeine-half-life.svg') }}" alt="Caffeine half-life chart showing how caffeine clears from your system over time" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <div class="table-responsive">
           <table class="table caf-drink-table">
             <thead class="table-light">

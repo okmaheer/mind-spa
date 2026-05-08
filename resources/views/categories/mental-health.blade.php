@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Free Mental Health Tests & Quizzes — Anxiety, Depression & More | MindSnap')
+@section('title', 'Free Mental Health Tests — Anxiety & Depression | MindSnap')
 @section('description', 'Free clinically-based mental health screening tools — GAD-7 anxiety test, PHQ-9 depression screening, and attachment style quiz. Not a substitute for professional care.')
 @section('canonical', config('app.url') . '/mental-health-tools')
 

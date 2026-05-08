@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Days Until Calculator — Countdown to Any Event or Date | MindSnap')
+@section('title', 'Days Until Calculator — Countdown to Any Event | MindSnap')
 @section('description', 'Free days until calculator: find how many days until any event, holiday, birthday, or custom date. Includes countdown in weeks, hours, and minutes. No signup.')
 @section('canonical', config('app.url') . '/days-until-calculator')
 
@@ -194,6 +194,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Date Countdown Calculators Work</h2>
+<img src="{{ asset('images/countdown-visual.svg') }}" alt="Countdown visual showing days remaining until an upcoming event or deadline" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The calculator takes the target date (at midnight) and subtracts the current date and time. The result in milliseconds is converted to days, weeks, and hours.</p>
         <p>For recurring annual events like Christmas and New Year, the calculator automatically finds the next occurrence — so if Christmas has passed this year, it shows the count to next December 25.</p>
         <p>Easter is a moveable feast calculated using the Computus algorithm — a formula combining lunar and solar calendars. The calculator computes the correct Easter date for the current or next year automatically.</p>

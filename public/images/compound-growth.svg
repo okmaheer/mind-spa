@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="640" height="180" role="img" aria-label="Compound interest growth chart showing how 500 dollars per month grows to different amounts at 5 percent and 8 percent returns over 30 years">
+  <rect width="640" height="180" fill="#0f172a" rx="12"/>
+  <line x1="60" y1="20"  x2="60"  y2="140" stroke="#334155" stroke-width="1.5"/>
+  <line x1="60" y1="140" x2="610" y2="140" stroke="#334155" stroke-width="1.5"/>
+  <text x="54" y="24"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">$600k</text>
+  <text x="54" y="62"  text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">$400k</text>
+  <text x="54" y="100" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">$200k</text>
+  <text x="54" y="140" text-anchor="end" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">$0</text>
+  <line x1="60" y1="62"  x2="610" y2="62"  stroke="#1e3a5f" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="60" y1="100" x2="610" y2="100" stroke="#1e3a5f" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- X labels -->
+  <text x="60"  y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">0</text>
+  <text x="245" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">10 yr</text>
+  <text x="430" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">20 yr</text>
+  <text x="610" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">30 yr</text>
+  <!-- 8% curve (higher) -->
+  <path d="M60,140 C150,138 245,125 340,100 C435,75 520,50 610,24"
+    fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 5% curve (lower) -->
+  <path d="M60,140 C150,138 245,130 340,112 C435,94 520,76 610,55"
+    fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- labels -->
+  <text x="615" y="22" font-family="Inter,sans-serif" font-size="11" fill="#34d399">8% → $680k</text>
+  <text x="615" y="53" font-family="Inter,sans-serif" font-size="11" fill="#60a5fa">5% → $415k</text>
+  <text x="320" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">$500/month invested · 2% difference in return = $265k more after 30 years</text>
+</svg>

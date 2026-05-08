@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Retirement Calculator — How Much Do You Need to Retire? | MindSnap')
+@section('title', 'Retirement Calculator — How Much to Save? | MindSnap')
 @section('description', 'Free retirement calculator: enter your age, savings, and monthly contribution to see when you can retire and how much you need. Includes inflation adjustment. No signup.')
 @section('canonical', config('app.url') . '/retirement-calculator')
 
@@ -242,6 +242,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How the 4% Rule Works: Making Your Money Last in Retirement</h2>
+<img src="{{ asset('images/compound-growth.svg') }}" alt="Compound growth chart showing retirement savings growth over 10, 20, and 30 years" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The <strong>4% rule</strong>, originating from the 1994 Trinity Study, states that you can withdraw 4% of your retirement portfolio in year one, and adjust that amount for inflation each subsequent year, with a high probability your money will last 30+ years.</p>
         <div class="p-3 mb-3 rounded-3 ret-formula-box">
           FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r

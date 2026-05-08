@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Due Date Calculator — Pregnancy Due Date by LMP or Conception | MindSnap')
+@section('title', 'Due Date Calculator — Pregnancy Due Date by LMP | MindSnap')
 @section('description', 'Free pregnancy due date calculator: enter your last period or conception date to get your estimated due date, trimester dates, and week-by-week timeline. No signup.')
 @section('canonical', config('app.url') . '/due-date-calculator')
 
@@ -237,6 +237,7 @@ $relatedTools = [
       <div class="col-lg-5">
         <span class="ms-badge ms-badge-life mb-3">How It Works</span>
         <h2 class="mb-4">How Your Due Date Is Calculated: Naegele's Rule Explained</h2>
+<img src="{{ asset('images/pregnancy-timeline.svg') }}" alt="Pregnancy timeline showing trimesters and key milestones from conception to birth" width="640" height="160" loading="lazy" class="img-fluid rounded-3 mb-4">
         <p>The most widely used method for calculating a due date is <strong>Naegele's rule</strong>, developed by German obstetrician Franz Karl Naegele in 1812. The formula adds <strong>280 days (40 weeks)</strong> to the first day of your last menstrual period.</p>
         <div class="p-3 mb-3 rounded-3 dd-formula-box">
           Due Date = LMP + 280 days + (cycle − 28) days

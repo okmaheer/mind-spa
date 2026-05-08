@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 170" width="640" height="170" role="img" aria-label="Body fat percentage zones for men and women: essential fat, athletes, fitness, acceptable, obese">
+  <rect width="640" height="170" fill="#f8fafc" rx="12"/>
+  <!-- Men row -->
+  <text x="40" y="50" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#3b82f6">Men</text>
+  <rect x="100" y="34" width="44"  height="26" rx="3" fill="#f472b6"/>
+  <rect x="144" y="34" width="66"  height="26" rx="0" fill="#4ade80"/>
+  <rect x="210" y="34" width="88"  height="26" rx="0" fill="#86efac"/>
+  <rect x="298" y="34" width="110" height="26" rx="0" fill="#facc15"/>
+  <rect x="408" y="34" width="132" height="26" rx="0 3 3 0" fill="#f87171"/>
+  <text x="122"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">2–5%</text>
+  <text x="177"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">6–13%</text>
+  <text x="254"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">14–17%</text>
+  <text x="353"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">18–24%</text>
+  <text x="474"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#fff">25%+</text>
+  <!-- Women row -->
+  <text x="40" y="100" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#ec4899">Women</text>
+  <rect x="100" y="84" width="44"  height="26" rx="3" fill="#f472b6"/>
+  <rect x="144" y="84" width="66"  height="26" rx="0" fill="#4ade80"/>
+  <rect x="210" y="84" width="88"  height="26" rx="0" fill="#86efac"/>
+  <rect x="298" y="84" width="110" height="26" rx="0" fill="#facc15"/>
+  <rect x="408" y="84" width="132" height="26" rx="0 3 3 0" fill="#f87171"/>
+  <text x="122"  y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">10–13%</text>
+  <text x="177"  y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">14–20%</text>
+  <text x="254"  y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">21–24%</text>
+  <text x="353"  y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#1e293b">25–31%</text>
+  <text x="474"  y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="9"  fill="#fff">32%+</text>
+  <!-- legend -->
+  <rect x="100" y="128" width="12" height="12" rx="2" fill="#f472b6"/>
+  <text x="116" y="139" font-family="Inter,sans-serif" font-size="11" fill="#64748b">Essential</text>
+  <rect x="185" y="128" width="12" height="12" rx="2" fill="#4ade80"/>
+  <text x="201" y="139" font-family="Inter,sans-serif" font-size="11" fill="#64748b">Athletes</text>
+  <rect x="268" y="128" width="12" height="12" rx="2" fill="#86efac"/>
+  <text x="284" y="139" font-family="Inter,sans-serif" font-size="11" fill="#64748b">Fitness</text>
+  <rect x="345" y="128" width="12" height="12" rx="2" fill="#facc15"/>
+  <text x="361" y="139" font-family="Inter,sans-serif" font-size="11" fill="#64748b">Acceptable</text>
+  <rect x="448" y="128" width="12" height="12" rx="2" fill="#f87171"/>
+  <text x="464" y="139" font-family="Inter,sans-serif" font-size="11" fill="#64748b">Obese</text>
+</svg>

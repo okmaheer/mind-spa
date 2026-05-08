@@ -154,6 +154,23 @@ $relatedTools = [
 .rst-tip-icon             { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
 .rst-tip-title            { font-weight: 700; color: var(--primary-dark); font-size: .95rem; }
 .rst-tip-desc             { font-size: .88rem; color: var(--text-muted); line-height: 1.65; margin-top: 3px; }
+
+/* ── Comprehension quiz ── */
+.rst-quiz-q               { font-weight: 600; font-size: .9rem; margin-bottom: 8px; }
+.rst-quiz-opt             { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 6px; cursor: pointer; font-size: .88rem; transition: background .15s, border-color .15s; }
+.rst-quiz-opt:hover       { background: #f0f7ff; border-color: #90c8f0; }
+.rst-quiz-opt-selected    { background: #e3f2fd; border-color: #2196f3; }
+.rst-quiz-opt-correct     { background: #e8f5e9; border-color: #28a745; color: #155724; }
+.rst-quiz-opt-wrong       { background: #ffecec; border-color: #dc3545; color: #b91c1c; text-decoration: line-through; }
+.rst-comp-box             { border-radius: 10px; padding: 12px 16px; font-size: .85rem; }
+.rst-comp-ok              { background: #e8f5e9; color: #155724; }
+.rst-comp-warn            { background: #fff3cd; color: #664d03; }
+.rst-adv-toggle           { font-size: .85rem; font-weight: 600; color: var(--study); cursor: pointer; border: none; background: none; padding: 4px 0; margin-top: 8px; }
+.rst-adv-toggle::after    { content: '  ▾'; }
+.rst-adv-toggle[aria-expanded="true"]::after { content: '  ▲'; }
+.rst-hist-item            { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: .85rem; }
+.rst-hist-item:last-child { border-bottom: none; }
+.rst-hist-wpm             { font-weight: 800; color: var(--primary-dark); min-width: 60px; }
 </style>
 @endsection
 
@@ -200,6 +217,14 @@ $relatedTools = [
                 <div class="rst-timer-badge" id="rstTimerBadge">0:00</div>
               </div>
               <div class="rst-passage-text" id="rstPassageText"></div>
+            </div>
+
+            {{-- Comprehension quiz (shown after reading, before result) --}}
+            <div class="d-none" id="rstQuizWrap">
+              <div class="ms-divider mb-3"></div>
+              <p class="fw-semibold mb-3 text-brand">Quick check — 3 questions about what you just read:</p>
+              <div id="rstQuizQuestions"></div>
+              <button class="btn btn-cta w-100 mt-3" onclick="rstSubmitQuiz()">Check Answers →</button>
             </div>
 
             {{-- Result section (hidden until done) --}}
@@ -249,8 +274,21 @@ $relatedTools = [
                 </div>
               </div>
 
-              <div class="text-center">
+              <div id="rstCompBox" class="rst-comp-box rst-comp-ok mb-3 d-none"></div>
+
+              <div class="text-center mb-2">
                 <button class="rst-btn-again" onclick="rstReset()">Test Again</button>
+              </div>
+
+              <div class="text-center">
+                <button class="rst-adv-toggle" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#rstHistory" aria-expanded="false"
+                        aria-controls="rstHistory">
+                  Show WPM history
+                </button>
+                <div class="collapse mt-2 text-start" id="rstHistory">
+                  <div id="rstHistList"></div>
+                </div>
               </div>
             </div>
 
@@ -292,6 +330,7 @@ $relatedTools = [
   <div class="container-xl">
     <div class="text-center mb-5">
       <h2>What Is a Good Reading Speed?</h2>
+<img src="{{ asset('images/reading-speed-scale.svg') }}" alt="Reading speed scale showing average WPM ranges from slow reader to speed reader" width="640" height="130" loading="lazy" class="img-fluid rounded-3 mb-4">
       <p class="text-muted ms-intro-text">Reading speed varies widely by age, education, and practice. Here is how different WPM ranges compare.</p>
     </div>
     <div class="row justify-content-center">
@@ -444,11 +483,42 @@ $relatedTools = [
     return p.text.trim().split(/\s+/).length;
   });
 
+  var QUIZZES = [
+    [
+      { q: 'By what percentage did sleep deprivation reduce the brain\'s ability to form new memories?',
+        opts: ['20%', '40%', '60%', '80%'], correct: 1 },
+      { q: 'Which brain region showed dramatically reduced activity in sleep-deprived participants?',
+        opts: ['Amygdala', 'Prefrontal cortex', 'Hippocampus', 'Cerebellum'], correct: 2 },
+      { q: 'Which sleep stage is specifically linked to forming novel associations and creative thinking?',
+        opts: ['Deep sleep (N3)', 'REM sleep', 'Light sleep (N1)', 'NREM stage 2'], correct: 1 },
+    ],
+    [
+      { q: 'What were the first two letters accidentally transmitted over ARPANET?',
+        opts: ['lo', 'hi', 'he', 'la'], correct: 0 },
+      { q: 'Who invented the World Wide Web?',
+        opts: ['Vint Cerf', 'Steve Jobs', 'Tim Berners-Lee', 'Bill Gates'], correct: 2 },
+      { q: 'At which institution did Tim Berners-Lee work when he proposed the web?',
+        opts: ['MIT', 'Stanford', 'DARPA', 'CERN'], correct: 3 },
+    ],
+    [
+      { q: 'What is the body\'s preferred source of immediate energy?',
+        opts: ['Protein', 'Fat', 'Carbohydrates', 'Fibre'], correct: 2 },
+      { q: 'How many essential amino acids cannot be produced by the body?',
+        opts: ['5', '7', '9', '12'], correct: 2 },
+      { q: 'Which fat-soluble vitamins do dietary fats help transport?',
+        opts: ['B and C', 'A, D, E, and K', 'D and E only', 'C and K'], correct: 1 },
+    ],
+  ];
+
   var rstState = {
     passageIdx: 0,
     startTime: null,
     timerInterval: null,
     running: false,
+    pendingWpm: null,
+    pendingElapsed: null,
+    selectedAnswers: [null, null, null],
+    quizSubmitted: false,
   };
 
   function wpmToPercentile(wpm) {
@@ -515,22 +585,7 @@ $relatedTools = [
     }, 1000);
   };
 
-  window.rstFinish = function () {
-    if (!rstState.running) return;
-    clearInterval(rstState.timerInterval);
-    rstState.running = false;
-
-    var elapsedMs = Date.now() - rstState.startTime;
-    var elapsedSec = Math.max(1, Math.round(elapsedMs / 1000));
-    var words = WORD_COUNTS[rstState.passageIdx];
-    var wpm = Math.round((words / elapsedSec) * 60);
-
-    document.getElementById('rstPassageWrap').classList.add('d-none');
-    document.getElementById('rstBtnDone').classList.add('d-none');
-    document.getElementById('rstBtnStart').classList.remove('d-none');
-    document.getElementById('rstBtnStart').textContent = 'Read Another Passage';
-    document.getElementById('rstBtnStart').onclick = rstReset;
-
+  function showResult(wpm, elapsedSec, compScore) {
     var pct = wpmToPercentile(wpm);
     var cat = wpmCategory(wpm);
     var bookHours = ((90000 / wpm) / 60).toFixed(1);
@@ -545,23 +600,150 @@ $relatedTools = [
     var badgeWrap = document.getElementById('rstCatBadgeWrap');
     badgeWrap.innerHTML = '<span class="rst-cat-badge ' + cat.cls + '">' + cat.label + '</span>';
 
+    var compBox = document.getElementById('rstCompBox');
+    if (compScore !== null) {
+      var compPct = Math.round((compScore / 3) * 100);
+      if (compScore >= 2) {
+        compBox.className = 'rst-comp-box rst-comp-ok mb-3';
+        compBox.innerHTML = '✅ <strong>Comprehension: ' + compScore + '/3 (' + compPct + '%)</strong> — Great retention at this speed.';
+      } else {
+        var effWpm = Math.round(wpm * (compScore / 3));
+        compBox.className = 'rst-comp-box rst-comp-warn mb-3';
+        compBox.innerHTML = '⚠️ <strong>Comprehension: ' + compScore + '/3 (' + compPct + '%)</strong> — Try reading a bit slower. Effective reading speed: ~' + effWpm + ' WPM.';
+      }
+      compBox.classList.remove('d-none');
+    } else {
+      compBox.classList.add('d-none');
+    }
+
     var bar = document.getElementById('rstPctBar');
     setTimeout(function () { bar.style.width = pct + '%'; }, 100);
+
+    // Save to history
+    try {
+      var hist = JSON.parse(localStorage.getItem('rst_hist') || '[]');
+      hist.unshift({
+        date: new Date().toLocaleDateString(),
+        wpm: wpm,
+        passage: rstState.passageIdx + 1,
+        comp: compScore !== null ? compScore + '/3' : '—'
+      });
+      if (hist.length > 5) hist = hist.slice(0, 5);
+      localStorage.setItem('rst_hist', JSON.stringify(hist));
+      renderHistory(hist);
+    } catch (e) {}
 
     document.getElementById('rstResult').classList.remove('d-none');
     document.getElementById('rstPassageLabel').textContent = 'Choose a passage:';
     for (var i = 0; i < 3; i++) {
       document.getElementById('rstPBtn' + i).disabled = false;
     }
+    document.getElementById('rstResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function renderHistory(hist) {
+    if (!hist || !hist.length) { document.getElementById('rstHistList').innerHTML = '<p class="text-muted text-sm">No previous tests yet.</p>'; return; }
+    var html = '';
+    hist.forEach(function (h) {
+      var cat = wpmCategory(h.wpm);
+      html += '<div class="rst-hist-item">'
+        + '<span class="rst-hist-wpm">' + h.wpm + ' WPM</span>'
+        + '<span class="rst-cat-badge ' + cat.cls + '" style="font-size:.7rem;padding:2px 8px">' + cat.label + '</span>'
+        + '<span class="text-muted">P' + h.passage + ' · ' + h.comp + ' comp · ' + h.date + '</span>'
+        + '</div>';
+    });
+    document.getElementById('rstHistList').innerHTML = html;
+  }
+
+  // Load history on page load
+  try {
+    var initHist = JSON.parse(localStorage.getItem('rst_hist') || '[]');
+    if (initHist.length) renderHistory(initHist);
+  } catch (e) {}
+
+  window.rstSelectAnswer = function (qIdx, optIdx) {
+    if (rstState.quizSubmitted) return;
+    rstState.selectedAnswers[qIdx] = optIdx;
+    var allOpts = document.querySelectorAll('[data-q="' + qIdx + '"] .rst-quiz-opt');
+    allOpts.forEach(function (el) { el.classList.remove('rst-quiz-opt-selected'); });
+    var selected = document.querySelector('[data-q="' + qIdx + '"][data-opt="' + optIdx + '"] .rst-quiz-opt');
+    if (selected) selected.classList.add('rst-quiz-opt-selected');
+  };
+
+  window.rstSubmitQuiz = function () {
+    var quiz = QUIZZES[rstState.passageIdx];
+    var score = 0;
+    rstState.quizSubmitted = true;
+    quiz.forEach(function (q, qi) {
+      var selected = rstState.selectedAnswers[qi];
+      for (var oi = 0; oi < q.opts.length; oi++) {
+        var el = document.querySelector('[data-q="' + qi + '"][data-opt="' + oi + '"] .rst-quiz-opt');
+        if (!el) continue;
+        if (oi === q.correct) {
+          el.classList.add('rst-quiz-opt-correct');
+        } else if (oi === selected && selected !== q.correct) {
+          el.classList.add('rst-quiz-opt-wrong');
+        }
+      }
+      if (selected === q.correct) score++;
+    });
+    document.querySelector('#rstQuizWrap .btn-cta').textContent = 'See Results →';
+    document.querySelector('#rstQuizWrap .btn-cta').onclick = function () {
+      document.getElementById('rstQuizWrap').classList.add('d-none');
+      document.getElementById('rstBtnStart').classList.remove('d-none');
+      document.getElementById('rstBtnStart').textContent = 'Read Another Passage';
+      document.getElementById('rstBtnStart').onclick = rstReset;
+      showResult(rstState.pendingWpm, rstState.pendingElapsed, score);
+    };
+  };
+
+  window.rstFinish = function () {
+    if (!rstState.running) return;
+    clearInterval(rstState.timerInterval);
+    rstState.running = false;
+
+    var elapsedMs = Date.now() - rstState.startTime;
+    var elapsedSec = Math.max(1, Math.round(elapsedMs / 1000));
+    var words = WORD_COUNTS[rstState.passageIdx];
+    var wpm = Math.round((words / elapsedSec) * 60);
+
+    rstState.pendingWpm = wpm;
+    rstState.pendingElapsed = elapsedSec;
+    rstState.selectedAnswers = [null, null, null];
+    rstState.quizSubmitted = false;
+
+    document.getElementById('rstPassageWrap').classList.add('d-none');
+    document.getElementById('rstBtnDone').classList.add('d-none');
+
+    // Show comprehension quiz
+    var quiz = QUIZZES[rstState.passageIdx];
+    var html = '';
+    quiz.forEach(function (q, qi) {
+      html += '<div class="mb-4">'
+        + '<div class="rst-quiz-q">' + (qi + 1) + '. ' + q.q + '</div>';
+      q.opts.forEach(function (opt, oi) {
+        html += '<div data-q="' + qi + '" data-opt="' + oi + '" onclick="rstSelectAnswer(' + qi + ',' + oi + ')">'
+          + '<div class="rst-quiz-opt">' + opt + '</div>'
+          + '</div>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('rstQuizQuestions').innerHTML = html;
+    document.getElementById('rstQuizWrap').classList.remove('d-none');
+    document.getElementById('rstQuizWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
   window.rstReset = function () {
     clearInterval(rstState.timerInterval);
     rstState.running = false;
     rstState.startTime = null;
+    rstState.pendingWpm = null;
+    rstState.selectedAnswers = [null, null, null];
+    rstState.quizSubmitted = false;
 
     document.getElementById('rstInstruction').classList.remove('d-none');
     document.getElementById('rstPassageWrap').classList.add('d-none');
+    document.getElementById('rstQuizWrap').classList.add('d-none');
     document.getElementById('rstResult').classList.add('d-none');
     document.getElementById('rstBtnDone').classList.add('d-none');
     document.getElementById('rstBtnStart').classList.remove('d-none');
@@ -572,6 +754,11 @@ $relatedTools = [
     for (var i = 0; i < 3; i++) {
       document.getElementById('rstPBtn' + i).disabled = false;
     }
+    // Reload history in case it was updated
+    try {
+      var h = JSON.parse(localStorage.getItem('rst_hist') || '[]');
+      renderHistory(h);
+    } catch (e) {}
   };
 })();
 </script>

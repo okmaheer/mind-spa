@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 130" width="640" height="130" role="img" aria-label="16:8 intermittent fasting window: 16 hours fasting from 8pm to 12pm, 8 hours eating from 12pm to 8pm">
+  <rect width="640" height="130" fill="#f8fafc" rx="12"/>
+  <!-- fasting block -->
+  <rect x="20"  y="36" width="373" height="44" rx="6 0 0 6" fill="#6366f1"/>
+  <text x="207" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">⏱ Fasting — 16 hours</text>
+  <text x="207" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">8:00 PM → 12:00 PM next day</text>
+  <!-- eating block -->
+  <rect x="393" y="36" width="227" height="44" rx="0 6 6 0" fill="#34d399"/>
+  <text x="507" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#fff">🍽 Eating — 8 hrs</text>
+  <text x="507" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#d1fae5">12:00 PM → 8:00 PM</text>
+  <!-- time markers -->
+  <text x="20"  y="98" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8">8pm</text>
+  <text x="120" y="98" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">12am</text>
+  <text x="220" y="98" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">4am</text>
+  <text x="393" y="98" font-family="Inter,sans-serif" font-size="10" fill="#6366f1" text-anchor="middle">12pm ← break fast</text>
+  <text x="620" y="98" font-family="Inter,sans-serif" font-size="10" fill="#94a3b8" text-anchor="end">8pm</text>
+  <text x="320" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Other windows: 18:6, 20:4, OMAD (23:1) — adjust eating window to fit your schedule</text>
+</svg>

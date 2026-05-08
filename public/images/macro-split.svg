@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-label="Standard macro split: 30% protein, 40% carbohydrates, 30% fat">
+  <rect width="640" height="200" fill="#f8fafc" rx="12"/>
+  <!-- stacked horizontal bar -->
+  <rect x="40"  y="70" width="192" height="48" rx="6 0 0 6" fill="#6366f1"/>
+  <rect x="232" y="70" width="256" height="48" fill="#34d399"/>
+  <rect x="488" y="70" width="112" height="48" rx="0 6 6 0" fill="#fb923c"/>
+  <!-- percentages inside bars -->
+  <text x="136" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#fff">30%</text>
+  <text x="360" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#fff">40%</text>
+  <text x="544" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#fff">30%</text>
+  <!-- labels below -->
+  <text x="136" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#6366f1">Protein</text>
+  <text x="360" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#059669">Carbohydrates</text>
+  <text x="544" y="140" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#ea580c">Fat</text>
+  <!-- kcal notes -->
+  <text x="136" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">4 kcal/g</text>
+  <text x="360" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">4 kcal/g</text>
+  <text x="544" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">9 kcal/g</text>
+  <text x="320" y="30" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1e293b">Balanced Macro Split — Adjust Based on Your Goal</text>
+  <text x="320" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Muscle gain: higher protein (35–40%) · Fat loss: moderate deficit · Endurance: higher carbs</text>
+</svg>

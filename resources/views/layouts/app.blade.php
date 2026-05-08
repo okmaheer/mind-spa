@@ -15,17 +15,24 @@
   <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
 
   {{-- Open Graph --}}
-  <meta property="og:title"       content="@yield('title')">
-  <meta property="og:description" content="@yield('description')">
+  <meta property="og:title"       content="@yield('title', 'Free Health Calculators & Brain Quizzes for Everyone | MindSnap')">
+  <meta property="og:description" content="@yield('description', 'MindSnap — free health tools, sleep calculators and brain quizzes for all ages. No signup. Works worldwide.')">
   <meta property="og:url"         content="@yield('canonical', config('app.url'))">
   <meta property="og:image"       content="@yield('og_image', asset('images/og-default.jpg'))">
-  <meta property="og:type"        content="website">
+  <meta property="og:type"        content="@yield('og_type', 'website')">
   <meta property="og:site_name"   content="MindSnap">
   <meta name="twitter:card"       content="summary_large_image">
   <meta name="twitter:site"       content="@MindSnapCo">
+  <meta name="twitter:title"      content="@yield('title', 'Free Health Calculators & Brain Quizzes for Everyone | MindSnap')">
+  <meta name="twitter:description" content="@yield('description', 'MindSnap — free health tools, sleep calculators and brain quizzes for all ages. No signup. Works worldwide.')">
+  <meta name="twitter:image"      content="@yield('og_image', asset('images/og-default.jpg'))">
 
-  {{-- Robots --}}
-  <meta name="robots" content="@yield('robots', 'index, follow')">
+  {{-- Robots: always noindex on non-production; production respects per-page override --}}
+  @production
+    <meta name="robots" content="@yield('robots', 'index, follow')">
+  @else
+    <meta name="robots" content="noindex, nofollow">
+  @endproduction
 
   {{-- Preconnect to all CDN origins early --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">

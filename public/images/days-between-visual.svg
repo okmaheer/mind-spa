@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 110" width="640" height="110" role="img" aria-label="Days between dates visual showing start date, elapsed days, weeks, months, and end date">
+  <rect width="640" height="110" fill="#f8fafc" rx="12"/>
+  <rect x="20"  y="28" width="120" height="54" rx="8" fill="#6366f1"/>
+  <text x="80"  y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">Start Date</text>
+  <text x="80"  y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">📅 Jan 1</text>
+  <!-- arrow with segments -->
+  <line x1="140" y1="55" x2="500" y2="55" stroke="#e2e8f0" stroke-width="3"/>
+  <rect x="155" y="44" width="70" height="22" rx="4" fill="#fde68a"/>
+  <text x="190" y="59" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e293b">X days</text>
+  <rect x="240" y="44" width="70" height="22" rx="4" fill="#bbf7d0"/>
+  <text x="275" y="59" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e293b">X weeks</text>
+  <rect x="325" y="44" width="80" height="22" rx="4" fill="#bfdbfe"/>
+  <text x="365" y="59" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e293b">X months</text>
+  <rect x="420" y="44" width="70" height="22" rx="4" fill="#f9a8d4"/>
+  <text x="455" y="59" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#1e293b">X years</text>
+  <polygon points="500,45 510,55 500,65" fill="#6366f1"/>
+  <rect x="510" y="28" width="110" height="54" rx="8" fill="#6366f1"/>
+  <text x="565" y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">End Date</text>
+  <text x="565" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c7d2fe">📅 Dec 31</text>
+  <text x="320" y="98" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#94a3b8">Counts exact days, weeks, months, and years including or excluding end date</text>
+</svg>

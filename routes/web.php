@@ -16,6 +16,28 @@ Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('sitemap');
 Route::get('/about',     [HomeController::class, 'about'])->name('about');
 Route::get('/privacy',   [HomeController::class, 'privacy'])->name('privacy');
 
+Route::get('/robots.txt', function () {
+    $lines = app()->isProduction() ? [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /admin',
+        'Disallow: /admin/',
+        'Disallow: /api',
+        'Disallow: /login',
+        'Disallow: /register',
+        'Disallow: /password',
+        'Disallow: /storage',
+        '',
+        'Sitemap: ' . url('/sitemap.xml'),
+    ] : [
+        'User-agent: *',
+        'Disallow: /',
+    ];
+
+    return response(implode("\n", $lines), 200)
+        ->header('Content-Type', 'text/plain');
+})->name('robots');
+
 // ── Category Pages ────────────────────────────────────────────────────────────
 
 Route::get('/sleep-tools',       [CategoryController::class, 'sleep'])->name('category.sleep');
